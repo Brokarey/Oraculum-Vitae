@@ -48,7 +48,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .btn-logout{color:#ff4d4d;cursor:pointer;font-size:20px;transition:var(--transition)}
 .btn-logout:hover{transform:scale(1.1)}
 #page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center;padding-top:100px}
-.tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo%20Tar%C3%B4.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+.tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo%20Tar%C3%B4.png'),url('Fundo-Tar.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:30px auto;padding:0 20px}
 .dash-card{background:rgba(26,10,46,0.55);border:1px solid var(--accent);padding:26px 18px;border-radius:10px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;backdrop-filter:blur(2px)}
 .dash-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 5px 20px rgba(74,44,122,0.4);background:rgba(26,10,46,0.75)}
@@ -63,7 +63,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .card-back,.card-front{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:8px;border:2px solid var(--gold)}
 .card-back{background:url('Carta.jpg');background-size:cover;background-position:center}
 .card-front{background:var(--bg-card);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center}
-.card-front h4{font-size:13px;color:var(--gold);margin-bottom:5px}
+.card-front h4{font-size:12px;color:var(--gold);margin-bottom:5px;line-height:1.2}
 .card-num{position:absolute;bottom:-26px;left:0;width:100%;text-align:center;color:var(--gold-light);font-size:13px;font-weight:bold}
 .result-box{margin-top:20px;padding:20px;background:rgba(26,10,46,0.75);border-radius:8px;border-left:4px solid var(--gold);scroll-margin-top:90px}
 #modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;z-index:2000;align-items:center;justify-content:center}
@@ -129,7 +129,10 @@ Continuar com Google
 </div>
 </header>
 <section id="page-dashboard" class="page">
-<h2 class="pirata" style="font-size:36px;color:var(--gold);text-align:center;margin-bottom:20px">Bem-vindo ao seu Destino</h2>
+<div style="display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:0 20px;flex-wrap:wrap;gap:10px">
+<h2 class="pirata" style="font-size:36px;color:var(--gold)">Bem-vindo ao seu Destino</h2>
+<a href="javascript:void(0)" class="voltar-link" style="margin:0" onclick="voltarLogin()"><i class="fas fa-arrow-left"></i> Voltar</a>
+</div>
 <div class="dash-grid">
 <div class="dash-card" onclick="showPage('page-tarot-menu')"><i class="fas fa-hat-wizard"></i><h3>Tarô</h3><p>Consulte os Arcanos</p></div>
 <div class="dash-card" onclick="startReading('Tarô de Marselha',3,30)"><i class="fas fa-scroll"></i><h3>Marselha</h3><p>3 Cartas (30 créd.)</p></div>
@@ -149,7 +152,7 @@ Continuar com Google
 <div class="dash-grid">
 <div class="dash-card" onclick="startReading('Tarô 2 Cartas',2,20)"><h3>2 Cartas</h3><p>1 Arcano Maior + 1 Menor</p><div class="credits-badge" style="margin-top:10px">20 Créd.</div></div>
 <div class="dash-card" onclick="startReading('Tarô 3 Cartas',3,30)"><h3>3 Cartas</h3><p>Passado, Presente, Futuro</p><div class="credits-badge" style="margin-top:10px">30 Créd.</div></div>
-<div class="dash-card" onclick="startReading('Tarô 5 Cartas',5,50)"><h3>5 Cartas</h3><p>Cruz de Malta</p><div class="credits-badge" style="margin-top:10px">50 Créd.</div></div>
+<div class="dash-card" onclick="startReading('Tarô 5 Cartas',5,50)"><h3>5 Cartas</h3><p>Cruz Simples</p><div class="credits-badge" style="margin-top:10px">50 Créd.</div></div>
 <div class="dash-card" onclick="startReading('Tarô 7 Cartas',7,70)"><h3>7 Cartas</h3><p>Ferradura da Sorte</p><div class="credits-badge" style="margin-top:10px">70 Créd.</div></div>
 <div class="dash-card" onclick="startReading('Tarô 10 Cartas',10,100)"><h3>10 Cartas</h3><p>Cruz Celta Completa</p><div class="credits-badge" style="margin-top:10px">100 Créd.</div></div>
 </div>
@@ -405,6 +408,15 @@ var m = q.replace(/\s+/g,' ').trim().match(/(?:devo|deve|posso|pode|devemos|pode
 if(m){var a = m[1].replace(/[?!.\s]+$/g,'').trim();return a.length>2?a:null;}
 return null;
 }
+function questionSubject(q){
+if(!q){return null;}
+var s = q.trim().replace(/\?+$/g,'').trim();
+s = s.replace(/^(será que|sera que|vou conseguir|vou|devo|posso|consigo|quero saber se|queria saber se|estou|estarei|vai|será|sera|deveria|quero)\s+/i,'');
+s = s.replace(/^(eu|você|voce|a |o |se )\s+/i,'');
+s = s.trim();
+if(s.length>2){return s;}
+return null;
+}
 function questionValida(q){
 if(!q){return false;}
 q = q.trim();
@@ -515,6 +527,86 @@ h += "<p>Em síntese, o universo tirou o seu chão no passado para que você des
 }
 return h;
 }
+function buildFiveConclusion(cards,q){
+var topic = detectTopic(q);
+var person = extractPerson(q);
+var subject = questionSubject(q);
+var sum = 0;
+for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
+var avg = sum/cards.length;
+var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
+var html = "";
+if(topic==='love'){
+var quem = person?person:"essa pessoa";
+if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias das cartas, "+quem+" sente algo verdadeiro por você, e o vínculo tende a se fortalecer com o tempo.</p>";}
+else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias das cartas, "+quem+" não corresponde aos seus sentimentos como você espera. Acolha o recado com serenidade.</p>";}
+else{html += "<p><strong>Então talvez</strong>, conforme as energias das cartas, os sentimentos de "+quem+" ainda estão em construção e precisarão de tempo e presença para se revelarem.</p>";}
+}else if(topic==='work'){
+var alvo = subject?("superar "+subject):"alcançar o resultado desejado";
+if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias das cartas, você conseguirá "+alvo+", desde que siga o conselho indicado e mantenha o foco.</p>";}
+else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias das cartas, este não é o momento mais propício para "+alvo+"; as cartas pedem planejamento e prudência.</p>";}
+else{html += "<p><strong>Então talvez</strong>, conforme as energias das cartas, "+alvo+" depende das suas escolhas e do esforço que você dedicar nos próximos meses.</p>";}
+}else{
+var alvo2 = subject?subject:"essa questão";
+if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias das cartas, você alcançará "+alvo2+": "+randPick(POSITIVE_PHRASES)+".</p>";}
+else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias das cartas: "+randPick(NEGATIVE_PHRASES)+".</p>";}
+else{html += "<p><strong>Então talvez</strong>, conforme as energias das cartas: "+randPick(MIXED_PHRASES)+".</p>";}
+}
+html += "<p>A combinação de "+cards[0].n+" (situação atual), "+cards[1].n+" (obstáculo), "+cards[2].n+" (passado), "+cards[3].n+" (conselho) e "+cards[4].n+" (desfecho) indica que o caminho se abre quando você enxerga as saídas disponíveis e age com propósito. A fase difícil é passageira, e a sua capacidade de reconstrução é maior do que você imagina.</p>";
+return html;
+}
+function buildFiveCardNarrative(cards,q){
+var c1=cards[0], c2=cards[1], c3=cards[2], c4=cards[3], c5=cards[4];
+var h = "<h3>Leitura de Tarô (Cruz Simples)</h3>";
+if(q){h += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
+h += "<p><strong>Cartas Tiradas:</strong></p>";
+h += "<p><strong>A Situação Atual:</strong> "+c1.n+"<br><strong>O Obstáculo:</strong> "+c2.n+"<br><strong>O Passado:</strong> "+c3.n+"<br><strong>O Futuro Próximo/Conselho:</strong> "+c4.n+"<br><strong>O Desfecho:</strong> "+c5.n+"</p>";
+h += "<h4>1. A Situação Atual: "+c1.n+"</h4>";
+h += "<p>"+c1.cen+"</p>";
+h += "<h4>2. O Obstáculo ou Desafio: "+c2.n+"</h4>";
+h += "<p>O seu maior bloqueio atual está representado por "+c2.n+". "+c2.out+" "+c2.cam+"</p>";
+h += "<h4>3. O Passado ou Causa: "+c3.n+"</h4>";
+h += "<p>A origem dessa questão vem da energia de "+c3.n+". "+c3.cen+"</p>";
+h += "<h4>4. O Futuro Próximo ou Conselho: "+c4.n+"</h4>";
+h += "<p>O conselho do Tarô para os próximos passos: "+c4.cam+"</p>";
+h += "<h4>5. O Desfecho ou Resultado: "+c5.n+"</h4>";
+h += "<p>"+c5.cam+" "+c5.out+"</p>";
+h += "<h4>Resposta Conclusiva do Oráculo</h4>";
+h += buildFiveConclusion(cards,q);
+return h;
+}
+function renderCross(cards){
+var container = document.getElementById('cards-container');
+container.style.cssText = '';
+container.style.display = 'block';
+container.style.position = 'relative';
+container.style.height = '520px';
+container.style.maxWidth = '760px';
+container.style.margin = '30px auto';
+container.innerHTML = '';
+var labels = ['A Situação Atual','O Obstáculo','O Passado','O Futuro / Conselho','O Desfecho'];
+var pos = [
+{left:'50%',top:'50%',transform:'translate(-50%,-50%)'},
+{left:'50%',top:'6%',transform:'translate(-50%,0)'},
+{left:'14%',top:'50%',transform:'translate(0,-50%)'},
+{left:'86%',top:'50%',transform:'translate(-100%,-50%)'},
+{left:'50%',top:'94%',transform:'translate(-50%,-100%)'}
+];
+for(var i=0;i<5;i++){
+var wrap = document.createElement('div');
+wrap.style.cssText = 'position:absolute;width:120px;left:'+pos[i].left+';top:'+pos[i].top+';transform:'+pos[i].transform+';text-align:center;';
+var card = document.createElement('div');
+card.className = 'card-slot flipped';
+card.style.cssText = 'width:120px;margin:0 auto;aspect-ratio:63/88;cursor:default;';
+card.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+cards[i].n+'</h4></div></div>';
+var lab = document.createElement('div');
+lab.style.cssText = 'margin-top:8px;font-size:11px;color:var(--gold-light);line-height:1.3;';
+lab.innerText = labels[i];
+wrap.appendChild(card);
+wrap.appendChild(lab);
+container.appendChild(wrap);
+}
+}
 var currentUser = null;
 var currentReading = {type:'',count:0,cost:0,cardsSelected:0,active:false,selectedCards:[],question:'',phase:''};
 var selectedMapaLevel = '';
@@ -541,6 +633,14 @@ if(id==='page-sim-nao'){initSimNao();}
 if(id==='page-carta-dia'){initCartaDia();}
 if(id==='page-horoscopo'){initHoroscopo();}
 if(id==='page-faq'){initFAQ();}
+}
+function voltarLogin(){
+document.getElementById('main-header').style.display = 'none';
+document.getElementById('page-login').classList.add('active');
+document.querySelectorAll('.page').forEach(function(p){
+if(p.id!=='page-login'){p.classList.remove('active');}
+});
+window.scrollTo(0,0);
 }
 function toggleAuth(type){
 document.getElementById('tab-login').classList.toggle('active',type==='login');
@@ -629,7 +729,9 @@ showPage('page-reading');
 document.getElementById('reading-title').innerText = type;
 var descEl = document.getElementById('reading-desc');
 if(count===3){
-descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 3 Cartas:</strong> o tarô de 3 cartas é universalmente conhecido como a Tiragem das Três Linhas, Tríade ou simplesmente Passado, Presente e Futuro.</p><p>É um dos métodos de leitura mais populares, rápidos e eficientes para obter respostas diretas sobre qualquer área da vida. Nele, o tarólogo ou consulente retira exatamente três lâminas do baralho tradicional de 78 cartas para formar uma narrativa linear e integrada. Faça uma pergunta objetiva, por 30 créditos.</p><p><strong>Estrutura de leitura</strong></p><p>A flexibilidade do método permite que cada posição represente diferentes aspectos do problema:</p><ul class="tarot2-list"><li><strong>Temporal:</strong> Carta 1 (Passado) → Carta 2 (Presente) → Carta 3 (Futuro).</li><li><strong>Decisão:</strong> Opção A → Opção B → Caminho do meio ou conselho.</li><li><strong>Problema:</strong> O obstáculo → A causa oculta → A solução recomendada.</li><li><strong>Relacionamento:</strong> Você na relação → A outra pessoa → A dinâmica ou futuro do casal.</li><li><strong>Mental:</strong> Pensamento → Sentimento → Ação física.</li></ul><p><strong>Por que ele é tão utilizado?</strong></p><ul class="tarot2-list"><li><strong>Clareza imediata:</strong> evita o excesso de informações de métodos maiores.</li><li><strong>Fácil aprendizado:</strong> é ideal para iniciantes praticarem conexões entre as cartas.</li><li><strong>Objetividade:</strong> vai direto ao ponto da dúvida trazida.</li></ul><p>Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
+descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 3 Cartas:</strong> o tarô de 3 cartas é universalmente conhecido como a Tiragem das Três Linhas, Tríade ou simplesmente Passado, Presente e Futuro.</p><p>É um dos métodos de leitura mais populares, rápidos e eficientes para obter respostas diretas sobre qualquer área da vida. Nele, o tarólogo ou consulente retira exatamente três lâminas do baralho tradicional de 78 cartas para formar uma narrativa linear e integrada. Faça uma pergunta objetiva, por <strong>30 créditos</strong>.</p><p><strong>Estrutura de leitura</strong></p><p>A flexibilidade do método permite que cada posição represente diferentes aspectos do problema:</p><ul class="tarot2-list"><li><strong>Temporal:</strong> Carta 1 (Passado) → Carta 2 (Presente) → Carta 3 (Futuro).</li><li><strong>Decisão:</strong> Opção A → Opção B → Caminho do meio ou conselho.</li><li><strong>Problema:</strong> O obstáculo → A causa oculta → A solução recomendada.</li><li><strong>Relacionamento:</strong> Você na relação → A outra pessoa → A dinâmica ou futuro do casal.</li><li><strong>Mental:</strong> Pensamento → Sentimento → Ação física.</li></ul><p><strong>Por que ele é tão utilizado?</strong></p><ul class="tarot2-list"><li><strong>Clareza imediata:</strong> evita o excesso de informações de métodos maiores.</li><li><strong>Fácil aprendizado:</strong> é ideal para iniciantes praticarem conexões entre as cartas.</li><li><strong>Objetividade:</strong> vai direto ao ponto da dúvida trazida.</li></ul><p>Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
+}else if(count===5){
+descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 5 Cartas:</strong> o tarô de 5 cartas é um método de tiragem (ou leitura) focado em dar respostas detalhadas e profundas para uma pergunta específica. Mais conhecido por Cruz Simples (ou Cruz de Cinco Cartas). Em vez de puxar apenas uma carta, o tarólogo posiciona cinco cartas na mesa para analisar diferentes ângulos de uma situação. Faça uma pergunta específica, por <strong>50 créditos</strong>.</p><p><strong>Significado de cada posição na tiragem</strong></p><ul class="tarot2-list"><li><strong>Carta 1 (A Situação Atual):</strong> mostra o momento presente do consulente e o estado atual do problema.</li><li><strong>Carta 2 (O Obstáculo ou Desafio):</strong> revela o que está bloqueando o caminho, os medos ou as energias contra a pessoa.</li><li><strong>Carta 3 (O Passado ou Causa):</strong> indica a origem do problema, influências antigas ou escolhas anteriores que geraram a situação atual.</li><li><strong>Carta 4 (O Futuro Próximo ou Conselho):</strong> aponta a tendência imediata do rumo das coisas ou a melhor ação a ser tomada.</li><li><strong>Carta 5 (O Desfecho ou Resultado):</strong> mostra a provável consequência final e a resolução da pergunta se o consulente seguir o fluxo atual.</li></ul><p>Após escolher as 5 cartas, elas serão exibidas em formato de cruz. Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
 }else if(count===2){
 descEl.innerHTML = '<div class="tarot2-info"><p><strong>O tarô de 2 cartas</strong> é um método de tiragem rápida e direta, focado em resolver dilemas, analisar duas vertentes de uma situação ou trazer uma resposta objetiva. Em vez de leituras complexas com várias cartas, este formato simplifica a interpretação cruzando apenas duas energias complementares, por apenas <strong>20 créditos</strong>.</p><p><strong>Modelos de Leitura:</strong></p><ul class="tarot2-list"><li><strong>Conselho e Advertência:</strong> a primeira carta indica o que fazer e a segunda aponta o que evitar.</li><li><strong>Situação e Informação Adicional:</strong> mostra o cenário atual e revela um detalhe oculto sobre ele.</li><li><strong>Caminho A e Caminho B:</strong> avalia os prós ou os resultados de duas escolhas diferentes.</li><li><strong>Desejo Real versus Situação Atual:</strong> contrasta o que você quer com o que está aceitando no momento.</li><li><strong>Você e o Outro:</strong> analisa a dinâmica entre o consulente e um adversário ou parceiro.</li></ul><p>Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
 }else{
@@ -641,6 +743,7 @@ document.getElementById('reading-question').value = '';
 document.getElementById('question-wrap').style.display = 'block';
 document.getElementById('btn-start-reading').style.display = 'block';
 var container = document.getElementById('cards-container');
+container.style.cssText = '';
 container.innerHTML = '';
 }
 function startCardSelection(){
@@ -653,6 +756,7 @@ buildCardGrid();
 }
 function buildCardGrid(){
 var container = document.getElementById('cards-container');
+container.style.cssText = '';
 container.innerHTML = '';
 var pool;
 if(currentReading.count===2 && currentReading.cardsSelected===0){
@@ -706,7 +810,10 @@ resDiv.style.display = 'block';
 var cards = currentReading.selectedCards;
 var q = currentReading.question ? currentReading.question.trim() : "";
 var text = "";
-if(currentReading.count===3){
+if(currentReading.count===5){
+renderCross(cards);
+text = buildFiveCardNarrative(cards,q);
+}else if(currentReading.count===3){
 text = buildThreeCardNarrative(cards,q);
 }else if(currentReading.count===2){
 var c1 = cards[0];
