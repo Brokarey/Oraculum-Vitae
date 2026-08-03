@@ -16,11 +16,11 @@ h1,h2,h3,.pirata{font-family:'Blackwood Castle Shadow','Pirata One',cursive;lett
 #stars-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(circle at center,#1a0a2e 0%,#0d0520 100%)}
 .star{position:absolute;background:white;border-radius:50%;opacity:0.5;animation:twinkle var(--duration) infinite ease-in-out}
 @keyframes twinkle{0%,100%{opacity:0.3;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
-.page{display:none;min-height:100vh;width:100%;animation:fadeIn 0.4s ease}
+.page{display:none;min-height:100vh;width:100%}
 .page.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-#page-login{background-color:var(--bg-deep);background-image:url('Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 20px 6vh 20px}
-.auth-container{background:rgba(13,5,32,0.94);padding:26px 26px 28px 26px;border-radius:16px;border:1px solid var(--accent);width:100%;max-width:380px;box-shadow:0 0 40px rgba(0,0,0,0.7)}
+#page-login{display:none;flex-direction:column;align-items:center;justify-content:flex-end;background-color:var(--bg-deep);background-image:url('Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;padding:0 20px 5vh 20px}
+#page-login.active{display:flex}
+.auth-container{background:rgba(13,5,32,0.94);padding:26px;border-radius:16px;border:1px solid var(--accent);width:100%;max-width:380px;box-shadow:0 0 40px rgba(0,0,0,0.7)}
 .auth-tabs{display:flex;margin-bottom:20px;border-bottom:1px solid var(--accent)}
 .tab{flex:1;text-align:center;padding:10px;cursor:pointer;color:#999;transition:var(--transition);font-size:15px;font-weight:600}
 .tab.active{color:var(--gold);border-bottom:2px solid var(--gold)}
@@ -31,7 +31,7 @@ input::placeholder{color:#999}
 .btn-portal:hover{background:#5e3a9a;box-shadow:0 0 15px var(--accent)}
 .divider{display:flex;align-items:center;gap:12px;color:#999;font-size:12px;margin:4px 0}
 .divider:before,.divider:after{content:'';flex:1;height:1px;background:var(--accent)}
-.btn-google{background:#ffffff;color:#3c4043;border:1px solid #dadce0;border-radius:6px;padding:10px 14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;font-family:'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;font-weight:500;width:100%;transition:box-shadow 0.2s ease,background 0.2s ease}
+.btn-google{background:#ffffff;color:#3c4043;border:1px solid #dadce0;border-radius:6px;padding:10px 14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;font-family:'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;font-weight:500;width:100%}
 .terms-label{font-size:12px;display:flex;gap:10px;align-items:center;cursor:pointer;color:#ccc}
 .terms-label input{width:auto}
 header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-filter:blur(10px);display:none;justify-content:space-between;align-items:center;padding:12px 24px;z-index:1000;border-bottom:1px solid var(--accent);flex-wrap:wrap;gap:10px}
@@ -53,7 +53,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .dash-card h3{margin-bottom:6px}
 .dash-card.disabled{opacity:0.6;cursor:not-allowed}
 .badge-soon{position:absolute;top:10px;right:-30px;background:var(--gold);color:black;padding:5px 35px;transform:rotate(45deg);font-size:10px;font-weight:bold}
-.cards-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:15px;margin-top:30px}
+.cards-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:15px;margin-top:30px;padding-bottom:32px}
 .card-slot{aspect-ratio:63/88;perspective:1000px;cursor:pointer;position:relative}
 .card-inner{position:relative;width:100%;height:100%;transition:transform 0.6s;transform-style:preserve-3d}
 .card-slot.flipped .card-inner{transform:rotateY(180deg)}
@@ -82,7 +82,7 @@ th{background:var(--accent);color:var(--gold)}
 .tarot2-list{margin:0 0 12px 20px;padding:0;line-height:1.7}
 .tarot2-list li{margin-bottom:6px}
 @media(max-width:900px){.dash-grid{grid-template-columns:repeat(2,1fr)}.cards-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.dash-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:repeat(2,1fr)}header{justify-content:center}.user-info{justify-content:center}}
+@media(max-width:600px){.dash-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:repeat(2,1fr)}header{justify-content:center}.user-info{justify-content:center}#page-login{padding-bottom:3vh}}
 </style>
 </head>
 <body>
@@ -532,7 +532,11 @@ function logout(){
 localStorage.removeItem('orculum_user');
 currentUser=null;
 document.getElementById('main-header').style.display = 'none';
-showPage('page-login');
+document.getElementById('page-login').classList.add('active');
+document.querySelectorAll('.page').forEach(function(p){
+if(p.id!=='page-login'){p.classList.remove('active');}
+});
+window.scrollTo(0,0);
 }
 function updateCreditsDisplay(){
 document.getElementById('display-credits').innerText = currentUser.isMago?'∞':currentUser.credits;
@@ -685,7 +689,7 @@ if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Credi
 if(document.querySelector('#sim-nao-cards .flipped')){return;}
 if(!currentUser.isMago){currentUser.credits-=10;localStorage.setItem('user_'+currentUser.email,JSON.stringify(currentUser));localStorage.setItem('orculum_user',JSON.stringify(currentUser));updateCreditsDisplay();}
 this.classList.add('flipped');
-var res = ["SIM ✅","NAO ❌","TALVEZ 🔮"][Math.floor(Math.random()*3)];
+var res = ["SIM","NAO","TALVEZ"][Math.floor(Math.random()*3)];
 var conselhos = ["O caminho esta livre, siga sua intuicao.","Aguarde um momento mais propicio.","As energias estao confusas, silencie a mente.","A resposta esta dentro de voce.","Aja com cautela.","O sucesso depende do seu esforco."];
 var div = document.getElementById('sim-nao-result');
 div.style.display = 'block';
@@ -758,18 +762,18 @@ function initHoroscopo(){
 var grid = document.getElementById('horoscopo-grid');
 grid.innerHTML = '';
 var SIGNOS = [
-{n:"Aries",e:"♈",d:"21/03-19/04"},{n:"Touro",e:"♉",d:"20/04-20/05"},
-{n:"Gemeos",e:"♊",d:"21/05-20/06"},{n:"Cancer",e:"♋",d:"21/06-22/07"},
-{n:"Leao",e:"♌",d:"23/07-22/08"},{n:"Virgem",e:"♍",d:"23/08-22/09"},
-{n:"Libra",e:"♎",d:"23/09-22/10"},{n:"Escorpiao",e:"♏",d:"23/10-21/11"},
-{n:"Sagitario",e:"♐",d:"22/11-21/12"},{n:"Capricornio",e:"♑",d:"22/12-19/01"},
-{n:"Aquario",e:"♒",d:"20/01-18/02"},{n:"Peixes",e:"♓",d:"19/02-20/03"}
+{n:"Aries",e:"ARIES",d:"21/03-19/04"},{n:"Touro",e:"TOURO",d:"20/04-20/05"},
+{n:"Gemeos",e:"GEMEOS",d:"21/05-20/06"},{n:"Cancer",e:"CANCER",d:"21/06-22/07"},
+{n:"Leao",e:"LEAO",d:"23/07-22/08"},{n:"Virgem",e:"VIRGEM",d:"23/08-22/09"},
+{n:"Libra",e:"LIBRA",d:"23/09-22/10"},{n:"Escorpiao",e:"ESCORPIAO",d:"23/10-21/11"},
+{n:"Sagitario",e:"SAGITARIO",d:"22/11-21/12"},{n:"Capricornio",e:"CAPRICORNIO",d:"22/12-19/01"},
+{n:"Aquario",e:"AQUARIO",d:"20/01-18/02"},{n:"Peixes",e:"PEIXES",d:"19/02-20/03"}
 ];
 for(var si=0;si<SIGNOS.length;si++){
 (function(s){
 var card = document.createElement('div');
 card.className = 'dash-card';
-card.innerHTML = '<div style="font-size:30px">'+s.e+'</div><h3>'+s.n+'</h3><p>'+s.d+'</p>';
+card.innerHTML = '<div style="font-size:22px;color:var(--gold)">'+s.e+'</div><h3>'+s.n+'</h3><p>'+s.d+'</p>';
 card.onclick = function(){
 var textos = ["Hoje e um dia de renovacao.","A Lua favorece encontros.","Cuidado com gastos impulsivos.","Sua intuicao esta agucada.","Foco na saude e bem-estar."];
 var res = document.getElementById('horoscopo-result');
@@ -941,7 +945,7 @@ if(localStorage.getItem('orculum_user')){
 currentUser = JSON.parse(localStorage.getItem('orculum_user'));
 enterPortal();
 }else{
-showPage('page-login');
+document.getElementById('page-login').classList.add('active');
 }
 };
 </script>
