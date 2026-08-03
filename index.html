@@ -18,20 +18,20 @@ h1,h2,h3,.pirata{font-family:'Blackwood Castle Shadow','Pirata One',cursive;lett
 @keyframes twinkle{0%,100%{opacity:0.3;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
 .page{display:none;min-height:100vh;width:100%}
 .page.active{display:block}
-#page-login{display:none;flex-direction:column;align-items:center;justify-content:flex-end;background-color:var(--bg-deep);background-image:url('Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;padding:0 20px 4vh 20px}
+#page-login{display:none;flex-direction:column;align-items:center;justify-content:center;background-color:var(--bg-deep);background-image:url('Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;padding:0 20px}
 #page-login.active{display:flex}
-.auth-container{background:rgba(13,5,32,0.93);padding:22px 20px;border-radius:14px;border:1px solid var(--accent);width:100%;max-width:350px;box-shadow:0 0 30px rgba(0,0,0,0.6)}
-.auth-tabs{display:flex;margin-bottom:16px;border-bottom:1px solid var(--accent)}
-.tab{flex:1;text-align:center;padding:9px;cursor:pointer;color:#999;transition:var(--transition);font-size:15px;font-weight:600}
+.auth-container{background:rgba(13,5,32,0.93);padding:26px;border-radius:16px;border:1px solid var(--accent);width:100%;max-width:360px;box-shadow:0 0 40px rgba(0,0,0,0.7)}
+.auth-tabs{display:flex;margin-bottom:18px;border-bottom:1px solid var(--accent)}
+.tab{flex:1;text-align:center;padding:10px;cursor:pointer;color:#999;transition:var(--transition);font-size:15px;font-weight:600}
 .tab.active{color:var(--gold);border-bottom:2px solid var(--gold)}
-.auth-form{display:flex;flex-direction:column;gap:11px}
-input,select{background:rgba(255,255,255,0.07);border:1px solid var(--accent);padding:11px;border-radius:6px;color:white;width:100%;font-size:14px}
+.auth-form{display:flex;flex-direction:column;gap:12px}
+input,select{background:rgba(255,255,255,0.07);border:1px solid var(--accent);padding:12px;border-radius:6px;color:white;width:100%;font-size:14px}
 input::placeholder{color:#999}
-.btn-portal{background:var(--accent);color:white;border:none;padding:12px;border-radius:6px;cursor:pointer;font-weight:bold;transition:var(--transition);display:block;width:100%;text-align:center;font-size:15px}
+.btn-portal{background:var(--accent);color:white;border:none;padding:13px;border-radius:6px;cursor:pointer;font-weight:bold;transition:var(--transition);display:block;width:100%;text-align:center;font-size:15px}
 .btn-portal:hover{background:#5e3a9a;box-shadow:0 0 15px var(--accent)}
-.divider{display:flex;align-items:center;gap:12px;color:#999;font-size:12px;margin:2px 0}
+.divider{display:flex;align-items:center;gap:12px;color:#999;font-size:12px;margin:4px 0}
 .divider:before,.divider:after{content:'';flex:1;height:1px;background:var(--accent)}
-.btn-google{background:#ffffff;color:#3c4043;border:1px solid #dadce0;border-radius:6px;padding:9px 14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;font-family:'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;font-weight:500;width:100%}
+.btn-google{background:#ffffff;color:#3c4043;border:1px solid #dadce0;border-radius:6px;padding:10px 14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;font-family:'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;font-weight:500;width:100%}
 .terms-label{font-size:12px;display:flex;gap:10px;align-items:center;cursor:pointer;color:#ccc}
 .terms-label input{width:auto}
 header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-filter:blur(10px);display:none;justify-content:space-between;align-items:center;padding:12px 24px;z-index:1000;border-bottom:1px solid var(--accent);flex-wrap:wrap;gap:10px}
@@ -47,6 +47,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .btn-logout{color:#ff4d4d;cursor:pointer;font-size:20px;transition:var(--transition)}
 .btn-logout:hover{transform:scale(1.1)}
 #page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center;padding-top:100px}
+.tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo-Tar.png');background-size:cover;background-position:center;background-attachment:fixed;min-height:100vh}
 .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:30px auto;padding:0 20px}
 .dash-card{background:rgba(26,10,46,0.55);border:1px solid var(--accent);padding:26px 18px;border-radius:10px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;backdrop-filter:blur(2px)}
 .dash-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 5px 20px rgba(74,44,122,0.4);background:rgba(26,10,46,0.75)}
@@ -63,7 +64,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .card-front{background:var(--bg-card);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center}
 .card-front h4{font-size:13px;color:var(--gold);margin-bottom:5px}
 .card-num{position:absolute;bottom:-26px;left:0;width:100%;text-align:center;color:var(--gold-light);font-size:13px;font-weight:bold}
-.result-box{margin-top:20px;padding:20px;background:rgba(74,44,122,0.25);border-radius:8px;border-left:4px solid var(--gold);scroll-margin-top:90px}
+.result-box{margin-top:20px;padding:20px;background:rgba(26,10,46,0.75);border-radius:8px;border-left:4px solid var(--gold);scroll-margin-top:90px}
 #modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;z-index:2000;align-items:center;justify-content:center}
 .modal-content{background:var(--bg-card);padding:30px;border-radius:10px;border:1px solid var(--gold);max-width:400px;text-align:center;width:90%}
 .modal-content h3{font-size:22px;color:var(--gold);margin-bottom:14px}
@@ -82,10 +83,10 @@ th{background:var(--accent);color:var(--gold)}
 .tarot2-info p{margin-bottom:12px;line-height:1.7}
 .tarot2-list{margin:0 0 12px 20px;padding:0;line-height:1.7}
 .tarot2-list li{margin-bottom:6px}
-.voltar-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);cursor:pointer;font-weight:bold;text-decoration:none;margin-bottom:20px;font-size:15px;transition:var(--transition)}
+.voltar-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);cursor:pointer;font-weight:bold;text-decoration:none;margin-bottom:20px;font-size:15px;transition:var(--transition);background:none;border:none;font-family:inherit;padding:0}
 .voltar-link:hover{text-shadow:0 0 12px rgba(212,168,67,0.8)}
 @media(max-width:900px){.dash-grid{grid-template-columns:repeat(2,1fr)}.cards-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.dash-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:repeat(2,1fr)}header{justify-content:center}.user-info{justify-content:center}#page-login{padding-bottom:2vh}}
+@media(max-width:600px){.dash-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:repeat(2,1fr)}header{justify-content:center}.user-info{justify-content:center}}
 </style>
 </head>
 <body>
@@ -142,7 +143,7 @@ Continuar com Google
 </section>
 <section id="page-tarot-menu" class="page" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(28px,4vw,40px);text-align:center;margin-bottom:30px">Escolha sua Tiragem</h2>
 <div class="dash-grid">
 <div class="dash-card" onclick="startReading('Tarô 2 Cartas',2,20)"><h3>2 Cartas</h3><p>1 Arcano Maior + 1 Menor</p><div class="credits-badge" style="margin-top:10px">20 Créd.</div></div>
@@ -153,11 +154,11 @@ Continuar com Google
 </div>
 </div>
 </section>
-<section id="page-reading" class="page" style="padding-top:100px">
+<section id="page-reading" class="page tarot-bg" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
 <h2 id="reading-title" class="pirata" style="font-size:clamp(22px,3vw,32px);color:var(--gold)">Título</h2>
-<a class="voltar-link" style="margin:0" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" style="margin:0" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 </div>
 <div id="reading-desc" style="margin-bottom:20px;color:var(--gold-light)"></div>
 <div class="form-container" id="question-wrap" style="margin-bottom:30px">
@@ -168,13 +169,13 @@ Continuar com Google
 <div id="reading-result" class="result-box" style="display:none;margin-top:40px">
 <h3 class="pirata" style="margin-bottom:15px">Revelação do Oráculo</h3>
 <div id="result-content" style="line-height:1.8;text-align:justify"></div>
-<a class="voltar-link" style="margin-top:20px" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" style="margin-top:20px" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 </div>
 </div>
 </section>
 <section id="page-amor" class="page" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <div class="form-container" style="margin-top:30px;text-align:center">
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);color:#ff69b4">Templo de Afrodite</h2>
 <p style="margin:18px 0">Mapeie a dinâmica entre duas pessoas. Analise o mental, o emocional e o físico de ambos, além do futuro da relação.</p>
@@ -183,9 +184,9 @@ Continuar com Google
 </div>
 </div>
 </section>
-<section id="page-sim-nao" class="page" style="padding-top:100px">
+<section id="page-sim-nao" class="page tarot-bg" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Sim, Não ou Talvez</h2>
 <div class="form-container" style="margin-bottom:28px">
 <p style="margin-bottom:14px">Faça sua pergunta objetiva para o oráculo. (10 créditos)</p>
@@ -195,9 +196,9 @@ Continuar com Google
 <div id="sim-nao-result" class="result-box" style="display:none;scroll-margin-top:90px"></div>
 </div>
 </section>
-<section id="page-carta-dia" class="page" style="padding-top:100px">
+<section id="page-carta-dia" class="page tarot-bg" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Carta do Dia</h2>
 <p style="text-align:center;margin-bottom:28px">Sua orientação gratuita diária. Escolha uma carta para revelar sua energia e o foco do seu dia.</p>
 <div id="carta-dia-cards" class="cards-grid"></div>
@@ -206,7 +207,7 @@ Continuar com Google
 </section>
 <section id="page-iching" class="page" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <div style="text-align:center;margin-top:90px">
 <div style="font-size:100px;color:var(--gold);margin-bottom:20px">&#9775;</div>
 <h2 class="pirata" style="font-size:clamp(30px,5vw,50px)">EM BREVE</h2>
@@ -216,7 +217,7 @@ Continuar com Google
 </section>
 <section id="page-mapa-astral" class="page" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Mapa Astral</h2>
 <div class="dash-grid" style="margin-bottom:40px">
 <div class="dash-card" onclick="selectMapa('Expresso',50)"><h3>Expresso</h3><p>Sol, Lua e Ascendente</p><div class="credits-badge" style="margin-top:10px">50 Créd.</div></div>
@@ -238,7 +239,7 @@ Continuar com Google
 </section>
 <section id="page-horoscopo" class="page" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Horóscopo do Dia</h2>
 <div class="dash-grid" id="horoscopo-grid"></div>
 <div id="horoscopo-result" class="result-box" style="display:none;margin-top:30px;scroll-margin-top:90px"></div>
@@ -246,7 +247,7 @@ Continuar com Google
 </section>
 <section id="page-numerologia" class="page" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Numerologia Pitagórica</h2>
 <div class="form-container">
 <div class="auth-form" style="display:flex;flex-direction:column;gap:14px">
@@ -260,7 +261,7 @@ Continuar com Google
 </section>
 <section id="page-planos" class="page" style="padding-top:100px">
 <div style="max-width:1000px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(28px,4vw,40px);text-align:center;margin-bottom:28px">Planos e Pacotes</h2>
 <h3>Assinaturas</h3>
 <table>
@@ -282,7 +283,7 @@ Continuar com Google
 </section>
 <section id="page-indicacao" class="page" style="padding-top:100px">
 <div style="max-width:600px;margin:0 auto;padding:0 20px;text-align:center">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);color:var(--gold)">Indique um Amigo</h2>
 <p style="margin:18px 0">Compartilhe essa jornada. Convidar um amigo é multiplicar luz. Você ganha 50 créditos quando ele se cadastrar.</p>
 <div class="auth-form" style="display:flex;flex-direction:column;gap:14px">
@@ -297,7 +298,7 @@ Continuar com Google
 </section>
 <section id="page-faq" class="page" style="padding-top:100px">
 <div style="max-width:900px;margin:0 auto;padding:0 20px">
-<a class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(28px,4vw,40px);text-align:center;margin-bottom:28px">Perguntas Frequentes</h2>
 <div id="faq-container"></div>
 </div>
@@ -383,7 +384,7 @@ function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f
 function capFirst(s){return s.charAt(0).toUpperCase()+s.slice(1);}
 function detectTopic(q){
 var t = norm(q);
-var love = ["amor","ama ","amo ","gosta","gosto","namoro","namor","paix","casamento","relacionamento","casal","ficante","beijo","beija","esposa","marido","namorada","namorado","conjugue","companheir","me quer","me ama","me ama"];
+var love = ["amor","ama ","amo ","gosta","gosto","namoro","namor","paix","casamento","relacionamento","casal","ficante","beijo","beija","esposa","marido","namorada","namorado","conjugue","companheir","me quer","me ama"];
 for(var i=0;i<love.length;i++){if(t.indexOf(love[i])>=0){return 'love';}}
 var work = ["negocio","trabalho","emprego","carreira","empresa","investir","investimento","venda","vender","comprar","mercado","cliente","socio","profissao","salario","promocao","demissao","projeto","contrato","dinheiro","financeir"];
 for(var j=0;j<work.length;j++){if(t.indexOf(work[j])>=0){return 'work';}}
@@ -663,10 +664,8 @@ var sum = 0;
 for(var k=0;k<cards.length;k++){sum += cardPolarity(cards[k]);}
 var avg = sum/cards.length;
 var v = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
-var topicM = detectTopic(q);
-var personM = extractPerson(q);
 text += "<h4>Resposta Conclusiva do Oráculo</h4>";
-text += buildConclusion(cards[0],cards[Math.min(1,cards.length-1)],q,null,topicM,personM);
+text += buildConclusion(cards[0],cards[Math.min(1,cards.length-1)],q,null,detectTopic(q),extractPerson(q));
 text += "<p>Em síntese, a combinação destas lâminas aponta para um caminho onde a sabedoria interior deve guiar suas ações. Observe as sincronicidades ao seu redor, pois a resposta que você busca está se materializando através da integração destas energias.</p>";
 }
 resCont.innerHTML = text;
@@ -760,6 +759,7 @@ var html = '<h3>Mapa Astral de '+nome+'</h3><p><strong>Sol:</strong> Leão - Sua
 if(selectedMapaLevel!=='Expresso'){html += '<p><strong>Mercúrio:</strong> Virgem - Comunicação analítica.</p><p><strong>Vênus:</strong> Libra - Harmonia.</p><p><strong>Marte:</strong> Áries - Ação.</p>';}
 if(selectedMapaLevel==='Premium'){html += '<p><strong>Júpiter:</strong> Sagitário - Expansão.</p><p><strong>Saturno:</strong> Capricórnio - Estrutura.</p><p><strong>Casa 10:</strong> Sucesso pela persistência.</p>';}
 res.innerHTML = html;
+setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
 }
 function initHoroscopo(){
 var grid = document.getElementById('horoscopo-grid');
