@@ -37,13 +37,14 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .dash-card.disabled{opacity:0.6;cursor:not-allowed}
 .badge-soon{position:absolute;top:10px;right:-30px;background:var(--gold);color:black;padding:5px 35px;transform:rotate(45deg);font-size:10px;font-weight:bold}
 .cards-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:15px;margin-top:30px}
-.card-slot{aspect-ratio:2/3;perspective:1000px;cursor:pointer}
+.card-slot{aspect-ratio:63/88;perspective:1000px;cursor:pointer;position:relative}
 .card-inner{position:relative;width:100%;height:100%;transition:transform 0.6s;transform-style:preserve-3d}
 .card-slot.flipped .card-inner{transform:rotateY(180deg)}
 .card-back,.card-front{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:8px;border:2px solid var(--gold)}
 .card-back{background:url('Carta.jpg');background-size:cover;background-position:center}
 .card-front{background:var(--bg-card);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center}
 .card-front h4{font-size:14px;color:var(--gold);margin-bottom:5px}
+.card-num{position:absolute;bottom:-24px;left:0;width:100%;text-align:center;color:var(--gold-light);font-size:13px;font-weight:bold}
 .result-box{margin-top:20px;padding:20px;background:rgba(74,44,122,0.2);border-radius:8px;border-left:4px solid var(--gold)}
 #modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;z-index:2000;align-items:center;justify-content:center}
 .modal-content{background:var(--bg-card);padding:30px;border-radius:10px;border:1px solid var(--gold);max-width:400px;text-align:center;width:90%}
@@ -505,13 +506,13 @@ pool = DECK.slice();
 }
 var shuffled = pool.slice().sort(function(){return Math.random()-0.5;});
 for(var i=0;i<shuffled.length;i++){
-(function(card){
+(function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
-slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div>';
+slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){revealCard(this,card);};
 container.appendChild(slot);
-})(shuffled[i]);
+})(shuffled[i],i);
 }
 }
 function revealCard(el,cardData){
@@ -589,10 +590,10 @@ var container = document.getElementById('sim-nao-cards');
 container.innerHTML = '';
 var shuffled = DECK.slice().sort(function(){return Math.random()-0.5;});
 for(var i=0;i<78;i++){
-(function(card){
+(function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
-slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div>';
+slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){
 if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Creditos insuficientes.");}
 if(document.querySelector('#sim-nao-cards .flipped')){return;}
@@ -605,7 +606,7 @@ div.style.display = 'block';
 div.innerHTML = '<h3>Resposta: '+res+'</h3><p>'+conselhos[Math.floor(Math.random()*conselhos.length)]+'</p><p style="font-size:12px;margin-top:10px">Carta: '+card.n+'</p>';
 };
 container.appendChild(slot);
-})(shuffled[i]);
+})(shuffled[i],i);
 }
 }
 function initCartaDia(){
@@ -628,10 +629,10 @@ container.innerHTML = '';
 resDiv.style.display = 'none';
 var shuffled = DECK.slice().sort(function(){return Math.random()-0.5;});
 for(var i=0;i<78;i++){
-(function(card){
+(function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
-slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div>';
+slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){
 if(document.querySelector('#carta-dia-cards .flipped')){return;}
 this.classList.add('flipped');
@@ -645,7 +646,7 @@ resDiv.innerHTML = '<h3>Sua Carta do Dia: '+sorteio.carta+'</h3><p><strong>Foco 
 },1000);
 };
 container.appendChild(slot);
-})(shuffled[i]);
+})(shuffled[i],i);
 }
 }
 function selectMapa(level,cost){
