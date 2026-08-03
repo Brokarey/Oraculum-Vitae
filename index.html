@@ -35,8 +35,8 @@ input::placeholder{color:#999}
 .terms-label{font-size:12px;display:flex;gap:10px;align-items:center;cursor:pointer;color:#ccc}
 .terms-label input{width:auto}
 header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-filter:blur(10px);display:none;justify-content:space-between;align-items:center;padding:12px 24px;z-index:1000;border-bottom:1px solid var(--accent);flex-wrap:wrap;gap:10px}
-.logo{font-size:clamp(16px,2.2vw,24px);color:var(--gold);cursor:pointer;text-shadow:0 0 10px rgba(212,168,67,0.5);white-space:nowrap;letter-spacing:2px}
-.logo:hover{text-shadow:0 0 20px rgba(212,168,67,0.9)}
+.logo{font-size:clamp(16px,2.2vw,24px);color:var(--gold);cursor:pointer;text-shadow:0 0 10px rgba(212,168,67,0.5);white-space:nowrap;letter-spacing:2px;transition:var(--transition)}
+.logo:hover{text-shadow:0 0 20px rgba(212,168,67,0.9);transform:scale(1.02)}
 .user-info{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .header-btn{background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer;transition:var(--transition);font-family:'Segoe UI',Tahoma,sans-serif;white-space:nowrap;display:flex;align-items:center;gap:6px}
 .header-btn:hover{transform:scale(1.05);box-shadow:0 0 12px rgba(212,168,67,0.5)}
@@ -115,7 +115,7 @@ Continuar com Google
 </div>
 </section>
 <header id="main-header">
-<div class="logo pirata" onclick="showPage('page-dashboard')" title="Voltar ao inicio">ORCULUM VITAE</div>
+<div class="logo pirata" onclick="showPage('page-dashboard')" style="cursor:pointer" title="Voltar ao inicio">ORCULUM VITAE</div>
 <div class="user-info">
 <button class="header-btn gold" onclick="showPage('page-planos')"><i class="fas fa-crown"></i> Planos</button>
 <button class="header-btn green" onclick="showPage('page-indicacao')"><i class="fas fa-user-plus"></i> Indicar (+50)</button>
@@ -186,8 +186,8 @@ Continuar com Google
 <button class="btn-portal" style="width:auto;margin-bottom:20px" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar</button>
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:30px">Sim, Nao ou Talvez</h2>
 <div class="form-container" style="margin-bottom:30px">
-<p style="margin-bottom:15px">Faca uma pergunta objetiva para o oraculo. (10 creditos)</p>
-<input type="text" id="sim-nao-question" placeholder="Ex: Vou conseguir o emprego?">
+<p style="margin-bottom:15px">Faca sua pergunta objetiva para o oraculo. (10 creditos)</p>
+<input type="text" id="sim-nao-question" placeholder="Ex: A Talita me ama de verdade?">
 </div>
 <div id="sim-nao-cards" class="cards-grid"></div>
 <div id="sim-nao-result" class="result-box" style="display:none"></div>
@@ -345,6 +345,25 @@ DECK.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No c
 }
 }
 var FRASES_MISTICAS = ["O universo ouve quem pergunta com o coracao.","Cada carta e um espelho da sua alma.","O destino nao e escrito em pedra, mas em estrelas que voce pode navegar.","A resposta que voce busca ja habita em seu silencio.","Confie na sincronicidade do momento presente.","As sombras de hoje sao os adubos da luz de amanha.","Sua intuicao e a bussola mais precisa que voce possui.","O portal se abre para quem tem coragem de olhar para dentro."];
+var POLAR_MAJOR = {"O Louco":0.6,"O Mago":1,"A Sacerdotisa":0.5,"A Imperatriz":1,"O Imperador":0.9,"O Hierofante":0.3,"Os Enamorados":0.8,"O Carro":0.9,"A Forca":0.9,"O Eremita":0.1,"A Roda da Fortuna":0.7,"A Justica":0.7,"O Pendurado":0.2,"A Morte":0.2,"A Temperanca":0.7,"O Diabo":-0.6,"A Torre":-0.7,"A Estrela":1,"A Lua":-0.4,"O Sol":1,"O Julgamento":0.8,"O Mundo":1};
+var POLAR_SUIT = {"Ouros":0.7,"Copas":0.6,"Espadas":-0.2,"Paus":0.4};
+function cardPolarity(c){
+if(POLAR_MAJOR[c.n]!==undefined){return POLAR_MAJOR[c.n];}
+var parts = c.n.split(' de ');
+var v = parts[0], s = parts[1];
+var base = POLAR_SUIT[s]!==undefined?POLAR_SUIT[s]:0;
+if(["As","2","3","6","9","10","Rainha","Rei"].indexOf(v)>=0){base+=0.2;}
+if(["4","5","Cavaleiro"].indexOf(v)>=0){base-=0.1;}
+if(v==="Valete"){base+=0.1;}
+return Math.max(-1,Math.min(1,base));
+}
+function capFirst(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function extractAction(q){
+if(!q){return null;}
+var m = q.replace(/\s+/g,' ').trim().match(/(?:devo|deve|posso|pode|devemos|podemos|deveria|deveriam)\s+(.+?)\??$/i);
+if(m){var a = m[1].replace(/[?!.\s]+$/g,'').trim();return a.length>2?a:null;}
+return null;
+}
 var currentUser = null;
 var currentReading = {type:'',count:0,cost:0,cardsSelected:0,active:false,selectedCards:[],question:'',phase:''};
 var selectedMapaLevel = '';
@@ -525,41 +544,68 @@ currentReading.active = false;
 generateNarrative();
 }
 }
+function buildConclusion(c1,c2,q,action){
+var pol = cardPolarity(c1)*0.55 + cardPolarity(c2)*0.45;
+var verdict = pol>=0.35?"SIM":(pol<=-0.15?"NAO":"TALVEZ");
+var html = "";
+if(verdict==="SIM"){
+html += "<p><strong>Sim</strong>"+(action?(", voce deve "+action):(", voce deve seguir em frente"))+", mas com ressalvas.</p>";
+}else if(verdict==="NAO"){
+html += "<p><strong>Nao</strong>"+(action?(", este nao e o momento ideal para "+action):(", este nao e o momento ideal"))+".</p>";
+}else{
+html += "<p><strong>Talvez</strong>"+(action?(", "+action+" depende das suas escolhas nos proximos dias"):(", o desfecho depende das suas escolhas"))+".</p>";
+}
+html += "<p>A energia de "+c1.n+" ("+c1.d+") "+(cardPolarity(c1)>=0?"favorece a acao e a confianca no novo":"pede cautela e introspeccao antes de agir")+", enquanto "+c2.n+" ("+c2.d+") "+(cardPolarity(c2)>=0?"reforca essa direcao e convida ao equilibrio":"alerta para os riscos e para o que precisa ser avaliado com mais calma")+".</p>";
+html += "<p>O oraculo sugere: use a forca de "+c1.n+" para dar o primeiro passo com proposito, mas respeite os avisos de "+c2.n+". Antes de decidir, pergunte-se se a sua motivacao nasce de um desejo real de crescimento ou de uma fuga do momento atual. Se a intencao for autentica, o caminho tende a se abrir; se houver pressa ou ilusao, o melhor e aguardar o momento certo.</p>";
+return html;
+}
 function generateNarrative(){
 var resDiv = document.getElementById('reading-result');
 var resCont = document.getElementById('result-content');
 resDiv.style.display = 'block';
 var cards = currentReading.selectedCards;
-var q = currentReading.question || "sua situacao";
+var q = currentReading.question ? currentReading.question.trim() : "";
 var text = "";
 if(currentReading.count===2){
 var c1 = cards[0];
 var c2 = cards[1];
+var action = extractAction(q);
+var pathA = action ? capFirst(action) : "Seguir em frente";
+var introQ = q ? ("Para responder a sua pergunta: \""+q+"\", analisamos") : "Para responder a sua pergunta, analisamos";
 text = "<h3>Leitura de Taro</h3>";
+if(q){text += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
 text += "<p><strong>Cartas Tiradas:</strong> "+c1.n+" (Arcano Maior) e "+c2.n+" (Arcano Menor)</p>";
-text += "<p>Para responder a sua pergunta sobre \""+q+"\", analisamos o cruzamento dessas duas energias sob a otica dos 3 principais modelos de leitura do Taro de 2 cartas.</p>";
+text += "<p>"+introQ+" o cruzamento dessas duas energias sob a otica dos 3 principais modelos de leitura do Taro de 2 cartas.</p>";
 text += "<h4>1. Situacao e Informacao Adicional</h4>";
 text += "<p><strong>O cenario atual ("+c1.n+"):</strong> "+c1.cen+"</p>";
 text += "<p><strong>O detalhe oculto ("+c2.n+"):</strong> "+c2.cen+"</p>";
 text += "<h4>2. Caminho A e Caminho B</h4>";
-text += "<p><strong>Caminho A - Seguir em frente ("+c1.n+"):</strong> "+c1.cam+"</p>";
+text += "<p><strong>Caminho A - "+pathA+" ("+c1.n+"):</strong> "+c1.cam+"</p>";
 text += "<p><strong>Caminho B - Optar pela cautela ("+c2.n+"):</strong> "+c2.cam+"</p>";
 text += "<h4>3. Voce e o Outro (A Dinamica Envolvida)</h4>";
 text += "<p><strong>A sua postura ("+c1.n+"):</strong> "+c1.out+"</p>";
 text += "<p><strong>O Outro / O Mercado ("+c2.n+"):</strong> "+c2.out+"</p>";
 text += "<h4>Resposta Conclusiva do Oraculo</h4>";
-text += "<p>A combinacao de "+c1.n+" e "+c2.n+" sugere que o momento pede equilibrio entre ousadia e reflexao. "+c1.n+" incentiva o movimento e a confianca no novo, enquanto "+c2.n+" pede atencao aos detalhes e aos sinais ao seu redor. Antes de decidir, avalie com sinceridade se a sua motivacao nasce de um desejo real de crescimento ou de uma fuga do momento atual. Se a intencao for autentica, o caminho tende a se abrir; se houver pressa ou ilusao, o melhor e aguardar o momento certo. Confie na sua intuicao, mas nao ignore os avisos praticos que surgirem.</p>";
+text += buildConclusion(c1,c2,q,action);
 }else{
-text = "As energias do universo se alinharam para responder a sua pergunta. ";
-if(currentReading.question){text += "Sobre \""+currentReading.question+"\", o oraculo revela: ";}
-text += "A primeira influencia que surge e "+cards[0].n+", indicando "+cards[0].d+" ";
+text = "<h3>Leitura de Taro</h3>";
+if(q){text += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
+text += "<p>As energias do universo se alinharam para responder a sua pergunta. ";
+if(q){text += "Sobre \""+q+"\", o oraculo revela: ";}
+text += "A primeira influencia que surge e "+cards[0].n+", indicando "+cards[0].d+". ";
 if(cards.length>1){text += "Esta energia se conecta diretamente com "+cards[1].n+", sugerindo "+cards[1].d+" e criando um fluxo de transformacao. ";}
 if(cards.length>2){text += "Ao olharmos para o desdobramento da situacao, "+cards[2].n+" revela "+cards[2].d+", servindo como um ponto de equilibrio crucial. ";}
 if(cards.length>3){text += "As forcas externas sao representadas por "+cards[3].n+", trazendo a tona "+cards[3].d+". ";}
 if(cards.length>4){text += "A quinta lamina, "+cards[4].n+", aponta para "+cards[4].d+", indicando um desfecho promissor. ";}
 if(cards.length>5){text += "A sexta posicao e ocupada por "+cards[5].n+", que revela "+cards[5].d+", consolidando as energias anteriores. ";}
 if(cards.length>6){text += "Finalmente, "+cards[6].n+" encerra esta jornada com a mensagem de que "+cards[6].d+". ";}
-text += "Em sintese, a combinacao destas laminas aponta para um caminho onde a sabedoria interior deve guiar suas acoes. O oraculo sugere que voce observe as sincronicidades ao seu redor, pois a resposta que voce busca esta se materializando atraves da integracao destas energias.";
+var sum = 0;
+for(var k=0;k<cards.length;k++){sum += cardPolarity(cards[k]);}
+var avg = sum/cards.length;
+var v = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
+text += "<h4>Resposta Conclusiva do Oraculo</h4>";
+text += "<p><strong>"+v+"</strong> — conforme as energias das cartas tiradas, o oraculo indica que "+(v==="SIM"?"o momento favorece a sua intencao, desde que voce aja com consciencia.":(v==="NAO"?"este nao e o momento mais propicio para essa direcao.":"o desfecho ainda esta em aberto e dependera das suas escolhas."))+"</p>";
+text += "<p>Em sintese, a combinacao destas laminas aponta para um caminho onde a sabedoria interior deve guiar suas acoes. Observe as sincronicidades ao seu redor, pois a resposta que voce busca esta se materializando atraves da integracao destas energias.</p>";
 }
 resCont.innerHTML = text;
 }
@@ -577,11 +623,21 @@ if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Credi
 if(document.querySelector('#sim-nao-cards .flipped')){return;}
 if(!currentUser.isMago){currentUser.credits-=10;localStorage.setItem('user_'+currentUser.email,JSON.stringify(currentUser));localStorage.setItem('orculum_user',JSON.stringify(currentUser));updateCreditsDisplay();}
 this.classList.add('flipped');
-var res = ["SIM","NAO","TALVEZ"][Math.floor(Math.random()*3)];
-var conselhos = ["O caminho esta livre, siga sua intuicao.","Aguarde um momento mais propicio.","As energias estao confusas, silencie a mente.","A resposta esta dentro de voce.","Aja com cautela.","O sucesso depende do seu esforco."];
+var q = document.getElementById('sim-nao-question').value;
+var resp = ["SIM","NAO","TALVEZ"][Math.floor(Math.random()*3)];
+var aberturas = {SIM:"Sim, conforme as energias das cartas",NAO:"Nao, conforme as energias das cartas",TALVEZ:"Talvez, conforme as energias das cartas"};
+var fechos = {SIM:"o caminho esta favoravel e as energias ao seu redor apoiam essa resposta. Confie no movimento e siga com o coracao aberto.",NAO:"as energias indicam que este nao e o momento, e forcar essa direcao traria mais obstaculos do que beneficios. Acolha o recado do oraculo e aguarde um ciclo mais propicio.",TALVEZ:"as energias ainda estao em movimento e o desfecho dependera das escolhas que voce fizer nos proximos dias. Nada esta decidido, e o livre-arbitrio tera papel central."};
 var div = document.getElementById('sim-nao-result');
 div.style.display = 'block';
-div.innerHTML = '<h3>Resposta: '+res+'</h3><p>'+conselhos[Math.floor(Math.random()*conselhos.length)]+'</p><p style="font-size:12px;margin-top:10px">Carta: '+card.n+'</p>';
+var html = '<h3>Resposta: '+resp+'</h3>';
+if(q && q.trim().length>0){
+html += '<p><strong>Sua pergunta:</strong> "'+q.trim()+'".</p>';
+html += '<p>'+aberturas[resp]+', sobre "'+q.trim()+'". '+card.cen+' '+card.cam+' '+fechos[resp]+'</p>';
+}else{
+html += '<p>'+aberturas[resp]+'. '+card.cen+' '+card.cam+' '+fechos[resp]+'</p>';
+}
+html += '<p style="font-size:12px;margin-top:10px">Carta: '+card.n+'</p>';
+div.innerHTML = html;
 };
 container.appendChild(slot);
 })(shuffled[i],i);
