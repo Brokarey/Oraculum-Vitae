@@ -36,6 +36,7 @@ input::placeholder{color:#999}
 .terms-label input{width:auto}
 header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-filter:blur(10px);display:none;justify-content:space-between;align-items:center;padding:12px 24px;z-index:1000;border-bottom:1px solid var(--accent);flex-wrap:wrap;gap:10px}
 .logo{font-size:clamp(16px,2.2vw,24px);color:var(--gold);cursor:pointer;text-shadow:0 0 10px rgba(212,168,67,0.5);white-space:nowrap;letter-spacing:2px}
+.logo:hover{text-shadow:0 0 20px rgba(212,168,67,0.9)}
 .user-info{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .header-btn{background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer;transition:var(--transition);font-family:'Segoe UI',Tahoma,sans-serif;white-space:nowrap;display:flex;align-items:center;gap:6px}
 .header-btn:hover{transform:scale(1.05);box-shadow:0 0 12px rgba(212,168,67,0.5)}
@@ -47,13 +48,13 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .btn-logout:hover{transform:scale(1.1)}
 #page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center;padding-top:100px}
 .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:30px auto;padding:0 20px}
-.dash-card{background:var(--bg-card);border:1px solid var(--accent);padding:28px 20px;border-radius:10px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden}
-.dash-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 5px 20px rgba(74,44,122,0.4)}
+.dash-card{background:rgba(26,10,46,0.55);border:1px solid var(--accent);padding:28px 20px;border-radius:10px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;backdrop-filter:blur(2px)}
+.dash-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 5px 20px rgba(74,44,122,0.4);background:rgba(26,10,46,0.75)}
 .dash-card i{font-size:38px;color:var(--gold);margin-bottom:12px;display:block}
 .dash-card h3{margin-bottom:6px}
 .dash-card.disabled{opacity:0.6;cursor:not-allowed}
 .badge-soon{position:absolute;top:10px;right:-30px;background:var(--gold);color:black;padding:5px 35px;transform:rotate(45deg);font-size:10px;font-weight:bold}
-.cards-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:15px;margin-top:30px;padding-bottom:32px}
+.cards-grid{display:grid;grid-template-columns:repeat(6,1fr);column-gap:15px;row-gap:46px;margin-top:30px;padding-bottom:40px}
 .card-slot{aspect-ratio:63/88;perspective:1000px;cursor:pointer;position:relative}
 .card-inner{position:relative;width:100%;height:100%;transition:transform 0.6s;transform-style:preserve-3d}
 .card-slot.flipped .card-inner{transform:rotateY(180deg)}
@@ -61,7 +62,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .card-back{background:url('Carta.jpg');background-size:cover;background-position:center}
 .card-front{background:var(--bg-card);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center}
 .card-front h4{font-size:13px;color:var(--gold);margin-bottom:5px}
-.card-num{position:absolute;bottom:-24px;left:0;width:100%;text-align:center;color:var(--gold-light);font-size:13px;font-weight:bold}
+.card-num{position:absolute;bottom:-26px;left:0;width:100%;text-align:center;color:var(--gold-light);font-size:13px;font-weight:bold}
 .result-box{margin-top:20px;padding:20px;background:rgba(74,44,122,0.2);border-radius:8px;border-left:4px solid var(--gold)}
 #modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;z-index:2000;align-items:center;justify-content:center}
 .modal-content{background:var(--bg-card);padding:30px;border-radius:10px;border:1px solid var(--gold);max-width:400px;text-align:center;width:90%}
@@ -114,7 +115,7 @@ Continuar com Google
 </div>
 </section>
 <header id="main-header">
-<div class="logo pirata" onclick="showPage('page-dashboard')">ORCULUM VITAE</div>
+<div class="logo pirata" onclick="showPage('page-dashboard')" title="Voltar ao inicio">ORCULUM VITAE</div>
 <div class="user-info">
 <button class="header-btn gold" onclick="showPage('page-planos')"><i class="fas fa-crown"></i> Planos</button>
 <button class="header-btn green" onclick="showPage('page-indicacao')"><i class="fas fa-user-plus"></i> Indicar (+50)</button>
