@@ -47,7 +47,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .btn-logout{color:#ff4d4d;cursor:pointer;font-size:20px;transition:var(--transition)}
 .btn-logout:hover{transform:scale(1.1)}
 #page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center;padding-top:100px}
-.tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo-Tar.png');background-size:cover;background-position:center;background-attachment:fixed;min-height:100vh}
+.tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo-Tar.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:30px auto;padding:0 20px}
 .dash-card{background:rgba(26,10,46,0.55);border:1px solid var(--accent);padding:26px 18px;border-radius:10px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;backdrop-filter:blur(2px)}
 .dash-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 5px 20px rgba(74,44,122,0.4);background:rgba(26,10,46,0.75)}
@@ -141,7 +141,7 @@ Continuar com Google
 <div class="dash-card" onclick="showPage('page-numerologia')"><i class="fas fa-fingerprint"></i><h3>Numerologia</h3><p>Vibração do Nome</p></div>
 </div>
 </section>
-<section id="page-tarot-menu" class="page" style="padding-top:100px">
+<section id="page-tarot-menu" class="page tarot-bg" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
 <a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <h2 class="pirata" style="font-size:clamp(28px,4vw,40px);text-align:center;margin-bottom:30px">Escolha sua Tiragem</h2>
@@ -173,7 +173,7 @@ Continuar com Google
 </div>
 </div>
 </section>
-<section id="page-amor" class="page" style="padding-top:100px">
+<section id="page-amor" class="page tarot-bg" style="padding-top:100px">
 <div style="max-width:1200px;margin:0 auto;padding:0 20px">
 <a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
 <div class="form-container" style="margin-top:30px;text-align:center">
@@ -408,6 +408,7 @@ var POSITIVE_PHRASES = ["a energia se apresenta favorável e confirma que essa d
 var NEGATIVE_PHRASES = ["as energias indicam que essa expectativa não encontra sustentação no momento","o campo emocional se mostra fechado ou distante, sem base para esse desejo","os sinais apontam para indiferença ou falta de envolvimento real","a dinâmica atual não favorece essa união, e forçar o caminho traria desgaste"];
 var MIXED_PHRASES = ["os sentimentos ainda estão em construção e podem se revelar com o tempo","o campo emocional está dividido, e o desfecho dependerá das próximas atitudes","existe interesse, mas ainda com ressalvas e incertezas a serem resolvidas","as energias se movimentam aos poucos, e nada está totalmente definido"];
 function randPick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function cardArcana(c){return DECK.indexOf(c)<22?"Arcano Maior":"Arcano Menor";}
 function buildConclusion(c1,c2,q,action,topic,person){
 var pol = cardPolarity(c1)*0.55 + cardPolarity(c2)*0.45;
 var verdict = pol>=0.35?"SIM":(pol<=-0.15?"NAO":"TALVEZ");
@@ -435,6 +436,35 @@ html += "<p>A energia de "+c1.n+" ("+c1.d+") "+(p1>=0?"favorece a ação e a con
 html += "<p>O oráculo sugere que você use a força de "+c1.n+" para dar o primeiro passo com propósito, mas respeite os avisos de "+c2.n+". Antes de decidir, pergunte-se se a sua motivação nasce de um desejo real de crescimento ou de uma fuga do momento atual.</p>";
 }
 return html;
+}
+function buildThreeCardNarrative(cards,q){
+var c1=cards[0], c2=cards[1], c3=cards[2];
+var topic = detectTopic(q);
+var h = "<h3>Leitura de Tarô</h3>";
+if(q){h += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
+h += "<p>Para responder à sua pergunta, analisamos a tríade de lâminas sob a estrutura clássica do Passado, Presente e Futuro.</p>";
+h += "<h4>⏳ Carta 1: O Passado (Posição Esquerda)</h4>";
+h += "<p><strong>A Lâmina:</strong> "+c1.n+" ("+cardArcana(c1)+")</p>";
+h += "<p><strong>A Energia no Passado:</strong> "+c1.cen+"</p>";
+h += "<p><strong>O Impacto Atual:</strong> "+c1.cam+"</p>";
+h += "<h4>🔄 Carta 2: O Presente (Posição Central)</h4>";
+h += "<p><strong>A Lâmina:</strong> "+c2.n+" ("+cardArcana(c2)+")</p>";
+h += "<p><strong>A Energia no Presente:</strong> "+c2.cen+"</p>";
+h += "<p><strong>O Conselho para o Hoje:</strong> "+c2.cam+"</p>";
+h += "<h4>🪄 Carta 3: O Futuro (Posição Direita)</h4>";
+h += "<p><strong>A Lâmina:</strong> "+c3.n+" ("+cardArcana(c3)+")</p>";
+h += "<p><strong>A Energia no Futuro:</strong> "+c3.cen+"</p>";
+h += "<p><strong>A Tendência Prática:</strong> "+c3.cam+"</p>";
+h += "<h4>📜 Síntese e Conselho Final da Tríade</h4>";
+h += "<p>A sua jornada mostra uma evolução clara: "+c1.n+", com a energia de "+c1.d+", abre o caminho; "+c2.n+", trazendo "+c2.d+", conduz o momento presente; e "+c3.n+", com "+c3.d+", aponta o desfecho.</p>";
+if(topic==='work'){
+h += "<p>No campo profissional, essa tríade indica uma trajetória de amadurecimento: o passado trouxe as lições, o presente exige adaptação e o futuro reserva a possibilidade de assumir o controle e colher resultados. Confie no seu potencial de execução e mantenha o foco naquilo que depende de você.</p>";
+}else if(topic==='love'){
+h += "<p>No campo afetivo, essa tríade mostra que os sentimentos passam por fases distintas: compreender o que ficou para trás, viver com presença o que existe agora e permitir que o vínculo amadureça no tempo certo. O oráculo pede paciência, escuta e sinceridade emocional.</p>";
+}else{
+h += "<p>Em síntese, o universo tirou o seu chão no passado para que você descobrisse agora que tem asas para voar e capacidade de construir algo muito maior. Confie no seu potencial e siga com propósito, respeitando o tempo de cada etapa.</p>";
+}
+return h;
 }
 var currentUser = null;
 var currentReading = {type:'',count:0,cost:0,cardsSelected:0,active:false,selectedCards:[],question:'',phase:''};
@@ -549,7 +579,9 @@ currentReading = {type:type,count:count,cost:cost,cardsSelected:0,active:false,s
 showPage('page-reading');
 document.getElementById('reading-title').innerText = type;
 var descEl = document.getElementById('reading-desc');
-if(count===2){
+if(count===3){
+descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 3 Cartas:</strong> o tarô de 3 cartas é universalmente conhecido como a Tiragem das Três Linhas, Tríade ou simplesmente Passado, Presente e Futuro.</p><p>É um dos métodos de leitura mais populares, rápidos e eficientes para obter respostas diretas sobre qualquer área da vida. Nele, o tarólogo ou consulente retira exatamente três lâminas do baralho tradicional de 78 cartas para formar uma narrativa linear e integrada. Faça uma pergunta objetiva, por 30 créditos.</p><p><strong>Estrutura de leitura</strong></p><p>A flexibilidade do método permite que cada posição represente diferentes aspectos do problema:</p><ul class="tarot2-list"><li><strong>Temporal:</strong> Carta 1 (Passado) → Carta 2 (Presente) → Carta 3 (Futuro).</li><li><strong>Decisão:</strong> Opção A → Opção B → Caminho do meio ou conselho.</li><li><strong>Problema:</strong> O obstáculo → A causa oculta → A solução recomendada.</li><li><strong>Relacionamento:</strong> Você na relação → A outra pessoa → A dinâmica ou futuro do casal.</li><li><strong>Mental:</strong> Pensamento → Sentimento → Ação física.</li></ul><p><strong>Por que ele é tão utilizado?</strong></p><ul class="tarot2-list"><li><strong>Clareza imediata:</strong> evita o excesso de informações de métodos maiores.</li><li><strong>Fácil aprendizado:</strong> é ideal para iniciantes praticarem conexões entre as cartas.</li><li><strong>Objetividade:</strong> vai direto ao ponto da dúvida trazida.</li></ul><p>Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
+}else if(count===2){
 descEl.innerHTML = '<div class="tarot2-info"><p><strong>O tarô de 2 cartas</strong> é um método de tiragem rápida e direta, focado em resolver dilemas, analisar duas vertentes de uma situação ou trazer uma resposta objetiva. Em vez de leituras complexas com várias cartas, este formato simplifica a interpretação cruzando apenas duas energias complementares, por apenas <strong>20 créditos</strong>.</p><p><strong>Modelos de Leitura:</strong></p><ul class="tarot2-list"><li><strong>Conselho e Advertência:</strong> a primeira carta indica o que fazer e a segunda aponta o que evitar.</li><li><strong>Situação e Informação Adicional:</strong> mostra o cenário atual e revela um detalhe oculto sobre ele.</li><li><strong>Caminho A e Caminho B:</strong> avalia os prós ou os resultados de duas escolhas diferentes.</li><li><strong>Desejo Real versus Situação Atual:</strong> contrasta o que você quer com o que está aceitando no momento.</li><li><strong>Você e o Outro:</strong> analisa a dinâmica entre o consulente e um adversário ou parceiro.</li></ul><p>Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
 }else{
 descEl.innerHTML = "Concentre-se e digite sua pergunta objetiva. Depois clique em Iniciar Consulta para revelar as cartas. Esta tiragem utiliza "+count+" cartas ("+cost+" créditos).";
@@ -625,7 +657,9 @@ resDiv.style.display = 'block';
 var cards = currentReading.selectedCards;
 var q = currentReading.question ? currentReading.question.trim() : "";
 var text = "";
-if(currentReading.count===2){
+if(currentReading.count===3){
+text = buildThreeCardNarrative(cards,q);
+}else if(currentReading.count===2){
 var c1 = cards[0];
 var c2 = cards[1];
 var topic = detectTopic(q);
@@ -660,10 +694,6 @@ if(cards.length>3){text += "As forças externas são representadas por "+cards[3
 if(cards.length>4){text += "A quinta lâmina, "+cards[4].n+", aponta para "+cards[4].d+", indicando um desfecho promissor. ";}
 if(cards.length>5){text += "A sexta posição é ocupada por "+cards[5].n+", que revela "+cards[5].d+", consolidando as energias anteriores. ";}
 if(cards.length>6){text += "Finalmente, "+cards[6].n+" encerra esta jornada com a mensagem de que "+cards[6].d+". ";}
-var sum = 0;
-for(var k=0;k<cards.length;k++){sum += cardPolarity(cards[k]);}
-var avg = sum/cards.length;
-var v = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
 text += "<h4>Resposta Conclusiva do Oráculo</h4>";
 text += buildConclusion(cards[0],cards[Math.min(1,cards.length-1)],q,null,detectTopic(q),extractPerson(q));
 text += "<p>Em síntese, a combinação destas lâminas aponta para um caminho onde a sabedoria interior deve guiar suas ações. Observe as sincronicidades ao seu redor, pois a resposta que você busca está se materializando através da integração destas energias.</p>";
