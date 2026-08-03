@@ -20,6 +20,7 @@ h1,h2,h3,.pirata{font-family:'Blackwood Castle Shadow','Pirata One',cursive;lett
 .page.active{display:block}
 #page-login{display:none;flex-direction:column;align-items:center;justify-content:center;background-color:var(--bg-deep);background-image:url('Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;padding:0 20px}
 #page-login.active{display:flex}
+#page-login .auth-container{transform:translateY(-38px)}
 .auth-container{background:rgba(13,5,32,0.93);padding:26px;border-radius:16px;border:1px solid var(--accent);width:100%;max-width:360px;box-shadow:0 0 40px rgba(0,0,0,0.7)}
 .auth-tabs{display:flex;margin-bottom:18px;border-bottom:1px solid var(--accent)}
 .tab{flex:1;text-align:center;padding:10px;cursor:pointer;color:#999;transition:var(--transition);font-size:15px;font-weight:600}
@@ -47,7 +48,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .btn-logout{color:#ff4d4d;cursor:pointer;font-size:20px;transition:var(--transition)}
 .btn-logout:hover{transform:scale(1.1)}
 #page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center;padding-top:100px}
-.tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo-Tar.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+.tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo%20Tar%C3%B4.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:30px auto;padding:0 20px}
 .dash-card{background:rgba(26,10,46,0.55);border:1px solid var(--accent);padding:26px 18px;border-radius:10px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;backdrop-filter:blur(2px)}
 .dash-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 5px 20px rgba(74,44,122,0.4);background:rgba(26,10,46,0.75)}
@@ -404,6 +405,26 @@ var m = q.replace(/\s+/g,' ').trim().match(/(?:devo|deve|posso|pode|devemos|pode
 if(m){var a = m[1].replace(/[?!.\s]+$/g,'').trim();return a.length>2?a:null;}
 return null;
 }
+function questionValida(q){
+if(!q){return false;}
+q = q.trim();
+if(q.length<8){return false;}
+if(!/[a-zà-ú]{4,}/i.test(q)){return false;}
+var letters = q.toLowerCase().replace(/[^a-zà-ú]/g,'');
+if(letters.length<6){return false;}
+var vogais = (letters.match(/[aeiouáéíóúàâêôãõ]/g)||[]).length;
+if(vogais<2){return false;}
+var uniq = {};
+for(var i=0;i<letters.length;i++){uniq[letters[i]]=1;}
+if(Object.keys(uniq).length<4){return false;}
+if(/^(asdf|qwer|zxcv|teste|test|pergunta|aaaaaaaa|bbbbbbbb|cccccccc|dddddddd|eeeeeeee|kkkkkkkk|qqqqqqqq|wwwwwwww)/i.test(q)){return false;}
+return true;
+}
+function exigePerguntaValida(q){
+if(questionValida(q)){return true;}
+showModal("Pergunta Inválida","Escreva uma pergunta objetiva e com sentido, por exemplo: 'Devo arriscar em um novo negócio?' ou 'A Talita me ama de verdade?'.");
+return false;
+}
 var POSITIVE_PHRASES = ["a energia se apresenta favorável e confirma que essa direção é verdadeira","as forças em jogo sustentam esse movimento e apontam para um desfecho positivo","o campo energético ao redor dessa questão está aberto e receptivo","os sinais convergem para uma resposta afirmativa, com sinceridade envolvida"];
 var NEGATIVE_PHRASES = ["as energias indicam que essa expectativa não encontra sustentação no momento","o campo emocional se mostra fechado ou distante, sem base para esse desejo","os sinais apontam para indiferença ou falta de envolvimento real","a dinâmica atual não favorece essa união, e forçar o caminho traria desgaste"];
 var MIXED_PHRASES = ["os sentimentos ainda estão em construção e podem se revelar com o tempo","o campo emocional está dividido, e o desfecho dependerá das próximas atitudes","existe interesse, mas ainda com ressalvas e incertezas a serem resolvidas","as energias se movimentam aos poucos, e nada está totalmente definido"];
@@ -437,6 +458,33 @@ html += "<p>O oráculo sugere que você use a força de "+c1.n+" para dar o prim
 }
 return html;
 }
+function buildThreeConclusion(cards,q){
+var topic = detectTopic(q);
+var person = extractPerson(q);
+var action = extractAction(q);
+var sum = 0;
+for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
+var avg = sum/cards.length;
+var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
+var html = "";
+if(topic==='love'){
+var quem = person?person:"essa pessoa";
+if(verdict==="SIM"){html += "<p><strong>Sim</strong>, conforme as energias das cartas, "+quem+" sente algo verdadeiro por você, e esse vínculo tende a se fortalecer com o tempo.</p>";}
+else if(verdict==="NAO"){html += "<p><strong>Não</strong>, conforme as energias das cartas, "+quem+" não corresponde aos seus sentimentos da forma como você espera, e é preciso aceitar esse recado com serenidade.</p>";}
+else{html += "<p><strong>Talvez</strong>, conforme as energias das cartas, os sentimentos de "+quem+" ainda estão em construção e precisarão de tempo e presença para se revelarem.</p>";}
+}else if(topic==='work'){
+var act = action?action:"seguir em frente nesse caminho profissional";
+if(verdict==="SIM"){html += "<p><strong>Sim</strong>, conforme as energias das cartas, o momento favorece "+act+", e o desfecho tende a ser positivo para a sua vida profissional.</p>";}
+else if(verdict==="NAO"){html += "<p><strong>Não</strong>, conforme as energias das cartas, este não é o momento ideal para "+act+"; as cartas pedem planejamento e prudência antes de qualquer movimento.</p>";}
+else{html += "<p><strong>Talvez</strong>, conforme as energias das cartas, "+act+" depende das suas escolhas e do esforço que você dedicar nos próximos meses.</p>";}
+}else{
+if(verdict==="SIM"){html += "<p><strong>Sim</strong>, conforme as energias das cartas, a resposta à sua pergunta é afirmativa: "+randPick(POSITIVE_PHRASES)+".</p>";}
+else if(verdict==="NAO"){html += "<p><strong>Não</strong>, conforme as energias das cartas: "+randPick(NEGATIVE_PHRASES)+".</p>";}
+else{html += "<p><strong>Talvez</strong>, conforme as energias das cartas: "+randPick(MIXED_PHRASES)+".</p>";}
+}
+html += "<p>O caminho começa com "+cards[0].n+", que traz "+cards[0].d+"; segue com "+cards[1].n+", marcado por "+cards[1].d+"; e culmina em "+cards[2].n+", cuja energia de "+cards[2].d+" define o desfecho da sua pergunta.</p>";
+return html;
+}
 function buildThreeCardNarrative(cards,q){
 var c1=cards[0], c2=cards[1], c3=cards[2];
 var topic = detectTopic(q);
@@ -457,6 +505,7 @@ h += "<p><strong>A Energia no Futuro:</strong> "+c3.cen+"</p>";
 h += "<p><strong>A Tendência Prática:</strong> "+c3.cam+"</p>";
 h += "<h4>📜 Síntese e Conselho Final da Tríade</h4>";
 h += "<p>A sua jornada mostra uma evolução clara: "+c1.n+", com a energia de "+c1.d+", abre o caminho; "+c2.n+", trazendo "+c2.d+", conduz o momento presente; e "+c3.n+", com "+c3.d+", aponta o desfecho.</p>";
+h += buildThreeConclusion(cards,q);
 if(topic==='work'){
 h += "<p>No campo profissional, essa tríade indica uma trajetória de amadurecimento: o passado trouxe as lições, o presente exige adaptação e o futuro reserva a possibilidade de assumir o controle e colher resultados. Confie no seu potencial de execução e mantenha o foco naquilo que depende de você.</p>";
 }else if(topic==='love'){
@@ -596,9 +645,9 @@ container.innerHTML = '';
 }
 function startCardSelection(){
 var q = document.getElementById('reading-question').value;
-if(!q || q.trim().length<3){showModal("Atenção","Escreva sua pergunta objetiva antes de iniciar.");return;}
+if(!exigePerguntaValida(q)){return;}
 currentReading.active = true;
-currentReading.question = q;
+currentReading.question = q.trim();
 document.getElementById('question-wrap').style.display = 'none';
 buildCardGrid();
 }
@@ -710,11 +759,12 @@ var slot = document.createElement('div');
 slot.className = 'card-slot';
 slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){
-if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Créditos insuficientes.");}
+var q = document.getElementById('sim-nao-question').value;
+if(!exigePerguntaValida(q)){return;}
 if(document.querySelector('#sim-nao-cards .flipped')){return;}
+if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Créditos insuficientes.");}
 if(!currentUser.isMago){currentUser.credits-=10;localStorage.setItem('user_'+currentUser.email,JSON.stringify(currentUser));localStorage.setItem('orculum_user',JSON.stringify(currentUser));updateCreditsDisplay();}
 this.classList.add('flipped');
-var q = document.getElementById('sim-nao-question').value;
 var topic = detectTopic(q);
 var person = extractPerson(q);
 var resp = ["SIM","NAO","TALVEZ"][Math.floor(Math.random()*3)];
