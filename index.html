@@ -153,7 +153,7 @@ Continuar com Google
 <div class="dash-card" onclick="startReading('Tarô 2 Cartas',2,20)"><h3>2 Cartas</h3><p>1 Arcano Maior + 1 Menor</p><div class="credits-badge" style="margin-top:10px">20 Créd.</div></div>
 <div class="dash-card" onclick="startReading('Tarô 3 Cartas',3,30)"><h3>3 Cartas</h3><p>Passado, Presente, Futuro</p><div class="credits-badge" style="margin-top:10px">30 Créd.</div></div>
 <div class="dash-card" onclick="startReading('Tarô 5 Cartas',5,50)"><h3>5 Cartas</h3><p>Cruz Simples</p><div class="credits-badge" style="margin-top:10px">50 Créd.</div></div>
-<div class="dash-card" onclick="startReading('Tarô 7 Cartas',7,70)"><h3>7 Cartas</h3><p>Ferradura da Sorte</p><div class="credits-badge" style="margin-top:10px">70 Créd.</div></div>
+<div class="dash-card" onclick="startReading('Tarô 7 Cartas',7,70)"><h3>7 Cartas</h3><p>Método da Ferradura</p><div class="credits-badge" style="margin-top:10px">70 Créd.</div></div>
 <div class="dash-card" onclick="startReading('Tarô 10 Cartas',10,100)"><h3>10 Cartas</h3><p>Cruz Celta Completa</p><div class="credits-badge" style="margin-top:10px">100 Créd.</div></div>
 </div>
 </div>
@@ -607,6 +607,104 @@ wrap.appendChild(lab);
 container.appendChild(wrap);
 }
 }
+function renderHorseshoe(cards){
+var container = document.getElementById('cards-container');
+container.style.cssText = '';
+container.style.display = 'block';
+container.style.position = 'relative';
+container.style.height = '640px';
+container.style.maxWidth = '960px';
+container.style.margin = '30px auto';
+container.innerHTML = '';
+var labels = ['O Passado','O Presente','Influências Ocultas','O Consulente','Atitudes dos Outros','Obstáculo ou Melhor Caminho','O Desfecho'];
+var pos = [
+{left:'5%',top:'64%',tx:'0',ty:'0'},
+{left:'20%',top:'33%',tx:'0',ty:'0'},
+{left:'33%',top:'0%',tx:'0',ty:'0'},
+{left:'50%',top:'0%',tx:'-50%',ty:'0'},
+{left:'67%',top:'0%',tx:'-100%',ty:'0'},
+{left:'80%',top:'33%',tx:'-100%',ty:'0'},
+{left:'95%',top:'64%',tx:'-100%',ty:'0'}
+];
+for(var i=0;i<7;i++){
+(function(idx){
+var wrap = document.createElement('div');
+wrap.style.cssText = 'position:absolute;width:130px;left:'+pos[idx].left+';top:'+pos[idx].top+';transform:translate('+pos[idx].tx+','+pos[idx].ty+');text-align:center;';
+var card = document.createElement('div');
+card.className = 'card-slot';
+card.style.cssText = 'width:130px;margin:0 auto;aspect-ratio:63/88;cursor:pointer;';
+card.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+cards[idx].n+'</h4></div></div>';
+card.onclick = function(){this.classList.add('flipped');};
+var lab = document.createElement('div');
+lab.style.cssText = 'margin-top:8px;font-size:11px;color:var(--gold-light);line-height:1.3;';
+lab.innerText = (idx+1)+'. '+labels[idx];
+wrap.appendChild(card);
+wrap.appendChild(lab);
+container.appendChild(wrap);
+if(idx>0){setTimeout(function(){var el=container.children[idx].children[0];if(el){el.classList.add('flipped');}},350+idx*500);}
+})(i);
+}
+}
+function buildSevenConclusion(cards,q){
+var topic = detectTopic(q);
+var person = extractPerson(q);
+var action = extractAction(q);
+var subject = questionSubject(q);
+var sum = 0;
+for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
+var avg = sum/cards.length;
+var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
+var html = "";
+if(topic==='love'){
+var quem = person?person:"essa pessoa";
+if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias da ferradura, "+quem+" corresponde aos seus sentimentos, e o vínculo tende a se fortalecer com o tempo.</p>";}
+else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias da ferradura, "+quem+" não corresponde aos seus sentimentos como você espera. Acolha o recado com serenidade.</p>";}
+else{html += "<p><strong>Então talvez</strong>, conforme as energias da ferradura, os sentimentos de "+quem+" ainda estão em construção e precisarão de tempo e presença para se revelarem.</p>";}
+}else if(topic==='work'){
+var alvo = action?action:(subject?subject:"esse caminho profissional");
+if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias da ferradura, o momento favorece "+alvo+", e o desfecho tende a ser positivo e próspero.</p>";}
+else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias da ferradura, este não é o momento ideal para "+alvo+"; as cartas pedem planejamento e prudência.</p>";}
+else{html += "<p><strong>Então talvez</strong>, conforme as energias da ferradura, "+alvo+" depende das suas escolhas e do esforço que você dedicar nos próximos meses.</p>";}
+}else{
+var alvo2 = subject?subject:"essa questão";
+if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias da ferradura, você alcançará "+alvo2+": "+randPick(POSITIVE_PHRASES)+".</p>";}
+else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias da ferradura: "+randPick(NEGATIVE_PHRASES)+".</p>";}
+else{html += "<p><strong>Então talvez</strong>, conforme as energias da ferradura: "+randPick(MIXED_PHRASES)+".</p>";}
+}
+html += "<p>A ferradura mostra que o passado ("+cards[0].n+") conduziu ao presente ("+cards[1].n+"), com influências ocultas de "+cards[2].n+" e a sua postura de "+cards[3].n+". As atitudes externas ("+cards[4].n+") e o obstáculo a vencer ("+cards[5].n+") apontam para um desfecho marcado por "+cards[6].n+", cuja energia de "+cards[6].d+" define o resultado final da sua pergunta.</p>";
+return html;
+}
+function buildSevenCardNarrative(cards,q){
+var c1=cards[0], c2=cards[1], c3=cards[2], c4=cards[3], c5=cards[4], c6=cards[5], c7=cards[6];
+var h = "<h3>Leitura Prática: Método da Ferradura (7 Cartas)</h3>";
+if(q){h += "<p><strong>Pergunta do Consulente:</strong> \""+q+"\".</p>";}
+h += "<p><strong>Cartas Tiradas:</strong></p>";
+h += "<p><strong>O Passado:</strong> "+c1.n+"<br><strong>O Presente:</strong> "+c2.n+"<br><strong>Influências Ocultas:</strong> "+c3.n+"<br><strong>O Consulente:</strong> "+c4.n+"<br><strong>Atitudes dos Outros:</strong> "+c5.n+"<br><strong>Obstáculo ou Melhor Caminho:</strong> "+c6.n+"<br><strong>O Desfecho:</strong> "+c7.n+"</p>";
+h += "<h4>🕒 1. O Passado ("+c1.n+")</h4>";
+h += "<p><strong>Descrição da Posição:</strong> revela as energias, escolhas ou eventos anteriores que construíram o cenário atual.</p>";
+h += "<p><strong>Interpretação no Exemplo:</strong> "+c1.cen+"</p>";
+h += "<h4>📍 2. O Presente ("+c2.n+")</h4>";
+h += "<p><strong>Descrição da Posição:</strong> mostra o momento exato em que o consulente se encontra e a energia imediata do problema.</p>";
+h += "<p><strong>Interpretação no Exemplo:</strong> "+c2.cen+"</p>";
+h += "<h4>👁️ 3. Influências Ocultas ("+c3.n+")</h4>";
+h += "<p><strong>Descrição da Posição:</strong> aponta fatores, oportunidades ou sentimentos que estão acontecendo nos bastidores e que você ainda não percebeu conscientemente.</p>";
+h += "<p><strong>Interpretação no Exemplo:</strong> "+c3.cam+"</p>";
+h += "<h4>👤 4. O Consulente ("+c4.n+")</h4>";
+h += "<p><strong>Descrição da Posição:</strong> retrata a postura consciente do consulente, suas atitudes, pensamentos e como ele está lidando com a situação.</p>";
+h += "<p><strong>Interpretação no Exemplo:</strong> "+c4.out+"</p>";
+h += "<h4>👥 5. Atitudes dos Outros ("+c5.n+")</h4>";
+h += "<p><strong>Descrição da Posição:</strong> mostra o impacto das pessoas ao seu redor (chefes, concorrentes, familiares) ou a energia do ambiente externo sobre você.</p>";
+h += "<p><strong>Interpretação no Exemplo:</strong> "+c5.out+" "+c5.cam+"</p>";
+h += "<h4>⚡ 6. Obstáculo ou Melhor Caminho ("+c6.n+")</h4>";
+h += "<p><strong>Descrição da Posição:</strong> o desafio que precisa ser superado ou a ação direta que deve ser tomada para resolver a questão.</p>";
+h += "<p><strong>Interpretação no Exemplo:</strong> "+c6.cam+"</p>";
+h += "<h4>☀️ 7. O Desfecho ("+c7.n+")</h4>";
+h += "<p><strong>Descrição da Posição:</strong> o resultado final e a consequência provável caso o consulente siga o conselho e mantenha o ritmo das energias apresentadas.</p>";
+h += "<p><strong>Interpretação no Exemplo:</strong> "+c7.cam+" "+c7.out+"</p>";
+h += "<h4>Resposta Conclusiva do Oráculo</h4>";
+h += buildSevenConclusion(cards,q);
+return h;
+}
 var currentUser = null;
 var currentReading = {type:'',count:0,cost:0,cardsSelected:0,active:false,selectedCards:[],question:'',phase:''};
 var selectedMapaLevel = '';
@@ -732,6 +830,8 @@ if(count===3){
 descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 3 Cartas:</strong> o tarô de 3 cartas é universalmente conhecido como a Tiragem das Três Linhas, Tríade ou simplesmente Passado, Presente e Futuro.</p><p>É um dos métodos de leitura mais populares, rápidos e eficientes para obter respostas diretas sobre qualquer área da vida. Nele, o tarólogo ou consulente retira exatamente três lâminas do baralho tradicional de 78 cartas para formar uma narrativa linear e integrada. Faça uma pergunta objetiva, por <strong>30 créditos</strong>.</p><p><strong>Estrutura de leitura</strong></p><p>A flexibilidade do método permite que cada posição represente diferentes aspectos do problema:</p><ul class="tarot2-list"><li><strong>Temporal:</strong> Carta 1 (Passado) → Carta 2 (Presente) → Carta 3 (Futuro).</li><li><strong>Decisão:</strong> Opção A → Opção B → Caminho do meio ou conselho.</li><li><strong>Problema:</strong> O obstáculo → A causa oculta → A solução recomendada.</li><li><strong>Relacionamento:</strong> Você na relação → A outra pessoa → A dinâmica ou futuro do casal.</li><li><strong>Mental:</strong> Pensamento → Sentimento → Ação física.</li></ul><p><strong>Por que ele é tão utilizado?</strong></p><ul class="tarot2-list"><li><strong>Clareza imediata:</strong> evita o excesso de informações de métodos maiores.</li><li><strong>Fácil aprendizado:</strong> é ideal para iniciantes praticarem conexões entre as cartas.</li><li><strong>Objetividade:</strong> vai direto ao ponto da dúvida trazida.</li></ul><p>Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
 }else if(count===5){
 descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 5 Cartas:</strong> o tarô de 5 cartas é um método de tiragem (ou leitura) focado em dar respostas detalhadas e profundas para uma pergunta específica. Mais conhecido por Cruz Simples (ou Cruz de Cinco Cartas). Em vez de puxar apenas uma carta, o tarólogo posiciona cinco cartas na mesa para analisar diferentes ângulos de uma situação. Faça uma pergunta específica, por <strong>50 créditos</strong>.</p><p><strong>Significado de cada posição na tiragem</strong></p><ul class="tarot2-list"><li><strong>Carta 1 (A Situação Atual):</strong> mostra o momento presente do consulente e o estado atual do problema.</li><li><strong>Carta 2 (O Obstáculo ou Desafio):</strong> revela o que está bloqueando o caminho, os medos ou as energias contra a pessoa.</li><li><strong>Carta 3 (O Passado ou Causa):</strong> indica a origem do problema, influências antigas ou escolhas anteriores que geraram a situação atual.</li><li><strong>Carta 4 (O Futuro Próximo ou Conselho):</strong> aponta a tendência imediata do rumo das coisas ou a melhor ação a ser tomada.</li><li><strong>Carta 5 (O Desfecho ou Resultado):</strong> mostra a provável consequência final e a resolução da pergunta se o consulente seguir o fluxo atual.</li></ul><p>Após escolher as 5 cartas, elas serão exibidas em formato de cruz. Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
+}else if(count===7){
+descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 7 Cartas:</strong> no tarô de 7 cartas o leitor escolhe as 7 cartas por <strong>70 créditos</strong> para analisar uma situação com maior profundidade e complexidade. É chamado de Método da Ferradura.</p><p><strong>Método da Ferradura</strong></p><p>As cartas são dispostas no formato de uma ferradura. É um dos métodos mais completos para analisar o panorama geral de um problema ou objetivo:</p><ul class="tarot2-list"><li><strong>Carta 1:</strong> o passado (o que gerou a situação atual).</li><li><strong>Carta 2:</strong> o presente (a situação atual do consulente).</li><li><strong>Carta 3:</strong> influências ocultas (fatores que você ainda não percebeu).</li><li><strong>Carta 4:</strong> o consulente (suas atitudes e pensamentos conscientes).</li><li><strong>Carta 5:</strong> atitudes dos outros (o impacto de pessoas externas).</li><li><strong>Carta 6:</strong> obstáculos ou melhor caminho (o que deve ser enfrentado ou feito).</li><li><strong>Carta 7:</strong> o desfecho (o resultado provável se tudo continuar no mesmo ritmo).</li></ul><p>Após escolher as 7 cartas, elas serão exibidas em formato de ferradura, com cada carta virando ao ser revelada. Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
 }else if(count===2){
 descEl.innerHTML = '<div class="tarot2-info"><p><strong>O tarô de 2 cartas</strong> é um método de tiragem rápida e direta, focado em resolver dilemas, analisar duas vertentes de uma situação ou trazer uma resposta objetiva. Em vez de leituras complexas com várias cartas, este formato simplifica a interpretação cruzando apenas duas energias complementares, por apenas <strong>20 créditos</strong>.</p><p><strong>Modelos de Leitura:</strong></p><ul class="tarot2-list"><li><strong>Conselho e Advertência:</strong> a primeira carta indica o que fazer e a segunda aponta o que evitar.</li><li><strong>Situação e Informação Adicional:</strong> mostra o cenário atual e revela um detalhe oculto sobre ele.</li><li><strong>Caminho A e Caminho B:</strong> avalia os prós ou os resultados de duas escolhas diferentes.</li><li><strong>Desejo Real versus Situação Atual:</strong> contrasta o que você quer com o que está aceitando no momento.</li><li><strong>Você e o Outro:</strong> analisa a dinâmica entre o consulente e um adversário ou parceiro.</li></ul><p>Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
 }else{
@@ -810,7 +910,10 @@ resDiv.style.display = 'block';
 var cards = currentReading.selectedCards;
 var q = currentReading.question ? currentReading.question.trim() : "";
 var text = "";
-if(currentReading.count===5){
+if(currentReading.count===7){
+renderHorseshoe(cards);
+text = buildSevenCardNarrative(cards,q);
+}else if(currentReading.count===5){
 renderCross(cards);
 text = buildFiveCardNarrative(cards,q);
 }else if(currentReading.count===3){
