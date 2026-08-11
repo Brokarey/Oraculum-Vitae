@@ -372,17 +372,17 @@ var v = valores[vi];
 DECK.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No campo de "+naipeTemas[naipe].area+", esta carta representa "+valorLeitura[v]+". O momento pede atenção a esse aspecto da sua vida, que influencia diretamente a situação em questão.",cam:"Optar por este caminho significa trabalhar com "+valorLeitura[v]+" no âmbito de "+naipeTemas[naipe].area+". Os resultados dependem de como você conduz essa energia.",out:"O outro ou o mercado se apresenta como "+naipeTemas[naipe].pessoa+". A dinâmica envolvida reflete "+valorLeitura[v]+" no campo de "+naipeTemas[naipe].area+"."});
 }
 }
-/* ===== FUNÇÃO CORRIGIDA: CONVERTE O NOME DA CARTA NO ARQUIVO DE IMAGEM (com underline) ===== */
+/* ===== FUNÇÃO CORRIGIDA: usa ESPAÇO + ACENTO (encodeURI) ===== */
 var ARCANOS_MAIORES = ["O Louco","O Mago","A Sacerdotisa","A Imperatriz","O Imperador","O Hierofante","Os Enamorados","O Carro","A Força","O Eremita","A Roda da Fortuna","A Justiça","O Pendurado","A Morte","A Temperança","O Diabo","A Torre","A Estrela","A Lua","O Sol","O Julgamento","O Mundo"];
-var NUM_EXTENSO = {"Ás":"As","2":"Dois","3":"Tres","4":"Quatro","5":"Cinco","6":"Seis","7":"Sete","8":"Oito","9":"Nove","10":"Dez","Valete":"Valete","Cavaleiro":"Cavaleiro","Rainha":"Rainha","Rei":"Rei"};
+var NUM_EXTENSO = {"Ás":"Ás","2":"Dois","3":"Três","4":"Quatro","5":"Cinco","6":"Seis","7":"Sete","8":"Oito","9":"Nove","10":"Dez","Valete":"Valete","Cavaleiro":"Cavaleiro","Rainha":"Rainha","Rei":"Rei"};
 function cardImage(card){
 var nome = card.n;
 var idx = ARCANOS_MAIORES.indexOf(nome);
-if(idx>=0){return nome.replace(/ /g,'_')+'.png';}
+if(idx>=0){return encodeURI(nome+'.png');}
 var parts = nome.split(' de ');
 var valor = NUM_EXTENSO[parts[0]] || parts[0];
 var naipe = parts[1];
-return valor+'_de_'+naipe+'.png';
+return encodeURI(valor+' de '+naipe+'.png');
 }
 /* ===== FIM DA FUNÇÃO DE IMAGEM ===== */
 var FRASES_MISTICAS = ["O universo ouve quem pergunta com o coração.","Cada carta é um espelho da sua alma.","O destino não é escrito em pedra, mas em estrelas que você pode navegar.","A resposta que você busca já habita em seu silêncio.","Confie na sincronicidade do momento presente.","As sombras de hoje são os adubos da luz de amanhã.","Sua intuição é a bússola mais precisa que você possui.","O portal se abre para quem tem coragem de olhar para dentro."];
