@@ -62,7 +62,8 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .card-slot.flipped .card-inner{transform:rotateY(180deg)}
 .card-back,.card-front{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:8px;border:2px solid var(--gold)}
 .card-back{background:url('Carta.jpg');background-size:cover;background-position:center}
-.card-front{background:var(--bg-card);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center}
+.card-front{background:var(--bg-card);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center;overflow:hidden}
+.card-front img{width:100%;height:100%;object-fit:cover;border-radius:6px}
 .card-front h4{font-size:12px;color:var(--gold);margin-bottom:5px;line-height:1.2}
 .card-num{position:absolute;bottom:-26px;left:0;width:100%;text-align:center;color:var(--gold-light);font-size:13px;font-weight:bold}
 .result-box{margin-top:20px;padding:20px;background:rgba(26,10,46,0.75);border-radius:8px;border-left:4px solid var(--gold);scroll-margin-top:90px}
@@ -371,6 +372,19 @@ var v = valores[vi];
 DECK.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No campo de "+naipeTemas[naipe].area+", esta carta representa "+valorLeitura[v]+". O momento pede atenção a esse aspecto da sua vida, que influencia diretamente a situação em questão.",cam:"Optar por este caminho significa trabalhar com "+valorLeitura[v]+" no âmbito de "+naipeTemas[naipe].area+". Os resultados dependem de como você conduz essa energia.",out:"O outro ou o mercado se apresenta como "+naipeTemas[naipe].pessoa+". A dinâmica envolvida reflete "+valorLeitura[v]+" no campo de "+naipeTemas[naipe].area+"."});
 }
 }
+/* ===== FUNÇÃO CORRIGIDA: CONVERTE O NOME DA CARTA NO ARQUIVO DE IMAGEM (com underline) ===== */
+var ARCANOS_MAIORES = ["O Louco","O Mago","A Sacerdotisa","A Imperatriz","O Imperador","O Hierofante","Os Enamorados","O Carro","A Força","O Eremita","A Roda da Fortuna","A Justiça","O Pendurado","A Morte","A Temperança","O Diabo","A Torre","A Estrela","A Lua","O Sol","O Julgamento","O Mundo"];
+var NUM_EXTENSO = {"Ás":"As","2":"Dois","3":"Tres","4":"Quatro","5":"Cinco","6":"Seis","7":"Sete","8":"Oito","9":"Nove","10":"Dez","Valete":"Valete","Cavaleiro":"Cavaleiro","Rainha":"Rainha","Rei":"Rei"};
+function cardImage(card){
+var nome = card.n;
+var idx = ARCANOS_MAIORES.indexOf(nome);
+if(idx>=0){return nome.replace(/ /g,'_')+'.png';}
+var parts = nome.split(' de ');
+var valor = NUM_EXTENSO[parts[0]] || parts[0];
+var naipe = parts[1];
+return valor+'_de_'+naipe+'.png';
+}
+/* ===== FIM DA FUNÇÃO DE IMAGEM ===== */
 var FRASES_MISTICAS = ["O universo ouve quem pergunta com o coração.","Cada carta é um espelho da sua alma.","O destino não é escrito em pedra, mas em estrelas que você pode navegar.","A resposta que você busca já habita em seu silêncio.","Confie na sincronicidade do momento presente.","As sombras de hoje são os adubos da luz de amanhã.","Sua intuição é a bússola mais precisa que você possui.","O portal se abre para quem tem coragem de olhar para dentro."];
 var POLAR_MAJOR = {"O Louco":0.6,"O Mago":1,"A Sacerdotisa":0.5,"A Imperatriz":1,"O Imperador":0.9,"O Hierofante":0.3,"Os Enamorados":0.8,"O Carro":0.9,"A Força":0.9,"O Eremita":0.1,"A Roda da Fortuna":0.7,"A Justiça":0.7,"O Pendurado":0.2,"A Morte":0.2,"A Temperança":0.7,"O Diabo":-0.6,"A Torre":-0.7,"A Estrela":1,"A Lua":-0.4,"O Sol":1,"O Julgamento":0.8,"O Mundo":1};
 var POLAR_SUIT = {"Ouros":0.7,"Copas":0.6,"Espadas":-0.2,"Paus":0.4};
@@ -398,7 +412,7 @@ function extractPerson(q){
 var m = q.match(/(?:a |o )?([A-ZÀ-ÚÉ][a-zà-úé]+)\s+(?:me|você|voce|ele|ela)\s+(?:ama|gosta|quer|pensa|sente|está|esta)/);
 if(m){
 var stop = ["Você","Voce","Eu","Deus","Sim","Nao","Não","Hoje","Amanhã","Amanha","Se"];
-if(stop.indexOf(m[1])<0){return m[1];}
+if(stop.indexOf(m[1])&lt;0){return m[1];}
 }
 return null;
 }
@@ -420,15 +434,15 @@ return null;
 function questionValida(q){
 if(!q){return false;}
 q = q.trim();
-if(q.length<8){return false;}
+if(q.length&lt;8){return false;}
 if(!/[a-zà-ú]{4,}/i.test(q)){return false;}
 var letters = q.toLowerCase().replace(/[^a-zà-ú]/g,'');
-if(letters.length<6){return false;}
+if(letters.length&lt;6){return false;}
 var vogais = (letters.match(/[aeiouáéíóúàâêôãõ]/g)||[]).length;
-if(vogais<2){return false;}
+if(vogais&lt;2){return false;}
 var uniq = {};
 for(var i=0;i<letters.length;i++){uniq[letters[i]]=1;}
-if(Object.keys(uniq).length<4){return false;}
+if(Object.keys(uniq).length&lt;4){return false;}
 if(/^(asdf|qwer|zxcv|teste|test|pergunta|aaaaaaaa|bbbbbbbb|cccccccc|dddddddd|eeeeeeee|kkkkkkkk|qqqqqqqq|wwwwwwww)/i.test(q)){return false;}
 return true;
 }
@@ -441,10 +455,10 @@ var POSITIVE_PHRASES = ["a energia se apresenta favorável e confirma que essa d
 var NEGATIVE_PHRASES = ["as energias indicam que essa expectativa não encontra sustentação no momento","o campo emocional se mostra fechado ou distante, sem base para esse desejo","os sinais apontam para indiferença ou falta de envolvimento real","a dinâmica atual não favorece essa união, e forçar o caminho traria desgaste"];
 var MIXED_PHRASES = ["os sentimentos ainda estão em construção e podem se revelar com o tempo","o campo emocional está dividido, e o desfecho dependerá das próximas atitudes","existe interesse, mas ainda com ressalvas e incertezas a serem resolvidas","as energias se movimentam aos poucos, e nada está totalmente definido"];
 function randPick(arr){return arr[Math.floor(Math.random()*arr.length)];}
-function cardArcana(c){return DECK.indexOf(c)<22?"Arcano Maior":"Arcano Menor";}
+function cardArcana(c){return DECK.indexOf(c)&lt;22?"Arcano Maior":"Arcano Menor";}
 function buildConclusion(c1,c2,q,action,topic,person){
 var pol = cardPolarity(c1)*0.55 + cardPolarity(c2)*0.45;
-var verdict = pol>=0.35?"SIM":(pol<=-0.15?"NAO":"TALVEZ");
+var verdict = pol>=0.35?"SIM":(pol&lt;=-0.15?"NAO":"TALVEZ");
 var p1 = cardPolarity(c1), p2 = cardPolarity(c2);
 var html = "";
 if(topic==='love'){
@@ -477,7 +491,7 @@ var action = extractAction(q);
 var sum = 0;
 for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
 var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
+var verdict = avg>=0.3?"SIM":(avg&lt;=-0.15?"NAO":"TALVEZ");
 var html = "";
 if(topic==='love'){
 var quem = person?person:"essa pessoa";
@@ -534,7 +548,7 @@ var subject = questionSubject(q);
 var sum = 0;
 for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
 var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
+var verdict = avg>=0.3?"SIM":(avg&lt;=-0.15?"NAO":"TALVEZ");
 var html = "";
 if(topic==='love'){
 var quem = person?person:"essa pessoa";
@@ -583,7 +597,7 @@ var subject = questionSubject(q);
 var sum = 0;
 for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
 var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
+var verdict = avg>=0.3?"SIM":(avg&lt;=-0.15?"NAO":"TALVEZ");
 var html = "";
 if(topic==='love'){
 var quem = person?person:"essa pessoa";
@@ -644,7 +658,7 @@ var p10 = cardPolarity(c10);
 var sum = 0;
 for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
 var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
+var verdict = avg>=0.3?"SIM":(avg&lt;=-0.15?"NAO":"TALVEZ");
 var html = "";
 if(topic==='love'){
 var quem = person?person:"essa pessoa";
@@ -700,6 +714,76 @@ h += "<h4>Resposta Conclusiva do Oráculo</h4>";
 h += buildTenConclusion(cards,q);
 return h;
 }
+function renderCross(cards){
+var container = document.getElementById('cards-container');
+container.style.cssText = '';
+container.style.display = 'block';
+container.style.position = 'relative';
+container.style.height = '520px';
+container.style.maxWidth = '760px';
+container.style.margin = '30px auto';
+container.innerHTML = '';
+var labels = ['A Situação Atual','O Obstáculo','O Passado','O Futuro / Conselho','O Desfecho'];
+var pos = [
+{left:'50%',top:'50%',transform:'translate(-50%,-50%)'},
+{left:'50%',top:'6%',transform:'translate(-50%,0)'},
+{left:'14%',top:'50%',transform:'translate(0,-50%)'},
+{left:'86%',top:'50%',transform:'translate(-100%,-50%)'},
+{left:'50%',top:'94%',transform:'translate(-50%,-100%)'}
+];
+for(var i=0;i&lt;5;i++){
+var wrap = document.createElement('div');
+wrap.style.cssText = 'position:absolute;width:120px;left:'+pos[i].left+';top:'+pos[i].top+';transform:'+pos[i].transform+';text-align:center;';
+var card = document.createElement('div');
+card.className = 'card-slot flipped';
+card.style.cssText = 'width:120px;margin:0 auto;aspect-ratio:63/88;cursor:default;';
+card.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[i])+'" alt="'+cards[i].n+'"><h4>'+cards[i].n+'</h4></div></div>';
+var lab = document.createElement('div');
+lab.style.cssText = 'margin-top:8px;font-size:11px;color:var(--gold-light);line-height:1.3;';
+lab.innerText = labels[i];
+wrap.appendChild(card);
+wrap.appendChild(lab);
+container.appendChild(wrap);
+}
+}
+function renderHorseshoe(cards){
+var container = document.getElementById('cards-container');
+container.style.cssText = '';
+container.style.display = 'block';
+container.style.position = 'relative';
+container.style.height = '640px';
+container.style.maxWidth = '960px';
+container.style.margin = '30px auto';
+container.innerHTML = '';
+var labels = ['O Passado','O Presente','Influências Ocultas','O Consulente','Atitudes dos Outros','Obstáculo ou Melhor Caminho','O Desfecho'];
+var pos = [
+{left:'5%',top:'64%',tx:'0',ty:'0'},
+{left:'20%',top:'33%',tx:'0',ty:'0'},
+{left:'33%',top:'0%',tx:'0',ty:'0'},
+{left:'50%',top:'0%',tx:'-50%',ty:'0'},
+{left:'67%',top:'0%',tx:'-100%',ty:'0'},
+{left:'80%',top:'33%',tx:'-100%',ty:'0'},
+{left:'95%',top:'64%',tx:'-100%',ty:'0'}
+];
+for(var i=0;i&lt;7;i++){
+(function(idx){
+var wrap = document.createElement('div');
+wrap.style.cssText = 'position:absolute;width:130px;left:'+pos[idx].left+';top:'+pos[idx].top+';transform:translate('+pos[idx].tx+','+pos[idx].ty+');text-align:center;';
+var card = document.createElement('div');
+card.className = 'card-slot';
+card.style.cssText = 'width:130px;margin:0 auto;aspect-ratio:63/88;cursor:pointer;';
+card.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[idx])+'" alt="'+cards[idx].n+'"><h4>'+cards[idx].n+'</h4></div></div>';
+card.onclick = function(){this.classList.add('flipped');};
+var lab = document.createElement('div');
+lab.style.cssText = 'margin-top:8px;font-size:11px;color:var(--gold-light);line-height:1.3;';
+lab.innerText = (idx+1)+'. '+labels[idx];
+wrap.appendChild(card);
+wrap.appendChild(lab);
+container.appendChild(wrap);
+if(idx>0){setTimeout(function(){var el=container.children[idx].children[0];if(el){el.classList.add('flipped');}},350+idx*500);}
+})(i);
+}
+}
 function renderCelticCross(cards){
 var container = document.getElementById('cards-container');
 container.style.cssText = '';
@@ -722,12 +806,12 @@ var crossPos = [
 ];
 var crossWrap = document.createElement('div');
 crossWrap.style.cssText = 'position:relative;width:520px;height:520px;flex:0 0 auto;';
-for(var i=0;i<6;i++){
+for(var i=0;i&lt;6;i++){
 (function(idx){
 var card = document.createElement('div');
 card.className = 'card-slot flipped';
 card.style.cssText = 'position:absolute;width:120px;height:168px;left:'+crossPos[idx].left+';top:'+crossPos[idx].top+';transform:translate('+crossPos[idx].tx+','+crossPos[idx].ty+') rotate('+crossPos[idx].rot+'deg);cursor:default;';
-card.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+cards[idx].n+'</h4></div></div>';
+card.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[idx])+'" alt="'+cards[idx].n+'"><h4>'+cards[idx].n+'</h4></div></div>';
 var lab = document.createElement('div');
 lab.style.cssText = 'position:absolute;left:'+crossPos[idx].left+';top:'+crossPos[idx].top+';transform:translate('+crossPos[idx].tx+','+crossPos[idx].ty+') translateY(92px);width:150px;text-align:center;font-size:11px;color:var(--gold-light);line-height:1.3;';
 lab.innerText = labelsCruz[idx];
@@ -738,12 +822,12 @@ crossWrap.appendChild(lab);
 var labelsCol = ['7. O Consulente','8. O Ambiente Externo','9. Esperanças e Medos','10. Resultado Final'];
 var colWrap = document.createElement('div');
 colWrap.style.cssText = 'display:flex;flex-direction:column;gap:18px;flex:0 0 auto;padding-top:20px;';
-for(var j=0;j<4;j++){
+for(var j=0;j&lt;4;j++){
 (function(idx){
 var cardCol = document.createElement('div');
 cardCol.className = 'card-slot flipped';
 cardCol.style.cssText = 'width:120px;margin:0 auto;aspect-ratio:63/88;cursor:default;';
-cardCol.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+cards[6+idx].n+'</h4></div></div>';
+cardCol.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[6+idx])+'" alt="'+cards[6+idx].n+'"><h4>'+cards[6+idx].n+'</h4></div></div>';
 var labCol = document.createElement('div');
 labCol.style.cssText = 'margin-top:6px;font-size:11px;color:var(--gold-light);text-align:center;line-height:1.3;';
 labCol.innerText = labelsCol[idx];
@@ -762,7 +846,7 @@ var selectedMapaLevel = '';
 var selectedMapaCost = 0;
 function initStars(){
 var c = document.getElementById('stars-container');
-for(var i=0;i<100;i++){
+for(var i=0;i&lt;100;i++){
 var s = document.createElement('div');
 s.className = 'star';
 s.style.left = Math.random()*100+'%';
@@ -837,8 +921,8 @@ var email=document.getElementById('reg-email').value;
 var pass=document.getElementById('reg-pass').value;
 var confirm=document.getElementById('reg-pass-confirm').value;
 var terms=document.getElementById('reg-terms').checked;
-if(name.length<3){return showModal("Erro","Nome muito curto.");}
-if(email.indexOf('@')<0){return showModal("Erro","E-mail inválido.");}
+if(name.length&lt;3){return showModal("Erro","Nome muito curto.");}
+if(email.indexOf('@')&lt;0){return showModal("Erro","E-mail inválido.");}
 if(pass!==confirm){return showModal("Erro","As senhas não coincidem.");}
 if(!terms){return showModal("Erro","Aceite os termos.");}
 var userData={name:name,email:email,pass:pass,credits:50,isMago:false};
@@ -928,7 +1012,7 @@ for(var i=0;i<shuffled.length;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
-slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
+slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){revealCard(this,card);};
 container.appendChild(slot);
 })(shuffled[i],i);
@@ -1019,16 +1103,16 @@ function initSimNao(){
 var container = document.getElementById('sim-nao-cards');
 container.innerHTML = '';
 var shuffled = DECK.slice().sort(function(){return Math.random()-0.5;});
-for(var i=0;i<78;i++){
+for(var i=0;i&lt;78;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
-slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
+slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){
 var q = document.getElementById('sim-nao-question').value;
 if(!exigePerguntaValida(q)){return;}
 if(document.querySelector('#sim-nao-cards .flipped')){return;}
-if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Créditos insuficientes.");}
+if(!currentUser.isMago && currentUser.credits&lt;10){return showModal("Erro","Créditos insuficientes.");}
 if(!currentUser.isMago){currentUser.credits-=10;localStorage.setItem('user_'+currentUser.email,JSON.stringify(currentUser));localStorage.setItem('orculum_user',JSON.stringify(currentUser));updateCreditsDisplay();}
 this.classList.add('flipped');
 var topic = detectTopic(q);
@@ -1066,11 +1150,11 @@ container.style.display = 'grid';
 container.innerHTML = '';
 resDiv.style.display = 'none';
 var shuffled = DECK.slice().sort(function(){return Math.random()-0.5;});
-for(var i=0;i<78;i++){
+for(var i=0;i&lt;78;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
-slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
+slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){
 if(document.querySelector('#carta-dia-cards .flipped')){return;}
 this.classList.add('flipped');
@@ -1155,7 +1239,7 @@ setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},15
 }
 function handleIndication(){
 var email = document.getElementById('indica-email').value;
-if(email.indexOf('@')<0){return showModal("Erro","E-mail inválido.");}
+if(email.indexOf('@')&lt;0){return showModal("Erro","E-mail inválido.");}
 var list = document.getElementById('indica-list');
 if(list.innerText.indexOf("Nenhuma")>=0){list.innerHTML = '';}
 var li = document.createElement('li');
