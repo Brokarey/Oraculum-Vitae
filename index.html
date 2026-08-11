@@ -16,12 +16,11 @@ h1,h2,h3,.pirata{font-family:'Blackwood Castle Shadow','Pirata One',cursive;lett
 #stars-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(circle at center,#1a0a2e 0%,#0d0520 100%)}
 .star{position:absolute;background:white;border-radius:50%;opacity:0.5;animation:twinkle var(--duration) infinite ease-in-out}
 @keyframes twinkle{0%,100%{opacity:0.3;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
-.page{display:none;min-height:100vh;width:100%;animation:fadeIn 0.5s ease}
+.page{display:none;min-height:100vh;width:100%;padding-top:100px;animation:fadeIn 0.5s ease}
 .page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 #page-login{display:none;flex-direction:column;align-items:center;justify-content:center;background-color:var(--bg-deep);background-image:url('Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;padding:40px 20px}
 #page-login.active{display:flex}
-#page-login .auth-container{transform:translateY(-10px)}
 .auth-container{background:rgba(13,5,32,0.93);padding:26px;border-radius:16px;border:1px solid var(--accent);width:100%;max-width:360px;box-shadow:0 0 40px rgba(0,0,0,0.7)}
 .auth-tabs{display:flex;margin-bottom:18px;border-bottom:1px solid var(--accent)}
 .tab{flex:1;text-align:center;padding:10px;cursor:pointer;color:#999;transition:var(--transition);font-size:15px;font-weight:600}
@@ -40,7 +39,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .logo{font-size:clamp(16px,2.2vw,24px);color:var(--gold);cursor:pointer;text-shadow:0 0 10px rgba(212,168,67,0.5);white-space:nowrap;letter-spacing:2px;transition:var(--transition)}
 .logo:hover{text-shadow:0 0 20px rgba(212,168,67,0.9);transform:scale(1.02)}
 .user-info{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.header-btn{background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer;transition:var(--transition);font-family:'Segoe UI',Tahoma,sans-serif;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.header-btn{background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer;transition:var(--transition);white-space:nowrap;display:flex;align-items:center;gap:6px}
 .header-btn:hover{transform:scale(1.05);box-shadow:0 0 12px rgba(212,168,67,0.5)}
 .header-btn.gold{background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e}
 .header-btn.green{background:#2c7a4a}
@@ -48,13 +47,14 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .credits-badge{background:var(--accent);padding:5px 14px;border-radius:20px;border:1px solid var(--gold);color:var(--gold-light);font-weight:bold;font-size:13px;white-space:nowrap}
 .btn-logout{color:#ff4d4d;cursor:pointer;font-size:20px;transition:var(--transition)}
 .btn-logout:hover{transform:scale(1.1)}
-#page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center;padding-top:100px}
+#page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center}
 .tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo%20Tar%C3%B4.png'),url('Fundo-Tar.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:30px auto;padding:0 20px}
 .dash-card{background:rgba(26,10,46,0.55);border:1px solid var(--accent);padding:26px 18px;border-radius:10px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;backdrop-filter:blur(2px)}
 .dash-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 5px 20px rgba(74,44,122,0.4);background:rgba(26,10,46,0.75)}
 .dash-card i{font-size:36px;color:var(--gold);margin-bottom:10px;display:block}
-.dash-card h3{margin-bottom:6px}
+.dash-card h3{margin-bottom:6px;font-size:17px}
+.dash-card p{font-size:13px;color:#ccc;line-height:1.4}
 .dash-card.disabled{opacity:0.6;cursor:not-allowed}
 .badge-soon{position:absolute;top:10px;right:-30px;background:var(--gold);color:black;padding:5px 35px;transform:rotate(45deg);font-size:10px;font-weight:bold}
 .cards-grid{display:grid;grid-template-columns:repeat(6,1fr);column-gap:15px;row-gap:46px;margin-top:30px;padding-bottom:40px}
@@ -63,17 +63,26 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .card-slot.flipped .card-inner{transform:rotateY(180deg)}
 .card-back,.card-front{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:8px;border:2px solid var(--gold)}
 .card-back{background:url('Carta.jpg');background-size:cover;background-position:center}
-.card-front{background:var(--bg-card);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center;overflow:hidden}
+.card-front{background:var(--bg-card);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px;text-align:center;overflow:hidden}
 .card-front img{width:100%;height:100%;object-fit:cover;border-radius:6px}
-.card-front h4{font-size:12px;color:var(--gold);margin-bottom:5px;line-height:1.2}
+.card-front h4{font-size:11px;color:var(--gold);margin-bottom:2px;position:absolute;bottom:5px;background:rgba(0,0,0,0.7);width:100%;padding:2px;line-height:1.2}
 .card-num{position:absolute;bottom:-26px;left:0;width:100%;text-align:center;color:var(--gold-light);font-size:13px;font-weight:bold}
-.result-box{margin-top:20px;padding:20px;background:rgba(26,10,46,0.75);border-radius:8px;border-left:4px solid var(--gold);scroll-margin-top:90px}
+.result-box{margin-top:20px;padding:20px;background:rgba(26,10,46,0.85);border-radius:8px;border-left:4px solid var(--gold);scroll-margin-top:100px}
 #modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;z-index:2000;align-items:center;justify-content:center}
 .modal-content{background:var(--bg-card);padding:30px;border-radius:10px;border:1px solid var(--gold);max-width:400px;text-align:center;width:90%}
 .modal-content h3{font-size:22px;color:var(--gold);margin-bottom:14px}
 .modal-content p{margin-bottom:20px;line-height:1.5}
 #mystic-balloon{position:fixed;bottom:30px;right:30px;background:var(--accent);padding:20px;border-radius:20px 20px 0 20px;border:1px solid var(--gold);max-width:250px;display:none;animation:slideUp 0.5s ease;z-index:900}
 @keyframes slideUp{from{transform:translateY(100px);opacity:0}to{transform:translateY(0);opacity:1}}
+.voltar-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);cursor:pointer;font-weight:bold;text-decoration:none;margin-bottom:20px;font-size:15px;transition:var(--transition);background:none;border:none;font-family:inherit}
+.voltar-link:hover{text-shadow:0 0 12px rgba(212,168,67,0.8)}
+.form-container{max-width:700px;margin:0 auto;background:var(--bg-card);padding:30px;border-radius:10px;border:1px solid var(--accent)}
+.tarot-info-text{margin-bottom:20px;line-height:1.6;color:#ddd}
+.selection-area{margin:30px auto;max-width:1200px;padding:0 20px}
+.two-cards-display{display:flex;justify-content:center;gap:24px;margin:30px auto;max-width:700px;padding:0 20px}
+.two-cards-display .card-slot{width:150px;cursor:default}
+.frozen-display{display:flex;justify-content:center;gap:20px;margin-bottom:30px}
+.frozen-display .card-slot{width:150px;cursor:default}
 .faq-category{margin-bottom:30px}
 .faq-category h3{color:var(--gold);margin-bottom:15px;border-bottom:1px solid var(--accent);padding-bottom:5px}
 .faq-item{margin-bottom:10px;border:1px solid var(--accent);border-radius:5px;overflow:hidden}
@@ -82,12 +91,9 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 table{width:100%;border-collapse:collapse;margin:20px 0}
 th,td{border:1px solid var(--accent);padding:12px;text-align:center}
 th{background:var(--accent);color:var(--gold)}
-.form-container{max-width:600px;margin:0 auto;background:var(--bg-card);padding:30px;border-radius:10px;border:1px solid var(--accent)}
 .tarot2-info p{margin-bottom:12px;line-height:1.7}
 .tarot2-list{margin:0 0 12px 20px;padding:0;line-height:1.7}
 .tarot2-list li{margin-bottom:6px}
-.voltar-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);cursor:pointer;font-weight:bold;text-decoration:none;margin-bottom:20px;font-size:15px;transition:var(--transition);background:none;border:none;font-family:inherit;padding:0}
-.voltar-link:hover{text-shadow:0 0 12px rgba(212,168,67,0.8)}
 @media(max-width:900px){.dash-grid{grid-template-columns:repeat(2,1fr)}.cards-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.dash-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:repeat(2,1fr)}header{justify-content:center}.user-info{justify-content:center}}
 </style>
@@ -105,10 +111,7 @@ th{background:var(--accent);color:var(--gold)}
 <input type="password" id="login-pass" placeholder="Sua senha" onkeydown="if(event.key==='Enter')handleLogin()">
 <button class="btn-portal" onclick="handleLogin()">Entrar no Portal</button>
 <div class="divider">ou</div>
-<button class="btn-google" onclick="showModal('Google Login','Integração oficial em breve.')">
-<svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-Continuar com Google
-</button>
+<button class="btn-google" onclick="showModal('Google Login','Integração oficial em breve.')">Continuar com Google</button>
 </div>
 <div id="form-register" class="auth-form" style="display:none">
 <input type="text" id="reg-name" placeholder="Nome Completo" onkeydown="if(event.key==='Enter')handleRegister()">
@@ -121,7 +124,7 @@ Continuar com Google
 </div>
 </section>
 <header id="main-header">
-<div class="logo pirata" onclick="showPage('page-dashboard')" title="Voltar ao início">ORCULUM VITAE</div>
+<div class="logo pirata" onclick="showPage('page-dashboard')">ORCULUM VITAE</div>
 <div class="user-info">
 <button class="header-btn gold" onclick="showPage('page-planos')"><i class="fas fa-crown"></i> Planos</button>
 <button class="header-btn green" onclick="showPage('page-indicacao')"><i class="fas fa-user-plus"></i> Indicar (+50)</button>
@@ -131,144 +134,144 @@ Continuar com Google
 </div>
 </header>
 <section id="page-dashboard" class="page">
-<div style="display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:0 20px;flex-wrap:wrap;gap:10px">
-<h2 class="pirata" style="font-size:36px;color:var(--gold)">Bem-vindo ao seu Destino</h2>
-<a href="javascript:void(0)" class="voltar-link" style="margin:0" onclick="voltarLogin()"><i class="fas fa-arrow-left"></i> Voltar</a>
-</div>
 <div class="dash-grid">
-<div class="dash-card" onclick="showPage('page-tarot-menu')"><i class="fas fa-hat-wizard"></i><h3>Tarô</h3><p>Consulte os Arcanos</p></div>
-<div class="dash-card" onclick="startReading('Tarô de Marselha',3,30)"><i class="fas fa-scroll"></i><h3>Marselha</h3><p>3 Cartas (30 créd.)</p></div>
-<div class="dash-card" onclick="showPage('page-amor')"><i class="fas fa-heart"></i><h3>Tarô do Amor</h3><p>Templo de Afrodite</p></div>
-<div class="dash-card" onclick="showPage('page-sim-nao')"><i class="fas fa-balance-scale"></i><h3>Sim ou Não</h3><p>Resposta Direta</p></div>
+<div class="dash-card" onclick="showPage('page-sim-nao')"><i class="fas fa-balance-scale"></i><h3>Sim, Não, Talvez</h3><p>Resposta Direta</p></div>
+<div class="dash-card" onclick="initTarotPage(2)"><i class="fas fa-clone"></i><h3>Tarô: 2 Cartas</h3><p>Conselho e Advertência</p></div>
+<div class="dash-card" onclick="initTarotPage(3)"><i class="fas fa-layer-group"></i><h3>Tarô: 3 Cartas</h3><p>Passado, Presente e Futuro</p></div>
+<div class="dash-card" onclick="initTarotPage(5)"><i class="fas fa-plus-square"></i><h3>Tarô: 5 Cartas</h3><p>Cruz Simples</p></div>
+<div class="dash-card" onclick="initTarotPage(7)"><i class="fas fa-horse-head"></i><h3>Tarô: 7 Cartas</h3><p>Método da Ferradura</p></div>
+<div class="dash-card" onclick="initTarotPage(10)"><i class="fas fa-cross"></i><h3>Tarô: 10 Cartas</h3><p>Cruz Celta</p></div>
 <div class="dash-card" onclick="showPage('page-carta-dia')"><i class="fas fa-sun"></i><h3>Carta do Dia</h3><p>Grátis Diário</p></div>
-<div class="dash-card disabled"><div class="badge-soon">EM BREVE</div><i class="fas fa-yin-yang"></i><h3>I Ching</h3><p>Sabedoria Chinesa</p></div>
-<div class="dash-card" onclick="showPage('page-mapa-astral')"><i class="fas fa-star-and-crescent"></i><h3>Mapa Astral</h3><p>Seu Destino Estelar</p></div>
+<div class="dash-card" onclick="showPage('page-amor')"><i class="fas fa-heart"></i><h3>Tarô do Amor</h3><p>Templo de Afrodite</p></div>
+<div class="dash-card" onclick="initTarotPage(3,'Marselha')"><i class="fas fa-scroll"></i><h3>Tarô de Marselha</h3><p>Sabedoria Tradicional</p></div>
+<div class="dash-card" onclick="openMapa('Pórtico Celestial',50)"><i class="fas fa-door-open"></i><h3>Pórtico Celestial</h3><p>A porta de entrada para o seu mapa</p></div>
+<div class="dash-card" onclick="openMapa('Órbita Pessoal',100)"><i class="fas fa-atom"></i><h3>Órbita Pessoal</h3><p>Uma visão mais ampla e detalhada da sua vida</p></div>
+<div class="dash-card" onclick="openMapa('Cosmos Absoluto',200)"><i class="fas fa-infinity"></i><h3>Cosmos Absoluto</h3><p>A leitura total e integrada do seu universo</p></div>
 <div class="dash-card" onclick="showPage('page-horoscopo')"><i class="fas fa-moon"></i><h3>Horóscopo</h3><p>Previsões Diárias</p></div>
 <div class="dash-card" onclick="showPage('page-numerologia')"><i class="fas fa-fingerprint"></i><h3>Numerologia</h3><p>Vibração do Nome</p></div>
+<div class="dash-card disabled"><div class="badge-soon">EM BREVE</div><i class="fas fa-yin-yang"></i><h3>I Ching</h3><p>Sabedoria Chinesa</p></div>
 </div>
 </section>
-<section id="page-tarot-menu" class="page tarot-bg" style="padding-top:100px">
-<div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<h2 class="pirata" style="font-size:clamp(28px,4vw,40px);text-align:center;margin-bottom:30px">Escolha sua Tiragem</h2>
-<div class="dash-grid">
-<div class="dash-card" onclick="startReading('Tarô 2 Cartas',2,20)"><h3>2 Cartas</h3><p>1 Arcano Maior + 1 Menor</p><div class="credits-badge" style="margin-top:10px">20 Créd.</div></div>
-<div class="dash-card" onclick="startReading('Tarô 3 Cartas',3,30)"><h3>3 Cartas</h3><p>Passado, Presente, Futuro</p><div class="credits-badge" style="margin-top:10px">30 Créd.</div></div>
-<div class="dash-card" onclick="startReading('Tarô 5 Cartas',5,50)"><h3>5 Cartas</h3><p>Cruz Simples</p><div class="credits-badge" style="margin-top:10px">50 Créd.</div></div>
-<div class="dash-card" onclick="startReading('Tarô 7 Cartas',7,70)"><h3>7 Cartas</h3><p>Método da Ferradura</p><div class="credits-badge" style="margin-top:10px">70 Créd.</div></div>
-<div class="dash-card" onclick="startReading('Tarô 10 Cartas',10,100)"><h3>10 Cartas</h3><p>Cruz Celta</p><div class="credits-badge" style="margin-top:10px">100 Créd.</div></div>
+<section id="page-tarot-2" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 id="tarot-title-2" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 2 Cartas</h2>
+<p class="tarot-info-text">Método rápido para resolver dilemas. Escolha 1 Arcano Maior e depois 1 Arcano Menor. (20 créditos)</p>
+<input type="text" id="q-2" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(2)">
+<button class="btn-portal" style="margin-top:15px" onclick="startTarot(2)">Iniciar Consulta</button>
 </div>
-</div>
+<div id="area-2" class="selection-area"></div>
+<div id="res-2" class="result-box" style="display:none"></div>
 </section>
-<section id="page-reading" class="page tarot-bg" style="padding-top:100px">
-<div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
-<h2 id="reading-title" class="pirata" style="font-size:clamp(22px,3vw,32px);color:var(--gold)">Título</h2>
-<a href="javascript:void(0)" class="voltar-link" style="margin:0" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+<section id="page-tarot-3" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 id="tarot-title-3" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 3 Cartas</h2>
+<p class="tarot-info-text">A clássica tríade Passado, Presente e Futuro para responder sua pergunta. (30 créditos)</p>
+<input type="text" id="q-3" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(3)">
+<button class="btn-portal" style="margin-top:15px" onclick="startTarot(3)">Iniciar Consulta</button>
 </div>
-<div id="reading-desc" style="margin-bottom:20px;color:var(--gold-light)"></div>
-<div class="form-container" id="question-wrap" style="margin-bottom:30px">
-<input type="text" id="reading-question" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startCardSelection()">
-<button class="btn-portal" id="btn-start-reading" style="margin-top:15px" onclick="startCardSelection()">Iniciar Consulta</button>
-</div>
-<div id="cards-container" class="cards-grid"></div>
-<div id="reading-result" class="result-box" style="display:none;margin-top:40px">
-<h3 class="pirata" style="margin-bottom:15px">Revelação do Oráculo</h3>
-<div id="result-content" style="line-height:1.8;text-align:justify"></div>
-<a href="javascript:void(0)" class="voltar-link" style="margin-top:20px" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-</div>
-</div>
+<div id="area-3" class="selection-area"></div>
+<div id="res-3" class="result-box" style="display:none"></div>
 </section>
-<section id="page-amor" class="page tarot-bg" style="padding-top:100px">
-<div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<div class="form-container" style="margin-top:30px;text-align:center">
-<h2 class="pirata" style="font-size:clamp(26px,4vw,40px);color:#ff69b4">Templo de Afrodite</h2>
-<p style="margin:18px 0">Mapeie a dinâmica entre duas pessoas. Analise o mental, o emocional e o físico de ambos, além do futuro da relação.</p>
-<div class="credits-badge" style="display:inline-block;margin-bottom:18px">7 Cartas | 70 Créditos</div>
-<button class="btn-portal" style="background:#ff69b4" onclick="startReading('Tarô do Amor',7,70)">Iniciar Leitura do Amor</button>
+<section id="page-tarot-5" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 id="tarot-title-5" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 5 Cartas</h2>
+<p class="tarot-info-text">Método da Cruz Simples: situação, obstáculo, passado, conselho e desfecho. (50 créditos)</p>
+<input type="text" id="q-5" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(5)">
+<button class="btn-portal" style="margin-top:15px" onclick="startTarot(5)">Iniciar Consulta</button>
 </div>
-</div>
+<div id="area-5" class="selection-area"></div>
+<div id="res-5" class="result-box" style="display:none"></div>
 </section>
-<section id="page-sim-nao" class="page tarot-bg" style="padding-top:100px">
-<div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Sim, Não ou Talvez</h2>
-<div class="form-container" style="margin-bottom:28px">
-<p style="margin-bottom:14px">Faça sua pergunta objetiva para o oráculo. (10 créditos)</p>
+<section id="page-tarot-7" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 id="tarot-title-7" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 7 Cartas</h2>
+<p class="tarot-info-text">Método da Ferradura: visão panorâmica e detalhada do seu caminho. (70 créditos)</p>
+<input type="text" id="q-7" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(7)">
+<button class="btn-portal" style="margin-top:15px" onclick="startTarot(7)">Iniciar Consulta</button>
+</div>
+<div id="area-7" class="selection-area"></div>
+<div id="res-7" class="result-box" style="display:none"></div>
+</section>
+<section id="page-tarot-10" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 id="tarot-title-10" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 10 Cartas</h2>
+<p class="tarot-info-text">A Cruz Celta: o raio-X mais profundo e completo do Tarô. (100 créditos)</p>
+<input type="text" id="q-10" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(10)">
+<button class="btn-portal" style="margin-top:15px" onclick="startTarot(10)">Iniciar Consulta</button>
+</div>
+<div id="area-10" class="selection-area"></div>
+<div id="res-10" class="result-box" style="display:none"></div>
+</section>
+<section id="page-sim-nao" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Sim, Não ou Talvez</h2>
+<p class="tarot-info-text">Faça uma pergunta objetiva e escolha uma carta para receber a resposta do oráculo. (10 créditos)</p>
 <input type="text" id="sim-nao-question" placeholder="Ex: A Talita me ama de verdade?">
 </div>
-<div id="sim-nao-cards" class="cards-grid"></div>
-<div id="sim-nao-result" class="result-box" style="display:none;scroll-margin-top:90px"></div>
-</div>
+<div id="sim-nao-cards" class="cards-grid" style="padding:20px"></div>
+<div id="sim-nao-result" class="result-box" style="display:none;margin:20px"></div>
 </section>
-<section id="page-carta-dia" class="page tarot-bg" style="padding-top:100px">
-<div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Carta do Dia</h2>
-<p style="text-align:center;margin-bottom:28px">Sua orientação gratuita diária. Escolha uma carta para revelar sua energia e o foco do seu dia.</p>
+<section id="page-carta-dia" class="page tarot-bg">
+<div class="form-container" style="text-align:center">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Carta do Dia</h2>
+<p class="tarot-info-text">Sua orientação gratuita diária. Escolha uma carta para revelar sua energia e o foco do seu dia.</p>
 <div id="carta-dia-cards" class="cards-grid"></div>
-<div id="carta-dia-result" class="result-box" style="display:none;scroll-margin-top:90px"></div>
+<div id="carta-dia-result" class="result-box" style="display:none"></div>
 </div>
 </section>
-<section id="page-iching" class="page" style="padding-top:100px">
-<div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<div style="text-align:center;margin-top:90px">
-<div style="font-size:100px;color:var(--gold);margin-bottom:20px">&#9775;</div>
-<h2 class="pirata" style="font-size:clamp(30px,5vw,50px)">EM BREVE</h2>
-<p>O I Ching está sendo incorporado aos nossos oráculos. Em breve você poderá consultar a sabedoria milenar chinesa.</p>
-</div>
+<section id="page-amor" class="page tarot-bg">
+<div class="form-container" style="text-align:center">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:#ff69b4">Templo de Afrodite</h2>
+<p class="tarot-info-text">Mapeie a dinâmica entre duas pessoas: mental, emocional e físico de ambos. (7 Cartas | 70 Créditos)</p>
+<button class="btn-portal" style="background:#ff69b4" onclick="initTarotPage(7,'Amor')">Iniciar Leitura do Amor</button>
 </div>
 </section>
-<section id="page-mapa-astral" class="page" style="padding-top:100px">
-<div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Mapa Astral</h2>
-<div class="dash-grid" style="margin-bottom:40px">
-<div class="dash-card" onclick="selectMapa('Expresso',50)"><h3>Expresso</h3><p>Sol, Lua e Ascendente</p><div class="credits-badge" style="margin-top:10px">50 Créd.</div></div>
-<div class="dash-card" onclick="selectMapa('Intermediário',100)"><h3>Intermediário</h3><p>Planetas Pessoais</p><div class="credits-badge" style="margin-top:10px">100 Créd.</div></div>
-<div class="dash-card" onclick="selectMapa('Premium',200)"><h3>Premium</h3><p>Mapa Completo + Casas</p><div class="credits-badge" style="margin-top:10px">200 Créd.</div></div>
-</div>
-<div id="mapa-form" class="form-container" style="display:none">
-<h3 id="mapa-selected-title" style="margin-bottom:18px;color:var(--gold)">Nível: Expresso</h3>
-<div class="auth-form" style="display:flex;flex-direction:column;gap:14px">
+<section id="page-mapa-astral" class="page">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 id="mapa-title" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral</h2>
+<div class="auth-form">
 <input type="text" id="mapa-nome" placeholder="Nome Completo">
 <input type="date" id="mapa-data">
 <input type="time" id="mapa-hora">
 <input type="text" id="mapa-cidade" placeholder="Cidade de Nascimento">
 <button class="btn-portal" onclick="generateMapa()">Gerar Mapa Astral</button>
 </div>
-</div>
-<div id="mapa-result" class="result-box" style="display:none;margin-top:30px;scroll-margin-top:90px"></div>
+<div id="mapa-result" class="result-box" style="display:none;margin-top:20px"></div>
 </div>
 </section>
-<section id="page-horoscopo" class="page" style="padding-top:100px">
-<div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Horóscopo do Dia</h2>
+<section id="page-horoscopo" class="page">
+<div class="form-container" style="max-width:1000px">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);text-align:center;margin-bottom:20px">Horóscopo do Dia</h2>
 <div class="dash-grid" id="horoscopo-grid"></div>
-<div id="horoscopo-result" class="result-box" style="display:none;margin-top:30px;scroll-margin-top:90px"></div>
+<div id="horoscopo-result" class="result-box" style="display:none"></div>
 </div>
 </section>
-<section id="page-numerologia" class="page" style="padding-top:100px">
-<div style="max-width:1200px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Numerologia Pitagórica</h2>
+<section id="page-numerologia" class="page">
 <div class="form-container">
-<div class="auth-form" style="display:flex;flex-direction:column;gap:14px">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Numerologia Pitagórica</h2>
+<div class="auth-form">
 <input type="text" id="num-nome" placeholder="Nome Completo (sem acentos)">
 <input type="date" id="num-data">
 <button class="btn-portal" onclick="calculateNumerology()">Calcular Minha Vibração</button>
 </div>
-</div>
-<div id="num-result" class="result-box" style="display:none;margin-top:30px;scroll-margin-top:90px"></div>
+<div id="num-result" class="result-box" style="display:none;margin-top:20px"></div>
 </div>
 </section>
-<section id="page-planos" class="page" style="padding-top:100px">
-<div style="max-width:1000px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<h2 class="pirata" style="font-size:clamp(28px,4vw,40px);text-align:center;margin-bottom:28px">Planos e Pacotes</h2>
+<section id="page-planos" class="page">
+<div class="form-container" style="max-width:800px">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Planos e Pacotes</h2>
 <h3>Assinaturas</h3>
 <table>
 <thead><tr><th>Plano</th><th>Valor</th><th>Benefícios</th><th>Ação</th></tr></thead>
@@ -287,25 +290,21 @@ Continuar com Google
 </div>
 </div>
 </section>
-<section id="page-indicacao" class="page" style="padding-top:100px">
-<div style="max-width:600px;margin:0 auto;padding:0 20px;text-align:center">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<h2 class="pirata" style="font-size:clamp(26px,4vw,40px);color:var(--gold)">Indique um Amigo</h2>
-<p style="margin:18px 0">Compartilhe essa jornada. Convidar um amigo é multiplicar luz. Você ganha 50 créditos quando ele se cadastrar.</p>
-<div class="auth-form" style="display:flex;flex-direction:column;gap:14px">
+<section id="page-indicacao" class="page">
+<div class="form-container" style="text-align:center">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold)">Indique um Amigo</h2>
+<p style="margin:18px 0">Ganhe 50 créditos quando seu amigo se cadastrar pelo seu convite.</p>
+<div class="auth-form">
 <input type="email" id="indica-email" placeholder="E-mail do seu amigo" onkeydown="if(event.key==='Enter')handleIndication()">
 <button class="btn-portal" onclick="handleIndication()">Convidar</button>
 </div>
-<div id="indica-history" style="margin-top:30px;text-align:left">
-<h4 style="color:var(--gold)">Suas Indicações:</h4>
-<ul id="indica-list" style="list-style:none;margin-top:10px;font-size:14px;color:#888"><li>Nenhuma indicação ainda.</li></ul>
-</div>
 </div>
 </section>
-<section id="page-faq" class="page" style="padding-top:100px">
-<div style="max-width:900px;margin:0 auto;padding:0 20px">
-<a href="javascript:void(0)" class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
-<h2 class="pirata" style="font-size:clamp(28px,4vw,40px);text-align:center;margin-bottom:28px">Perguntas Frequentes</h2>
+<section id="page-faq" class="page">
+<div class="form-container" style="max-width:800px">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Perguntas Frequentes</h2>
 <div id="faq-container"></div>
 </div>
 </section>
@@ -351,20 +350,7 @@ var naipeTemas = {
 "Ouros":{area:"finanças, recursos e estabilidade material",pessoa:"alguém prático, voltado à segurança e prosperidade"}
 };
 var valorLeitura = {
-"Ás":"um novo começo",
-"2":"uma parceria ou escolha dupla",
-"3":"expansão e crescimento",
-"4":"estabilidade que pode virar apatia",
-"5":"conflito e superação de desafios",
-"6":"harmonia e equilíbrio restaurado",
-"7":"esforço e persistência diante de obstáculos",
-"8":"progresso e movimento rumo à meta",
-"9":"realização e maturidade",
-"10":"conclusão e fechamento de ciclo",
-"Valete":"uma mensagem ou notícia",
-"Cavaleiro":"ação rápida e movimento",
-"Rainha":"domínio emocional e maturidade",
-"Rei":"liderança e domínio do tema"
+"Ás":"um novo começo","2":"uma parceria ou escolha dupla","3":"expansão e crescimento","4":"estabilidade que pode virar apatia","5":"conflito e superação de desafios","6":"harmonia e equilíbrio restaurado","7":"esforço e persistência diante de obstáculos","8":"progresso e movimento rumo à meta","9":"realização e maturidade","10":"conclusão e fechamento de ciclo","Valete":"uma mensagem ou notícia","Cavaleiro":"ação rápida e movimento","Rainha":"domínio emocional e maturidade","Rei":"liderança e domínio do tema"
 };
 for(var ni=0;ni<naipes.length;ni++){
 var naipe = naipes[ni];
@@ -373,9 +359,6 @@ var v = valores[vi];
 DECK.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No campo de "+naipeTemas[naipe].area+", esta carta representa "+valorLeitura[v]+". O momento pede atenção a esse aspecto da sua vida, que influencia diretamente a situação em questão.",cam:"Optar por este caminho significa trabalhar com "+valorLeitura[v]+" no âmbito de "+naipeTemas[naipe].area+". Os resultados dependem de como você conduz essa energia.",out:"O outro ou o mercado se apresenta como "+naipeTemas[naipe].pessoa+". A dinâmica envolvida reflete "+valorLeitura[v]+" no campo de "+naipeTemas[naipe].area+"."});
 }
 }
-/* ===== FUNÇÃO DE IMAGEM À PROVA DE ERROS =====
-   Gera o nome com espaço (encodeURI). Se a imagem não carregar,
-   o onerror troca o espaço por underline e tenta de novo. */
 var ARCANOS_MAIORES = ["O Louco","O Mago","A Sacerdotisa","A Imperatriz","O Imperador","O Hierofante","Os Enamorados","O Carro","A Força","O Eremita","A Roda da Fortuna","A Justiça","O Pendurado","A Morte","A Temperança","O Diabo","A Torre","A Estrela","A Lua","O Sol","O Julgamento","O Mundo"];
 var NUM_EXTENSO = {"Ás":"Ás","2":"Dois","3":"Três","4":"Quatro","5":"Cinco","6":"Seis","7":"Sete","8":"Oito","9":"Nove","10":"Dez","Valete":"Valete","Cavaleiro":"Cavaleiro","Rainha":"Rainha","Rei":"Rei"};
 function cardImage(card){
@@ -391,7 +374,6 @@ base = valor+' de '+naipe;
 }
 return encodeURI(base+'.png');
 }
-/* onerror: se a imagem com espaço falhar, troca por underline */
 function imgFallback(el){
 if(el.dataset.tried) return;
 el.dataset.tried = '1';
@@ -419,7 +401,7 @@ function detectTopic(q){
 var t = norm(q);
 var love = ["amor","ama ","amo ","gosta","gosto","namoro","namor","paix","casamento","relacionamento","casal","ficante","beijo","beija","esposa","marido","namorada","namorado","conjugue","companheir","me quer","me ama"];
 for(var i=0;i<love.length;i++){if(t.indexOf(love[i])>=0){return 'love';}}
-var work = ["negocio","trabalho","emprego","carreira","empresa","investir","investimento","venda","vender","comprar","mercado","cliente","socio","profissao","salario","promocao","demissao","projeto","contrato","dinheiro","financeir","lideranca","mercado de trabalho","recolocacao","cargo"];
+var work = ["negocio","trabalho","emprego","carreira","empresa","investir","investimento","venda","vender","comprar","mercado","cliente","socio","profissao","salario","promocao","demissao","projeto","contrato","dinheiro","financeir","lideranca","recolocacao","cargo"];
 for(var j=0;j<work.length;j++){if(t.indexOf(work[j])>=0){return 'work';}}
 return 'general';
 }
@@ -499,6 +481,28 @@ html += "<p>O oráculo sugere que você use a força de "+c1.n+" para dar o prim
 }
 return html;
 }
+function buildTwoCardNarrative(cards,q){
+var c1 = cards[0], c2 = cards[1];
+var topic = detectTopic(q);
+var person = extractPerson(q);
+var action = extractAction(q);
+var pathA = action ? capFirst(action) : "Seguir em frente";
+var h = "<h3>Leitura de Tarô</h3>";
+if(q){h += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
+h += "<p><strong>Cartas Tiradas:</strong> "+c1.n+" (Arcano Maior) e "+c2.n+" (Arcano Menor)</p>";
+h += "<h4>1. Situação e Informação Adicional</h4>";
+h += "<p><strong>O cenário atual ("+c1.n+"):</strong> "+c1.cen+"</p>";
+h += "<p><strong>O detalhe oculto ("+c2.n+"):</strong> "+c2.cen+"</p>";
+h += "<h4>2. Caminho A e Caminho B</h4>";
+h += "<p><strong>Caminho A - "+pathA+" ("+c1.n+"):</strong> "+c1.cam+"</p>";
+h += "<p><strong>Caminho B - Optar pela cautela ("+c2.n+"):</strong> "+c2.cam+"</p>";
+h += "<h4>3. Você e o Outro (A Dinâmica Envolvida)</h4>";
+h += "<p><strong>A sua postura ("+c1.n+"):</strong> "+c1.out+"</p>";
+h += "<p><strong>O Outro / O Mercado ("+c2.n+"):</strong> "+c2.out+"</p>";
+h += "<h4>Resposta Conclusiva do Oráculo</h4>";
+h += buildConclusion(c1,c2,q,action,topic,person);
+return h;
+}
 function buildThreeConclusion(cards,q){
 var topic = detectTopic(q);
 var person = extractPerson(q);
@@ -532,19 +536,19 @@ var topic = detectTopic(q);
 var h = "<h3>Leitura de Tarô</h3>";
 if(q){h += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
 h += "<p>Para responder à sua pergunta, analisamos a tríade de lâminas sob a estrutura clássica do Passado, Presente e Futuro.</p>";
-h += "<h4>⏳ Carta 1: O Passado (Posição Esquerda)</h4>";
+h += "<h4>Carta 1: O Passado ("+c1.n+")</h4>";
 h += "<p><strong>A Lâmina:</strong> "+c1.n+" ("+cardArcana(c1)+")</p>";
 h += "<p><strong>A Energia no Passado:</strong> "+c1.cen+"</p>";
 h += "<p><strong>O Impacto Atual:</strong> "+c1.cam+"</p>";
-h += "<h4>🔄 Carta 2: O Presente (Posição Central)</h4>";
+h += "<h4>Carta 2: O Presente ("+c2.n+")</h4>";
 h += "<p><strong>A Lâmina:</strong> "+c2.n+" ("+cardArcana(c2)+")</p>";
 h += "<p><strong>A Energia no Presente:</strong> "+c2.cen+"</p>";
 h += "<p><strong>O Conselho para o Hoje:</strong> "+c2.cam+"</p>";
-h += "<h4>🪄 Carta 3: O Futuro (Posição Direita)</h4>";
+h += "<h4>Carta 3: O Futuro ("+c3.n+")</h4>";
 h += "<p><strong>A Lâmina:</strong> "+c3.n+" ("+cardArcana(c3)+")</p>";
 h += "<p><strong>A Energia no Futuro:</strong> "+c3.cen+"</p>";
 h += "<p><strong>A Tendência Prática:</strong> "+c3.cam+"</p>";
-h += "<h4>📜 Síntese e Conselho Final da Tríade</h4>";
+h += "<h4>Síntese e Conselho Final da Tríade</h4>";
 h += "<p>A sua jornada mostra uma evolução clara: "+c1.n+", com a energia de "+c1.d+", abre o caminho; "+c2.n+", trazendo "+c2.d+", conduz o momento presente; e "+c3.n+", com "+c3.d+", aponta o desfecho.</p>";
 h += buildThreeConclusion(cards,q);
 if(topic==='work'){
@@ -639,27 +643,20 @@ var h = "<h3>Leitura Prática: Método da Ferradura (7 Cartas)</h3>";
 if(q){h += "<p><strong>Pergunta do Consulente:</strong> \""+q+"\".</p>";}
 h += "<p><strong>Cartas Tiradas:</strong></p>";
 h += "<p><strong>O Passado:</strong> "+c1.n+"<br><strong>O Presente:</strong> "+c2.n+"<br><strong>Influências Ocultas:</strong> "+c3.n+"<br><strong>O Consulente:</strong> "+c4.n+"<br><strong>Atitudes dos Outros:</strong> "+c5.n+"<br><strong>Obstáculo ou Melhor Caminho:</strong> "+c6.n+"<br><strong>O Desfecho:</strong> "+c7.n+"</p>";
-h += "<h4>🕒 1. O Passado ("+c1.n+")</h4>";
-h += "<p><strong>Descrição da Posição:</strong> revela as energias, escolhas ou eventos anteriores que construíram o cenário atual.</p>";
-h += "<p><strong>Interpretação no Exemplo:</strong> "+c1.cen+"</p>";
-h += "<h4>📍 2. O Presente ("+c2.n+")</h4>";
-h += "<p><strong>Descrição da Posição:</strong> mostra o momento exato em que o consulente se encontra e a energia imediata do problema.</p>";
-h += "<p><strong>Interpretação no Exemplo:</strong> "+c2.cen+"</p>";
-h += "<h4>👁️ 3. Influências Ocultas ("+c3.n+")</h4>";
-h += "<p><strong>Descrição da Posição:</strong> aponta fatores, oportunidades ou sentimentos que estão acontecendo nos bastidores e que você ainda não percebeu conscientemente.</p>";
-h += "<p><strong>Interpretação no Exemplo:</strong> "+c3.cam+"</p>";
-h += "<h4>👤 4. O Consulente ("+c4.n+")</h4>";
-h += "<p><strong>Descrição da Posição:</strong> retrata a postura consciente do consulente, suas atitudes, pensamentos e como ele está lidando com a situação.</p>";
-h += "<p><strong>Interpretação no Exemplo:</strong> "+c4.out+"</p>";
-h += "<h4>👥 5. Atitudes dos Outros ("+c5.n+")</h4>";
-h += "<p><strong>Descrição da Posição:</strong> mostra o impacto das pessoas ao seu redor (chefes, concorrentes, familiares) ou a energia do ambiente externo sobre você.</p>";
-h += "<p><strong>Interpretação no Exemplo:</strong> "+c5.out+" "+c5.cam+"</p>";
-h += "<h4>⚡ 6. Obstáculo ou Melhor Caminho ("+c6.n+")</h4>";
-h += "<p><strong>Descrição da Posição:</strong> o desafio que precisa ser superado ou a ação direta que deve ser tomada para resolver a questão.</p>";
-h += "<p><strong>Interpretação no Exemplo:</strong> "+c6.cam+"</p>";
-h += "<h4>☀️ 7. O Desfecho ("+c7.n+")</h4>";
-h += "<p><strong>Descrição da Posição:</strong> o resultado final e a consequência provável caso o consulente siga o conselho e mantenha o ritmo das energias apresentadas.</p>";
-h += "<p><strong>Interpretação no Exemplo:</strong> "+c7.cam+" "+c7.out+"</p>";
+h += "<h4>1. O Passado ("+c1.n+")</h4>";
+h += "<p><strong>Interpretação:</strong> "+c1.cen+"</p>";
+h += "<h4>2. O Presente ("+c2.n+")</h4>";
+h += "<p><strong>Interpretação:</strong> "+c2.cen+"</p>";
+h += "<h4>3. Influências Ocultas ("+c3.n+")</h4>";
+h += "<p><strong>Interpretação:</strong> "+c3.cam+"</p>";
+h += "<h4>4. O Consulente ("+c4.n+")</h4>";
+h += "<p><strong>Interpretação:</strong> "+c4.out+"</p>";
+h += "<h4>5. Atitudes dos Outros ("+c5.n+")</h4>";
+h += "<p><strong>Interpretação:</strong> "+c5.out+" "+c5.cam+"</p>";
+h += "<h4>6. Obstáculo ou Melhor Caminho ("+c6.n+")</h4>";
+h += "<p><strong>Interpretação:</strong> "+c6.cam+"</p>";
+h += "<h4>7. O Desfecho ("+c7.n+")</h4>";
+h += "<p><strong>Interpretação:</strong> "+c7.cam+" "+c7.out+"</p>";
 h += "<h4>Resposta Conclusiva do Oráculo</h4>";
 h += buildSevenConclusion(cards,q);
 return h;
@@ -701,12 +698,12 @@ if(q){h += "<p><strong>Pergunta do Consulente:</strong> \""+q+"\".</p>";}
 h += "<p><strong>Cartas Tiradas:</strong></p>";
 h += "<p><strong>Na Cruz:</strong> 1. O Momento Atual ("+c1.n+") | 2. O Obstáculo ("+c2.n+") | 3. A Raiz ("+c3.n+") | 4. Passado Recente ("+c4.n+") | 5. O Topo ("+c5.n+") | 6. Futuro Imediato ("+c6.n+")</p>";
 h += "<p><strong>Na Coluna:</strong> 7. O Consulente ("+c7.n+") | 8. O Ambiente ("+c8.n+") | 9. Esperanças/Medos ("+c9.n+") | 10. Resultado Final ("+c10.n+")</p>";
-h += "<h4>🛡️ Parte 1: O Núcleo da Cruz (O Momento e o Desafio)</h4>";
+h += "<h4>Parte 1: O Núcleo da Cruz (O Momento e o Desafio)</h4>";
 h += "<p><strong>Carta 1: O Momento Atual ("+c1.n+")</strong></p>";
 h += "<p><strong>Interpretação:</strong> "+c1.cen+"</p>";
 h += "<p><strong>Carta 2: O Obstáculo ("+c2.n+")</strong></p>";
 h += "<p><strong>Interpretação:</strong> Cruzando a sua força, "+c2.n+" revela "+c2.d+". "+c2.out+"</p>";
-h += "<h4>🏛️ Parte 2: O Contexto Temporal e Mental (Base, Passado, Alvo)</h4>";
+h += "<h4>Parte 2: O Contexto Temporal e Mental (Base, Passado, Alvo)</h4>";
 h += "<p><strong>Carta 3: A Base/Raiz ("+c3.n+")</strong></p>";
 h += "<p><strong>Interpretação:</strong> A raiz oculta dessa questão vem de "+c3.d+". "+c3.cen+"</p>";
 h += "<p><strong>Carta 4: O Passado Recente ("+c4.n+")</strong></p>";
@@ -715,149 +712,53 @@ h += "<p><strong>Carta 5: O Topo/Coroamento ("+c5.n+")</strong></p>";
 h += "<p><strong>Interpretação:</strong> "+c5.out+"</p>";
 h += "<p><strong>Carta 6: O Futuro Imediato ("+c6.n+")</strong></p>";
 h += "<p><strong>Interpretação:</strong> "+c6.cam+"</p>";
-h += "<h4>📐 Parte 3: A Coluna Vertical (Fatores Internos e Externos)</h4>";
+h += "<h4>Parte 3: A Coluna Vertical (Fatores Internos e Externos)</h4>";
 h += "<p><strong>Carta 7: O Consulente ("+c7.n+")</strong></p>";
 h += "<p><strong>Interpretação:</strong> "+c7.out+"</p>";
 h += "<p><strong>Carta 8: O Ambiente Externo ("+c8.n+")</strong></p>";
 h += "<p><strong>Interpretação:</strong> "+c8.out+" "+c8.cam+"</p>";
 h += "<p><strong>Carta 9: Esperanças e Medos ("+c9.n+")</strong></p>";
 h += "<p><strong>Interpretação:</strong> "+c9.cen+" "+c9.cam+"</p>";
-h += "<h4>👑 Parte 4: A Conclusão</h4>";
+h += "<h4>Parte 4: A Conclusão</h4>";
 h += "<p><strong>Carta 10: O Resultado Final ("+c10.n+")</strong></p>";
 h += "<p><strong>Interpretação:</strong> "+c10.cam+" "+c10.out+"</p>";
 h += "<h4>Resposta Conclusiva do Oráculo</h4>";
 h += buildTenConclusion(cards,q);
 return h;
 }
-function renderCross(cards){
-var container = document.getElementById('cards-container');
-container.style.cssText = '';
-container.style.display = 'block';
-container.style.position = 'relative';
-container.style.height = '520px';
-container.style.maxWidth = '760px';
-container.style.margin = '30px auto';
-container.innerHTML = '';
-var labels = ['A Situação Atual','O Obstáculo','O Passado','O Futuro / Conselho','O Desfecho'];
-var pos = [
-{left:'50%',top:'50%',transform:'translate(-50%,-50%)'},
-{left:'50%',top:'6%',transform:'translate(-50%,0)'},
-{left:'14%',top:'50%',transform:'translate(0,-50%)'},
-{left:'86%',top:'50%',transform:'translate(-100%,-50%)'},
-{left:'50%',top:'94%',transform:'translate(-50%,-100%)'}
-];
-for(var i=0;i<5;i++){
-var wrap = document.createElement('div');
-wrap.style.cssText = 'position:absolute;width:120px;left:'+pos[i].left+';top:'+pos[i].top+';transform:'+pos[i].transform+';text-align:center;';
-var card = document.createElement('div');
-card.className = 'card-slot flipped';
-card.style.cssText = 'width:120px;margin:0 auto;aspect-ratio:63/88;cursor:default;';
-card.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[i])+'" alt="'+cards[i].n+'" onerror="imgFallback(this)"><h4>'+cards[i].n+'</h4></div></div>';
-var lab = document.createElement('div');
-lab.style.cssText = 'margin-top:8px;font-size:11px;color:var(--gold-light);line-height:1.3;';
-lab.innerText = labels[i];
-wrap.appendChild(card);
-wrap.appendChild(lab);
-container.appendChild(wrap);
+function cardHTML(card,label,width){
+var w = width?' style="width:'+width+'"':'';
+return '<div class="card-slot flipped"'+w+'><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'" onerror="imgFallback(this)"><h4>'+card.n+'</h4></div></div></div>'+(label?'<div style="text-align:center;font-size:11px;color:var(--gold-light);margin-top:6px;line-height:1.3">'+label+'</div>':'');
 }
+function renderCross(cards){
+var labels = ['A Situação Atual','O Obstáculo','O Passado','O Futuro / Conselho','O Desfecho'];
+var html = '<div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:20px 0">';
+for(var i=0;i<5;i++){
+html += '<div style="text-align:center"><div class="card-slot flipped" style="width:110px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[i])+'" alt="'+cards[i].n+'" onerror="imgFallback(this)"><h4>'+cards[i].n+'</h4></div></div></div><div style="font-size:11px;color:var(--gold-light);margin-top:6px;line-height:1.3">'+labels[i]+'</div></div>';
+}
+html += '</div>';
+return html;
 }
 function renderHorseshoe(cards){
-var container = document.getElementById('cards-container');
-container.style.cssText = '';
-container.style.display = 'block';
-container.style.position = 'relative';
-container.style.height = '640px';
-container.style.maxWidth = '960px';
-container.style.margin = '30px auto';
-container.innerHTML = '';
 var labels = ['O Passado','O Presente','Influências Ocultas','O Consulente','Atitudes dos Outros','Obstáculo ou Melhor Caminho','O Desfecho'];
-var pos = [
-{left:'5%',top:'64%',tx:'0',ty:'0'},
-{left:'20%',top:'33%',tx:'0',ty:'0'},
-{left:'33%',top:'0%',tx:'0',ty:'0'},
-{left:'50%',top:'0%',tx:'-50%',ty:'0'},
-{left:'67%',top:'0%',tx:'-100%',ty:'0'},
-{left:'80%',top:'33%',tx:'-100%',ty:'0'},
-{left:'95%',top:'64%',tx:'-100%',ty:'0'}
-];
+var html = '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 0">';
 for(var i=0;i<7;i++){
-(function(idx){
-var wrap = document.createElement('div');
-wrap.style.cssText = 'position:absolute;width:130px;left:'+pos[idx].left+';top:'+pos[idx].top+';transform:translate('+pos[idx].tx+','+pos[idx].ty+');text-align:center;';
-var card = document.createElement('div');
-card.className = 'card-slot';
-card.style.cssText = 'width:130px;margin:0 auto;aspect-ratio:63/88;cursor:pointer;';
-card.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[idx])+'" alt="'+cards[idx].n+'" onerror="imgFallback(this)"><h4>'+cards[idx].n+'</h4></div></div>';
-card.onclick = function(){this.classList.add('flipped');};
-var lab = document.createElement('div');
-lab.style.cssText = 'margin-top:8px;font-size:11px;color:var(--gold-light);line-height:1.3;';
-lab.innerText = (idx+1)+'. '+labels[idx];
-wrap.appendChild(card);
-wrap.appendChild(lab);
-container.appendChild(wrap);
-if(idx>0){setTimeout(function(){var el=container.children[idx].children[0];if(el){el.classList.add('flipped');}},350+idx*500);}
-})(i);
+html += '<div style="text-align:center"><div class="card-slot flipped" style="width:100px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[i])+'" alt="'+cards[i].n+'" onerror="imgFallback(this)"><h4>'+cards[i].n+'</h4></div></div></div><div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:100px">'+(i+1)+'. '+labels[i]+'</div></div>';
 }
+html += '</div>';
+return html;
 }
 function renderCelticCross(cards){
-var container = document.getElementById('cards-container');
-container.style.cssText = '';
-container.style.display = 'flex';
-container.style.flexWrap = 'wrap';
-container.style.justifyContent = 'center';
-container.style.alignItems = 'flex-start';
-container.style.gap = '20px';
-container.style.margin = '30px auto';
-container.style.maxWidth = '1100px';
-container.innerHTML = '';
-var labelsCruz = ['1. Momento Atual','2. Obstáculo','3. A Raiz','4. Passado Recente','5. O Topo','6. Futuro Imediato'];
-var crossPos = [
-{left:'50%',top:'50%',rot:0,tx:'-50%',ty:'-50%'},
-{left:'50%',top:'50%',rot:90,tx:'-50%',ty:'-50%'},
-{left:'22%',top:'82%',rot:0,tx:'-50%',ty:'-50%'},
-{left:'16%',top:'50%',rot:0,tx:'-50%',ty:'-50%'},
-{left:'50%',top:'16%',rot:0,tx:'-50%',ty:'-50%'},
-{left:'84%',top:'50%',rot:0,tx:'-50%',ty:'-50%'}
-];
-var crossWrap = document.createElement('div');
-crossWrap.style.cssText = 'position:relative;width:520px;height:520px;flex:0 0 auto;';
-for(var i=0;i<6;i++){
-(function(idx){
-var card = document.createElement('div');
-card.className = 'card-slot flipped';
-card.style.cssText = 'position:absolute;width:120px;height:168px;left:'+crossPos[idx].left+';top:'+crossPos[idx].top+';transform:translate('+crossPos[idx].tx+','+crossPos[idx].ty+') rotate('+crossPos[idx].rot+'deg);cursor:default;';
-card.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[idx])+'" alt="'+cards[idx].n+'" onerror="imgFallback(this)"><h4>'+cards[idx].n+'</h4></div></div>';
-var lab = document.createElement('div');
-lab.style.cssText = 'position:absolute;left:'+crossPos[idx].left+';top:'+crossPos[idx].top+';transform:translate('+crossPos[idx].tx+','+crossPos[idx].ty+') translateY(92px);width:150px;text-align:center;font-size:11px;color:var(--gold-light);line-height:1.3;';
-lab.innerText = labelsCruz[idx];
-crossWrap.appendChild(card);
-crossWrap.appendChild(lab);
-})(i);
+var labels = ['1. Momento Atual','2. Obstáculo','3. A Raiz','4. Passado Recente','5. O Topo','6. Futuro Imediato','7. O Consulente','8. Ambiente','9. Esperanças/Medos','10. Resultado'];
+var html = '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 0">';
+for(var i=0;i<10;i++){
+html += '<div style="text-align:center"><div class="card-slot flipped" style="width:95px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[i])+'" alt="'+cards[i].n+'" onerror="imgFallback(this)"><h4>'+cards[i].n+'</h4></div></div></div><div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:95px">'+labels[i]+'</div></div>';
 }
-var labelsCol = ['7. O Consulente','8. O Ambiente Externo','9. Esperanças e Medos','10. Resultado Final'];
-var colWrap = document.createElement('div');
-colWrap.style.cssText = 'display:flex;flex-direction:column;gap:18px;flex:0 0 auto;padding-top:20px;';
-for(var j=0;j<4;j++){
-(function(idx){
-var cardCol = document.createElement('div');
-cardCol.className = 'card-slot flipped';
-cardCol.style.cssText = 'width:120px;margin:0 auto;aspect-ratio:63/88;cursor:default;';
-cardCol.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[6+idx])+'" alt="'+cards[6+idx].n+'" onerror="imgFallback(this)"><h4>'+cards[6+idx].n+'</h4></div></div>';
-var labCol = document.createElement('div');
-labCol.style.cssText = 'margin-top:6px;font-size:11px;color:var(--gold-light);text-align:center;line-height:1.3;';
-labCol.innerText = labelsCol[idx];
-var wrapCol = document.createElement('div');
-wrapCol.appendChild(cardCol);
-wrapCol.appendChild(labCol);
-colWrap.appendChild(wrapCol);
-})(j);
-}
-container.appendChild(crossWrap);
-container.appendChild(colWrap);
+html += '</div>';
+return html;
 }
 var currentUser = null;
-var currentReading = {type:'',count:0,cost:0,cardsSelected:0,active:false,selectedCards:[],question:'',phase:''};
-var selectedMapaLevel = '';
+var currentReading = {count:0,type:'',cost:0,selected:[],question:'',active:false,phase:''};
 var selectedMapaCost = 0;
 function initStars(){
 var c = document.getElementById('stars-container');
@@ -881,14 +782,6 @@ if(id==='page-sim-nao'){initSimNao();}
 if(id==='page-carta-dia'){initCartaDia();}
 if(id==='page-horoscopo'){initHoroscopo();}
 if(id==='page-faq'){initFAQ();}
-}
-function voltarLogin(){
-document.getElementById('main-header').style.display = 'none';
-document.getElementById('page-login').classList.add('active');
-document.querySelectorAll('.page').forEach(function(p){
-if(p.id!=='page-login'){p.classList.remove('active');}
-});
-window.scrollTo(0,0);
 }
 function toggleAuth(type){
 document.getElementById('tab-login').classList.toggle('active',type==='login');
@@ -970,149 +863,111 @@ setTimeout(function(){b.style.display='none';},6000);
 localStorage.setItem(key,today);
 }
 }
-function startReading(type,count,cost){
-if(!currentUser.isMago && currentUser.credits<cost){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
-currentReading = {type:type,count:count,cost:cost,cardsSelected:0,active:false,selectedCards:[],question:'',phase:''};
-showPage('page-reading');
-document.getElementById('reading-title').innerText = type;
-var descEl = document.getElementById('reading-desc');
-if(count===3){
-descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 3 Cartas:</strong> o tarô de 3 cartas é universalmente conhecido como a Tiragem das Três Linhas, Tríade ou simplesmente Passado, Presente e Futuro.</p><p>É um dos métodos de leitura mais populares, rápidos e eficientes para obter respostas diretas sobre qualquer área da vida. Nele, o tarólogo ou consulente retira exatamente três lâminas do baralho tradicional de 78 cartas para formar uma narrativa linear e integrada. Faça uma pergunta objetiva, por <strong>30 créditos</strong>.</p><p><strong>Estrutura de leitura</strong></p><p>A flexibilidade do método permite que cada posição represente diferentes aspectos do problema:</p><ul class="tarot2-list"><li><strong>Temporal:</strong> Carta 1 (Passado) → Carta 2 (Presente) → Carta 3 (Futuro).</li><li><strong>Decisão:</strong> Opção A → Opção B → Caminho do meio ou conselho.</li><li><strong>Problema:</strong> O obstáculo → A causa oculta → A solução recomendada.</li><li><strong>Relacionamento:</strong> Você na relação → A outra pessoa → A dinâmica ou futuro do casal.</li><li><strong>Mental:</strong> Pensamento → Sentimento → Ação física.</li></ul><p><strong>Por que ele é tão utilizado?</strong></p><ul class="tarot2-list"><li><strong>Clareza imediata:</strong> evita o excesso de informações de métodos maiores.</li><li><strong>Fácil aprendizado:</strong> é ideal para iniciantes praticarem conexões entre as cartas.</li><li><strong>Objetividade:</strong> vai direto ao ponto da dúvida trazida.</li></ul><p>Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
-}else if(count===5){
-descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 5 Cartas:</strong> o tarô de 5 cartas é um método de tiragem (ou leitura) focado em dar respostas detalhadas e profundas para uma pergunta específica. Mais conhecido por Cruz Simples (ou Cruz de Cinco Cartas). Em vez de puxar apenas uma carta, o tarólogo posiciona cinco cartas na mesa para analisar diferentes ângulos de uma situação. Faça uma pergunta específica, por <strong>50 créditos</strong>.</p><p><strong>Significado de cada posição na tiragem</strong></p><ul class="tarot2-list"><li><strong>Carta 1 (A Situação Atual):</strong> mostra o momento presente do consulente e o estado atual do problema.</li><li><strong>Carta 2 (O Obstáculo ou Desafio):</strong> revela o que está bloqueando o caminho, os medos ou as energias contra a pessoa.</li><li><strong>Carta 3 (O Passado ou Causa):</strong> indica a origem do problema, influências antigas ou escolhas anteriores que geraram a situação atual.</li><li><strong>Carta 4 (O Futuro Próximo ou Conselho):</strong> aponta a tendência imediata do rumo das coisas ou a melhor ação a ser tomada.</li><li><strong>Carta 5 (O Desfecho ou Resultado):</strong> mostra a provável consequência final e a resolução da pergunta se o consulente seguir o fluxo atual.</li></ul><p>Após escolher as 5 cartas, elas serão exibidas em formato de cruz. Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
-}else if(count===7){
-descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 7 Cartas:</strong> no tarô de 7 cartas o leitor escolhe as 7 cartas por <strong>70 créditos</strong> para analisar uma situação com maior profundidade e complexidade. É chamado de Método da Ferradura.</p><p><strong>Método da Ferradura</strong></p><p>As cartas são dispostas no formato de uma ferradura. É um dos métodos mais completos para analisar o panorama geral de um problema ou objetivo:</p><ul class="tarot2-list"><li><strong>Carta 1:</strong> o passado (o que gerou a situação atual).</li><li><strong>Carta 2:</strong> o presente (a situação atual do consulente).</li><li><strong>Carta 3:</strong> influências ocultas (fatores que você ainda não percebeu).</li><li><strong>Carta 4:</strong> o consulente (suas atitudes e pensamentos conscientes).</li><li><strong>Carta 5:</strong> atitudes dos outros (o impacto de pessoas externas).</li><li><strong>Carta 6:</strong> obstáculos ou melhor caminho (o que deve ser enfrentado ou feito).</li><li><strong>Carta 7:</strong> o desfecho (o resultado provável se tudo continuar no mesmo ritmo).</li></ul><p>Após escolher as 7 cartas, elas serão exibidas em formato de ferradura, com cada carta virando ao ser revelada. Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
-}else if(count===10){
-descEl.innerHTML = '<div class="tarot2-info"><p><strong>Tarô de 10 Cartas:</strong> o termo "tarô de 10 cartas" refere-se ao método de leitura mais famoso, antigo e utilizado no mundo: a Cruz Celta (ou Celtic Cross).</p><p>Diferente das tiragens de 7 cartas, o método de 10 cartas funciona como um raio-X completo e extremamente detalhado de uma situação. Ele não apenas mostra o passado, presente e futuro, mas investiga a fundo os medos inconscientes, as energias externas e a raiz oculta do problema, por <strong>100 créditos</strong>.</p><p>A disposição das cartas forma uma cruz (com 6 cartas) e uma coluna vertical ao lado direito (com 4 cartas). Veja o que cada uma das 10 posições significa:</p><p><strong>Estrutura da Cruz Celta (As 10 Posições)</strong></p><ul class="tarot2-list"><li><strong>Carta 1:</strong> O Momento Atual – a situação central em que você se encontra hoje.</li><li><strong>Carta 2:</strong> O Obstáculo – o que está cruzando o seu caminho (o desafio imediato).</li><li><strong>Carta 3:</strong> A Base/Raiz – o passado distante ou a causa oculta que gerou o problema.</li><li><strong>Carta 4:</strong> O Passado Recente – acontecimentos recentes que ainda afetam o presente.</li><li><strong>Carta 5:</strong> O Topo/Coroamento – os seus objetivos conscientes ou o melhor resultado possível a curto prazo.</li><li><strong>Carta 6:</strong> O Futuro Imediato – o próximo passo ou o que vai acontecer muito em breve.</li><li><strong>Carta 7:</strong> O Consulente – a sua atitude mental e como você está lidando com a situação.</li><li><strong>Carta 8:</strong> O Ambiente Externo – como as pessoas ao redor, a família ou o trabalho influenciam o caso.</li><li><strong>Carta 9:</strong> Esperanças e Medos – seus desejos secretos ou os bloqueios psicológicos que te travam.</li><li><strong>Carta 10:</strong> O Resultado Final – o desfecho a longo prazo, caso você siga no caminho atual.</li></ul><p>Após escolher as 10 cartas, elas serão exibidas na Cruz Celta (cruz à esquerda, coluna à direita). Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
-}else if(count===2){
-descEl.innerHTML = '<div class="tarot2-info"><p><strong>O tarô de 2 cartas</strong> é um método de tiragem rápida e direta, focado em resolver dilemas, analisar duas vertentes de uma situação ou trazer uma resposta objetiva. Em vez de leituras complexas com várias cartas, este formato simplifica a interpretação cruzando apenas duas energias complementares, por apenas <strong>20 créditos</strong>.</p><p><strong>Modelos de Leitura:</strong></p><ul class="tarot2-list"><li><strong>Conselho e Advertência:</strong> a primeira carta indica o que fazer e a segunda aponta o que evitar.</li><li><strong>Situação e Informação Adicional:</strong> mostra o cenário atual e revela um detalhe oculto sobre ele.</li><li><strong>Caminho A e Caminho B:</strong> avalia os prós ou os resultados de duas escolhas diferentes.</li><li><strong>Desejo Real versus Situação Atual:</strong> contrasta o que você quer com o que está aceitando no momento.</li><li><strong>Você e o Outro:</strong> analisa a dinâmica entre o consulente e um adversário ou parceiro.</li></ul><p>Digite sua pergunta objetiva e clique em <strong>Iniciar Consulta</strong>.</p></div>';
-}else{
-descEl.innerHTML = "Concentre-se e digite sua pergunta objetiva. Depois clique em Iniciar Consulta para revelar as cartas. Esta tiragem utiliza "+count+" cartas ("+cost+" créditos).";
+function initTarotPage(count,type){
+type = type || '';
+var cost = count*10;
+if(type==='Amor') cost = 70;
+if(type==='Marselha') cost = 30;
+currentReading = {count:count,type:type,cost:cost,selected:[],question:'',active:false,phase:''};
+var titles = {2:'Tarô: 2 Cartas',3:'Tarô: 3 Cartas',5:'Tarô: 5 Cartas',7:'Tarô: 7 Cartas',10:'Tarô: 10 Cartas'};
+var elTitle = document.getElementById('tarot-title-'+count);
+if(type==='Marselha'){elTitle.innerText = 'Tarô de Marselha';}
+else if(type==='Amor'){elTitle.innerText = 'Tarô do Amor';}
+else{elTitle.innerText = titles[count];}
+document.getElementById('q-'+count).value = '';
+document.getElementById('res-'+count).style.display = 'none';
+document.getElementById('res-'+count).innerHTML = '';
+document.getElementById('area-'+count).innerHTML = '';
+showPage('page-tarot-'+count);
 }
-document.getElementById('reading-result').style.display = 'none';
-document.getElementById('result-content').innerHTML = '';
-document.getElementById('reading-question').value = '';
-document.getElementById('question-wrap').style.display = 'block';
-document.getElementById('btn-start-reading').style.display = 'block';
-var container = document.getElementById('cards-container');
-container.style.cssText = '';
-container.innerHTML = '';
-}
-function startCardSelection(){
-var q = document.getElementById('reading-question').value;
+function startTarot(count){
+var q = document.getElementById('q-'+count).value;
 if(!exigePerguntaValida(q)){return;}
-currentReading.active = true;
+if(!currentUser.isMago && currentUser.credits < currentReading.cost){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
 currentReading.question = q.trim();
-document.getElementById('question-wrap').style.display = 'none';
-buildCardGrid();
+currentReading.selected = [];
+currentReading.active = true;
+currentReading.phase = (count===2)?'major':'all';
+if(!currentUser.isMago){
+currentUser.credits -= currentReading.cost;
+localStorage.setItem('user_'+currentUser.email,JSON.stringify(currentUser));
+updateCreditsDisplay();
 }
-function buildCardGrid(){
-var container = document.getElementById('cards-container');
-container.style.cssText = '';
-container.innerHTML = '';
+var area = document.getElementById('area-'+count);
+area.innerHTML = '';
+if(count===2){
+area.innerHTML = '<div id="frozen-2" class="frozen-display" style="display:none"></div><div id="phase-msg-2" style="text-align:center;color:var(--gold-light);margin-bottom:15px"></div><div id="grid-2" class="cards-grid"></div>';
+}else{
+area.innerHTML = '<div id="grid-'+count+'" class="cards-grid"></div>';
+}
+renderDeck(count);
+}
+function renderDeck(count){
 var pool;
-if(currentReading.count===2 && currentReading.cardsSelected===0){
-currentReading.phase = 'major';
+if(count===2 && currentReading.phase==='major'){
 pool = DECK.slice(0,22);
-document.getElementById('reading-desc').innerText = "Passo 1 de 2: escolha 1 carta dos ARCANOS MAIORES.";
-}else if(currentReading.count===2 && currentReading.cardsSelected===1){
-currentReading.phase = 'minor';
+document.getElementById('phase-msg-2').innerText = "Passo 1 de 2: escolha 1 carta dos ARCANOS MAIORES.";
+}else if(count===2){
 pool = DECK.slice(22);
-document.getElementById('reading-desc').innerText = "Passo 2 de 2: agora escolha 1 carta dos ARCANOS MENORES.";
+document.getElementById('phase-msg-2').innerText = "Passo 2 de 2: agora escolha 1 carta dos ARCANOS MENORES.";
 }else{
 pool = DECK.slice();
 }
 var shuffled = pool.slice().sort(function(){return Math.random()-0.5;});
+var grid = document.getElementById('grid-'+count);
+grid.innerHTML = '';
 for(var i=0;i<shuffled.length;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
 slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'" onerror="imgFallback(this)"><h4>'+card.n+'</h4></div></div><div class="card-num">'+(idx+1)+'</div>';
-slot.onclick = function(){revealCard(this,card);};
-container.appendChild(slot);
+slot.onclick = function(){selectCard(this,card,count);};
+grid.appendChild(slot);
 })(shuffled[i],i);
 }
 }
-function revealCard(el,cardData){
-if(!currentReading.active || el.classList.contains('flipped') || currentReading.cardsSelected>=currentReading.count){return;}
-if(currentReading.cardsSelected===0 && !currentUser.isMago){
-currentUser.credits -= currentReading.cost;
-localStorage.setItem('user_'+currentUser.email,JSON.stringify(currentUser));
-localStorage.setItem('orculum_user',JSON.stringify(currentUser));
-updateCreditsDisplay();
-}
+function selectCard(el,card,count){
+if(!currentReading.active || el.classList.contains('flipped')){return;}
+if(currentReading.selected.length >= count){return;}
 el.classList.add('flipped');
-currentReading.cardsSelected++;
-currentReading.selectedCards.push(cardData);
-if(currentReading.count===2 && currentReading.cardsSelected===1){
-setTimeout(function(){buildCardGrid();},800);
+currentReading.selected.push(card);
+if(count===2 && currentReading.selected.length===1){
+var frozen = document.getElementById('frozen-2');
+frozen.style.display = 'flex';
+frozen.innerHTML = '<div class="card-slot flipped" style="width:150px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'" onerror="imgFallback(this)"><h4>'+card.n+'</h4></div></div></div>';
+currentReading.phase = 'minor';
+renderDeck(2);
 return;
 }
-if(currentReading.cardsSelected===currentReading.count){
+if(currentReading.selected.length === count){
 currentReading.active = false;
-generateNarrative();
-var resDiv = document.getElementById('reading-result');
-setTimeout(function(){resDiv.scrollIntoView({behavior:'smooth',block:'start'});},250);
+finishReading(count);
 }
 }
-function generateNarrative(){
-var resDiv = document.getElementById('reading-result');
-var resCont = document.getElementById('result-content');
-resDiv.style.display = 'block';
-var cards = currentReading.selectedCards;
-var q = currentReading.question ? currentReading.question.trim() : "";
-var text = "";
-if(currentReading.count===10){
-renderCelticCross(cards);
-text = buildTenCardNarrative(cards,q);
-}else if(currentReading.count===7){
-renderHorseshoe(cards);
-text = buildSevenCardNarrative(cards,q);
-}else if(currentReading.count===5){
-renderCross(cards);
-text = buildFiveCardNarrative(cards,q);
-}else if(currentReading.count===3){
+function finishReading(count){
+var res = document.getElementById('res-'+count);
+var area = document.getElementById('area-'+count);
+var cards = currentReading.selected;
+var q = currentReading.question;
+var text = '';
+if(count===2){
+area.innerHTML = '<div class="two-cards-display">'+
+'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[0])+'" alt="'+cards[0].n+'" onerror="imgFallback(this)"><h4>'+cards[0].n+'</h4></div></div></div>'+
+'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[1])+'" alt="'+cards[1].n+'" onerror="imgFallback(this)"><h4>'+cards[1].n+'</h4></div></div></div>'+
+'</div>';
+text = buildTwoCardNarrative(cards,q);
+}else if(count===3){
 text = buildThreeCardNarrative(cards,q);
-}else if(currentReading.count===2){
-var c1 = cards[0];
-var c2 = cards[1];
-var topic = detectTopic(q);
-var person = extractPerson(q);
-var action = extractAction(q);
-var pathA = action ? capFirst(action) : "Seguir em frente";
-var introQ = q ? ("Para responder à sua pergunta: \""+q+"\", analisamos") : "Para responder à sua pergunta, analisamos";
-text = "<h3>Leitura de Tarô</h3>";
-if(q){text += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
-text += "<p><strong>Cartas Tiradas:</strong> "+c1.n+" (Arcano Maior) e "+c2.n+" (Arcano Menor)</p>";
-text += "<p>"+introQ+" o cruzamento dessas duas energias sob a ótica dos 3 principais modelos de leitura do Tarô de 2 cartas.</p>";
-text += "<h4>1. Situação e Informação Adicional</h4>";
-text += "<p><strong>O cenário atual ("+c1.n+"):</strong> "+c1.cen+"</p>";
-text += "<p><strong>O detalhe oculto ("+c2.n+"):</strong> "+c2.cen+"</p>";
-text += "<h4>2. Caminho A e Caminho B</h4>";
-text += "<p><strong>Caminho A - "+pathA+" ("+c1.n+"):</strong> "+c1.cam+"</p>";
-text += "<p><strong>Caminho B - Optar pela cautela ("+c2.n+"):</strong> "+c2.cam+"</p>";
-text += "<h4>3. Você e o Outro (A Dinâmica Envolvida)</h4>";
-text += "<p><strong>A sua postura ("+c1.n+"):</strong> "+c1.out+"</p>";
-text += "<p><strong>O Outro / O Mercado ("+c2.n+"):</strong> "+c2.out+"</p>";
-text += "<h4>Resposta Conclusiva do Oráculo</h4>";
-text += buildConclusion(c1,c2,q,action,topic,person);
-}else{
-text = "<h3>Leitura de Tarô</h3>";
-if(q){text += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
-text += "<p>As energias do universo se alinharam para responder à sua pergunta. ";
-if(q){text += "Sobre \""+q+"\", o oráculo revela: ";}
-text += "A primeira influência que surge é "+cards[0].n+", indicando "+cards[0].d+". ";
-if(cards.length>1){text += "Esta energia se conecta diretamente com "+cards[1].n+", sugerindo "+cards[1].d+" e criando um fluxo de transformação. ";}
-if(cards.length>2){text += "Ao olharmos para o desdobramento da situação, "+cards[2].n+" revela "+cards[2].d+", servindo como um ponto de equilíbrio crucial. ";}
-if(cards.length>3){text += "As forças externas são representadas por "+cards[3].n+", trazendo à tona "+cards[3].d+". ";}
-if(cards.length>4){text += "A quinta lâmina, "+cards[4].n+", aponta para "+cards[4].d+", indicando um desfecho promissor. ";}
-if(cards.length>5){text += "A sexta posição é ocupada por "+cards[5].n+", que revela "+cards[5].d+", consolidando as energias anteriores. ";}
-if(cards.length>6){text += "Finalmente, "+cards[6].n+" encerra esta jornada com a mensagem de que "+cards[6].d+". ";}
-text += "<h4>Resposta Conclusiva do Oráculo</h4>";
-text += buildConclusion(cards[0],cards[Math.min(1,cards.length-1)],q,null,detectTopic(q),extractPerson(q));
-text += "<p>Em síntese, a combinação destas lâminas aponta para um caminho onde a sabedoria interior deve guiar suas ações. Observe as sincronicidades ao seu redor, pois a resposta que você busca está se materializando através da integração destas energias.</p>";
+}else if(count===5){
+text = renderCross(cards) + buildFiveCardNarrative(cards,q);
+}else if(count===7){
+text = renderHorseshoe(cards) + buildSevenCardNarrative(cards,q);
+}else if(count===10){
+text = renderCelticCross(cards) + buildTenCardNarrative(cards,q);
 }
-resCont.innerHTML = text;
+res.innerHTML = text;
+res.style.display = 'block';
+setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},200);
 }
 function initSimNao(){
 var container = document.getElementById('sim-nao-cards');
@@ -1186,23 +1041,23 @@ container.appendChild(slot);
 })(shuffled[i],i);
 }
 }
-function selectMapa(level,cost){
-selectedMapaLevel = level;
+function openMapa(level,cost){
 selectedMapaCost = cost;
-document.getElementById('mapa-selected-title').innerText = "Nível: "+level+" ("+cost+" Créditos)";
-document.getElementById('mapa-form').style.display = 'block';
+document.getElementById('mapa-title').innerText = "Mapa Astral: "+level;
 document.getElementById('mapa-result').style.display = 'none';
+document.getElementById('mapa-result').innerHTML = '';
+showPage('page-mapa-astral');
 }
 function generateMapa(){
-if(!currentUser.isMago && currentUser.credits<selectedMapaCost){return showModal("Erro","Créditos insuficientes.");}
+if(!currentUser.isMago && currentUser.credits < selectedMapaCost){return showModal("Erro","Créditos insuficientes.");}
 var nome = document.getElementById('mapa-nome').value;
 if(!nome){return showModal("Erro","Preencha seu nome.");}
-if(!currentUser.isMago){currentUser.credits-=selectedMapaCost;localStorage.setItem('user_'+currentUser.email,JSON.stringify(currentUser));localStorage.setItem('orculum_user',JSON.stringify(currentUser));updateCreditsDisplay();}
+if(!currentUser.isMago){currentUser.credits-=selectedMapaCost;localStorage.setItem('user_'+currentUser.email,JSON.stringify(currentUser));updateCreditsDisplay();}
 var res = document.getElementById('mapa-result');
 res.style.display = 'block';
 var html = '<h3>Mapa Astral de '+nome+'</h3><p><strong>Sol:</strong> Leão - Sua essência brilha com criatividade.</p><p><strong>Lua:</strong> Peixes - Suas emoções são profundas.</p><p><strong>Ascendente:</strong> Escorpião - Presença intensa e magnética.</p>';
-if(selectedMapaLevel!=='Expresso'){html += '<p><strong>Mercúrio:</strong> Virgem - Comunicação analítica.</p><p><strong>Vênus:</strong> Libra - Harmonia.</p><p><strong>Marte:</strong> Áries - Ação.</p>';}
-if(selectedMapaLevel==='Premium'){html += '<p><strong>Júpiter:</strong> Sagitário - Expansão.</p><p><strong>Saturno:</strong> Capricórnio - Estrutura.</p><p><strong>Casa 10:</strong> Sucesso pela persistência.</p>';}
+if(selectedMapaCost>=100){html += '<p><strong>Mercúrio:</strong> Virgem - Comunicação analítica.</p><p><strong>Vênus:</strong> Libra - Harmonia.</p><p><strong>Marte:</strong> Áries - Ação.</p>';}
+if(selectedMapaCost>=200){html += '<p><strong>Júpiter:</strong> Sagitário - Expansão.</p><p><strong>Saturno:</strong> Capricórnio - Estrutura.</p><p><strong>Casa 10:</strong> Sucesso pela persistência.</p>';}
 res.innerHTML = html;
 setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
 }
@@ -1210,18 +1065,15 @@ function initHoroscopo(){
 var grid = document.getElementById('horoscopo-grid');
 grid.innerHTML = '';
 var SIGNOS = [
-{n:"Áries",e:"ÁRIES",d:"21/03-19/04"},{n:"Touro",e:"TOURO",d:"20/04-20/05"},
-{n:"Gêmeos",e:"GÊMEOS",d:"21/05-20/06"},{n:"Câncer",e:"CÂNCER",d:"21/06-22/07"},
-{n:"Leão",e:"LEÃO",d:"23/07-22/08"},{n:"Virgem",e:"VIRGEM",d:"23/08-22/09"},
-{n:"Libra",e:"LIBRA",d:"23/09-22/10"},{n:"Escorpião",e:"ESCORPIÃO",d:"23/10-21/11"},
-{n:"Sagitário",e:"SAGITÁRIO",d:"22/11-21/12"},{n:"Capricórnio",e:"CAPRICÓRNIO",d:"22/12-19/01"},
-{n:"Aquário",e:"AQUÁRIO",d:"20/01-18/02"},{n:"Peixes",e:"PEIXES",d:"19/02-20/03"}
+{n:"Áries",e:"ÁRIES"},{n:"Touro",e:"TOURO"},{n:"Gêmeos",e:"GÊMEOS"},{n:"Câncer",e:"CÂNCER"},
+{n:"Leão",e:"LEÃO"},{n:"Virgem",e:"VIRGEM"},{n:"Libra",e:"LIBRA"},{n:"Escorpião",e:"ESCORPIÃO"},
+{n:"Sagitário",e:"SAGITÁRIO"},{n:"Capricórnio",e:"CAPRICÓRNIO"},{n:"Aquário",e:"AQUÁRIO"},{n:"Peixes",e:"PEIXES"}
 ];
 for(var si=0;si<SIGNOS.length;si++){
 (function(s){
 var card = document.createElement('div');
 card.className = 'dash-card';
-card.innerHTML = '<div style="font-size:20px;color:var(--gold)">'+s.e+'</div><h3>'+s.n+'</h3><p>'+s.d+'</p>';
+card.innerHTML = '<div style="font-size:20px;color:var(--gold)">'+s.e+'</div><h3>'+s.n+'</h3>';
 card.onclick = function(){
 var textos = ["Hoje é um dia de renovação.","A Lua favorece encontros.","Cuidado com gastos impulsivos.","Sua intuição está aguçada.","Foco na saúde e no bem-estar."];
 var res = document.getElementById('horoscopo-result');
@@ -1255,11 +1107,6 @@ setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},15
 function handleIndication(){
 var email = document.getElementById('indica-email').value;
 if(email.indexOf('@')<0){return showModal("Erro","E-mail inválido.");}
-var list = document.getElementById('indica-list');
-if(list.innerText.indexOf("Nenhuma")>=0){list.innerHTML = '';}
-var li = document.createElement('li');
-li.innerText = "Convite enviado para: "+email+" (Aguardando cadastro)";
-list.appendChild(li);
 showModal("Sucesso","Assim que seu amigo se cadastrar, você receberá 50 créditos.");
 document.getElementById('indica-email').value = '';
 }
@@ -1267,16 +1114,12 @@ function initFAQ(){
 var container = document.getElementById('faq-container');
 container.innerHTML = '';
 var FAQS = {
-"Gerais":[{q:"O que é o Orculum Vitae?",a:"É um portal esotérico completo de Tarô, Astrologia e Numerologia."},{q:"Como funciona o portal?",a:"Você ganha créditos, escolhe um oráculo e recebe uma leitura dissertativa."},{q:"As consultas são reais?",a:"Sim, as interpretações seguem os estudos tradicionais de cada oráculo."},{q:"O site é seguro?",a:"Sim. Usamos criptografia local e não compartilhamos seus dados."},{q:"Como entro em contato?",a:"Pelo FAQ você resolve a maioria das dúvidas."},{q:"Posso usar no celular?",a:"Sim, o site é totalmente responsivo."},{q:"O site é gratuito?",a:"O cadastro é gratuito e você ganha 50 créditos."},{q:"Preciso acreditar em esoterismo?",a:"Não. O portal serve como ferramenta de autoconhecimento."}],
-"Cadastro e Conta":[{q:"Como me cadastrar?",a:"Clique na aba Cadastrar, preencha nome, e-mail e senha."},{q:"Esqueci minha senha, o que fazer?",a:"A recuperação será disponibilizada em breve."},{q:"Posso ter duas contas?",a:"Recomendamos uma conta por pessoa."},{q:"Como excluir minha conta?",a:"Solicite a exclusão pelo canal de atendimento."},{q:"Meus dados são compartilhados?",a:"Não. Seguimos a LGPD."},{q:"O login com Google é seguro?",a:"Sim, usa a autenticação oficial do Google."},{q:"Por que meu cadastro não salva?",a:"Os dados são salvos no navegador. Não limpe o cache."},{q:"Ganho algo ao cadastrar?",a:"Sim, 50 créditos de bônus imediatamente."}],
-"Créditos e Planos":[{q:"O que são créditos?",a:"A moeda do portal usada para realizar consultas pagas."},{q:"Como compro créditos?",a:"Na página Planos e Pacotes."},{q:"O que é o Plano MAGO?",a:"Assinatura anual com créditos ilimitados."},{q:"Como cancelo minha assinatura?",a:"O cancelamento será disponibilizado em breve."},{q:"Meus créditos expiram?",a:"Não. Créditos adquiridos ou ganhos não têm validade."},{q:"Posso transferir créditos?",a:"Não, os créditos são vinculados à conta."},{q:"O que é o Plano Aprendiz?",a:"R$ 39,90/mês com 500 créditos mensais."},{q:"Qual o melhor custo-benefício?",a:"O Plano Mestre (anual) tem o menor valor por crédito."}],
-"Tarô e Tiragens":[{q:"Como funciona o Tarô?",a:"Você escolhe uma tiragem, faz uma pergunta e revela as cartas."},{q:"O que é a Cruz Celta?",a:"Tiragem de 10 cartas que analisa todos os aspectos."},{q:"Qual a diferença entre as tiragens?",a:"Quanto mais cartas, mais profunda é a análise."},{q:"As cartas são embaralhadas?",a:"Sim, cada consulta usa um embaralhamento aleatório."},{q:"Posso repetir a pergunta?",a:"Aguardar pelo menos 24h para a mesma pergunta."},{q:"O que são Arcanos Maiores?",a:"As 22 cartas de maior simbolismo."},{q:"O que são Arcanos Menores?",a:"As 56 cartas divididas em quatro naipes."},{q:"Como interpreto o resultado?",a:"O portal gera uma narrativa que conecta todas as cartas."}],
-"Carta do Dia":[{q:"O que é a Carta do Dia?",a:"Uma orientação gratuita diária com duplo sorteio."},{q:"Posso tirar mais de uma vez?",a:"Não. O limite é uma consulta a cada 24 horas."},{q:"A Carta do Dia gasta créditos?",a:"Não, é totalmente gratuita."},{q:"O que é o foco da vida?",a:"A área sorteada onde a carta atua hoje."},{q:"Por que não consigo tirar hoje?",a:"Você já utilizou sua consulta gratuita."},{q:"A carta é igual para todos?",a:"Não, cada usuário tem um sorteio individual."},{q:"Posso compartilhar minha carta?",a:"Sim, incentivamos o compartilhamento."},{q:"Onde vejo a carta de ontem?",a:"O sistema mostra apenas a carta atual."}],
-"Mapa Astral":[{q:"O que é Mapa Astral?",a:"Uma fotografia do céu no momento do seu nascimento."},{q:"Preciso da hora exata?",a:"Para o Ascendente e Casas, sim."},{q:"O que é o Ascendente?",a:"O signo que nascia no horizonte no seu nascimento."},{q:"Qual a diferença entre os níveis?",a:"Aumentam em profundidade e planetas analisados."},{q:"O mapa muda com o tempo?",a:"Não, o Mapa Natal é fixo."},{q:"Posso salvar meu mapa?",a:"Sim, o resultado fica disponível na tela."},{q:"O mapa astral gasta créditos?",a:"Sim, conforme o nível escolhido."},{q:"Posso fazer o mapa de outra pessoa?",a:"Sim, desde que tenha os dados corretos."}],
-"Horóscopo":[{q:"O horóscopo é gratuito?",a:"Sim, para todos os signos."},{q:"De onde vêm as previsões?",a:"De textos gerados com base em tradições astrológicas."},{q:"Por que meu signo mudou?",a:"Signos não mudam. A confusão vem de datas diferentes."},{q:"Posso ver de outros signos?",a:"Sim, clique em qualquer signo."},{q:"As previsões são precisas?",a:"O horóscopo solar é uma tendência geral."},{q:"O horóscopo considera o ascendente?",a:"Não, apenas o signo solar."},{q:"Como recebo por e-mail?",a:"O envio automático chegará em breve."},{q:"Qual signo combina comigo?",a:"Explore a compatibilidade nas leituras."}],
-"Numerologia":[{q:"O que é Numerologia Pitagórica?",a:"Estudo da vibração dos números baseado no nome."},{q:"Como é feito o cálculo?",a:"Letras viram números, somados e reduzidos."},{q:"O que é o número de Destino?",a:"Derivado da data de nascimento."},{q:"O que é o número de Alma?",a:"A soma das vogais do nome."},{q:"A numerologia é gratuita?",a:"Sim, o cálculo completo é gratuito."},{q:"Posso calcular para outras pessoas?",a:"Sim, basta inserir o nome e a data."},{q:"O nome deve ser o de batismo?",a:"A tradição usa o nome da certidão."},{q:"Os números mudam?",a:"Os fixos não mudam, mas existem ciclos variáveis."}],
-"Indicações":[{q:"Como indico um amigo?",a:"Na página de Indicações, insira o e-mail."},{q:"Quando recebo os créditos?",a:"Assim que seu amigo concluir o cadastro."},{q:"Quantos créditos ganho?",a:"50 créditos por cada amigo cadastrado."},{q:"O amigo ganha algo?",a:"Sim, ele também começa com 50 créditos."},{q:"Existe limite de indicações?",a:"Não, você pode indicar quantos quiser."},{q:"Posso indicar a mim mesmo?",a:"Não, o sistema bloqueia auto-indicação."},{q:"O convite expira?",a:"Não, o convite permanece válido."},{q:"Onde vejo meu histórico?",a:"Na própria página de Indicações."}],
-"Técnico e Segurança":[{q:"O site usa cookies?",a:"Apenas cookies essenciais."},{q:"O site travou, o que fazer?",a:"Limpe o cache do navegador."},{q:"Onde ficam salvos meus dados?",a:"No navegador (localStorage)."},{q:"Como reportar um erro?",a:"Envie um print para o suporte."},{q:"O site tem aplicativo?",a:"Ainda não, mas você pode adicionar à tela."},{q:"É compatível com Safari?",a:"Sim, funciona nos navegadores modernos."},{q:"O que é localStorage?",a:"É o armazenamento local do navegador."},{q:"Posso usar em dois navegadores?",a:"Sim, mas os dados não sincronizam."}]
+"Gerais":[{q:"O que é o Orculum Vitae?",a:"É um portal esotérico completo de Tarô, Astrologia e Numerologia."},{q:"Como funciona o portal?",a:"Você ganha créditos, escolhe um oráculo e recebe uma leitura dissertativa."},{q:"O site é gratuito?",a:"O cadastro é gratuito e você ganha 50 créditos."}],
+"Tarô e Tiragens":[{q:"Como funciona o Tarô?",a:"Você escolhe uma tiragem, faz uma pergunta e revela as cartas."},{q:"O que é a Cruz Celta?",a:"Tiragem de 10 cartas que analisa todos os aspectos."},{q:"O que são Arcanos Maiores?",a:"As 22 cartas de maior simbolismo."},{q:"O que são Arcanos Menores?",a:"As 56 cartas divididas em quatro naipes."}],
+"Créditos e Planos":[{q:"O que são créditos?",a:"A moeda do portal usada para realizar consultas pagas."},{q:"Como compro créditos?",a:"Na página Planos e Pacotes."},{q:"O que é o Plano MAGO?",a:"Assinatura anual com créditos ilimitados."}],
+"Carta do Dia":[{q:"O que é a Carta do Dia?",a:"Uma orientação gratuita diária com duplo sorteio."},{q:"Posso tirar mais de uma vez?",a:"Não. O limite é uma consulta a cada 24 horas."}],
+"Mapa Astral":[{q:"O que é Mapa Astral?",a:"Uma fotografia do céu no momento do seu nascimento."},{q:"O que é o Ascendente?",a:"O signo que nascia no horizonte no seu nascimento."},{q:"Qual a diferença entre os níveis?",a:"Pórtico Celestial, Órbita Pessoal e Cosmos Absoluto aumentam em profundidade."}],
+"Técnico e Segurança":[{q:"O site usa cookies?",a:"Apenas cookies essenciais."},{q:"Onde ficam salvos meus dados?",a:"No navegador (localStorage)."},{q:"Como reportar um erro?",a:"Envie um print para o suporte."}]
 };
 for(var cat in FAQS){
 var div = document.createElement('div');
