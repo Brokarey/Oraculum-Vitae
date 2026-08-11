@@ -51,6 +51,8 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .btn-logout:hover{transform:scale(1.1)}
 #page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center}
 .tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo%20Tar%C3%B4.png'),url('Fundo-Tar.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+/* Fundo do Sim/Não = Fundo_Sim.png, sem zoom (100% 100% = imagem inteira, sem corte) */
+#page-sim-nao{background-image:linear-gradient(rgba(13,5,32,0.35),rgba(13,5,32,0.35)),url('Fundo_Sim.png');background-size:100% 100%;background-position:center;background-repeat:no-repeat;min-height:100vh}
 .dash-header{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:24px 20px 0}
 .dash-header h2{font-size:clamp(20px,3.2vw,34px);color:var(--gold);text-align:center;flex:1;line-height:1.2}
 .dash-header .voltar-link{margin:0;white-space:nowrap}
@@ -288,12 +290,12 @@ Entrar com o Google
 <div id="area-10" class="selection-area"></div>
 <div id="res-10" class="result-box" style="display:none"></div>
 </section>
-<section id="page-sim-nao" class="page tarot-bg">
-<div class="form-container">
+<section id="page-sim-nao" class="page">
+<div class="form-container" style="max-width:760px">
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
 <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Sim, Não ou Talvez</h2>
 <div class="tarot2-info">
-<p><strong>O Tarô Sim, Não, Talvez</strong> é um método rápido de leitura focado em autoconhecimento e direcionamento diário. Por apenas <strong>10 créditos</strong>, você retira apenas um dos 78 arcanos do baralho para servir como bússola para o momento. Ele foca em uma pergunta específica, revelando o conselho central, a energia do dia ou a resposta direta que você precisa. Faça uma pergunta objetiva.</p>
+<p><strong>O Tarô Sim, Não, Talvez</strong> é um método rápido de leitura focado em autoconhecimento e direcionamento diário. Por apenas <strong>10 créditos</strong>, você retira apenas um dos 78 arcanos do baralho para servir como bússola para o momento. Ele foca em uma pergunta específica, revelando o conselho central, a energia do dia ou a resposta direta que você precisa.</p>
 <p>Essa tiragem é ideal para quem tem pressa ou para iniciantes que estão começando a compreender a simbologia e os significados dos arquétipos. Funciona de forma muito simples:</p>
 <ul class="tarot2-list">
 <li>Escreva uma pergunta que possa ser respondida por sim, não ou talvez.</li>
@@ -304,8 +306,8 @@ Entrar com o Google
 <input type="text" id="sim-nao-question" placeholder="Escreva sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startSimNao()">
 <button class="btn-portal" style="margin-top:15px" onclick="startSimNao()">Iniciar Consulta</button>
 </div>
-<div id="sim-nao-selected" class="simnao-selected" style="display:none"></div>
 <div id="sim-nao-cards" class="cards-grid" style="padding:20px;display:none"></div>
+<div id="sim-nao-selected" class="simnao-selected" style="display:none"></div>
 <div id="sim-nao-result" class="result-box" style="display:none;margin:20px"></div>
 </section>
 <section id="page-carta-dia" class="page tarot-bg">
@@ -452,7 +454,8 @@ DECK.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No c
 }
 var ARCANOS_MAIORES = ["O Louco","O Mago","A Sacerdotisa","A Imperatriz","O Imperador","O Hierofante","Os Enamorados","O Carro","A Força","O Eremita","A Roda da Fortuna","A Justiça","O Pendurado","A Morte","A Temperança","O Diabo","A Torre","A Estrela","A Lua","O Sol","O Julgamento","O Mundo"];
 var NUM_EXTENSO = {"Ás":"Ás","2":"Dois","3":"Três","4":"Quatro","5":"Cinco","6":"Seis","7":"Sete","8":"Oito","9":"Nove","10":"Dez","Valete":"Valete","Cavaleiro":"Cavaleiro","Rainha":"Rainha","Rei":"Rei"};
-function cardImage(card){
+function stripAcc(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function cardBaseName(card){
 var nome = card.n;
 var idx = ARCANOS_MAIORES.indexOf(nome);
 var base;
@@ -460,18 +463,35 @@ if(idx>=0){base = nome;}
 else{
 var parts = nome.split(' de ');
 var valor = NUM_EXTENSO[parts[0]] || parts[0];
-var naipe = parts[1];
-base = valor+' de '+naipe;
+base = valor + ' de ' + parts[1];
 }
-return encodeURI(base+'.png');
+return base;
+}
+/* Gera TODAS as variações possíveis de nome de arquivo:
+   1) espaço + acento  2) espaço sem acento  3) underline + acento  4) underline sem acento */
+function cardImageVariants(card){
+var base = cardBaseName(card);
+var noAcc = stripAcc(base);
+var arr = [];
+function add(s){var enc = encodeURI(s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
+add(base);
+add(noAcc);
+add(base.replace(/ /g,'_'));
+add(noAcc.replace(/ /g,'_'));
+return arr;
+}
+function cardImage(card){return cardImageVariants(card)[0];}
+function cardImgHTML(card){
+var variants = cardImageVariants(card);
+return '<img src="'+variants[0]+'" alt="'+card.n+'" data-variants=\''+JSON.stringify(variants)+'\' onerror="imgFallback(this)">';
 }
 function imgFallback(el){
-if(el.dataset.tried) return;
-el.dataset.tried = '1';
-var src = el.getAttribute('src');
-var decoded = decodeURIComponent(src);
-var withUnderscore = decoded.replace(/ /g,'_');
-el.setAttribute('src', encodeURI(withUnderscore));
+var variants;
+try{variants = JSON.parse(el.getAttribute('data-variants'));}catch(e){return;}
+var idx = parseInt(el.getAttribute('data-tryidx')||'0',10)+1;
+if(idx >= variants.length){return;}
+el.setAttribute('data-tryidx', idx);
+el.setAttribute('src', variants[idx]);
 }
 var FRASES_MISTICAS = ["O universo ouve quem pergunta com o coração.","Cada carta é um espelho da sua alma.","O destino não é escrito em pedra, mas em estrelas que você pode navegar.","A resposta que você busca já habita em seu silêncio.","Confie na sincronicidade do momento presente.","As sombras de hoje são os adubos da luz de amanhã.","Sua intuição é a bússola mais precisa que você possui.","O portal se abre para quem tem coragem de olhar para dentro."];
 var POLAR_MAJOR = {"O Louco":0.6,"O Mago":1,"A Sacerdotisa":0.5,"A Imperatriz":1,"O Imperador":0.9,"O Hierofante":0.3,"Os Enamorados":0.8,"O Carro":0.9,"A Força":0.9,"O Eremita":0.1,"A Roda da Fortuna":0.7,"A Justiça":0.7,"O Pendurado":0.2,"A Morte":0.2,"A Temperança":0.7,"O Diabo":-0.6,"A Torre":-0.7,"A Estrela":1,"A Lua":-0.4,"O Sol":1,"O Julgamento":0.8,"O Mundo":1};
@@ -536,7 +556,7 @@ return true;
 }
 function exigePerguntaValida(q){
 if(questionValida(q)){return true;}
-showModal("Pergunta Inválida","Escreva uma pergunta objetiva e com sentido, por exemplo: 'Devo arriscar em um novo negócio?' ou 'A Talita me ama de verdade?'.");
+showModal("Pergunta Inválida","Escreva uma pergunta objetiva e com sentido, por exemplo: 'Devo arriscar em um novo negócio?' ou 'Ela me ama de verdade?'.");
 return false;
 }
 var POSITIVE_PHRASES = ["a energia se apresenta favorável e confirma que essa direção é verdadeira","as forças em jogo sustentam esse movimento e apontam para um desfecho positivo","o campo energético ao redor dessa questão está aberto e receptivo","os sinais convergem para uma resposta afirmativa, com sinceridade envolvida"];
@@ -819,13 +839,13 @@ return h;
 }
 function cardHTML(card,width){
 var w = width?' style="width:'+width+'"':'';
-return '<div class="card-slot flipped"'+w+'><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'" onerror="imgFallback(this)"></div></div></div>';
+return '<div class="card-slot flipped"'+w+'><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div>';
 }
 function renderCross(cards){
 var labels = ['A Situação Atual','O Obstáculo','O Passado','O Futuro / Conselho','O Desfecho'];
 var html = '<div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:20px 0">';
 for(var i=0;i<5;i++){
-html += '<div style="text-align:center"><div class="card-slot flipped" style="width:110px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[i])+'" alt="'+cards[i].n+'" onerror="imgFallback(this)"></div></div></div><div style="font-size:11px;color:var(--gold-light);margin-top:6px;line-height:1.3">'+labels[i]+'</div></div>';
+html += '<div style="text-align:center"><div class="card-slot flipped" style="width:110px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[i])+'</div></div></div><div style="font-size:11px;color:var(--gold-light);margin-top:6px;line-height:1.3">'+labels[i]+'</div></div>';
 }
 html += '</div>';
 return html;
@@ -834,7 +854,7 @@ function renderHorseshoe(cards){
 var labels = ['O Passado','O Presente','Influências Ocultas','O Consulente','Atitudes dos Outros','Obstáculo ou Melhor Caminho','O Desfecho'];
 var html = '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 0">';
 for(var i=0;i<7;i++){
-html += '<div style="text-align:center"><div class="card-slot flipped" style="width:100px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[i])+'" alt="'+cards[i].n+'" onerror="imgFallback(this)"></div></div></div><div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:100px">'+(i+1)+'. '+labels[i]+'</div></div>';
+html += '<div style="text-align:center"><div class="card-slot flipped" style="width:100px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[i])+'</div></div></div><div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:100px">'+(i+1)+'. '+labels[i]+'</div></div>';
 }
 html += '</div>';
 return html;
@@ -843,7 +863,7 @@ function renderCelticCross(cards){
 var labels = ['1. Momento Atual','2. Obstáculo','3. A Raiz','4. Passado Recente','5. O Topo','6. Futuro Imediato','7. O Consulente','8. Ambiente','9. Esperanças/Medos','10. Resultado'];
 var html = '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 0">';
 for(var i=0;i<10;i++){
-html += '<div style="text-align:center"><div class="card-slot flipped" style="width:95px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[i])+'" alt="'+cards[i].n+'" onerror="imgFallback(this)"></div></div></div><div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:95px">'+labels[i]+'</div></div>';
+html += '<div style="text-align:center"><div class="card-slot flipped" style="width:95px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[i])+'</div></div></div><div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:95px">'+labels[i]+'</div></div>';
 }
 html += '</div>';
 return html;
@@ -1050,7 +1070,7 @@ for(var i=0;i<shuffled.length;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
-slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'" onerror="imgFallback(this)"></div></div><div class="card-num">'+(idx+1)+'</div>';
+slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){selectCard(this,card,count);};
 grid.appendChild(slot);
 })(shuffled[i],i);
@@ -1064,7 +1084,7 @@ currentReading.selected.push(card);
 if(count===2 && currentReading.selected.length===1){
 var frozen = document.getElementById('frozen-2');
 frozen.style.display = 'flex';
-frozen.innerHTML = '<div class="card-slot flipped" style="width:150px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'" onerror="imgFallback(this)"></div></div></div>';
+frozen.innerHTML = '<div class="card-slot flipped" style="width:150px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div>';
 currentReading.phase = 'minor';
 renderDeck(2);
 return;
@@ -1082,15 +1102,15 @@ var q = currentReading.question;
 var text = '';
 if(count===2){
 area.innerHTML = '<div class="two-cards-display">'+
-'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[0])+'" alt="'+cards[0].n+'" onerror="imgFallback(this)"></div></div></div>'+
-'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[1])+'" alt="'+cards[1].n+'" onerror="imgFallback(this)"></div></div></div>'+
+'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[0])+'</div></div></div>'+
+'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[1])+'</div></div></div>'+
 '</div>';
 text = buildTwoCardNarrative(cards,q);
 }else if(count===3){
 area.innerHTML = '<div class="three-cards-display">'+
-'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[0])+'" alt="'+cards[0].n+'" onerror="imgFallback(this)"></div></div></div>'+
-'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[1])+'" alt="'+cards[1].n+'" onerror="imgFallback(this)"></div></div></div>'+
-'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(cards[2])+'" alt="'+cards[2].n+'" onerror="imgFallback(this)"></div></div></div>'+
+'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[0])+'</div></div></div>'+
+'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[1])+'</div></div></div>'+
+'<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[2])+'</div></div></div>'+
 '</div>';
 text = buildThreeCardNarrative(cards,q);
 }else if(count===5){
@@ -1124,7 +1144,7 @@ for(var i=0;i<78;i++){
 (function(card,idx){
 var slot=document.createElement('div');
 slot.className='card-slot';
-slot.innerHTML='<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'" onerror="imgFallback(this)"></div></div><div class="card-num">'+(idx+1)+'</div>';
+slot.innerHTML='<div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick=function(){selectSimNaoCard(this,card,q);};
 grid.appendChild(slot);
 })(shuffled[i],i);
@@ -1136,7 +1156,7 @@ if(document.querySelector('#sim-nao-cards .flipped')){return;}
 el.classList.add('flipped');
 var sel = document.getElementById('sim-nao-selected');
 sel.style.display='flex';
-sel.innerHTML='<div class="simnao-card-display"><div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'" onerror="imgFallback(this)"></div></div></div><div class="card-label">'+card.n+'</div></div>';
+sel.innerHTML='<div class="simnao-card-display"><div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div><div class="card-label">'+card.n+'</div></div>';
 var topic=detectTopic(q);
 var person=extractPerson(q);
 var resp=["SIM","NAO","TALVEZ"][Math.floor(Math.random()*3)];
@@ -1147,7 +1167,7 @@ if(q&&q.trim().length>0){html+='<p><strong>Sua pergunta:</strong> "'+q.trim()+'"
 html+=buildConclusion(card,card,q,null,topic,person);
 html+='<p style="font-size:12px;margin-top:10px">Carta: '+card.n+'</p>';
 div.innerHTML=html;
-setTimeout(function(){div.scrollIntoView({behavior:'smooth',block:'start'});},200);
+sel.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function initCartaDia(){
 var key = 'carta_dia_'+currentUser.email;
@@ -1172,7 +1192,7 @@ for(var i=0;i<78;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
-slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front"><img src="'+cardImage(card)+'" alt="'+card.n+'" onerror="imgFallback(this)"></div></div><div class="card-num">'+(idx+1)+'</div>';
+slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){
 if(document.querySelector('#carta-dia-cards .flipped')){return;}
 this.classList.add('flipped');
