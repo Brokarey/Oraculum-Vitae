@@ -16,11 +16,12 @@ h1,h2,h3,.pirata{font-family:'Blackwood Castle Shadow','Pirata One',cursive;lett
 #stars-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(circle at center,#1a0a2e 0%,#0d0520 100%)}
 .star{position:absolute;background:white;border-radius:50%;opacity:0.5;animation:twinkle var(--duration) infinite ease-in-out}
 @keyframes twinkle{0%,100%{opacity:0.3;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
-.page{display:none;min-height:100vh;width:100%}
+.page{display:none;min-height:100vh;width:100%;animation:fadeIn 0.5s ease}
 .page.active{display:block}
-#page-login{display:none;flex-direction:column;align-items:center;justify-content:center;background-color:var(--bg-deep);background-image:url('Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;padding:0 20px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#page-login{display:none;flex-direction:column;align-items:center;justify-content:center;background-color:var(--bg-deep);background-image:url('Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;padding:40px 20px}
 #page-login.active{display:flex}
-#page-login .auth-container{transform:translateY(-38px)}
+#page-login .auth-container{transform:translateY(-10px)}
 .auth-container{background:rgba(13,5,32,0.93);padding:26px;border-radius:16px;border:1px solid var(--accent);width:100%;max-width:360px;box-shadow:0 0 40px rgba(0,0,0,0.7)}
 .auth-tabs{display:flex;margin-bottom:18px;border-bottom:1px solid var(--accent)}
 .tab{flex:1;text-align:center;padding:10px;cursor:pointer;color:#999;transition:var(--transition);font-size:15px;font-weight:600}
@@ -100,8 +101,8 @@ th{background:var(--accent);color:var(--gold)}
 <div id="tab-register" class="tab" onclick="toggleAuth('register')">Cadastrar</div>
 </div>
 <div id="form-login" class="auth-form">
-<input type="email" id="login-email" placeholder="Seu e-mail">
-<input type="password" id="login-pass" placeholder="Sua senha">
+<input type="email" id="login-email" placeholder="Seu e-mail" onkeydown="if(event.key==='Enter')handleLogin()">
+<input type="password" id="login-pass" placeholder="Sua senha" onkeydown="if(event.key==='Enter')handleLogin()">
 <button class="btn-portal" onclick="handleLogin()">Entrar no Portal</button>
 <div class="divider">ou</div>
 <button class="btn-google" onclick="showModal('Google Login','Integração oficial em breve.')">
@@ -110,10 +111,10 @@ Continuar com Google
 </button>
 </div>
 <div id="form-register" class="auth-form" style="display:none">
-<input type="text" id="reg-name" placeholder="Nome Completo">
-<input type="email" id="reg-email" placeholder="E-mail">
-<input type="password" id="reg-pass" placeholder="Senha">
-<input type="password" id="reg-pass-confirm" placeholder="Repetir Senha">
+<input type="text" id="reg-name" placeholder="Nome Completo" onkeydown="if(event.key==='Enter')handleRegister()">
+<input type="email" id="reg-email" placeholder="E-mail" onkeydown="if(event.key==='Enter')handleRegister()">
+<input type="password" id="reg-pass" placeholder="Senha" onkeydown="if(event.key==='Enter')handleRegister()">
+<input type="password" id="reg-pass-confirm" placeholder="Repetir Senha" onkeydown="if(event.key==='Enter')handleRegister()">
 <label class="terms-label"><input type="checkbox" id="reg-terms"> Aceito os Termos de Uso</label>
 <button class="btn-portal" onclick="handleRegister()">Criar Conta e Ganhar 50 Créditos</button>
 </div>
@@ -167,7 +168,7 @@ Continuar com Google
 </div>
 <div id="reading-desc" style="margin-bottom:20px;color:var(--gold-light)"></div>
 <div class="form-container" id="question-wrap" style="margin-bottom:30px">
-<input type="text" id="reading-question" placeholder="Faça sua pergunta objetiva...">
+<input type="text" id="reading-question" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startCardSelection()">
 <button class="btn-portal" id="btn-start-reading" style="margin-top:15px" onclick="startCardSelection()">Iniciar Consulta</button>
 </div>
 <div id="cards-container" class="cards-grid"></div>
@@ -195,7 +196,7 @@ Continuar com Google
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);text-align:center;margin-bottom:28px">Sim, Não ou Talvez</h2>
 <div class="form-container" style="margin-bottom:28px">
 <p style="margin-bottom:14px">Faça sua pergunta objetiva para o oráculo. (10 créditos)</p>
-<input type="text" id="sim-nao-question" placeholder="Ex: A Talita me ama de verdade?">
+<input type="text" id="sim-nao-question" placeholder="Ex: A Talita me ama de verdade?" onkeydown="if(event.key==='Enter'){var q=document.getElementById('sim-nao-question');var c=document.querySelector('#sim-nao-cards .card-slot');if(c){c.click();}}">
 </div>
 <div id="sim-nao-cards" class="cards-grid"></div>
 <div id="sim-nao-result" class="result-box" style="display:none;scroll-margin-top:90px"></div>
@@ -292,7 +293,7 @@ Continuar com Google
 <h2 class="pirata" style="font-size:clamp(26px,4vw,40px);color:var(--gold)">Indique um Amigo</h2>
 <p style="margin:18px 0">Compartilhe essa jornada. Convidar um amigo é multiplicar luz. Você ganha 50 créditos quando ele se cadastrar.</p>
 <div class="auth-form" style="display:flex;flex-direction:column;gap:14px">
-<input type="email" id="indica-email" placeholder="E-mail do seu amigo">
+<input type="email" id="indica-email" placeholder="E-mail do seu amigo" onkeydown="if(event.key==='Enter')handleIndication()">
 <button class="btn-portal" onclick="handleIndication()">Convidar</button>
 </div>
 <div id="indica-history" style="margin-top:30px;text-align:left">
@@ -372,7 +373,7 @@ var v = valores[vi];
 DECK.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No campo de "+naipeTemas[naipe].area+", esta carta representa "+valorLeitura[v]+". O momento pede atenção a esse aspecto da sua vida, que influencia diretamente a situação em questão.",cam:"Optar por este caminho significa trabalhar com "+valorLeitura[v]+" no âmbito de "+naipeTemas[naipe].area+". Os resultados dependem de como você conduz essa energia.",out:"O outro ou o mercado se apresenta como "+naipeTemas[naipe].pessoa+". A dinâmica envolvida reflete "+valorLeitura[v]+" no campo de "+naipeTemas[naipe].area+"."});
 }
 }
-/* ===== FUNÇÃO CORRIGIDA: usa ESPAÇO + ACENTO (encodeURI) ===== */
+/* ===== FUNÇÃO DE IMAGEM: usa ESPAÇO + ACENTO (encodeURI), bate com os arquivos do GitHub ===== */
 var ARCANOS_MAIORES = ["O Louco","O Mago","A Sacerdotisa","A Imperatriz","O Imperador","O Hierofante","Os Enamorados","O Carro","A Força","O Eremita","A Roda da Fortuna","A Justiça","O Pendurado","A Morte","A Temperança","O Diabo","A Torre","A Estrela","A Lua","O Sol","O Julgamento","O Mundo"];
 var NUM_EXTENSO = {"Ás":"Ás","2":"Dois","3":"Três","4":"Quatro","5":"Cinco","6":"Seis","7":"Sete","8":"Oito","9":"Nove","10":"Dez","Valete":"Valete","Cavaleiro":"Cavaleiro","Rainha":"Rainha","Rei":"Rei"};
 function cardImage(card){
@@ -384,7 +385,6 @@ var valor = NUM_EXTENSO[parts[0]] || parts[0];
 var naipe = parts[1];
 return encodeURI(valor+' de '+naipe+'.png');
 }
-/* ===== FIM DA FUNÇÃO DE IMAGEM ===== */
 var FRASES_MISTICAS = ["O universo ouve quem pergunta com o coração.","Cada carta é um espelho da sua alma.","O destino não é escrito em pedra, mas em estrelas que você pode navegar.","A resposta que você busca já habita em seu silêncio.","Confie na sincronicidade do momento presente.","As sombras de hoje são os adubos da luz de amanhã.","Sua intuição é a bússola mais precisa que você possui.","O portal se abre para quem tem coragem de olhar para dentro."];
 var POLAR_MAJOR = {"O Louco":0.6,"O Mago":1,"A Sacerdotisa":0.5,"A Imperatriz":1,"O Imperador":0.9,"O Hierofante":0.3,"Os Enamorados":0.8,"O Carro":0.9,"A Força":0.9,"O Eremita":0.1,"A Roda da Fortuna":0.7,"A Justiça":0.7,"O Pendurado":0.2,"A Morte":0.2,"A Temperança":0.7,"O Diabo":-0.6,"A Torre":-0.7,"A Estrela":1,"A Lua":-0.4,"O Sol":1,"O Julgamento":0.8,"O Mundo":1};
 var POLAR_SUIT = {"Ouros":0.7,"Copas":0.6,"Espadas":-0.2,"Paus":0.4};
@@ -412,7 +412,7 @@ function extractPerson(q){
 var m = q.match(/(?:a |o )?([A-ZÀ-ÚÉ][a-zà-úé]+)\s+(?:me|você|voce|ele|ela)\s+(?:ama|gosta|quer|pensa|sente|está|esta)/);
 if(m){
 var stop = ["Você","Voce","Eu","Deus","Sim","Nao","Não","Hoje","Amanhã","Amanha","Se"];
-if(stop.indexOf(m[1])&lt;0){return m[1];}
+if(stop.indexOf(m[1])<0){return m[1];}
 }
 return null;
 }
@@ -434,15 +434,15 @@ return null;
 function questionValida(q){
 if(!q){return false;}
 q = q.trim();
-if(q.length&lt;8){return false;}
+if(q.length<8){return false;}
 if(!/[a-zà-ú]{4,}/i.test(q)){return false;}
 var letters = q.toLowerCase().replace(/[^a-zà-ú]/g,'');
-if(letters.length&lt;6){return false;}
+if(letters.length<6){return false;}
 var vogais = (letters.match(/[aeiouáéíóúàâêôãõ]/g)||[]).length;
-if(vogais&lt;2){return false;}
+if(vogais<2){return false;}
 var uniq = {};
 for(var i=0;i<letters.length;i++){uniq[letters[i]]=1;}
-if(Object.keys(uniq).length&lt;4){return false;}
+if(Object.keys(uniq).length<4){return false;}
 if(/^(asdf|qwer|zxcv|teste|test|pergunta|aaaaaaaa|bbbbbbbb|cccccccc|dddddddd|eeeeeeee|kkkkkkkk|qqqqqqqq|wwwwwwww)/i.test(q)){return false;}
 return true;
 }
@@ -455,10 +455,10 @@ var POSITIVE_PHRASES = ["a energia se apresenta favorável e confirma que essa d
 var NEGATIVE_PHRASES = ["as energias indicam que essa expectativa não encontra sustentação no momento","o campo emocional se mostra fechado ou distante, sem base para esse desejo","os sinais apontam para indiferença ou falta de envolvimento real","a dinâmica atual não favorece essa união, e forçar o caminho traria desgaste"];
 var MIXED_PHRASES = ["os sentimentos ainda estão em construção e podem se revelar com o tempo","o campo emocional está dividido, e o desfecho dependerá das próximas atitudes","existe interesse, mas ainda com ressalvas e incertezas a serem resolvidas","as energias se movimentam aos poucos, e nada está totalmente definido"];
 function randPick(arr){return arr[Math.floor(Math.random()*arr.length)];}
-function cardArcana(c){return DECK.indexOf(c)&lt;22?"Arcano Maior":"Arcano Menor";}
+function cardArcana(c){return DECK.indexOf(c)<22?"Arcano Maior":"Arcano Menor";}
 function buildConclusion(c1,c2,q,action,topic,person){
 var pol = cardPolarity(c1)*0.55 + cardPolarity(c2)*0.45;
-var verdict = pol>=0.35?"SIM":(pol&lt;=-0.15?"NAO":"TALVEZ");
+var verdict = pol>=0.35?"SIM":(pol<=-0.15?"NAO":"TALVEZ");
 var p1 = cardPolarity(c1), p2 = cardPolarity(c2);
 var html = "";
 if(topic==='love'){
@@ -491,7 +491,7 @@ var action = extractAction(q);
 var sum = 0;
 for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
 var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg&lt;=-0.15?"NAO":"TALVEZ");
+var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
 var html = "";
 if(topic==='love'){
 var quem = person?person:"essa pessoa";
@@ -548,7 +548,7 @@ var subject = questionSubject(q);
 var sum = 0;
 for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
 var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg&lt;=-0.15?"NAO":"TALVEZ");
+var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
 var html = "";
 if(topic==='love'){
 var quem = person?person:"essa pessoa";
@@ -597,7 +597,7 @@ var subject = questionSubject(q);
 var sum = 0;
 for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
 var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg&lt;=-0.15?"NAO":"TALVEZ");
+var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
 var html = "";
 if(topic==='love'){
 var quem = person?person:"essa pessoa";
@@ -658,7 +658,7 @@ var p10 = cardPolarity(c10);
 var sum = 0;
 for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
 var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg&lt;=-0.15?"NAO":"TALVEZ");
+var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
 var html = "";
 if(topic==='love'){
 var quem = person?person:"essa pessoa";
@@ -731,7 +731,7 @@ var pos = [
 {left:'86%',top:'50%',transform:'translate(-100%,-50%)'},
 {left:'50%',top:'94%',transform:'translate(-50%,-100%)'}
 ];
-for(var i=0;i&lt;5;i++){
+for(var i=0;i<5;i++){
 var wrap = document.createElement('div');
 wrap.style.cssText = 'position:absolute;width:120px;left:'+pos[i].left+';top:'+pos[i].top+';transform:'+pos[i].transform+';text-align:center;';
 var card = document.createElement('div');
@@ -765,7 +765,7 @@ var pos = [
 {left:'80%',top:'33%',tx:'-100%',ty:'0'},
 {left:'95%',top:'64%',tx:'-100%',ty:'0'}
 ];
-for(var i=0;i&lt;7;i++){
+for(var i=0;i<7;i++){
 (function(idx){
 var wrap = document.createElement('div');
 wrap.style.cssText = 'position:absolute;width:130px;left:'+pos[idx].left+';top:'+pos[idx].top+';transform:translate('+pos[idx].tx+','+pos[idx].ty+');text-align:center;';
@@ -806,7 +806,7 @@ var crossPos = [
 ];
 var crossWrap = document.createElement('div');
 crossWrap.style.cssText = 'position:relative;width:520px;height:520px;flex:0 0 auto;';
-for(var i=0;i&lt;6;i++){
+for(var i=0;i<6;i++){
 (function(idx){
 var card = document.createElement('div');
 card.className = 'card-slot flipped';
@@ -822,7 +822,7 @@ crossWrap.appendChild(lab);
 var labelsCol = ['7. O Consulente','8. O Ambiente Externo','9. Esperanças e Medos','10. Resultado Final'];
 var colWrap = document.createElement('div');
 colWrap.style.cssText = 'display:flex;flex-direction:column;gap:18px;flex:0 0 auto;padding-top:20px;';
-for(var j=0;j&lt;4;j++){
+for(var j=0;j<4;j++){
 (function(idx){
 var cardCol = document.createElement('div');
 cardCol.className = 'card-slot flipped';
@@ -846,7 +846,7 @@ var selectedMapaLevel = '';
 var selectedMapaCost = 0;
 function initStars(){
 var c = document.getElementById('stars-container');
-for(var i=0;i&lt;100;i++){
+for(var i=0;i<100;i++){
 var s = document.createElement('div');
 s.className = 'star';
 s.style.left = Math.random()*100+'%';
@@ -921,8 +921,8 @@ var email=document.getElementById('reg-email').value;
 var pass=document.getElementById('reg-pass').value;
 var confirm=document.getElementById('reg-pass-confirm').value;
 var terms=document.getElementById('reg-terms').checked;
-if(name.length&lt;3){return showModal("Erro","Nome muito curto.");}
-if(email.indexOf('@')&lt;0){return showModal("Erro","E-mail inválido.");}
+if(name.length<3){return showModal("Erro","Nome muito curto.");}
+if(email.indexOf('@')<0){return showModal("Erro","E-mail inválido.");}
 if(pass!==confirm){return showModal("Erro","As senhas não coincidem.");}
 if(!terms){return showModal("Erro","Aceite os termos.");}
 var userData={name:name,email:email,pass:pass,credits:50,isMago:false};
@@ -1103,7 +1103,7 @@ function initSimNao(){
 var container = document.getElementById('sim-nao-cards');
 container.innerHTML = '';
 var shuffled = DECK.slice().sort(function(){return Math.random()-0.5;});
-for(var i=0;i&lt;78;i++){
+for(var i=0;i<78;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
@@ -1112,7 +1112,7 @@ slot.onclick = function(){
 var q = document.getElementById('sim-nao-question').value;
 if(!exigePerguntaValida(q)){return;}
 if(document.querySelector('#sim-nao-cards .flipped')){return;}
-if(!currentUser.isMago && currentUser.credits&lt;10){return showModal("Erro","Créditos insuficientes.");}
+if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Créditos insuficientes.");}
 if(!currentUser.isMago){currentUser.credits-=10;localStorage.setItem('user_'+currentUser.email,JSON.stringify(currentUser));localStorage.setItem('orculum_user',JSON.stringify(currentUser));updateCreditsDisplay();}
 this.classList.add('flipped');
 var topic = detectTopic(q);
@@ -1150,7 +1150,7 @@ container.style.display = 'grid';
 container.innerHTML = '';
 resDiv.style.display = 'none';
 var shuffled = DECK.slice().sort(function(){return Math.random()-0.5;});
-for(var i=0;i&lt;78;i++){
+for(var i=0;i<78;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
@@ -1239,7 +1239,7 @@ setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},15
 }
 function handleIndication(){
 var email = document.getElementById('indica-email').value;
-if(email.indexOf('@')&lt;0){return showModal("Erro","E-mail inválido.");}
+if(email.indexOf('@')<0){return showModal("Erro","E-mail inválido.");}
 var list = document.getElementById('indica-list');
 if(list.innerText.indexOf("Nenhuma")>=0){list.innerHTML = '';}
 var li = document.createElement('li');
