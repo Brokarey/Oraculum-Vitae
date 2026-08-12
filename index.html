@@ -51,7 +51,6 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .btn-logout:hover{transform:scale(1.1)}
 #page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center}
 .tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo%20Tar%C3%B4.png'),url('Fundo-Tar.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
-/* Fundo do Sim/Não = Fundo_Sim.png, sem zoom (100% 100% = imagem inteira, sem corte) */
 #page-sim-nao{background-image:linear-gradient(rgba(13,5,32,0.35),rgba(13,5,32,0.35)),url('Fundo_Sim.png');background-size:100% 100%;background-position:center;background-repeat:no-repeat;min-height:100vh}
 .dash-header{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:24px 20px 0}
 .dash-header h2{font-size:clamp(20px,3.2vw,34px);color:var(--gold);text-align:center;flex:1;line-height:1.2}
@@ -98,6 +97,10 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .simnao-card-display{display:flex;flex-direction:column;align-items:center}
 .simnao-card-display .card-slot{width:190px;cursor:default}
 .simnao-card-display .card-label{font-size:13px;color:var(--gold-light);margin-top:10px;text-align:center}
+.cross-layout{position:relative;width:100%;max-width:700px;height:600px;margin:20px auto}
+.cross-card{position:absolute;width:130px;text-align:center}
+.cross-card .card-slot{width:130px;cursor:default}
+.cross-card .cross-label{font-size:11px;color:var(--gold-light);margin-top:8px;line-height:1.3}
 .faq-category{margin-bottom:30px}
 .faq-category h3{color:var(--gold);margin-bottom:15px;border-bottom:1px solid var(--accent);padding-bottom:5px}
 .faq-item{margin-bottom:10px;border:1px solid var(--accent);border-radius:5px;overflow:hidden}
@@ -220,7 +223,7 @@ Entrar com o Google
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
 <h2 id="tarot-title-5" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 5 Cartas</h2>
 <div class="tarot2-info">
-<p><strong>Tarô de 5 Cartas:</strong> o tarô de 5 cartas é um método de tiragem (ou leitura) focado em dar respostas detalhadas e profundas para uma pergunta específica. Mais conhecido por Cruz Simples (ou Cruz de Cinco Cartas). Em vez de puxar apenas uma carta, o tarólogo posiciona cinco cartas na mesa para analisar diferentes ângulos de uma situação. Faça uma pergunta específica, por <strong>50 créditos</strong>.</p>
+<p><strong>Tarô de 5 Cartas:</strong> o tarô de 5 cartas é um método de tiragem (ou leitura) focado em dar respostas detalhadas e profundas para uma pergunta específica (tomar decisões). Mais conhecido por Cruz Simples (ou Cruz de Cinco Cartas). Em vez de puxar apenas uma carta, o tarólogo posiciona cinco cartas na mesa para analisar diferentes ângulos de uma situação. Faça uma pergunta específica, por <strong>50 créditos</strong>.</p>
 <p><strong>Significado de cada posição na tiragem</strong></p>
 <ul class="tarot2-list">
 <li><strong>Carta 1 (A Situação Atual):</strong> mostra o momento presente do consulente e o estado atual do problema.</li>
@@ -467,17 +470,12 @@ base = valor + ' de ' + parts[1];
 }
 return base;
 }
-/* Gera TODAS as variações possíveis de nome de arquivo:
-   1) espaço + acento  2) espaço sem acento  3) underline + acento  4) underline sem acento */
 function cardImageVariants(card){
 var base = cardBaseName(card);
 var noAcc = stripAcc(base);
 var arr = [];
 function add(s){var enc = encodeURI(s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
-add(base);
-add(noAcc);
-add(base.replace(/ /g,'_'));
-add(noAcc.replace(/ /g,'_'));
+add(base); add(noAcc); add(base.replace(/ /g,'_')); add(noAcc.replace(/ /g,'_'));
 return arr;
 }
 function cardImage(card){return cardImageVariants(card)[0];}
@@ -492,6 +490,15 @@ var idx = parseInt(el.getAttribute('data-tryidx')||'0',10)+1;
 if(idx >= variants.length){return;}
 el.setAttribute('data-tryidx', idx);
 el.setAttribute('src', variants[idx]);
+}
+/* ===== EMBARALHAMENTO TOTAL (Fisher-Yates) ===== */
+function shuffle(arr){
+var a = arr.slice();
+for(var i=a.length-1;i>0;i--){
+var j = Math.floor(Math.random()*(i+1));
+var t = a[i]; a[i]=a[j]; a[j]=t;
+}
+return a;
 }
 var FRASES_MISTICAS = ["O universo ouve quem pergunta com o coração.","Cada carta é um espelho da sua alma.","O destino não é escrito em pedra, mas em estrelas que você pode navegar.","A resposta que você busca já habita em seu silêncio.","Confie na sincronicidade do momento presente.","As sombras de hoje são os adubos da luz de amanhã.","Sua intuição é a bússola mais precisa que você possui.","O portal se abre para quem tem coragem de olhar para dentro."];
 var POLAR_MAJOR = {"O Louco":0.6,"O Mago":1,"A Sacerdotisa":0.5,"A Imperatriz":1,"O Imperador":0.9,"O Hierofante":0.3,"Os Enamorados":0.8,"O Carro":0.9,"A Força":0.9,"O Eremita":0.1,"A Roda da Fortuna":0.7,"A Justiça":0.7,"O Pendurado":0.2,"A Morte":0.2,"A Temperança":0.7,"O Diabo":-0.6,"A Torre":-0.7,"A Estrela":1,"A Lua":-0.4,"O Sol":1,"O Julgamento":0.8,"O Mundo":1};
@@ -841,11 +848,21 @@ function cardHTML(card,width){
 var w = width?' style="width:'+width+'"':'';
 return '<div class="card-slot flipped"'+w+'><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div>';
 }
+/* ===== CRUZ SIMPLES (5 cartas) — formato de cruz real ===== */
 function renderCross(cards){
 var labels = ['A Situação Atual','O Obstáculo','O Passado','O Futuro / Conselho','O Desfecho'];
-var html = '<div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:20px 0">';
+var pos = [
+{left:'50%',top:'50%',tx:'-50%',ty:'-50%'},
+{left:'50%',top:'0%',tx:'-50%',ty:'0%'},
+{left:'0%',top:'50%',tx:'0%',ty:'-50%'},
+{left:'100%',top:'50%',tx:'-100%',ty:'-50%'},
+{left:'50%',top:'100%',tx:'-50%',ty:'-100%'}
+];
+var html = '<div class="cross-layout">';
 for(var i=0;i<5;i++){
-html += '<div style="text-align:center"><div class="card-slot flipped" style="width:110px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[i])+'</div></div></div><div style="font-size:11px;color:var(--gold-light);margin-top:6px;line-height:1.3">'+labels[i]+'</div></div>';
+html += '<div class="cross-card" style="left:'+pos[i].left+';top:'+pos[i].top+';transform:translate('+pos[i].tx+','+pos[i].ty+')">'
++ cardHTML(cards[i])
++ '<div class="cross-label">'+labels[i]+'</div></div>';
 }
 html += '</div>';
 return html;
@@ -854,7 +871,7 @@ function renderHorseshoe(cards){
 var labels = ['O Passado','O Presente','Influências Ocultas','O Consulente','Atitudes dos Outros','Obstáculo ou Melhor Caminho','O Desfecho'];
 var html = '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 0">';
 for(var i=0;i<7;i++){
-html += '<div style="text-align:center"><div class="card-slot flipped" style="width:100px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[i])+'</div></div></div><div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:100px">'+(i+1)+'. '+labels[i]+'</div></div>';
+html += '<div style="text-align:center">'+cardHTML(cards[i],'100px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:100px">'+(i+1)+'. '+labels[i]+'</div></div>';
 }
 html += '</div>';
 return html;
@@ -863,7 +880,7 @@ function renderCelticCross(cards){
 var labels = ['1. Momento Atual','2. Obstáculo','3. A Raiz','4. Passado Recente','5. O Topo','6. Futuro Imediato','7. O Consulente','8. Ambiente','9. Esperanças/Medos','10. Resultado'];
 var html = '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 0">';
 for(var i=0;i<10;i++){
-html += '<div style="text-align:center"><div class="card-slot flipped" style="width:95px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[i])+'</div></div></div><div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:95px">'+labels[i]+'</div></div>';
+html += '<div style="text-align:center">'+cardHTML(cards[i],'95px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:95px">'+labels[i]+'</div></div>';
 }
 html += '</div>';
 return html;
@@ -1061,19 +1078,18 @@ document.getElementById('phase-msg-2').innerText = "Passo 1 de 2: escolha 1 cart
 pool = DECK.slice(22);
 document.getElementById('phase-msg-2').innerText = "Passo 2 de 2: agora escolha 1 carta dos ARCANOS MENORES.";
 }else{
-pool = DECK.slice();
+pool = shuffle(DECK); /* 78 cartas totalmente embaralhadas */
 }
-var shuffled = pool.slice().sort(function(){return Math.random()-0.5;});
 var grid = document.getElementById('grid-'+count);
 grid.innerHTML = '';
-for(var i=0;i<shuffled.length;i++){
+for(var i=0;i<pool.length;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
 slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick = function(){selectCard(this,card,count);};
 grid.appendChild(slot);
-})(shuffled[i],i);
+})(pool[i],i);
 }
 }
 function selectCard(el,card,count){
@@ -1114,7 +1130,7 @@ area.innerHTML = '<div class="three-cards-display">'+
 '</div>';
 text = buildThreeCardNarrative(cards,q);
 }else if(count===5){
-area.innerHTML = renderCross(cards);
+area.innerHTML = renderCross(cards); /* Cruz Simples acima da resposta */
 text = buildFiveCardNarrative(cards,q);
 }else if(count===7){
 area.innerHTML = renderHorseshoe(cards);
@@ -1139,7 +1155,7 @@ document.getElementById('sim-nao-result').innerHTML='';
 var grid = document.getElementById('sim-nao-cards');
 grid.style.display='grid';
 grid.innerHTML='';
-var shuffled = DECK.slice().sort(function(){return Math.random()-0.5;});
+var shuffled = shuffle(DECK); /* 78 cartas totalmente embaralhadas */
 for(var i=0;i<78;i++){
 (function(card,idx){
 var slot=document.createElement('div');
@@ -1187,7 +1203,7 @@ return;
 container.style.display = 'grid';
 container.innerHTML = '';
 resDiv.style.display = 'none';
-var shuffled = DECK.slice().sort(function(){return Math.random()-0.5;});
+var shuffled = shuffle(DECK); /* 78 cartas totalmente embaralhadas */
 for(var i=0;i<78;i++){
 (function(card,idx){
 var slot = document.createElement('div');
