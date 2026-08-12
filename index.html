@@ -104,6 +104,11 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .cross-card{position:absolute;width:130px;text-align:center}
 .cross-card .card-slot{width:130px;cursor:default}
 .cross-card .cross-label{font-size:11px;color:var(--gold-light);margin-top:8px;line-height:1.3}
+/* ===== FERRADURA (7 cartas) em arco ===== */
+.horseshoe-layout{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(3,auto);gap:14px;justify-items:center;align-items:center;max-width:800px;margin:20px auto;padding:10px}
+.horse-card{width:110px;text-align:center}
+.horse-card .card-slot{width:110px;cursor:default}
+.horse-card .horse-label{font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2}
 .consultar-novamente-wrap{display:flex;justify-content:center;margin:30px auto;max-width:700px;padding:0 20px}
 .btn-consultar-novamente{background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e;border:none;padding:14px 30px;border-radius:30px;cursor:pointer;font-weight:bold;font-size:16px;transition:var(--transition);font-family:'Segoe UI',Tahoma,sans-serif}
 .btn-consultar-novamente:hover{transform:scale(1.05);box-shadow:0 0 20px rgba(212,168,67,0.7)}
@@ -116,7 +121,7 @@ table{width:100%;border-collapse:collapse;margin:20px 0}
 th,td{border:1px solid var(--accent);padding:12px;text-align:center}
 th{background:var(--accent);color:var(--gold)}
 @media(max-width:900px){.dash-grid{grid-template-columns:repeat(2,1fr)}.cards-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.dash-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:repeat(2,1fr)}header{justify-content:center}.user-info{justify-content:center}}
+@media(max-width:600px){.dash-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:repeat(2,1fr)}header{justify-content:center}.user-info{justify-content:center}.horseshoe-layout{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
@@ -194,6 +199,7 @@ Entrar com o Google
 <li><strong>Desejo Real versus Situação Atual:</strong> contrasta o que você quer com o que está aceitando no momento.</li>
 <li><strong>Você e o Outro:</strong> analisa a dinâmica entre o consulente e um adversário ou parceiro.</li>
 </ul>
+<p><strong>Após escolher as 2 cartas, elas serão exibidas lado a lado, na ordem selecionada, acima da caixa de respostas.</strong></p>
 </div>
 <input type="text" id="q-2" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(2)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(2)">Iniciar Consulta</button>
@@ -241,7 +247,7 @@ Entrar com o Google
 <li><strong>Carta 4 (Base - O Passado):</strong> indica a causa do problema ou o que gerou essa situação.</li>
 <li><strong>Carta 5 (Topo - O Desfecho):</strong> apresenta o resultado final ou o futuro provável.</li>
 </ul>
-<p>Após escolher as 5 cartas, elas serão exibidas em formato de Cruz, acima da caixa de respostas.</p>
+<p><strong>Após escolher as 5 cartas, elas serão exibidas em formato de Cruz, acima da caixa de respostas.</strong></p>
 </div>
 <input type="text" id="q-5" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(5)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(5)">Iniciar Consulta</button>
@@ -256,18 +262,21 @@ Entrar com o Google
 <h2 id="tarot-title-7" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 7 Cartas</h2>
 <div class="tarot2-info">
 <p><strong>Tarô de 7 Cartas:</strong> no tarô de 7 cartas o leitor escolhe as 7 cartas por <strong>70 créditos</strong> para analisar uma situação com maior profundidade e complexidade. É chamado de Método da Ferradura.</p>
-<p><strong>Método da Ferradura</strong></p>
-<p>As cartas são dispostas no formato de uma ferradura. É um dos métodos mais completos para analisar o panorama geral de um problema ou objetivo:</p>
+<p><strong>O método da Ferradura de 7 Cartas</strong> é um dos esquemas mais completos e versáteis do Tarot. Ele é ideal para analisar situações complexas onde você precisa entender o contexto geral, as influências externas e o que está oculto.</p>
+<p>As cartas são dispostas em formato de V invertido ou arco (U de cabeça para baixo), simulando uma ferradura. A leitura é feita da esquerda para a direita, seguindo o fluxo do arco.</p>
+<p><strong>🧲 Significado de Cada Posição</strong></p>
 <ul class="tarot2-list">
-<li><strong>Carta 1:</strong> o passado (o que gerou a situação atual).</li>
-<li><strong>Carta 2:</strong> o presente (a situação atual do consulente).</li>
-<li><strong>Carta 3:</strong> influências ocultas (fatores que você ainda não percebeu).</li>
-<li><strong>Carta 4:</strong> o consulente (suas atitudes e pensamentos conscientes).</li>
-<li><strong>Carta 5:</strong> atitudes dos outros (o impacto de pessoas externas).</li>
-<li><strong>Carta 6:</strong> obstáculos ou melhor caminho (o que deve ser enfrentado ou feito).</li>
-<li><strong>Carta 7:</strong> o desfecho (o resultado provável se tudo continuar no mesmo ritmo).</li>
+<li><strong>Carta 1 (Início da subida esquerda) - O Passado:</strong> Os eventos anteriores que criaram a situação atual.</li>
+<li><strong>Carta 2 (Meio da subida esquerda) - O Presente:</strong> O estado atual do problema e os sentimentos do consulente agora.</li>
+<li><strong>Carta 3 (Curva superior esquerda) - O Futuro Próximo:</strong> Eventos, mudanças ou notícias que vão acontecer muito em breve.</li>
+<li><strong>Carta 4 (Topo do arco) - A Atitude Ideal:</strong> O conselho do Tarot. Como você deve agir ou pensar para lidar com a situação.</li>
+<li><strong>Carta 5 (Curva superior direita) - Influências Externas:</strong> O impacto de outras pessoas, do ambiente ou de fatores fora do seu controle.</li>
+<li><strong>Carta 6 (Meio da descida direita) - Obstáculos ou Esperanças:</strong> Os medos ocultos que te travam ou os desejos secretos que guiam suas escolhas.</li>
+<li><strong>Carta 7 (Fim da descida direita) - O Resultado Final:</strong> O desfecho provável a longo prazo caso você siga o conselho da carta 4.</li>
 </ul>
-<p>Após escolher as 7 cartas, elas serão exibidas em formato de ferradura, acima da caixa de respostas.</p>
+<p><strong>💡 Por que este formato é especial?</strong></p>
+<p>Diferente de métodos menores, a Ferradura separa muito bem o que depende de você (Carta 4) do que depende dos outros ou do destino (Carta 5). Isso evita que você gaste energia tentando mudar coisas que não estão sob seu controle.</p>
+<p><strong>Após escolher as 7 cartas, elas serão exibidas em formato de ferradura, acima da caixa de respostas.</strong></p>
 </div>
 <input type="text" id="q-7" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(7)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(7)">Iniciar Consulta</button>
@@ -296,7 +305,7 @@ Entrar com o Google
 <li><strong>Carta 9:</strong> Esperanças e Medos – seus desejos secretos ou os bloqueios psicológicos que te travam.</li>
 <li><strong>Carta 10:</strong> O Resultado Final – o desfecho a longo prazo, caso você siga no caminho atual.</li>
 </ul>
-<p>Após escolher as 10 cartas, elas serão exibidas na Cruz Celta, acima da caixa de respostas.</p>
+<p><strong>Após escolher as 10 cartas, elas serão exibidas na Cruz Celta, acima da caixa de respostas.</strong></p>
 </div>
 <input type="text" id="q-10" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(10)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(10)">Iniciar Consulta</button>
@@ -310,7 +319,7 @@ Entrar com o Google
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
 <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Sim, Não ou Talvez</h2>
 <div class="tarot2-info">
-<p><strong>O Tarô Sim, Não, Talvez</strong> é um método rápido de leitura focado em autoconhecimento e direcionamento diário. Por apenas <strong>10 créditos</strong>, você retira apenas um dos 78 arcanos do baralho para servir como bússola para o momento. Ele foca em uma pergunta específica, revelando o conselho central, a energia do dia ou a resposta direta que você precisa.</p>
+<p><strong>O Tarô Sim, Não, Talvez</strong> é um método rápido de leitura focado em autoconhecimento e direcionamento diário. Por apenas <strong>10 créditos</strong>, você retira apenas um dos 78 arcanos do baralho para servir como bússola para o momento. Ele foca em uma pergunta específica, revelando o conselho central, a energia do dia ou a resposta direta que você precisa. Faça uma pergunta objetiva.</p>
 <p>Essa tiragem é ideal para quem tem pressa ou para iniciantes que estão começando a compreender a simbologia e os significados dos arquétipos. Funciona de forma muito simples:</p>
 <ul class="tarot2-list">
 <li>Escreva uma pergunta que possa ser respondida por sim, não ou talvez.</li>
@@ -544,7 +553,7 @@ function extractPerson(q){
 var m = q.match(/(?:a |o )?([A-ZÀ-ÚÉ][a-zà-úé]+)\s+(?:me|você|voce|ele|ela)\s+(?:ama|gosta|quer|pensa|sente|está|esta|vai|volta|voltar|ficar|ficara|ficará)/);
 if(m){
 var stop = ["Você","Voce","Eu","Deus","Sim","Nao","Não","Hoje","Amanhã","Amanha","Se","Meu","Minha","Meus","Minhas"];
-if(stop.indexOf(m[1])<0){return m[1];}
+if(stop.indexOf(m[1])&lt;0){return m[1];}
 }
 return null;
 }
@@ -566,15 +575,15 @@ return null;
 function questionValida(q){
 if(!q){return false;}
 q = q.trim();
-if(q.length<8){return false;}
+if(q.length&lt;8){return false;}
 if(!/[a-zà-ú]{4,}/i.test(q)){return false;}
 var letters = q.toLowerCase().replace(/[^a-zà-ú]/g,'');
-if(letters.length<6){return false;}
+if(letters.length&lt;6){return false;}
 var vogais = (letters.match(/[aeiouáéíóúàâêôãõ]/g)||[]).length;
-if(vogais<2){return false;}
+if(vogais&lt;2){return false;}
 var uniq = {};
 for(var i=0;i<letters.length;i++){uniq[letters[i]]=1;}
-if(Object.keys(uniq).length<4){return false;}
+if(Object.keys(uniq).length&lt;4){return false;}
 if(/^(asdf|qwer|zxcv|teste|test|pergunta|aaaaaaaa|bbbbbbbb|cccccccc|dddddddd|eeeeeeee|kkkkkkkk|qqqqqqqq|wwwwwwww|hahaha|kkkk|rsrs|blabla)/i.test(q)){return false;}
 var t = norm(q);
 var temVerbo = /(vou|vai|devo|posso|consigo|quero|preciso|sera|será|estou|estarei|gosta|ama|volta|voltar|ficar|ficara|ficará|consegue|deveria|poderia|vence|vem|vira|sera que|será que|me ama|me quer|vai dar|vai conseguir|vai voltar|vai ficar|vai dar certo|vai acontecer|vai melhorar|vai dar)/i.test(t);
@@ -592,9 +601,8 @@ b.innerText = singular ? 'Escolha sua carta abaixo' : 'Escolha suas cartas abaix
 b.style.display = 'block';
 setTimeout(function(){b.style.display='none';},3000);
 }
-/* ===== CONFIRMAÇÃO DA PERGUNTA ===== */
 var pendingQuestion = null;
-var pendingType = null; /* 'tarot' ou 'simnao' */
+var pendingType = null;
 var pendingCount = 0;
 function askConfirmQuestion(q, type, count){
 pendingQuestion = q;
@@ -604,7 +612,6 @@ document.getElementById('modal-title').innerText = 'Confirmação';
 document.getElementById('modal-msg').innerHTML = 'Você está certo sobre esta pergunta?<br><br><em>"'+q+'"</em>';
 var overlay = document.getElementById('modal-overlay');
 overlay.style.display = 'flex';
-/* substitui o botão único por Sim/Não */
 var btn = overlay.querySelector('.modal-content .btn-portal');
 btn.style.display = 'none';
 var confirmDiv = document.getElementById('confirm-buttons');
@@ -633,11 +640,6 @@ proceedSimNao(pendingQuestion);
 proceedTarot(pendingCount, pendingQuestion);
 }
 }
-var POSITIVE_PHRASES = ["a energia se apresenta favorável e confirma que essa direção é verdadeira","as forças em jogo sustentam esse movimento e apontam para um desfecho positivo","o campo energético ao redor dessa questão está aberto e receptivo","os sinais convergem para uma resposta afirmativa, com sinceridade envolvida"];
-var NEGATIVE_PHRASES = ["as energias indicam que essa expectativa não encontra sustentação no momento","o campo emocional se mostra fechado ou distante, sem base para esse desejo","os sinais apontam para indiferença ou falta de envolvimento real","a dinâmica atual não favorece essa união, e forçar o caminho traria desgaste"];
-var MIXED_PHRASES = ["os sentimentos ainda estão em construção e podem se revelar com o tempo","o campo emocional está dividido, e o desfecho dependerá das próximas atitudes","existe interesse, mas ainda com ressalvas e incertezas a serem resolvidas","as energias se movimentam aos poucos, e nada está totalmente definido"];
-function randPick(arr){return arr[Math.floor(Math.random()*arr.length)];}
-function cardArcana(c){return DECK.indexOf(c)<22?"Arcano Maior":"Arcano Menor";}
 function buildDynamicResponse(cards, q, verdict){
 var topic = detectTopic(q);
 var person = extractPerson(q);
@@ -696,13 +698,13 @@ html += '<p><strong>Base - O Passado ('+cards[3].n+'):</strong> '+cards[3].cen+'
 html += '<p><strong>Topo - O Desfecho ('+cards[4].n+'):</strong> '+cards[4].cam+' '+cards[4].out+'</p>';
 }
 else if(n===7){
-html += '<p><strong>O Passado ('+cards[0].n+'):</strong> '+cards[0].cen+'</p>';
-html += '<p><strong>O Presente ('+cards[1].n+'):</strong> '+cards[1].cen+'</p>';
-html += '<p><strong>Influências Ocultas ('+cards[2].n+'):</strong> '+cards[2].cam+'</p>';
-html += '<p><strong>O Consulente ('+cards[3].n+'):</strong> '+cards[3].out+'</p>';
-html += '<p><strong>Atitudes dos Outros ('+cards[4].n+'):</strong> '+cards[4].out+' '+cards[4].cam+'</p>';
-html += '<p><strong>Obstáculo ou Melhor Caminho ('+cards[5].n+'):</strong> '+cards[5].cam+'</p>';
-html += '<p><strong>O Desfecho ('+cards[6].n+'):</strong> '+cards[6].cam+' '+cards[6].out+'</p>';
+html += '<p><strong>1. O Passado ('+cards[0].n+'):</strong> '+cards[0].cen+'</p>';
+html += '<p><strong>2. O Presente ('+cards[1].n+'):</strong> '+cards[1].cen+'</p>';
+html += '<p><strong>3. O Futuro Próximo ('+cards[2].n+'):</strong> '+cards[2].cam+'</p>';
+html += '<p><strong>4. A Atitude Ideal ('+cards[3].n+'):</strong> '+cards[3].cam+'</p>';
+html += '<p><strong>5. Influências Externas ('+cards[4].n+'):</strong> '+cards[4].out+' '+cards[4].cam+'</p>';
+html += '<p><strong>6. Obstáculos ou Esperanças ('+cards[5].n+'):</strong> '+cards[5].cen+' '+cards[5].cam+'</p>';
+html += '<p><strong>7. O Resultado Final ('+cards[6].n+'):</strong> '+cards[6].cam+' '+cards[6].out+'</p>';
 }
 else if(n===10){
 html += '<p><strong>O Momento Atual ('+cards[0].n+'):</strong> '+cards[0].cen+'</p>';
@@ -719,279 +721,6 @@ html += '<p><strong>O Resultado Final ('+cards[9].n+'):</strong> '+cards[9].cam+
 html += '<p style="font-size:12px;margin-top:10px;color:#aaa">Cartas reveladas: '+cards.map(function(c){return c.n;}).join(', ')+'</p>';
 return html;
 }
-function buildConclusion(c1,c2,q,action,topic,person){
-var pol = cardPolarity(c1)*0.55 + cardPolarity(c2)*0.45;
-var verdict = pol>=0.35?"SIM":(pol<=-0.15?"NAO":"TALVEZ");
-var p1 = cardPolarity(c1), p2 = cardPolarity(c2);
-var html = "";
-if(topic==='love'){
-var quem = person?person:"essa pessoa";
-if(verdict==="SIM"){html += "<p><strong>Sim</strong>, "+quem+" ama você de verdade, conforme as energias das cartas.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Não</strong>, "+quem+" não ama você de verdade. As cartas revelam que esse sentimento, no momento, não encontra reciprocidade.</p>";}
-else{html += "<p><strong>Talvez</strong>, conforme as energias das cartas. Os sentimentos de "+quem+" ainda não estão totalmente definidos.</p>";}
-html += "<p>A energia de "+c1.n+" ("+c1.d+") "+(p1>=0?"reforça a sinceridade e a profundidade do que é sentido":"sugere cautela, pois o campo afetivo ainda está confuso ou distante")+". Já "+c2.n+", que carrega a energia de "+c2.d+", "+(p2>=0?"confirma essa direção e convida a cultivar o vínculo":"alerta para expectativas que podem não corresponder à realidade")+".</p>";
-html += "<p>O oráculo sugere que você observe os sinais com o coração aberto, mas sem depositar toda a sua felicidade em uma única expectativa. Cuide de si, permita que as energias se manifestem com naturalidade e confie na sua intuição.</p>";
-}else if(topic==='work'){
-var act = action?action:"seguir em frente";
-if(verdict==="SIM"){html += "<p><strong>Sim</strong>, você deve "+act+", conforme as energias das cartas.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Não</strong>, este não é o momento ideal para "+act+". As cartas pedem prudência antes de qualquer movimento.</p>";}
-else{html += "<p><strong>Talvez</strong>, conforme as energias das cartas. "+capFirst(act)+" depende das suas escolhas nos próximos dias.</p>";}
-html += "<p>A energia de "+c1.n+" ("+c1.d+") "+(p1>=0?"favorece o movimento e a iniciativa":"pede prudência antes de qualquer movimento")+", enquanto "+c2.n+" ("+c2.d+") "+(p2>=0?"reforça as condições favoráveis para seguir":"sinaliza riscos que precisam ser avaliados com calma")+".</p>";
-html += "<p>O oráculo sugere que você avalie com sinceridade a sua motivação antes de agir. Se a intenção for autêntica, o caminho tende a se abrir; se houver pressa ou ilusão, o melhor é aguardar o momento certo.</p>";
-}else{
-if(verdict==="SIM"){html += "<p><strong>Sim</strong>, conforme as energias das cartas: "+randPick(POSITIVE_PHRASES)+".</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Não</strong>, conforme as energias das cartas: "+randPick(NEGATIVE_PHRASES)+".</p>";}
-else{html += "<p><strong>Talvez</strong>, conforme as energias das cartas: "+randPick(MIXED_PHRASES)+".</p>";}
-html += "<p>A energia de "+c1.n+" ("+c1.d+") "+(p1>=0?"favorece a ação e a confiança no novo":"pede cautela e introspecção antes de agir")+", enquanto "+c2.n+" ("+c2.d+") "+(p2>=0?"reforça essa direção e convida ao equilíbrio":"alerta para os riscos e para o que precisa ser avaliado com mais calma")+".</p>";
-html += "<p>O oráculo sugere que você use a força de "+c1.n+" para dar o primeiro passo com propósito, mas respeite os avisos de "+c2.n+". Antes de decidir, pergunte-se se a sua motivação nasce de um desejo real de crescimento ou de uma fuga do momento atual.</p>";
-}
-return html;
-}
-function buildTwoCardNarrative(cards,q){
-var c1 = cards[0], c2 = cards[1];
-var topic = detectTopic(q);
-var person = extractPerson(q);
-var action = extractAction(q);
-var pathA = action ? capFirst(action) : "Seguir em frente";
-var h = "<h3>Leitura de Tarô</h3>";
-if(q){h += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
-h += "<p><strong>Cartas Tiradas:</strong> "+c1.n+" (Arcano Maior) e "+c2.n+" (Arcano Menor)</p>";
-h += "<h4>1. Situação e Informação Adicional</h4>";
-h += "<p><strong>O cenário atual ("+c1.n+"):</strong> "+c1.cen+"</p>";
-h += "<p><strong>O detalhe oculto ("+c2.n+"):</strong> "+c2.cen+"</p>";
-h += "<h4>2. Caminho A e Caminho B</h4>";
-h += "<p><strong>Caminho A - "+pathA+" ("+c1.n+"):</strong> "+c1.cam+"</p>";
-h += "<p><strong>Caminho B - Optar pela cautela ("+c2.n+"):</strong> "+c2.cam+"</p>";
-h += "<h4>3. Você e o Outro (A Dinâmica Envolvida)</h4>";
-h += "<p><strong>A sua postura ("+c1.n+"):</strong> "+c1.out+"</p>";
-h += "<p><strong>O Outro / O Mercado ("+c2.n+"):</strong> "+c2.out+"</p>";
-h += "<h4>Resposta Conclusiva do Oráculo</h4>";
-h += buildConclusion(c1,c2,q,action,topic,person);
-return h;
-}
-function buildThreeConclusion(cards,q){
-var topic = detectTopic(q);
-var person = extractPerson(q);
-var action = extractAction(q);
-var sum = 0;
-for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
-var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
-var html = "";
-if(topic==='love'){
-var quem = person?person:"essa pessoa";
-if(verdict==="SIM"){html += "<p><strong>Sim</strong>, conforme as energias das cartas, "+quem+" sente algo verdadeiro por você, e esse vínculo tende a se fortalecer com o tempo.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Não</strong>, conforme as energias das cartas, "+quem+" não corresponde aos seus sentimentos da forma como você espera, e é preciso aceitar esse recado com serenidade.</p>";}
-else{html += "<p><strong>Talvez</strong>, conforme as energias das cartas, os sentimentos de "+quem+" ainda estão em construção e precisarão de tempo e presença para se revelarem.</p>";}
-}else if(topic==='work'){
-var act = action?action:"seguir em frente nesse caminho profissional";
-if(verdict==="SIM"){html += "<p><strong>Sim</strong>, conforme as energias das cartas, o momento favorece "+act+", e o desfecho tende a ser positivo para a sua vida profissional.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Não</strong>, conforme as energias das cartas, este não é o momento ideal para "+act+"; as cartas pedem planejamento e prudência antes de qualquer movimento.</p>";}
-else{html += "<p><strong>Talvez</strong>, conforme as energias das cartas, "+act+" depende das suas escolhas e do esforço que você dedicar nos próximos meses.</p>";}
-}else{
-if(verdict==="SIM"){html += "<p><strong>Sim</strong>, conforme as energias das cartas, a resposta à sua pergunta é afirmativa: "+randPick(POSITIVE_PHRASES)+".</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Não</strong>, conforme as energias das cartas: "+randPick(NEGATIVE_PHRASES)+".</p>";}
-else{html += "<p><strong>Talvez</strong>, conforme as energias das cartas: "+randPick(MIXED_PHRASES)+".</p>";}
-}
-html += "<p>O caminho começa com "+cards[0].n+", que traz "+cards[0].d+"; segue com "+cards[1].n+", marcado por "+cards[1].d+"; e culmina em "+cards[2].n+", cuja energia de "+cards[2].d+" define o desfecho da sua pergunta.</p>";
-return html;
-}
-function buildThreeCardNarrative(cards,q){
-var c1=cards[0], c2=cards[1], c3=cards[2];
-var topic = detectTopic(q);
-var h = "<h3>Leitura de Tarô</h3>";
-if(q){h += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
-h += "<p>Para responder à sua pergunta, analisamos a tríade de lâminas sob a estrutura clássica do Passado, Presente e Futuro.</p>";
-h += "<h4>Carta 1: O Passado ("+c1.n+")</h4>";
-h += "<p><strong>A Lâmina:</strong> "+c1.n+" ("+cardArcana(c1)+")</p>";
-h += "<p><strong>A Energia no Passado:</strong> "+c1.cen+"</p>";
-h += "<p><strong>O Impacto Atual:</strong> "+c1.cam+"</p>";
-h += "<h4>Carta 2: O Presente ("+c2.n+")</h4>";
-h += "<p><strong>A Lâmina:</strong> "+c2.n+" ("+cardArcana(c2)+")</p>";
-h += "<p><strong>A Energia no Presente:</strong> "+c2.cen+"</p>";
-h += "<p><strong>O Conselho para o Hoje:</strong> "+c2.cam+"</p>";
-h += "<h4>Carta 3: O Futuro ("+c3.n+")</h4>";
-h += "<p><strong>A Lâmina:</strong> "+c3.n+" ("+cardArcana(c3)+")</p>";
-h += "<p><strong>A Energia no Futuro:</strong> "+c3.cen+"</p>";
-h += "<p><strong>A Tendência Prática:</strong> "+c3.cam+"</p>";
-h += "<h4>Síntese e Conselho Final da Tríade</h4>";
-h += "<p>A sua jornada mostra uma evolução clara: "+c1.n+", com a energia de "+c1.d+", abre o caminho; "+c2.n+", trazendo "+c2.d+", conduz o momento presente; e "+c3.n+", com "+c3.d+", aponta o desfecho.</p>";
-h += buildThreeConclusion(cards,q);
-if(topic==='work'){
-h += "<p>No campo profissional, essa tríade indica uma trajetória de amadurecimento: o passado trouxe as lições, o presente exige adaptação e o futuro reserva a possibilidade de assumir o controle e colher resultados. Confie no seu potencial de execução e mantenha o foco naquilo que depende de você.</p>";
-}else if(topic==='love'){
-h += "<p>No campo afetivo, essa tríade mostra que os sentimentos passam por fases distintas: compreender o que ficou para trás, viver com presença o que existe agora e permitir que o vínculo amadureça no tempo certo. O oráculo pede paciência, escuta e sinceridade emocional.</p>";
-}else{
-h += "<p>Em síntese, o universo tirou o seu chão no passado para que você descobrisse agora que tem asas para voar e capacidade de construir algo muito maior. Confie no seu potencial e siga com propósito, respeitando o tempo de cada etapa.</p>";
-}
-return h;
-}
-function buildFiveConclusion(cards,q){
-var topic = detectTopic(q);
-var person = extractPerson(q);
-var subject = questionSubject(q);
-var sum = 0;
-for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
-var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
-var html = "";
-if(topic==='love'){
-var quem = person?person:"essa pessoa";
-if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias das cartas, "+quem+" sente algo verdadeiro por você, e o vínculo tende a se fortalecer com o tempo.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias das cartas, "+quem+" não corresponde aos seus sentimentos como você espera. Acolha o recado com serenidade.</p>";}
-else{html += "<p><strong>Então talvez</strong>, conforme as energias das cartas, os sentimentos de "+quem+" ainda estão em construção e precisarão de tempo e presença para se revelarem.</p>";}
-}else if(topic==='work'){
-var alvo = subject?("superar "+subject):"alcançar o resultado desejado";
-if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias das cartas, você conseguirá "+alvo+", desde que siga o conselho indicado e mantenha o foco.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias das cartas, este não é o momento mais propício para "+alvo+"; as cartas pedem planejamento e prudência.</p>";}
-else{html += "<p><strong>Então talvez</strong>, conforme as energias das cartas, "+alvo+" depende das suas escolhas e do esforço que você dedicar nos próximos meses.</p>";}
-}else{
-var alvo2 = subject?subject:"essa questão";
-if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias das cartas, você alcançará "+alvo2+": "+randPick(POSITIVE_PHRASES)+".</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias das cartas: "+randPick(NEGATIVE_PHRASES)+".</p>";}
-else{html += "<p><strong>Então talvez</strong>, conforme as energias das cartas: "+randPick(MIXED_PHRASES)+".</p>";}
-}
-html += "<p>A combinação de "+cards[0].n+" (situação atual), "+cards[1].n+" (obstáculo), "+cards[2].n+" (passado), "+cards[3].n+" (conselho) e "+cards[4].n+" (desfecho) indica que o caminho se abre quando você enxerga as saídas disponíveis e age com propósito. A fase difícil é passageira, e a sua capacidade de reconstrução é maior do que você imagina.</p>";
-return html;
-}
-function buildFiveCardNarrative(cards,q){
-var c1=cards[0], c2=cards[1], c3=cards[2], c4=cards[3], c5=cards[4];
-var h = "<h3>Leitura de Tarô (Método em Cruz)</h3>";
-if(q){h += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
-h += "<p><strong>Cartas Tiradas:</strong></p>";
-h += "<p><strong>Centro - O Momento:</strong> "+c1.n+"<br><strong>Esquerda - O Obstáculo:</strong> "+c2.n+"<br><strong>Direita - Os Aliados:</strong> "+c3.n+"<br><strong>Base - O Passado:</strong> "+c4.n+"<br><strong>Topo - O Desfecho:</strong> "+c5.n+"</p>";
-h += "<h4>1. Centro - O Momento ("+c1.n+")</h4>";
-h += "<p>"+c1.cen+"</p>";
-h += "<h4>2. Esquerda - O Obstáculo ("+c2.n+")</h4>";
-h += "<p>O desafio a vencer está representado por "+c2.n+". "+c2.out+" "+c2.cam+"</p>";
-h += "<h4>3. Direita - Os Aliados ("+c3.n+")</h4>";
-h += "<p>O que ajuda e as influências positivas vêm de "+c3.n+". "+c3.cam+"</p>";
-h += "<h4>4. Base - O Passado ("+c4.n+")</h4>";
-h += "<p>A causa dessa situação vem da energia de "+c4.n+". "+c4.cen+"</p>";
-h += "<h4>5. Topo - O Desfecho ("+c5.n+")</h4>";
-h += "<p>"+c5.cam+" "+c5.out+"</p>";
-h += "<h4>Resposta Conclusiva do Oráculo</h4>";
-h += buildFiveConclusion(cards,q);
-return h;
-}
-function buildSevenConclusion(cards,q){
-var topic = detectTopic(q);
-var person = extractPerson(q);
-var action = extractAction(q);
-var subject = questionSubject(q);
-var sum = 0;
-for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
-var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
-var html = "";
-if(topic==='love'){
-var quem = person?person:"essa pessoa";
-if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias da ferradura, "+quem+" corresponde aos seus sentimentos, e o vínculo tende a se fortalecer com o tempo.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias da ferradura, "+quem+" não corresponde aos seus sentimentos como você espera. Acolha o recado com serenidade.</p>";}
-else{html += "<p><strong>Então talvez</strong>, conforme as energias da ferradura, os sentimentos de "+quem+" ainda estão em construção e precisarão de tempo e presença para se revelarem.</p>";}
-}else if(topic==='work'){
-var alvo = action?action:(subject?subject:"esse caminho profissional");
-if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias da ferradura, o momento favorece "+alvo+", e o desfecho tende a ser positivo e próspero.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias da ferradura, este não é o momento ideal para "+alvo+"; as cartas pedem planejamento e prudência.</p>";}
-else{html += "<p><strong>Então talvez</strong>, conforme as energias da ferradura, "+alvo+" depende das suas escolhas e do esforço que você dedicar nos próximos meses.</p>";}
-}else{
-var alvo2 = subject?subject:"essa questão";
-if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme as energias da ferradura, você alcançará "+alvo2+": "+randPick(POSITIVE_PHRASES)+".</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme as energias da ferradura: "+randPick(NEGATIVE_PHRASES)+".</p>";}
-else{html += "<p><strong>Então talvez</strong>, conforme as energias da ferradura: "+randPick(MIXED_PHRASES)+".</p>";}
-}
-html += "<p>A ferradura mostra que o passado ("+cards[0].n+") conduziu ao presente ("+cards[1].n+"), com influências ocultas de "+cards[2].n+" e a sua postura de "+cards[3].n+". As atitudes externas ("+cards[4].n+") e o obstáculo a vencer ("+cards[5].n+") apontam para um desfecho marcado por "+cards[6].n+", cuja energia de "+cards[6].d+" define o resultado final da sua pergunta.</p>";
-return html;
-}
-function buildSevenCardNarrative(cards,q){
-var c1=cards[0], c2=cards[1], c3=cards[2], c4=cards[3], c5=cards[4], c6=cards[5], c7=cards[6];
-var h = "<h3>Leitura Prática: Método da Ferradura (7 Cartas)</h3>";
-if(q){h += "<p><strong>Pergunta do Consulente:</strong> \""+q+"\".</p>";}
-h += "<p><strong>Cartas Tiradas:</strong></p>";
-h += "<p><strong>O Passado:</strong> "+c1.n+"<br><strong>O Presente:</strong> "+c2.n+"<br><strong>Influências Ocultas:</strong> "+c3.n+"<br><strong>O Consulente:</strong> "+c4.n+"<br><strong>Atitudes dos Outros:</strong> "+c5.n+"<br><strong>Obstáculo ou Melhor Caminho:</strong> "+c6.n+"<br><strong>O Desfecho:</strong> "+c7.n+"</p>";
-h += "<h4>1. O Passado ("+c1.n+")</h4>";
-h += "<p><strong>Interpretação:</strong> "+c1.cen+"</p>";
-h += "<h4>2. O Presente ("+c2.n+")</h4>";
-h += "<p><strong>Interpretação:</strong> "+c2.cen+"</p>";
-h += "<h4>3. Influências Ocultas ("+c3.n+")</h4>";
-h += "<p><strong>Interpretação:</strong> "+c3.cam+"</p>";
-h += "<h4>4. O Consulente ("+c4.n+")</h4>";
-h += "<p><strong>Interpretação:</strong> "+c4.out+"</p>";
-h += "<h4>5. Atitudes dos Outros ("+c5.n+")</h4>";
-h += "<p><strong>Interpretação:</strong> "+c5.out+" "+c5.cam+"</p>";
-h += "<h4>6. Obstáculo ou Melhor Caminho ("+c6.n+")</h4>";
-h += "<p><strong>Interpretação:</strong> "+c6.cam+"</p>";
-h += "<h4>7. O Desfecho ("+c7.n+")</h4>";
-h += "<p><strong>Interpretação:</strong> "+c7.cam+" "+c7.out+"</p>";
-h += "<h4>Resposta Conclusiva do Oráculo</h4>";
-h += buildSevenConclusion(cards,q);
-return h;
-}
-function buildTenConclusion(cards,q){
-var topic = detectTopic(q);
-var person = extractPerson(q);
-var subject = questionSubject(q);
-var c10 = cards[9];
-var p10 = cardPolarity(c10);
-var sum = 0;
-for(var i=0;i<cards.length;i++){sum += cardPolarity(cards[i]);}
-var avg = sum/cards.length;
-var verdict = avg>=0.3?"SIM":(avg<=-0.15?"NAO":"TALVEZ");
-var html = "";
-if(topic==='love'){
-var quem = person?person:"essa pessoa";
-if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme a energia final da Cruz Celta, "+quem+" corresponde aos seus sentimentos, e o vínculo tende a se consolidar de forma duradoura.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme a energia final da Cruz Celta, "+quem+" não corresponde aos seus sentimentos como você espera. Acolha o recado com serenidade.</p>";}
-else{html += "<p><strong>Então talvez</strong>, conforme a energia final da Cruz Celta, os sentimentos de "+quem+" ainda estão em construção e precisarão de tempo e presença para se revelarem.</p>";}
-}else if(topic==='work'){
-var alvo = subject?("conseguir "+subject):"alcançar a recolocação desejada";
-if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme a energia final da Cruz Celta, você conseguirá "+alvo+". Uma oportunidade justa reconhecerá o seu valor e trará de volta a estabilidade que você perdeu.</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme a energia final da Cruz Celta, este não é o momento mais propício para "+alvo+"; as cartas pedem planejamento e paciência antes de seguir.</p>";}
-else{html += "<p><strong>Então talvez</strong>, conforme a energia final da Cruz Celta, "+alvo+" depende das suas escolhas e do esforço que você dedicar nos próximos meses.</p>";}
-}else{
-var alvo2 = subject?subject:"essa questão";
-if(verdict==="SIM"){html += "<p><strong>Então sim</strong>, conforme a energia final da Cruz Celta, você alcançará "+alvo2+": "+randPick(POSITIVE_PHRASES)+".</p>";}
-else if(verdict==="NAO"){html += "<p><strong>Então não</strong>, conforme a energia final da Cruz Celta: "+randPick(NEGATIVE_PHRASES)+".</p>";}
-else{html += "<p><strong>Então talvez</strong>, conforme a energia final da Cruz Celta: "+randPick(MIXED_PHRASES)+".</p>";}
-}
-html += "<p>A Carta 10, "+c10.n+", com a energia de "+c10.d+", "+(p10>=0?"confirma um desfecho de pleno sucesso, equilíbrio e reconhecimento do seu real valor":"pede cautela no desfecho, indicando que o resultado dependerá das correções que você fizer no caminho")+". O raio-X completo da situação mostra que a fase difícil é passageira e que a sua capacidade de reconstrução é maior do que você imagina.</p>";
-return html;
-}
-function buildTenCardNarrative(cards,q){
-var c1=cards[0],c2=cards[1],c3=cards[2],c4=cards[3],c5=cards[4],c6=cards[5],c7=cards[6],c8=cards[7],c9=cards[8],c10=cards[9];
-var h = "<h3>Leitura Avançada (Cruz Celta)</h3>";
-if(q){h += "<p><strong>Pergunta do Consulente:</strong> \""+q+"\".</p>";}
-h += "<p><strong>Cartas Tiradas:</strong></p>";
-h += "<p><strong>Na Cruz:</strong> 1. O Momento Atual ("+c1.n+") | 2. O Obstáculo ("+c2.n+") | 3. A Raiz ("+c3.n+") | 4. Passado Recente ("+c4.n+") | 5. O Topo ("+c5.n+") | 6. Futuro Imediato ("+c6.n+")</p>";
-h += "<p><strong>Na Coluna:</strong> 7. O Consulente ("+c7.n+") | 8. O Ambiente ("+c8.n+") | 9. Esperanças/Medos ("+c9.n+") | 10. Resultado Final ("+c10.n+")</p>";
-h += "<h4>Parte 1: O Núcleo da Cruz (O Momento e o Desafio)</h4>";
-h += "<p><strong>Carta 1: O Momento Atual ("+c1.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> "+c1.cen+"</p>";
-h += "<p><strong>Carta 2: O Obstáculo ("+c2.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> Cruzando a sua força, "+c2.n+" revela "+c2.d+". "+c2.out+"</p>";
-h += "<h4>Parte 2: O Contexto Temporal e Mental (Base, Passado, Alvo)</h4>";
-h += "<p><strong>Carta 3: A Base/Raiz ("+c3.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> A raiz oculta dessa questão vem de "+c3.d+". "+c3.cen+"</p>";
-h += "<p><strong>Carta 4: O Passado Recente ("+c4.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> "+c4.cen+"</p>";
-h += "<p><strong>Carta 5: O Topo/Coroamento ("+c5.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> "+c5.out+"</p>";
-h += "<p><strong>Carta 6: O Futuro Imediato ("+c6.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> "+c6.cam+"</p>";
-h += "<h4>Parte 3: A Coluna Vertical (Fatores Internos e Externos)</h4>";
-h += "<p><strong>Carta 7: O Consulente ("+c7.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> "+c7.out+"</p>";
-h += "<p><strong>Carta 8: O Ambiente Externo ("+c8.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> "+c8.out+" "+c8.cam+"</p>";
-h += "<p><strong>Carta 9: Esperanças e Medos ("+c9.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> "+c9.cen+" "+c9.cam+"</p>";
-h += "<h4>Parte 4: A Conclusão</h4>";
-h += "<p><strong>Carta 10: O Resultado Final ("+c10.n+")</strong></p>";
-h += "<p><strong>Interpretação:</strong> "+c10.cam+" "+c10.out+"</p>";
-h += "<h4>Resposta Conclusiva do Oráculo</h4>";
-h += buildTenConclusion(cards,q);
-return h;
-}
 function cardHTML(card,width){
 var w = width?' style="width:'+width+'"':'';
 return '<div class="card-slot flipped"'+w+'><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div>';
@@ -1006,7 +735,7 @@ var pos = [
 {left:'50%',top:'0%',tx:'-50%',ty:'0%'}
 ];
 var html = '<div class="cross-layout">';
-for(var i=0;i<5;i++){
+for(var i=0;i&lt;5;i++){
 html += '<div class="cross-card" style="left:'+pos[i].left+';top:'+pos[i].top+';transform:translate('+pos[i].tx+','+pos[i].ty+')">'
 + cardHTML(cards[i])
 + '<div class="cross-label">'+labels[i]+'</div></div>';
@@ -1014,11 +743,18 @@ html += '<div class="cross-card" style="left:'+pos[i].left+';top:'+pos[i].top+';
 html += '</div>';
 return html;
 }
+/* ===== FERRADURA (7 cartas) em arco, esquerda → direita ===== */
 function renderHorseshoe(cards){
-var labels = ['O Passado','O Presente','Influências Ocultas','O Consulente','Atitudes dos Outros','Obstáculo ou Melhor Caminho','O Desfecho'];
-var html = '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 0">';
-for(var i=0;i<7;i++){
-html += '<div style="text-align:center">'+cardHTML(cards[i],'100px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:100px">'+(i+1)+'. '+labels[i]+'</div></div>';
+var labels = ['1. O Passado','2. O Presente','3. O Futuro Próximo','4. A Atitude Ideal','5. Influências Externas','6. Obstáculos ou Esperanças','7. O Resultado Final'];
+var areas = [
+{gridColumn:'1',gridRow:'3'}, {gridColumn:'1',gridRow:'2'}, {gridColumn:'1',gridRow:'1'},
+{gridColumn:'3',gridRow:'1'}, {gridColumn:'5',gridRow:'1'}, {gridColumn:'5',gridRow:'2'}, {gridColumn:'5',gridRow:'3'}
+];
+var html = '<div class="horseshoe-layout">';
+for(var i=0;i&lt;7;i++){
+html += '<div class="horse-card" style="grid-column:'+areas[i].gridColumn+';grid-row:'+areas[i].gridRow+'">'
++ cardHTML(cards[i])
++ '<div class="horse-label">'+labels[i]+'</div></div>';
 }
 html += '</div>';
 return html;
@@ -1026,7 +762,7 @@ return html;
 function renderCelticCross(cards){
 var labels = ['1. Momento Atual','2. Obstáculo','3. A Raiz','4. Passado Recente','5. O Topo','6. Futuro Imediato','7. O Consulente','8. Ambiente','9. Esperanças/Medos','10. Resultado'];
 var html = '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 0">';
-for(var i=0;i<10;i++){
+for(var i=0;i&lt;10;i++){
 html += '<div style="text-align:center">'+cardHTML(cards[i],'95px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:95px">'+labels[i]+'</div></div>';
 }
 html += '</div>';
@@ -1037,7 +773,7 @@ var currentReading = {count:0,type:'',cost:0,selected:[],question:'',active:fals
 var selectedMapaCost = 0;
 function initStars(){
 var c = document.getElementById('stars-container');
-for(var i=0;i<100;i++){
+for(var i=0;i&lt;100;i++){
 var s = document.createElement('div');
 s.className = 'star';
 s.style.left = Math.random()*100+'%';
@@ -1142,9 +878,9 @@ var email=normalizeEmail(document.getElementById('reg-email').value);
 var pass=document.getElementById('reg-pass').value;
 var confirm=document.getElementById('reg-pass-confirm').value;
 var terms=document.getElementById('reg-terms').checked;
-if(name.length<3){return showModal("Erro","Nome muito curto.");}
-if(email.indexOf('@')<0){return showModal("Erro","E-mail inválido.");}
-if(pass.length<4){return showModal("Erro","A senha deve ter pelo menos 4 caracteres.");}
+if(name.length&lt;3){return showModal("Erro","Nome muito curto.");}
+if(email.indexOf('@')&lt;0){return showModal("Erro","E-mail inválido.");}
+if(pass.length&lt;4){return showModal("Erro","A senha deve ter pelo menos 4 caracteres.");}
 if(pass!==confirm){return showModal("Erro","As senhas não coincidem.");}
 if(!terms){return showModal("Erro","Aceite os termos.");}
 if(findUser(email)){return showModal("Erro","Já existe uma conta com esse e-mail. Faça login.");}
@@ -1198,8 +934,7 @@ showPage('page-tarot-'+count);
 function startTarot(count){
 var q = document.getElementById('q-'+count).value;
 if(!exigePerguntaValida(q)){return;}
-if(!currentUser.isMago && currentUser.credits < currentReading.cost){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
-/* pede confirmação antes de escolher as cartas */
+if(!currentUser.isMago && currentUser.credits &lt; currentReading.cost){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
 askConfirmQuestion(q.trim(), 'tarot', count);
 }
 function proceedTarot(count, q){
@@ -1222,6 +957,11 @@ area.innerHTML = '<div id="frozen-2" class="frozen-display" style="display:none"
 area.innerHTML = '<div id="grid-'+count+'" class="cards-grid"></div>';
 }
 renderDeck(count);
+/* MODIFICAÇÃO 1 — AUTO-SCROLL ATÉ AS CARTAS EM TODOS OS TARÔS */
+setTimeout(function(){
+var grid = document.getElementById('grid-'+count);
+if(grid){grid.scrollIntoView({behavior:'smooth',block:'start'});}
+}, 300);
 }
 function renderDeck(count){
 var pool;
@@ -1270,28 +1010,29 @@ var area = document.getElementById('area-'+count);
 var cards = currentReading.selected;
 var q = currentReading.question;
 var text = '';
+var respVerdict = ["SIM","NAO","TALVEZ"][Math.floor(Math.random()*3)];
 if(count===2){
 area.innerHTML = '<div class="two-cards-display">'+
 '<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[0])+'</div></div></div>'+
 '<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[1])+'</div></div></div>'+
 '</div>';
-text = buildTwoCardNarrative(cards,q);
+text = buildDynamicResponse(cards,q,respVerdict);
 }else if(count===3){
 area.innerHTML = '<div class="three-cards-display">'+
 '<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[0])+'</div></div></div>'+
 '<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[1])+'</div></div></div>'+
 '<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(cards[2])+'</div></div></div>'+
 '</div>';
-text = buildThreeCardNarrative(cards,q);
+text = buildDynamicResponse(cards,q,respVerdict);
 }else if(count===5){
 area.innerHTML = renderCross(cards);
-text = buildFiveCardNarrative(cards,q);
+text = buildDynamicResponse(cards,q,respVerdict);
 }else if(count===7){
 area.innerHTML = renderHorseshoe(cards);
-text = buildSevenCardNarrative(cards,q);
+text = buildDynamicResponse(cards,q,respVerdict);
 }else if(count===10){
 area.innerHTML = renderCelticCross(cards);
-text = buildTenCardNarrative(cards,q);
+text = buildDynamicResponse(cards,q,respVerdict);
 }
 res.innerHTML = text;
 res.style.display = 'block';
@@ -1309,7 +1050,7 @@ window.scrollTo(0,0);
 function startSimNao(){
 var q = document.getElementById('sim-nao-question').value;
 if(!exigePerguntaValida(q)){return;}
-if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Créditos insuficientes.");}
+if(!currentUser.isMago && currentUser.credits&lt;10){return showModal("Erro","Créditos insuficientes.");}
 askConfirmQuestion(q.trim(), 'simnao', 1);
 }
 function proceedSimNao(q){
@@ -1324,17 +1065,20 @@ document.getElementById('consultar-simnao').style.display='none';
 var grid = document.getElementById('sim-nao-cards');
 grid.style.display='grid';
 grid.innerHTML='';
-var shuffled = shuffle(DECK);
-for(var i=0;i<78;i++){
+var pool = shuffle(DECK);
+for(var i=0;i&lt;78;i++){
 (function(card,idx){
 var slot=document.createElement('div');
 slot.className='card-slot';
 slot.innerHTML='<div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div><div class="card-num">'+(idx+1)+'</div>';
 slot.onclick=function(){selectSimNaoCard(this,card,q);};
 grid.appendChild(slot);
-})(shuffled[i],i);
+})(pool[i],i);
 }
+/* MODIFICAÇÃO 1 — AUTO-SCROLL ATÉ AS CARTAS */
+setTimeout(function(){
 grid.scrollIntoView({behavior:'smooth',block:'start'});
+}, 300);
 }
 function selectSimNaoCard(el,card,q){
 if(document.querySelector('#sim-nao-cards .flipped')){return;}
@@ -1381,8 +1125,8 @@ return;
 container.style.display = 'grid';
 container.innerHTML = '';
 resDiv.style.display = 'none';
-var shuffled = shuffle(DECK);
-for(var i=0;i<78;i++){
+var pool = shuffle(DECK);
+for(var i=0;i&lt;78;i++){
 (function(card,idx){
 var slot = document.createElement('div');
 slot.className = 'card-slot';
@@ -1400,7 +1144,7 @@ resDiv.innerHTML = '<h3>Sua Carta do Dia: '+sorteio.carta+'</h3><p><strong>Foco 
 },1000);
 };
 container.appendChild(slot);
-})(shuffled[i],i);
+})(pool[i],i);
 }
 }
 function openMapa(level,cost){
@@ -1411,7 +1155,7 @@ document.getElementById('mapa-result').innerHTML = '';
 showPage('page-mapa-astral');
 }
 function generateMapa(){
-if(!currentUser.isMago && currentUser.credits < selectedMapaCost){return showModal("Erro","Créditos insuficientes.");}
+if(!currentUser.isMago && currentUser.credits &lt; selectedMapaCost){return showModal("Erro","Créditos insuficientes.");}
 var nome = document.getElementById('mapa-nome').value;
 if(!nome){return showModal("Erro","Preencha seu nome.");}
 if(!currentUser.isMago){currentUser.credits-=selectedMapaCost;saveUser(currentUser);updateCreditsDisplay();}
@@ -1468,7 +1212,7 @@ setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},15
 }
 function handleIndication(){
 var email = document.getElementById('indica-email').value;
-if(email.indexOf('@')<0){return showModal("Erro","E-mail inválido.");}
+if(email.indexOf('@')&lt;0){return showModal("Erro","E-mail inválido.");}
 showModal("Sucesso","Assim que seu amigo se cadastrar, você receberá 50 créditos.");
 document.getElementById('indica-email').value = '';
 }
