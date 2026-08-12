@@ -104,6 +104,9 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .cross-card{position:absolute;width:130px;text-align:center}
 .cross-card .card-slot{width:130px;cursor:default}
 .cross-card .cross-label{font-size:11px;color:var(--gold-light);margin-top:8px;line-height:1.3}
+.consultar-novamente-wrap{display:flex;justify-content:center;margin:30px auto;max-width:700px;padding:0 20px}
+.btn-consultar-novamente{background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e;border:none;padding:14px 30px;border-radius:30px;cursor:pointer;font-weight:bold;font-size:16px;transition:var(--transition);font-family:'Segoe UI',Tahoma,sans-serif}
+.btn-consultar-novamente:hover{transform:scale(1.05);box-shadow:0 0 20px rgba(212,168,67,0.7)}
 .faq-category{margin-bottom:30px}
 .faq-category h3{color:var(--gold);margin-bottom:15px;border-bottom:1px solid var(--accent);padding-bottom:5px}
 .faq-item{margin-bottom:10px;border:1px solid var(--accent);border-radius:5px;overflow:hidden}
@@ -197,6 +200,7 @@ Entrar com o Google
 </div>
 <div id="area-2" class="selection-area"></div>
 <div id="res-2" class="result-box" style="display:none"></div>
+<div id="consultar-2" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(2)">Consulte Novamente</button></div>
 </section>
 <section id="page-tarot-3" class="page tarot-bg">
 <div class="form-container">
@@ -220,6 +224,7 @@ Entrar com o Google
 </div>
 <div id="area-3" class="selection-area"></div>
 <div id="res-3" class="result-box" style="display:none"></div>
+<div id="consultar-3" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(3)">Consulte Novamente</button></div>
 </section>
 <section id="page-tarot-5" class="page tarot-bg">
 <div class="form-container">
@@ -243,6 +248,7 @@ Entrar com o Google
 </div>
 <div id="area-5" class="selection-area"></div>
 <div id="res-5" class="result-box" style="display:none"></div>
+<div id="consultar-5" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(5)">Consulte Novamente</button></div>
 </section>
 <section id="page-tarot-7" class="page tarot-bg">
 <div class="form-container">
@@ -268,6 +274,7 @@ Entrar com o Google
 </div>
 <div id="area-7" class="selection-area"></div>
 <div id="res-7" class="result-box" style="display:none"></div>
+<div id="consultar-7" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(7)">Consulte Novamente</button></div>
 </section>
 <section id="page-tarot-10" class="page tarot-bg">
 <div class="form-container">
@@ -296,6 +303,7 @@ Entrar com o Google
 </div>
 <div id="area-10" class="selection-area"></div>
 <div id="res-10" class="result-box" style="display:none"></div>
+<div id="consultar-10" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(10)">Consulte Novamente</button></div>
 </section>
 <section id="page-sim-nao" class="page">
 <div class="form-container" style="max-width:760px">
@@ -316,6 +324,7 @@ Entrar com o Google
 <div id="sim-nao-cards" class="cards-grid" style="padding:20px;display:none"></div>
 <div id="sim-nao-selected" class="simnao-selected" style="display:none"></div>
 <div id="sim-nao-result" class="result-box" style="display:none;margin:20px"></div>
+<div id="consultar-simnao" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoSimNao()">Consulte Novamente</button></div>
 </section>
 <section id="page-carta-dia" class="page tarot-bg">
 <div class="form-container" style="text-align:center">
@@ -416,7 +425,7 @@ Entrar com o Google
 </div>
 </div>
 <div id="mystic-balloon"><p id="balloon-text" style="font-style:italic;font-size:14px"></p></div>
-<div id="choose-balloon">Escolha suas cartas</div>
+<div id="choose-balloon">Escolha suas cartas abaixo</div>
 <script>
 var DECK = [
 {n:"O Louco",d:"novos começos, otimismo e uma jornada de fé",cen:"Você está diante de uma página em branco e sente um forte impulso de liberdade. A energia atual é de novos começos, idealismo e o desejo ardente de se libertar das amarras anteriores.",cam:"Este caminho trará uma jornada cheia de aprendizados, liberdade e novidades. Será uma aventura emocionante, mas com alto grau de imprevisibilidade e falta de garantias imediatas.",out:"Você entra nessa dinâmica com total desprendimento, entusiasmo e talvez um pouco de ingenuidade, pronto para mergulhar de cabeça sem olhar para trás."},
@@ -579,19 +588,56 @@ return false;
 }
 function showChooseBalloon(singular){
 var b = document.getElementById('choose-balloon');
-b.innerText = singular ? 'Escolha sua carta' : 'Escolha suas cartas';
+b.innerText = singular ? 'Escolha sua carta abaixo' : 'Escolha suas cartas abaixo';
 b.style.display = 'block';
 setTimeout(function(){b.style.display='none';},3000);
+}
+/* ===== CONFIRMAÇÃO DA PERGUNTA ===== */
+var pendingQuestion = null;
+var pendingType = null; /* 'tarot' ou 'simnao' */
+var pendingCount = 0;
+function askConfirmQuestion(q, type, count){
+pendingQuestion = q;
+pendingType = type;
+pendingCount = count;
+document.getElementById('modal-title').innerText = 'Confirmação';
+document.getElementById('modal-msg').innerHTML = 'Você está certo sobre esta pergunta?<br><br><em>"'+q+'"</em>';
+var overlay = document.getElementById('modal-overlay');
+overlay.style.display = 'flex';
+/* substitui o botão único por Sim/Não */
+var btn = overlay.querySelector('.modal-content .btn-portal');
+btn.style.display = 'none';
+var confirmDiv = document.getElementById('confirm-buttons');
+if(!confirmDiv){
+confirmDiv = document.createElement('div');
+confirmDiv.id = 'confirm-buttons';
+confirmDiv.style.cssText = 'display:flex;gap:12px;justify-content:center;margin-top:10px';
+overlay.querySelector('.modal-content').appendChild(confirmDiv);
+}
+confirmDiv.innerHTML = '<button class="btn-portal" style="background:#2c7a4a;flex:1" onclick="confirmQuestion(true)">Sim</button><button class="btn-portal" style="background:#a33;flex:1" onclick="confirmQuestion(false)">Não</button>';
+}
+function confirmQuestion(ok){
+var overlay = document.getElementById('modal-overlay');
+var btn = overlay.querySelector('.modal-content .btn-portal');
+btn.style.display = 'block';
+var confirmDiv = document.getElementById('confirm-buttons');
+if(confirmDiv){confirmDiv.innerHTML='';}
+overlay.style.display = 'none';
+if(!ok){
+showModal("Reformule a pergunta","Sua pergunta não está clara. Por favor, reformule-a de forma objetiva para continuar.");
+return;
+}
+if(pendingType==='simnao'){
+proceedSimNao(pendingQuestion);
+}else{
+proceedTarot(pendingCount, pendingQuestion);
+}
 }
 var POSITIVE_PHRASES = ["a energia se apresenta favorável e confirma que essa direção é verdadeira","as forças em jogo sustentam esse movimento e apontam para um desfecho positivo","o campo energético ao redor dessa questão está aberto e receptivo","os sinais convergem para uma resposta afirmativa, com sinceridade envolvida"];
 var NEGATIVE_PHRASES = ["as energias indicam que essa expectativa não encontra sustentação no momento","o campo emocional se mostra fechado ou distante, sem base para esse desejo","os sinais apontam para indiferença ou falta de envolvimento real","a dinâmica atual não favorece essa união, e forçar o caminho traria desgaste"];
 var MIXED_PHRASES = ["os sentimentos ainda estão em construção e podem se revelar com o tempo","o campo emocional está dividido, e o desfecho dependerá das próximas atitudes","existe interesse, mas ainda com ressalvas e incertezas a serem resolvidas","as energias se movimentam aos poucos, e nada está totalmente definido"];
 function randPick(arr){return arr[Math.floor(Math.random()*arr.length)];}
 function cardArcana(c){return DECK.indexOf(c)<22?"Arcano Maior":"Arcano Menor";}
-/* ===== RESPOSTA DINÂMICA INTELIGENTE (todos os tarôs) =====
-   Analisa a pergunta por completo (tema, pessoa, ação, assunto) e monta
-   uma resposta única ligando o veredito às cartas tiradas. Quanto mais
-   cartas, mais descritiva. */
 function buildDynamicResponse(cards, q, verdict){
 var topic = detectTopic(q);
 var person = extractPerson(q);
@@ -604,7 +650,6 @@ var acao = action ? action : 'seguir nesse caminho';
 var vereditoTxt = verdict==='SIM' ? 'Sim' : (verdict==='NAO' ? 'Não' : 'Talvez');
 var n = cards.length;
 html += '<p><span class="verdict-gold">'+vereditoTxt+'</span></p>';
-/* Veredito conectado ao tema */
 if(topic==='love'){
 if(verdict==='SIM'){html += '<p>As energias do coração se mostram abertas e verdadeiras em relação a '+quem+'. O oráculo indica que esse sentimento tem profundidade e que o vínculo tende a se fortalecer com o tempo.</p>';}
 else if(verdict==='NAO'){html += '<p>As energias indicam que, em relação a '+quem+', esse sentimento não encontra reciprocidade no momento. O oráculo sugere acolher esse recado com serenidade e voltar o olhar para o que realmente te faz bem.</p>';}
@@ -630,7 +675,6 @@ if(verdict==='SIM'){html += '<p>As energias se mostram favoráveis para '+alvo+'
 else if(verdict==='NAO'){html += '<p>As energias indicam que '+alvo+' não encontra sustentação no momento. O oráculo sugere reavaliar o caminho e aguardar o momento mais propício.</p>';}
 else{html += '<p>O desfecho de '+alvo+' ainda não está definido. O oráculo mostra que o resultado dependerá das suas próximas escolhas e do equilíbrio entre razão e intuição.</p>';}
 }
-/* Descrição ligada às cartas — quanto mais cartas, mais detalhada */
 html += '<h4 style="margin-top:14px">A leitura das cartas</h4>';
 if(n===1){
 html += '<p>A carta '+cards[0].n+' ('+cards[0].d+') reforça esse veredito. '+cards[0].cen+' '+cards[0].cam+'</p>';
@@ -1029,7 +1073,7 @@ document.getElementById('form-register').style.display=type==='register'?'flex':
 }
 function showModal(title,msg){
 document.getElementById('modal-title').innerText = title;
-document.getElementById('modal-msg').innerText = msg;
+document.getElementById('modal-msg').innerHTML = msg;
 document.getElementById('modal-overlay').style.display = 'flex';
 }
 function closeModal(){
@@ -1148,13 +1192,18 @@ document.getElementById('q-'+count).value = '';
 document.getElementById('res-'+count).style.display = 'none';
 document.getElementById('res-'+count).innerHTML = '';
 document.getElementById('area-'+count).innerHTML = '';
+document.getElementById('consultar-'+count).style.display = 'none';
 showPage('page-tarot-'+count);
 }
 function startTarot(count){
 var q = document.getElementById('q-'+count).value;
 if(!exigePerguntaValida(q)){return;}
 if(!currentUser.isMago && currentUser.credits < currentReading.cost){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
-currentReading.question = q.trim();
+/* pede confirmação antes de escolher as cartas */
+askConfirmQuestion(q.trim(), 'tarot', count);
+}
+function proceedTarot(count, q){
+currentReading.question = q;
 currentReading.selected = [];
 currentReading.active = true;
 currentReading.phase = (count===2)?'major':'all';
@@ -1163,9 +1212,7 @@ currentUser.credits -= currentReading.cost;
 saveUser(currentUser);
 updateCreditsDisplay();
 }
-/* esvazia a caixa da pergunta, pronta para nova consulta */
 document.getElementById('q-'+count).value = '';
-/* balão "Escolha suas cartas" por 3 segundos */
 showChooseBalloon(false);
 var area = document.getElementById('area-'+count);
 area.innerHTML = '';
@@ -1248,21 +1295,32 @@ text = buildTenCardNarrative(cards,q);
 }
 res.innerHTML = text;
 res.style.display = 'block';
+document.getElementById('consultar-'+count).style.display = 'flex';
 setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},200);
+}
+function voltarTopoTarot(count){
+document.getElementById('res-'+count).style.display = 'none';
+document.getElementById('res-'+count).innerHTML = '';
+document.getElementById('area-'+count).innerHTML = '';
+document.getElementById('consultar-'+count).style.display = 'none';
+document.getElementById('q-'+count).value = '';
+window.scrollTo(0,0);
 }
 function startSimNao(){
 var q = document.getElementById('sim-nao-question').value;
 if(!exigePerguntaValida(q)){return;}
 if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Créditos insuficientes.");}
+askConfirmQuestion(q.trim(), 'simnao', 1);
+}
+function proceedSimNao(q){
 if(!currentUser.isMago){currentUser.credits-=10;saveUser(currentUser);updateCreditsDisplay();}
-/* esvazia a caixa da pergunta */
 document.getElementById('sim-nao-question').value = '';
-/* balão "Escolha sua carta" (singular) por 3 segundos */
 showChooseBalloon(true);
 document.getElementById('sim-nao-selected').style.display='none';
 document.getElementById('sim-nao-selected').innerHTML='';
 document.getElementById('sim-nao-result').style.display='none';
 document.getElementById('sim-nao-result').innerHTML='';
+document.getElementById('consultar-simnao').style.display='none';
 var grid = document.getElementById('sim-nao-cards');
 grid.style.display='grid';
 grid.innerHTML='';
@@ -1291,7 +1349,19 @@ var html='<h3>Resposta do Oráculo</h3>';
 if(q&&q.trim().length>0){html+='<p><strong>Sua pergunta:</strong> "'+q.trim()+'".</p>';}
 html+=buildDynamicResponse([card],q,resp);
 div.innerHTML=html;
+document.getElementById('consultar-simnao').style.display='flex';
 sel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function voltarTopoSimNao(){
+document.getElementById('sim-nao-selected').style.display='none';
+document.getElementById('sim-nao-selected').innerHTML='';
+document.getElementById('sim-nao-result').style.display='none';
+document.getElementById('sim-nao-result').innerHTML='';
+document.getElementById('sim-nao-cards').style.display='none';
+document.getElementById('sim-nao-cards').innerHTML='';
+document.getElementById('consultar-simnao').style.display='none';
+document.getElementById('sim-nao-question').value = '';
+window.scrollTo(0,0);
 }
 function initCartaDia(){
 var key = 'carta_dia_'+currentUser.email;
