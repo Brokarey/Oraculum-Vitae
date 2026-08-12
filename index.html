@@ -79,6 +79,8 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .modal-content h3{font-size:22px;color:var(--gold);margin-bottom:14px}
 .modal-content p{margin-bottom:20px;line-height:1.5}
 #mystic-balloon{position:fixed;bottom:30px;right:30px;background:var(--accent);padding:20px;border-radius:20px 20px 0 20px;border:1px solid var(--gold);max-width:250px;display:none;animation:slideUp 0.5s ease;z-index:900}
+#choose-balloon{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(26,10,46,0.95);padding:22px 34px;border-radius:14px;border:2px solid var(--gold);color:var(--gold-light);font-size:20px;font-weight:bold;display:none;z-index:3000;text-align:center;box-shadow:0 0 40px rgba(212,168,67,0.5);animation:popIn 0.3s ease}
+@keyframes popIn{from{transform:translate(-50%,-50%) scale(0.7);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
 @keyframes slideUp{from{transform:translateY(100px);opacity:0}to{transform:translateY(0);opacity:1}}
 .voltar-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);cursor:pointer;font-weight:bold;text-decoration:none;margin-bottom:20px;font-size:15px;transition:var(--transition);background:none;border:none;font-family:inherit}
 .voltar-link:hover{text-shadow:0 0 12px rgba(212,168,67,0.8)}
@@ -414,6 +416,7 @@ Entrar com o Google
 </div>
 </div>
 <div id="mystic-balloon"><p id="balloon-text" style="font-style:italic;font-size:14px"></p></div>
+<div id="choose-balloon">Escolha suas cartas</div>
 <script>
 var DECK = [
 {n:"O Louco",d:"novos começos, otimismo e uma jornada de fé",cen:"Você está diante de uma página em branco e sente um forte impulso de liberdade. A energia atual é de novos começos, idealismo e o desejo ardente de se libertar das amarras anteriores.",cam:"Este caminho trará uma jornada cheia de aprendizados, liberdade e novidades. Será uma aventura emocionante, mas com alto grau de imprevisibilidade e falta de garantias imediatas.",out:"Você entra nessa dinâmica com total desprendimento, entusiasmo e talvez um pouco de ingenuidade, pronto para mergulhar de cabeça sem olhar para trás."},
@@ -538,7 +541,7 @@ return null;
 }
 function extractAction(q){
 if(!q){return null;}
-var m = q.replace(/\s+/g,' ').trim().match(/(?:devo|deve|posso|pode|devemos|podemos|deveria|deveriam|vou|vai|consigo|conseguir|quero|preciso|preciso|devo)\s+(.+?)\??$/i);
+var m = q.replace(/\s+/g,' ').trim().match(/(?:devo|deve|posso|pode|devemos|podemos|deveria|deveriam|vou|vai|consigo|conseguir|quero|preciso|devo)\s+(.+?)\??$/i);
 if(m){var a = m[1].replace(/[?!.\s]+$/g,'').trim();return a.length>2?a:null;}
 return null;
 }
@@ -564,26 +567,32 @@ var uniq = {};
 for(var i=0;i<letters.length;i++){uniq[letters[i]]=1;}
 if(Object.keys(uniq).length<4){return false;}
 if(/^(asdf|qwer|zxcv|teste|test|pergunta|aaaaaaaa|bbbbbbbb|cccccccc|dddddddd|eeeeeeee|kkkkkkkk|qqqqqqqq|wwwwwwww|hahaha|kkkk|rsrs|blabla)/i.test(q)){return false;}
-/* precisa ter um verbo de pergunta ou estrutura interrogativa */
 var t = norm(q);
-var temVerbo = /(vou|vai|devo|posso|consigo|quero|preciso|sera|será|estou|estarei|gosta|ama|volta|voltar|ficar|ficara|ficará|consegue|deveria|poderia|vence|vem|vira|sera que|será que|me ama|me quer|me ama|vai dar|vai conseguir|vai voltar|vai ficar|vai dar certo|vai acontecer|vai melhorar|vai dar)/i.test(t);
+var temVerbo = /(vou|vai|devo|posso|consigo|quero|preciso|sera|será|estou|estarei|gosta|ama|volta|voltar|ficar|ficara|ficará|consegue|deveria|poderia|vence|vem|vira|sera que|será que|me ama|me quer|vai dar|vai conseguir|vai voltar|vai ficar|vai dar certo|vai acontecer|vai melhorar|vai dar)/i.test(t);
 if(!temVerbo){return false;}
 return true;
 }
 function exigePerguntaValida(q){
 if(questionValida(q)){return true;}
-showModal("Pergunta Inválida","Sua pergunta não ficou clara. Por favor, refaça de forma objetiva, por exemplo: 'Vou conseguir superar a crise financeira?' ou 'A Talita me ama de verdade?'.");
+showModal("Pergunta Inválida","Sua pergunta não ficou clara ou não faz sentido. Por favor, refaça de forma objetiva, por exemplo: 'Vou conseguir superar a crise financeira?' ou 'A Talita me ama de verdade?'.");
 return false;
+}
+function showChooseBalloon(singular){
+var b = document.getElementById('choose-balloon');
+b.innerText = singular ? 'Escolha sua carta' : 'Escolha suas cartas';
+b.style.display = 'block';
+setTimeout(function(){b.style.display='none';},3000);
 }
 var POSITIVE_PHRASES = ["a energia se apresenta favorável e confirma que essa direção é verdadeira","as forças em jogo sustentam esse movimento e apontam para um desfecho positivo","o campo energético ao redor dessa questão está aberto e receptivo","os sinais convergem para uma resposta afirmativa, com sinceridade envolvida"];
 var NEGATIVE_PHRASES = ["as energias indicam que essa expectativa não encontra sustentação no momento","o campo emocional se mostra fechado ou distante, sem base para esse desejo","os sinais apontam para indiferença ou falta de envolvimento real","a dinâmica atual não favorece essa união, e forçar o caminho traria desgaste"];
 var MIXED_PHRASES = ["os sentimentos ainda estão em construção e podem se revelar com o tempo","o campo emocional está dividido, e o desfecho dependerá das próximas atitudes","existe interesse, mas ainda com ressalvas e incertezas a serem resolvidas","as energias se movimentam aos poucos, e nada está totalmente definido"];
 function randPick(arr){return arr[Math.floor(Math.random()*arr.length)];}
 function cardArcana(c){return DECK.indexOf(c)<22?"Arcano Maior":"Arcano Menor";}
-/* ===== RESPOSTA DINÂMICA DO SIM/NÃO/TALVEZ =====
-   Analisa a pergunta por completo (tema, pessoa, ação, assunto) e
-   monta uma resposta única ligando o veredito à carta tirada. */
-function buildDynamicSimNao(card, q, verdict){
+/* ===== RESPOSTA DINÂMICA INTELIGENTE (todos os tarôs) =====
+   Analisa a pergunta por completo (tema, pessoa, ação, assunto) e monta
+   uma resposta única ligando o veredito às cartas tiradas. Quanto mais
+   cartas, mais descritiva. */
+function buildDynamicResponse(cards, q, verdict){
 var topic = detectTopic(q);
 var person = extractPerson(q);
 var action = extractAction(q);
@@ -592,35 +601,78 @@ var html = '';
 var quem = person ? person : 'essa situação';
 var alvo = subject ? subject : 'essa questão';
 var acao = action ? action : 'seguir nesse caminho';
-var p = cardPolarity(card);
 var vereditoTxt = verdict==='SIM' ? 'Sim' : (verdict==='NAO' ? 'Não' : 'Talvez');
+var n = cards.length;
 html += '<p><span class="verdict-gold">'+vereditoTxt+'</span></p>';
+/* Veredito conectado ao tema */
 if(topic==='love'){
-if(verdict==='SIM'){html += '<p>As energias do coração se mostram abertas e verdadeiras em relação a '+quem+'. A carta '+card.n+', com a energia de '+card.d+', reforça que esse sentimento tem profundidade e que o vínculo tende a se fortalecer com o tempo.</p>';}
-else if(verdict==='NAO'){html += '<p>As energias indicam que, em relação a '+quem+', esse sentimento não encontra reciprocidade no momento. A carta '+card.n+' ('+card.d+') sugere que é preciso acolher esse recado com serenidade e voltar o olhar para o que realmente te faz bem.</p>';}
-else{html += '<p>Os sentimentos de '+quem+' ainda estão em construção. A carta '+card.n+' ('+card.d+') mostra que o desfecho dependerá das próximas atitudes e do tempo que você dedicar a essa conexão.</p>';}
+if(verdict==='SIM'){html += '<p>As energias do coração se mostram abertas e verdadeiras em relação a '+quem+'. O oráculo indica que esse sentimento tem profundidade e que o vínculo tende a se fortalecer com o tempo.</p>';}
+else if(verdict==='NAO'){html += '<p>As energias indicam que, em relação a '+quem+', esse sentimento não encontra reciprocidade no momento. O oráculo sugere acolher esse recado com serenidade e voltar o olhar para o que realmente te faz bem.</p>';}
+else{html += '<p>Os sentimentos de '+quem+' ainda estão em construção. O oráculo mostra que o desfecho dependerá das próximas atitudes e do tempo dedicado a essa conexão.</p>';}
 }
 else if(topic==='work'){
-if(verdict==='SIM'){html += '<p>O campo profissional se mostra favorável para '+acao+'. A carta '+card.n+' ('+card.d+') indica que suas competências e sua determinação serão reconhecidas, abrindo caminho para o resultado que você busca.</p>';}
-else if(verdict==='NAO'){html += '<p>As energias profissionais pedem prudência em relação a '+acao+'. A carta '+card.n+' ('+card.d+') sugere que este não é o momento ideal para avançar, e que planejar com calma trará melhores resultados.</p>';}
-else{html += '<p>O desfecho profissional de '+acao+' depende das suas escolhas. A carta '+card.n+' ('+card.d+') indica que o esforço e a constância serão decisivos para o resultado.</p>';}
+if(verdict==='SIM'){html += '<p>O campo profissional se mostra favorável para '+acao+'. O oráculo indica que suas competências e sua determinação serão reconhecidas, abrindo caminho para o resultado que você busca.</p>';}
+else if(verdict==='NAO'){html += '<p>As energias profissionais pedem prudência em relação a '+acao+'. O oráculo sugere que este não é o momento ideal para avançar, e que planejar com calma trará melhores resultados.</p>';}
+else{html += '<p>O desfecho profissional de '+acao+' depende das suas escolhas. O oráculo indica que o esforço e a constância serão decisivos para o resultado.</p>';}
 }
 else if(topic==='money'){
-if(verdict==='SIM'){html += '<p>As energias financeiras se mostram favoráveis para '+alvo+'. A carta '+card.n+' ('+card.d+') indica que, com organização e foco, a estabilidade que você busca tende a se concretizar.</p>';}
-else if(verdict==='NAO'){html += '<p>As energias financeiras pedem cautela em relação a '+alvo+'. A carta '+card.n+' ('+card.d+') sugere que é preciso revisar o planejamento antes de qualquer movimento, evitando riscos desnecessários.</p>';}
-else{html += '<p>O resultado financeiro de '+alvo+' dependerá das suas decisões. A carta '+card.n+' ('+card.d+') indica que o equilíbrio entre gastos e investimentos será a chave.</p>';}
+if(verdict==='SIM'){html += '<p>As energias financeiras se mostram favoráveis para '+alvo+'. O oráculo indica que, com organização e foco, a estabilidade que você busca tende a se concretizar.</p>';}
+else if(verdict==='NAO'){html += '<p>As energias financeiras pedem cautela em relação a '+alvo+'. O oráculo sugere revisar o planejamento antes de qualquer movimento, evitando riscos desnecessários.</p>';}
+else{html += '<p>O resultado financeiro de '+alvo+' dependerá das suas decisões. O oráculo indica que o equilíbrio entre gastos e investimentos será a chave.</p>';}
 }
 else if(topic==='health'){
-if(verdict==='SIM'){html += '<p>As energias de bem-estar se mostram favoráveis para '+alvo+'. A carta '+card.n+' ('+card.d+') indica que o cuidado e a atenção com a sua saúde trarão melhoras e renovação.</p>';}
-else if(verdict==='NAO'){html += '<p>As energias pedem atenção redobrada com a sua saúde em relação a '+alvo+'. A carta '+card.n+' ('+card.d+') sugere que é preciso buscar orientação e não negligenciar os sinais do corpo.</p>';}
-else{html += '<p>O desfecho para a sua saúde dependerá do cuidado que você dedicar a si. A carta '+card.n+' ('+card.d+') indica que pequenos passos de autocuidado farão diferença.</p>';}
+if(verdict==='SIM'){html += '<p>As energias de bem-estar se mostram favoráveis para '+alvo+'. O oráculo indica que o cuidado e a atenção com a sua saúde trarão melhoras e renovação.</p>';}
+else if(verdict==='NAO'){html += '<p>As energias pedem atenção redobrada com a sua saúde em relação a '+alvo+'. O oráculo sugere buscar orientação e não negligenciar os sinais do corpo.</p>';}
+else{html += '<p>O desfecho para a sua saúde dependerá do cuidado que você dedicar a si. O oráculo indica que pequenos passos de autocuidado farão diferença.</p>';}
 }
 else{
-if(verdict==='SIM'){html += '<p>As energias se mostram favoráveis para '+alvo+'. A carta '+card.n+' ('+card.d+') confirma que o caminho se abre quando você age com propósito e confiança, e que o resultado tende a ser positivo.</p>';}
-else if(verdict==='NAO'){html += '<p>As energias indicam que '+alvo+' não encontra sustentação no momento. A carta '+card.n+' ('+card.d+') sugere que é preciso reavaliar o caminho e aguardar o momento mais propício.</p>';}
-else{html += '<p>O desfecho de '+alvo+' ainda não está definido. A carta '+card.n+' ('+card.d+') mostra que o resultado dependerá das suas próximas escolhas e do equilíbrio entre razão e intuição.</p>';}
+if(verdict==='SIM'){html += '<p>As energias se mostram favoráveis para '+alvo+'. O oráculo confirma que o caminho se abre quando você age com propósito e confiança, e que o resultado tende a ser positivo.</p>';}
+else if(verdict==='NAO'){html += '<p>As energias indicam que '+alvo+' não encontra sustentação no momento. O oráculo sugere reavaliar o caminho e aguardar o momento mais propício.</p>';}
+else{html += '<p>O desfecho de '+alvo+' ainda não está definido. O oráculo mostra que o resultado dependerá das suas próximas escolhas e do equilíbrio entre razão e intuição.</p>';}
 }
-html += '<p style="font-size:12px;margin-top:10px;color:#aaa">Carta revelada: '+card.n+'</p>';
+/* Descrição ligada às cartas — quanto mais cartas, mais detalhada */
+html += '<h4 style="margin-top:14px">A leitura das cartas</h4>';
+if(n===1){
+html += '<p>A carta '+cards[0].n+' ('+cards[0].d+') reforça esse veredito. '+cards[0].cen+' '+cards[0].cam+'</p>';
+}
+else if(n===2){
+html += '<p>A primeira carta, '+cards[0].n+' ('+cards[0].d+'), representa o cenário central: '+cards[0].cen+'</p>';
+html += '<p>A segunda carta, '+cards[1].n+' ('+cards[1].d+'), traz o detalhe oculto e o conselho: '+cards[1].cam+'</p>';
+}
+else if(n===3){
+html += '<p><strong>Passado ('+cards[0].n+'):</strong> '+cards[0].cen+'</p>';
+html += '<p><strong>Presente ('+cards[1].n+'):</strong> '+cards[1].cen+'</p>';
+html += '<p><strong>Futuro ('+cards[2].n+'):</strong> '+cards[2].cam+'</p>';
+}
+else if(n===5){
+html += '<p><strong>Centro - O Momento ('+cards[0].n+'):</strong> '+cards[0].cen+'</p>';
+html += '<p><strong>Esquerda - O Obstáculo ('+cards[1].n+'):</strong> '+cards[1].out+' '+cards[1].cam+'</p>';
+html += '<p><strong>Direita - Os Aliados ('+cards[2].n+'):</strong> '+cards[2].cam+'</p>';
+html += '<p><strong>Base - O Passado ('+cards[3].n+'):</strong> '+cards[3].cen+'</p>';
+html += '<p><strong>Topo - O Desfecho ('+cards[4].n+'):</strong> '+cards[4].cam+' '+cards[4].out+'</p>';
+}
+else if(n===7){
+html += '<p><strong>O Passado ('+cards[0].n+'):</strong> '+cards[0].cen+'</p>';
+html += '<p><strong>O Presente ('+cards[1].n+'):</strong> '+cards[1].cen+'</p>';
+html += '<p><strong>Influências Ocultas ('+cards[2].n+'):</strong> '+cards[2].cam+'</p>';
+html += '<p><strong>O Consulente ('+cards[3].n+'):</strong> '+cards[3].out+'</p>';
+html += '<p><strong>Atitudes dos Outros ('+cards[4].n+'):</strong> '+cards[4].out+' '+cards[4].cam+'</p>';
+html += '<p><strong>Obstáculo ou Melhor Caminho ('+cards[5].n+'):</strong> '+cards[5].cam+'</p>';
+html += '<p><strong>O Desfecho ('+cards[6].n+'):</strong> '+cards[6].cam+' '+cards[6].out+'</p>';
+}
+else if(n===10){
+html += '<p><strong>O Momento Atual ('+cards[0].n+'):</strong> '+cards[0].cen+'</p>';
+html += '<p><strong>O Obstáculo ('+cards[1].n+'):</strong> '+cards[1].out+' '+cards[1].cam+'</p>';
+html += '<p><strong>A Base/Raiz ('+cards[2].n+'):</strong> '+cards[2].cen+'</p>';
+html += '<p><strong>O Passado Recente ('+cards[3].n+'):</strong> '+cards[3].cen+'</p>';
+html += '<p><strong>O Topo/Coroamento ('+cards[4].n+'):</strong> '+cards[4].out+'</p>';
+html += '<p><strong>O Futuro Imediato ('+cards[5].n+'):</strong> '+cards[5].cam+'</p>';
+html += '<p><strong>O Consulente ('+cards[6].n+'):</strong> '+cards[6].out+'</p>';
+html += '<p><strong>O Ambiente Externo ('+cards[7].n+'):</strong> '+cards[7].out+' '+cards[7].cam+'</p>';
+html += '<p><strong>Esperanças e Medos ('+cards[8].n+'):</strong> '+cards[8].cen+' '+cards[8].cam+'</p>';
+html += '<p><strong>O Resultado Final ('+cards[9].n+'):</strong> '+cards[9].cam+' '+cards[9].out+'</p>';
+}
+html += '<p style="font-size:12px;margin-top:10px;color:#aaa">Cartas reveladas: '+cards.map(function(c){return c.n;}).join(', ')+'</p>';
 return html;
 }
 function buildConclusion(c1,c2,q,action,topic,person){
@@ -900,7 +952,6 @@ function cardHTML(card,width){
 var w = width?' style="width:'+width+'"':'';
 return '<div class="card-slot flipped"'+w+'><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div>';
 }
-/* ===== CRUZ (5 cartas) — método em cruz: Centro, Esquerda, Direita, Base, Topo ===== */
 function renderCross(cards){
 var labels = ['O Momento','O Obstáculo','Os Aliados','O Passado','O Desfecho'];
 var pos = [
@@ -1112,6 +1163,10 @@ currentUser.credits -= currentReading.cost;
 saveUser(currentUser);
 updateCreditsDisplay();
 }
+/* esvazia a caixa da pergunta, pronta para nova consulta */
+document.getElementById('q-'+count).value = '';
+/* balão "Escolha suas cartas" por 3 segundos */
+showChooseBalloon(false);
 var area = document.getElementById('area-'+count);
 area.innerHTML = '';
 if(count===2){
@@ -1200,8 +1255,10 @@ var q = document.getElementById('sim-nao-question').value;
 if(!exigePerguntaValida(q)){return;}
 if(!currentUser.isMago && currentUser.credits<10){return showModal("Erro","Créditos insuficientes.");}
 if(!currentUser.isMago){currentUser.credits-=10;saveUser(currentUser);updateCreditsDisplay();}
-/* limpa o campo da pergunta, pronto para uma nova */
+/* esvazia a caixa da pergunta */
 document.getElementById('sim-nao-question').value = '';
+/* balão "Escolha sua carta" (singular) por 3 segundos */
+showChooseBalloon(true);
 document.getElementById('sim-nao-selected').style.display='none';
 document.getElementById('sim-nao-selected').innerHTML='';
 document.getElementById('sim-nao-result').style.display='none';
@@ -1232,7 +1289,7 @@ var div=document.getElementById('sim-nao-result');
 div.style.display='block';
 var html='<h3>Resposta do Oráculo</h3>';
 if(q&&q.trim().length>0){html+='<p><strong>Sua pergunta:</strong> "'+q.trim()+'".</p>';}
-html+=buildDynamicSimNao(card,q,resp);
+html+=buildDynamicResponse([card],q,resp);
 div.innerHTML=html;
 sel.scrollIntoView({behavior:'smooth',block:'start'});
 }
