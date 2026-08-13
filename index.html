@@ -27,34 +27,29 @@ body {
     overflow-x: hidden;
     position: relative;
 }
-/* ===== FUNDO ESTRELADO ===== */
+/* FUNDO ESTRELADO */
 .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; }
 .stars span { position: absolute; background: #fff; border-radius: 50%; animation: twinkle 3s infinite ease-in-out; }
 @keyframes twinkle { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-/* ===== CONTAINER ===== */
 .container { max-width: 1150px; margin: 0 auto; padding: 20px; }
 .page { display: none; animation: fadeIn 0.4s ease; }
 .page.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ===== TÍTULOS ===== */
 .page-title { text-align: center; color: var(--gold); font-size: 34px; margin: 30px 0 8px; letter-spacing: 1px; }
 .page-sub { text-align: center; color: var(--text-dim); margin-bottom: 30px; font-size: 15px; }
 .back-link { display: inline-block; color: var(--gold); text-decoration: none; margin: 15px 0; cursor: pointer; font-size: 14px; transition: 0.3s; }
 .back-link:hover { text-decoration: underline; transform: translateX(-3px); }
 
-/* ===== BOTÕES ===== */
 .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: inherit; }
 .btn-gold { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #0a0a12; }
 .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(201,162,39,0.4); }
 .btn-google { background: #fff; color: #333; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-.btn-google:hover { box-shadow: 0 4px 15px rgba(255,255,255,0.2); }
 .btn-again { background: #333; color: var(--text); margin-top: 15px; }
 .btn-again:hover { background: #444; }
 .btn-start { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #0a0a12; font-size: 16px; }
 
-/* ===== INPUTS ===== */
 input, select, textarea {
     width: 100%; padding: 13px; margin-bottom: 12px;
     background: var(--bg-input); border: 1px solid var(--border); border-radius: 9px;
@@ -64,7 +59,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .question-input { width: 100%; padding: 14px; margin: 15px 0; background: var(--bg-input); border: 1px solid var(--border); border-radius: 9px; color: var(--text); font-size: 15px; }
 .question-input:focus { outline: none; border-color: var(--gold); }
 
-/* ===== LOGIN ===== */
+/* LOGIN */
 #page-login { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
 .login-box { background: rgba(20,20,35,0.92); border: 1px solid var(--gold); border-radius: 18px; padding: 40px; width: 100%; max-width: 430px; box-shadow: 0 0 50px rgba(201,162,39,0.15); }
 .login-box h1 { text-align: center; color: var(--gold); font-size: 30px; letter-spacing: 3px; margin-bottom: 4px; }
@@ -78,7 +73,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-dim); margin-bottom: 15px; }
 .checkbox-row input { width: auto; margin: 0; }
 
-/* ===== HEADER ===== */
+/* HEADER */
 #main-header { display: none; background: rgba(10,10,18,0.96); border-bottom: 1px solid #222; padding: 14px 20px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
 #main-header.active { display: block; }
 .header-inner { max-width: 1150px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
@@ -92,7 +87,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .logout-btn { background: none; border: none; color: var(--red); font-size: 22px; cursor: pointer; transition: 0.3s; }
 .logout-btn:hover { transform: scale(1.15); }
 
-/* ===== GRID E CARDS ===== */
+/* GRID E CARDS */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
 .card { position: relative; background: rgba(20,20,35,0.85); border: 1px solid var(--border); border-radius: 15px; padding: 25px 20px; text-align: center; cursor: pointer; transition: 0.3s; }
 .card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 12px 35px rgba(201,162,39,0.15); }
@@ -101,10 +96,9 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .card p { color: var(--text-dim); font-size: 13px; }
 .card .price { color: var(--gold); margin-top: 8px; font-weight: bold; }
 .card.disabled { opacity: 0.5; cursor: not-allowed; }
-.card.disabled:hover { transform: none; border-color: var(--border); box-shadow: none; }
 .badge-soon { position: absolute; top: 12px; right: 12px; background: var(--gold); color: #0a0a12; font-size: 10px; padding: 3px 9px; border-radius: 12px; font-weight: bold; }
 
-/* ===== INFO TARÔ ===== */
+/* INFO TARÔ */
 .tarot-info { background: rgba(20,20,35,0.6); border: 1px solid var(--border); border-radius: 13px; padding: 25px; margin: 20px 0; line-height: 1.75; }
 .tarot-info h2 { color: var(--gold); margin-bottom: 14px; }
 .tarot-info ul { margin: 10px 0 10px 22px; }
@@ -112,7 +106,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .tarot-info em { color: var(--gold-light); }
 .tarot-info strong { color: var(--gold); }
 
-/* ===== ÁREA DE CARTAS ===== */
+/* ÁREA DE CARTAS */
 .cards-area { margin: 20px 0; min-height: 200px; }
 .cards-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 .tarot-card {
@@ -124,17 +118,17 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
     transition: 0.3s; color: var(--text); position: relative;
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
-.tarot-card:hover { transform: scale(1.06); border-color: var(--gold-light); box-shadow: 0 8px 20px rgba(201,162,39,0.3); }
+.tarot-card:hover { transform: scale(1.06); border-color: var(--gold-light); }
 .tarot-card.selected { border-color: var(--red); background: #2a1a1a; }
 .tarot-card .card-label { position: absolute; bottom: 4px; left: 0; right: 0; font-size: 9px; color: var(--gold); font-weight: bold; }
 
-/* ===== RESULTADO ===== */
+/* RESULTADO */
 .result-box { display: none; background: rgba(20,20,35,0.92); border: 1px solid var(--gold); border-radius: 14px; padding: 28px; margin: 20px 0; box-shadow: 0 0 30px rgba(201,162,39,0.1); }
 .result-box.active { display: block; animation: fadeIn 0.5s ease; }
 .result-box h3 { color: var(--gold); margin-bottom: 18px; text-align: center; font-size: 22px; }
 .result-box p { line-height: 1.8; margin-bottom: 10px; }
 
-/* ===== FERRADURA (7 CARTAS) ===== */
+/* FERRADURA (7 CARTAS) */
 .ferradura-container { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 20px auto; max-width: 720px; }
 .ferradura-linha { display: flex; justify-content: center; gap: 12px; }
 .ferradura-linha .tarot-card { width: 95px; height: 155px; cursor: default; }
@@ -142,17 +136,17 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .ferradura-linha-2 { transform: translateY(14px); }
 .ferradura-linha-3 { transform: translateY(28px); }
 
-/* ===== CRUZ (5 CARTAS) ===== */
+/* CRUZ (5 CARTAS) */
 .cruz-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 20px auto; }
 .cruz-linha { display: flex; gap: 12px; justify-content: center; }
 .cruz-linha .tarot-card { width: 95px; height: 155px; cursor: default; }
 
-/* ===== CELTA (10 CARTAS) ===== */
+/* CELTA (10 CARTAS) */
 .celta-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 20px auto; }
 .celta-linha { display: flex; gap: 12px; justify-content: center; }
 .celta-linha .tarot-card { width: 90px; height: 148px; cursor: default; }
 
-/* ===== PLANOS ===== */
+/* PLANOS */
 .plans-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
 .plans-table th, .plans-table td { border: 1px solid var(--border); padding: 13px; text-align: center; }
 .plans-table th { background: #1a1a2e; color: var(--gold); }
@@ -166,14 +160,14 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .pack .price { font-size: 24px; color: var(--text); margin-bottom: 14px; }
 .pack .btn { width: auto; padding: 10px 22px; }
 
-/* ===== MODAL ===== */
+/* MODAL */
 .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.active { display: flex; }
 .modal-box { background: #1a1a2e; border: 1px solid var(--gold); border-radius: 14px; padding: 32px; max-width: 400px; width: 100%; text-align: center; animation: fadeIn 0.3s ease; }
 .modal-box h3 { color: var(--gold); margin-bottom: 15px; font-size: 20px; }
 .modal-box p { margin-bottom: 22px; line-height: 1.7; color: var(--text); }
 
-/* ===== FAQ ===== */
+/* FAQ */
 .faq-item { background: rgba(20,20,35,0.6); border: 1px solid var(--border); border-radius: 11px; padding: 16px 22px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; }
 .faq-item:hover { border-color: var(--gold); }
 .faq-item h4 { color: var(--text); font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
@@ -182,12 +176,12 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .faq-item .faq-answer { display: none; margin-top: 12px; color: var(--text-dim); line-height: 1.7; }
 .faq-item.open .faq-answer { display: block; }
 
-/* ===== INDICAÇÃO ===== */
+/* INDICAÇÃO */
 .indicacoes-list { margin-top: 20px; }
 .indicacao-item { background: rgba(20,20,35,0.6); border: 1px solid var(--border); border-radius: 9px; padding: 12px 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
 .indicacao-item .status { color: var(--gold); font-size: 13px; }
 
-/* ===== RESPONSIVO ===== */
+/* RESPONSIVO */
 @media (max-width: 600px) {
     .page-title { font-size: 26px; }
     .header-inner { flex-direction: column; align-items: flex-start; }
@@ -213,10 +207,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
       <input type="password" id="login-pass" placeholder="Sua senha">
       <button class="btn btn-gold" onclick="handleLogin()">Entrar no Portal</button>
       <div class="divider">ou</div>
-      <button class="btn btn-google" onclick="loginGoogle()">
-        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.7l6.2 5.2C36.9 40.4 44 35 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
-        Continuar com Google
-      </button>
+      <button class="btn btn-google" onclick="loginGoogle()">Entrar com o Google</button>
     </div>
     <div id="form-register" style="display:none;">
       <input type="text" id="reg-name" placeholder="Nome Completo">
@@ -246,34 +237,24 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 <!-- DASHBOARD -->
 <div id="page-dashboard" class="page">
   <div class="container">
-    <h1 class="page-title">Bem-vindo ao seu Destino</h1>
+    <h1 class="page-title">Bem-vindo ao Oraculum Vitae</h1>
     <p class="page-sub">Escolha seu oráculo e descubra o que o universo reserva para você</p>
     <div class="grid">
-      <div class="card" onclick="showPage('page-tarot')"><div class="icon">🔮</div><h3>Tarô</h3><p>Consulte os Arcanos</p></div>
-      <div class="card" onclick="openTarot(3)"><div class="icon">🃏</div><h3>Marselha</h3><p>3 Cartas (30 créd.)</p></div>
-      <div class="card" onclick="showPage('page-amor')"><div class="icon">❤️</div><h3>Tarô do Amor</h3><p>Templo de Afrodite</p></div>
-      <div class="card" onclick="showPage('page-sim-nao')"><div class="icon">⚖️</div><h3>Sim ou Não</h3><p>Resposta Direta</p></div>
+      <div class="card" onclick="showPage('page-sim-nao')"><div class="icon">⚖️</div><h3>Sim, Não, Talvez</h3><p>Resposta Direta</p></div>
+      <div class="card" onclick="openTarot(2)"><div class="icon">🃏</div><h3>Tarô: 2 Cartas</h3><p>Conselho e Advertência</p></div>
+      <div class="card" onclick="openTarot(3)"><div class="icon">🃏</div><h3>Tarô: 3 Cartas</h3><p>Passado, Presente e Futuro</p></div>
+      <div class="card" onclick="openTarot(5)"><div class="icon">🃏</div><h3>Tarô: 5 Cartas</h3><p>Cruz Simples</p></div>
+      <div class="card" onclick="openTarot(7)"><div class="icon">🃏</div><h3>Tarô: 7 Cartas</h3><p>Método da Ferradura</p></div>
+      <div class="card" onclick="openTarot(10)"><div class="icon">🃏</div><h3>Tarô: 10 Cartas</h3><p>Cruz Celta</p></div>
       <div class="card" onclick="showPage('page-carta-dia')"><div class="icon">🌅</div><h3>Carta do Dia</h3><p>Grátis Diário</p></div>
-      <div class="card disabled" onclick="showPage('page-iching')"><div class="icon">☯</div><h3>I Ching</h3><p>Sabedoria Chinesa</p><span class="badge-soon">EM BREVE</span></div>
-      <div class="card" onclick="showPage('page-mapa-astral')"><div class="icon">🌟</div><h3>Mapa Astral</h3><p>Seu Destino Estelar</p></div>
+      <div class="card" onclick="showPage('page-amor')"><div class="icon">❤️</div><h3>Tarô do Amor</h3><p>Templo de Afrodite</p></div>
+      <div class="card" onclick="openTarot(3)"><div class="icon">🃏</div><h3>Tarô de Marselha</h3><p>Sabedoria Tradicional</p></div>
+      <div class="card" onclick="openMapa('Pórtico Celestial', 50)"><div class="icon">✨</div><h3>Pórtico Celestial</h3><p>A porta de entrada para o seu mapa</p></div>
+      <div class="card" onclick="openMapa('Órbita Pessoal', 100)"><div class="icon">🌙</div><h3>Órbita Pessoal</h3><p>Uma visão mais ampla e detalhada da sua vida</p></div>
+      <div class="card" onclick="openMapa('Cosmos Absoluto', 200)"><div class="icon">🌟</div><h3>Cosmos Absoluto</h3><p>A leitura total e integrada do seu universo</p></div>
       <div class="card" onclick="showPage('page-horoscopo')"><div class="icon">♈</div><h3>Horóscopo</h3><p>Previsões Diárias</p></div>
       <div class="card" onclick="showPage('page-numerologia')"><div class="icon">🔢</div><h3>Numerologia</h3><p>Vibração do Nome</p></div>
-    </div>
-  </div>
-</div>
-
-<!-- ESCOLHA DE TIRAGEM -->
-<div id="page-tarot" class="page">
-  <div class="container">
-    <a class="back-link" onclick="showPage('page-dashboard')">← Voltar ao Início</a>
-    <h1 class="page-title">Escolha sua Tiragem</h1>
-    <p class="page-sub">Selecione o método de leitura que mais se adequa à sua pergunta</p>
-    <div class="grid">
-      <div class="card" onclick="openTarot(2)"><div class="icon">🃏</div><h3>2 Cartas</h3><p>1 Arcano Maior + 1 Menor</p><p class="price">20 Créd.</p></div>
-      <div class="card" onclick="openTarot(3)"><div class="icon">🃏</div><h3>3 Cartas</h3><p>Passado, Presente, Futuro</p><p class="price">30 Créd.</p></div>
-      <div class="card" onclick="openTarot(5)"><div class="icon">🃏</div><h3>5 Cartas</h3><p>Cruz Simples</p><p class="price">50 Créd.</p></div>
-      <div class="card" onclick="openTarot(7)"><div class="icon">🃏</div><h3>7 Cartas</h3><p>Método da Ferradura</p><p class="price">70 Créd.</p></div>
-      <div class="card" onclick="openTarot(10)"><div class="icon">🃏</div><h3>10 Cartas</h3><p>Cruz Celta</p><p class="price">100 Créd.</p></div>
+      <div class="card disabled" onclick="showPage('page-iching')"><div class="icon">☯</div><h3>I Ching</h3><p>Sabedoria Chinesa</p><span class="badge-soon">EM BREVE</span></div>
     </div>
   </div>
 </div>
@@ -298,36 +279,19 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
   </div>
 </div>
 
-<!-- TARÔ DO AMOR -->
-<div id="page-amor" class="page">
-  <div class="container">
-    <a class="back-link" onclick="showPage('page-dashboard')">← Voltar ao Início</a>
-    <h1 class="page-title">Templo de Afrodite</h1>
-    <div class="tarot-info">
-      <p>Mapeie a dinâmica entre duas pessoas. Analise o mental, o emocional e o físico de ambos, além do futuro da relação.</p>
-      <p style="color:var(--gold);margin-top:12px;font-weight:bold;">7 Cartas | 70 Créditos</p>
-    </div>
-    <input type="text" class="question-input" id="amor-question" placeholder="Ex.: Como está a relação entre mim e [nome]?">
-    <button class="btn btn-gold btn-start" onclick="iniciarAmor()">Iniciar Leitura do Amor</button>
-    <div class="cards-area" id="amor-cards-area" style="display:none;">
-      <p style="text-align:center;color:var(--gold);margin-bottom:15px;">💖 Escolha 7 cartas para mapear a relação</p>
-      <div class="cards-grid" id="amor-cards-grid"></div>
-    </div>
-    <div class="result-box" id="amor-result">
-      <h3>💖 Revelação de Afrodite</h3>
-      <div id="amor-result-text"></div>
-      <button class="btn btn-again" onclick="voltarAmor()">Consulte Novamente</button>
-    </div>
-  </div>
-</div>
-
 <!-- SIM / NÃO / TALVEZ -->
 <div id="page-sim-nao" class="page">
   <div class="container">
     <a class="back-link" onclick="showPage('page-dashboard')">← Voltar ao Início</a>
     <h1 class="page-title">Sim, Não ou Talvez</h1>
     <div class="tarot-info">
-      <p>Faça sua pergunta objetiva para o oráculo. (10 créditos)</p>
+      <p>O Tarô Sim, Não, Talvez é um método rápido de leitura focado em autoconhecimento e direcionamento diário. Por apenas 10 créditos, você retira apenas um dos 78 arcanos do baralho para servir como bússola para o momento. Ele foca em uma pergunta específica, revelando o conselho central, a energia do dia ou a resposta direta que você precisa.</p>
+      <p>Essa tiragem é ideal para quem tem pressa ou para iniciantes. Funciona de forma muito simples:</p>
+      <ul>
+        <li>Escreva uma pergunta que possa ser respondida por sim, não ou talvez.</li>
+        <li>Selecione uma das cartas do baralho embaralhado, concentrando-se nessa energia.</li>
+        <li>Esse formato é excelente para meditações diárias e para focar no momento presente.</li>
+      </ul>
     </div>
     <input type="text" class="question-input" id="simnao-question" placeholder="Escreva sua pergunta objetiva...">
     <button class="btn btn-gold btn-start" onclick="iniciarSimNao()">Iniciar Consulta</button>
@@ -359,6 +323,28 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
   </div>
 </div>
 
+<!-- TARÔ DO AMOR -->
+<div id="page-amor" class="page">
+  <div class="container">
+    <a class="back-link" onclick="showPage('page-dashboard')">← Voltar ao Início</a>
+    <h1 class="page-title">Templo de Afrodite</h1>
+    <div class="tarot-info">
+      <p>Mapeie a dinâmica entre duas pessoas: mental, emocional e físico de ambos. (7 Cartas | 70 Créditos)</p>
+    </div>
+    <input type="text" class="question-input" id="amor-question" placeholder="Ex.: Como está a relação entre mim e [nome]?">
+    <button class="btn btn-gold btn-start" onclick="iniciarAmor()">Iniciar Leitura do Amor</button>
+    <div class="cards-area" id="amor-cards-area" style="display:none;">
+      <p style="text-align:center;color:var(--gold);margin-bottom:15px;">💖 Escolha 7 cartas para mapear a relação</p>
+      <div class="cards-grid" id="amor-cards-grid"></div>
+    </div>
+    <div class="result-box" id="amor-result">
+      <h3>💖 Revelação de Afrodite</h3>
+      <div id="amor-result-text"></div>
+      <button class="btn btn-again" onclick="voltarAmor()">Consulte Novamente</button>
+    </div>
+  </div>
+</div>
+
 <!-- I CHING (EM BREVE) -->
 <div id="page-iching" class="page">
   <div class="container">
@@ -378,13 +364,8 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
     <a class="back-link" onclick="showPage('page-dashboard')">← Voltar ao Início</a>
     <h1 class="page-title">Mapa Astral</h1>
     <p class="page-sub">Descubra a posição dos astros no momento do seu nascimento</p>
-    <div class="grid">
-      <div class="card" onclick="openMapa('Expresso', 50)"><div class="icon">✨</div><h3>Expresso</h3><p>Sol, Lua e Ascendente</p><p class="price">50 Créd.</p></div>
-      <div class="card" onclick="openMapa('Intermediário', 100)"><div class="icon">🌙</div><h3>Intermediário</h3><p>Planetas Pessoais</p><p class="price">100 Créd.</p></div>
-      <div class="card" onclick="openMapa('Premium', 200)"><div class="icon">🌟</div><h3>Premium</h3><p>Mapa Completo + Casas</p><p class="price">200 Créd.</p></div>
-    </div>
     <div class="tarot-info" id="mapa-form" style="display:none;">
-      <h2 id="mapa-nivel">Nível: Expresso</h2>
+      <h2 id="mapa-nivel">Nível: Pórtico Celestial</h2>
       <input type="text" id="mapa-nome" placeholder="Nome Completo">
       <input type="date" id="mapa-data">
       <input type="time" id="mapa-hora">
@@ -459,7 +440,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
     <a class="back-link" onclick="showPage('page-dashboard')">← Voltar ao Início</a>
     <h1 class="page-title">Indique um Amigo</h1>
     <div class="tarot-info">
-      <p>Compartilhe essa jornada. Convidar um amigo é multiplicar luz. Você ganha <strong>50 créditos</strong> quando ele se cadastrar.</p>
+      <p>Ganhe 50 créditos quando seu amigo se cadastrar pelo seu convite.</p>
       <input type="email" class="question-input" id="ind-email" placeholder="E-mail do seu amigo">
       <button class="btn btn-gold" onclick="handleIndicacao()">Convidar</button>
     </div>
@@ -536,7 +517,7 @@ NAIPES.forEach(function(n) {
 var currentUser = null;
 var currentTarotCount = 0;
 var selectedCards = [];
-var currentMapaNivel = 'Expresso';
+var currentMapaNivel = 'Pórtico Celestial';
 var currentMapaCusto = 50;
 
 /* FUNDO ESTRELADO */
@@ -851,11 +832,11 @@ function gerarMapa() {
     var lua = signos[Math.floor(Math.random() * 12)];
     var asc = signos[Math.floor(Math.random() * 12)];
     var html = '<p><strong>Nome:</strong> ' + nome + '</p><p><strong>Nível:</strong> ' + currentMapaNivel + '</p><p><strong>Sol:</strong> ' + sol + '</p><p><strong>Lua:</strong> ' + lua + '</p><p><strong>Ascendente:</strong> ' + asc + '</p>';
-    if (currentMapaNivel === 'Intermediário' || currentMapaNivel === 'Premium') {
+    if (currentMapaNivel === 'Órbita Pessoal' || currentMapaNivel === 'Cosmos Absoluto') {
         var planetas = ['Mercúrio', 'Vênus', 'Marte', 'Júpiter', 'Saturno'];
         planetas.forEach(function(p) { html += '<p><strong>' + p + ':</strong> ' + signos[Math.floor(Math.random() * 12)] + '</p>'; });
     }
-    if (currentMapaNivel === 'Premium') {
+    if (currentMapaNivel === 'Cosmos Absoluto') {
         html += '<p><strong>Casas:</strong> Mapa completo com as 12 casas astrológicas detalhadas.</p>';
     }
     html += '<br><p><em>Este mapa é uma representação simbólica gerada para sua reflexão.</em></p>';
@@ -978,7 +959,7 @@ function initFAQ() {
         { p: 'Quais métodos de tarô existem?', r: 'Temos tiragens de 2, 3, 5, 7 e 10 cartas, além do Tarô do Amor (Templo de Afrodite) e do Sim, Não ou Talvez.' },
         { p: 'O que é o Tarô de 7 Cartas (Ferradura)?', r: 'É um método completo que analisa passado, presente, futuro próximo, atitude ideal, influências externas, obstáculos e resultado final, dispostos em formato de ferradura.' },
         { p: 'O plano MAGO é realmente ilimitado?', r: 'Sim! O plano MAGO oferece créditos ilimitados por R$ 59,90 ao ano, permitindo consultas sem se preocupar com o saldo.' },
-        { p: 'Como funciona o Mapa Astral?', r: 'Você informa seus dados de nascimento e recebe sua leitura astrológica. Há três níveis: Expresso (50), Intermediário (100) e Premium (200).' },
+        { p: 'Como funciona o Mapa Astral?', r: 'Você informa seus dados de nascimento e recebe sua leitura astrológica. Há três níveis: Pórtico Celestial (50), Órbita Pessoal (100) e Cosmos Absoluto (200).' },
         { p: 'O I Ching já está disponível?', r: 'Ainda não. O I Ching está em desenvolvimento e será incorporado aos nossos oráculos em breve.' }
     ];
     var c = document.getElementById('faq-container');
