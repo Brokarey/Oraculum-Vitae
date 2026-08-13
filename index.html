@@ -30,6 +30,8 @@ input,select{background:rgba(255,255,255,0.07);border:1px solid var(--accent);pa
 input::placeholder{color:#999}
 .btn-portal{background:var(--accent);color:white;border:none;padding:13px;border-radius:6px;cursor:pointer;font-weight:bold;transition:var(--transition);display:block;width:100%;text-align:center;font-size:15px}
 .btn-portal:hover{background:#5e3a9a;box-shadow:0 0 15px var(--accent)}
+.btn-portal.gold{background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e}
+.btn-portal.gold:hover{box-shadow:0 0 15px rgba(212,168,67,0.7)}
 .divider{display:flex;align-items:center;gap:12px;color:#999;font-size:12px;margin:4px 0}
 .divider:before,.divider:after{content:'';flex:1;height:1px;background:var(--accent)}
 .btn-google{background:#ffffff;color:#1f1f1f;border:1px solid #dadce0;border-radius:4px;padding:11px 14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;font-family:'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;font-weight:500;width:100%;transition:background 0.2s,box-shadow 0.2s;box-shadow:0 1px 2px rgba(0,0,0,0.12)}
@@ -104,7 +106,6 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .cross-card{position:absolute;width:130px;text-align:center}
 .cross-card .card-slot{width:130px;cursor:default}
 .cross-card .cross-label{font-size:11px;color:var(--gold-light);margin-top:8px;line-height:1.3}
-/* ===== FERRADURA (7 cartas) em arco ===== */
 .horseshoe-layout{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(3,auto);gap:14px;justify-items:center;align-items:center;max-width:800px;margin:20px auto;padding:10px}
 .horse-card{width:110px;text-align:center}
 .horse-card .card-slot{width:110px;cursor:default}
@@ -136,6 +137,7 @@ th{background:var(--accent);color:var(--gold)}
 <input type="email" id="login-email" placeholder="Seu e-mail" autocomplete="email" onkeydown="if(event.key==='Enter')handleLogin()">
 <input type="password" id="login-pass" placeholder="Sua senha" autocomplete="current-password" onkeydown="if(event.key==='Enter')handleLogin()">
 <button class="btn-portal" onclick="handleLogin()">Entrar no Portal</button>
+<button class="btn-portal gold" onclick="enterAsGuest()">Entrar como Visitante (50 créditos)</button>
 <div class="divider">ou</div>
 <button class="btn-google" onclick="showModal('Google Login','Em breve você poderá entrar com sua conta Google.')">
 <svg width="20" height="20" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
@@ -223,7 +225,7 @@ Entrar com o Google
 <li><strong>Relacionamento:</strong> Você na relação → A outra pessoa → A dinâmica ou futuro do casal.</li>
 <li><strong>Mental:</strong> Pensamento → Sentimento → Ação física.</li>
 </ul>
-<p>Após escolher as 3 cartas, elas serão exibidas lado a lado, na ordem selecionada, acima da caixa de respostas.</p>
+<p><strong>Após escolher as 3 cartas, elas serão exibidas lado a lado, na ordem selecionada, acima da caixa de respostas.</strong></p>
 </div>
 <input type="text" id="q-3" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(3)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(3)">Iniciar Consulta</button>
@@ -743,7 +745,6 @@ html += '<div class="cross-card" style="left:'+pos[i].left+';top:'+pos[i].top+';
 html += '</div>';
 return html;
 }
-/* ===== FERRADURA (7 cartas) em arco, esquerda → direita ===== */
 function renderHorseshoe(cards){
 var labels = ['1. O Passado','2. O Presente','3. O Futuro Próximo','4. A Atitude Ideal','5. Influências Externas','6. Obstáculos ou Esperanças','7. O Resultado Final'];
 var areas = [
@@ -853,6 +854,11 @@ showPage('page-dashboard');
 updateCreditsDisplay();
 checkBalloon();
 }
+function enterAsGuest(){
+currentUser={name:"Visitante",email:"visitante@orculum.com",credits:50,isMago:false};
+saveUser(currentUser);
+enterPortal();
+}
 function handleLogin(){
 var email = normalizeEmail(document.getElementById('login-email').value);
 var pass = document.getElementById('login-pass').value;
@@ -870,7 +876,7 @@ currentUser=user;
 saveUser(currentUser);
 enterPortal();
 }else{showModal("Erro","Senha incorreta. Verifique e tente novamente.");}
-}else{showModal("Usuário não encontrado","Não encontramos uma conta com esse e-mail. Cadastre-se para ganhar 50 créditos, ou use a conta demo: g@gmail.com / gggggg.");}
+}else{showModal("Usuário não encontrado","Não encontramos uma conta com esse e-mail. Cadastre-se para ganhar 50 créditos, ou use a conta demo: g@gmail.com / gggggg, ou clique em 'Entrar como Visitante'.");}
 }
 function handleRegister(){
 var name=document.getElementById('reg-name').value;
@@ -957,7 +963,6 @@ area.innerHTML = '<div id="frozen-2" class="frozen-display" style="display:none"
 area.innerHTML = '<div id="grid-'+count+'" class="cards-grid"></div>';
 }
 renderDeck(count);
-/* MODIFICAÇÃO 1 — AUTO-SCROLL ATÉ AS CARTAS EM TODOS OS TARÔS */
 setTimeout(function(){
 var grid = document.getElementById('grid-'+count);
 if(grid){grid.scrollIntoView({behavior:'smooth',block:'start'});}
@@ -1075,7 +1080,6 @@ slot.onclick=function(){selectSimNaoCard(this,card,q);};
 grid.appendChild(slot);
 })(pool[i],i);
 }
-/* MODIFICAÇÃO 1 — AUTO-SCROLL ATÉ AS CARTAS */
 setTimeout(function(){
 grid.scrollIntoView({behavior:'smooth',block:'start'});
 }, 300);
