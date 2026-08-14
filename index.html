@@ -194,6 +194,7 @@ Entrar com o Google
 <li><strong>Desejo Real versus Situação Atual:</strong> contrasta o que você quer com o que está aceitando no momento.</li>
 <li><strong>Você e o Outro:</strong> analisa a dinâmica entre o consulente e um adversário ou parceiro.</li>
 </ul>
+<p>Após escolher as 2 cartas, elas serão exibidas lado a lado, na ordem selecionada, acima da caixa de respostas.</p>
 </div>
 <input type="text" id="q-2" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(2)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(2)">Iniciar Consulta</button>
@@ -505,9 +506,8 @@ b.innerText = singular ? 'Escolha sua carta abaixo' : 'Escolha suas cartas abaix
 b.style.display = 'block';
 setTimeout(function(){b.style.display='none';},3000);
 }
-/* ===== CONFIRMAÇÃO DA PERGUNTA ===== */
 var pendingQuestion = null;
-var pendingType = null; /* 'tarot' ou 'simnao' */
+var pendingType = null;
 var pendingCount = 0;
 function askConfirmQuestion(q, type, count){
 pendingQuestion = q;
