@@ -52,7 +52,6 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 #page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center}
 .tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo%20Tar%C3%B4.png'),url('Fundo-Tar.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-sim-nao{background-image:linear-gradient(rgba(13,5,32,0.35),rgba(13,5,32,0.35)),url('Fundo_Sim.png');background-size:100% 100%;background-position:center;background-repeat:no-repeat;min-height:100vh}
-/* ===== CORREÇÃO 1: TÍTULO CENTRALIZADO ===== */
 .dash-header{position:relative;display:flex;justify-content:center;align-items:center;max-width:1200px;margin:0 auto;padding:24px 20px 0}
 .dash-header h2{font-size:clamp(20px,3.2vw,34px);color:var(--gold);text-align:center;line-height:1.2}
 .dash-header .voltar-link{position:absolute;left:20px;top:24px;margin:0;white-space:nowrap}
@@ -227,6 +226,82 @@ Entrar com o Google
 <div id="area-3" class="selection-area"></div>
 <div id="res-3" class="result-box" style="display:none"></div>
 <div id="consultar-3" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(3)">Consulte Novamente</button></div>
+</section>
+<section id="page-tarot-5" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 id="tarot-title-5" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 5 Cartas</h2>
+<div class="tarot2-info">
+<p><strong>Tarô de 5 Cartas:</strong> o tarô de 5 cartas é um método de tiragem focado em dar respostas detalhadas e profundas para uma pergunta específica. Mais conhecido por Cruz Simples (ou Cruz de Cinco Cartas). Faça uma pergunta específica, por <strong>50 créditos</strong>.</p>
+<p><strong>O Método em Cruz (Ideal para decisões)</strong></p>
+<ul class="tarot2-list">
+<li><strong>Carta 1 (Centro - O Momento):</strong> a sua situação atual.</li>
+<li><strong>Carta 2 (Esquerda - O Obstáculo):</strong> o desafio a vencer.</li>
+<li><strong>Carta 3 (Direita - Os Aliados):</strong> o que ajuda e as influências positivas.</li>
+<li><strong>Carta 4 (Base - O Passado):</strong> a causa do problema.</li>
+<li><strong>Carta 5 (Topo - O Desfecho):</strong> o resultado final.</li>
+</ul>
+<p>Após escolher as 5 cartas, elas serão exibidas em formato de Cruz, acima da caixa de respostas.</p>
+</div>
+<input type="text" id="q-5" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(5)">
+<button class="btn-portal" style="margin-top:15px" onclick="startTarot(5)">Iniciar Consulta</button>
+</div>
+<div id="area-5" class="selection-area"></div>
+<div id="res-5" class="result-box" style="display:none"></div>
+<div id="consultar-5" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(5)">Consulte Novamente</button></div>
+</section>
+<section id="page-tarot-7" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 id="tarot-title-7" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 7 Cartas</h2>
+<div class="tarot2-info">
+<p><strong>Tarô de 7 Cartas:</strong> o leitor escolhe as 7 cartas por <strong>70 créditos</strong> para analisar uma situação com maior profundidade. É chamado de Método da Ferradura.</p>
+<p><strong>Método da Ferradura</strong></p>
+<ul class="tarot2-list">
+<li><strong>Carta 1:</strong> o passado.</li>
+<li><strong>Carta 2:</strong> o presente.</li>
+<li><strong>Carta 3:</strong> influências ocultas.</li>
+<li><strong>Carta 4:</strong> o consulente.</li>
+<li><strong>Carta 5:</strong> atitudes dos outros.</li>
+<li><strong>Carta 6:</strong> obstáculos ou melhor caminho.</li>
+<li><strong>Carta 7:</strong> o desfecho.</li>
+</ul>
+<p>Após escolher as 7 cartas, elas serão exibidas em formato de ferradura, acima da caixa de respostas.</p>
+</div>
+<input type="text" id="q-7" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(7)">
+<button class="btn-portal" style="margin-top:15px" onclick="startTarot(7)">Iniciar Consulta</button>
+</div>
+<div id="area-7" class="selection-area"></div>
+<div id="res-7" class="result-box" style="display:none"></div>
+<div id="consultar-7" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(7)">Consulte Novamente</button></div>
+</section>
+<section id="page-tarot-10" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 id="tarot-title-10" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 10 Cartas</h2>
+<div class="tarot2-info">
+<p><strong>Tarô de 10 Cartas:</strong> o método de leitura mais famoso e completo: a Cruz Celta. Funciona como um raio-X detalhado da situação, por <strong>100 créditos</strong>.</p>
+<p><strong>Estrutura da Cruz Celta (As 10 Posições)</strong></p>
+<ul class="tarot2-list">
+<li><strong>Carta 1:</strong> o momento atual.</li>
+<li><strong>Carta 2:</strong> o obstáculo.</li>
+<li><strong>Carta 3:</strong> a base/raiz.</li>
+<li><strong>Carta 4:</strong> o passado recente.</li>
+<li><strong>Carta 5:</strong> o topo/coroamento.</li>
+<li><strong>Carta 6:</strong> o futuro imediato.</li>
+<li><strong>Carta 7:</strong> o consulente.</li>
+<li><strong>Carta 8:</strong> o ambiente externo.</li>
+<li><strong>Carta 9:</strong> esperanças e medos.</li>
+<li><strong>Carta 10:</strong> o resultado final.</li>
+</ul>
+<p>Após escolher as 10 cartas, elas serão exibidas na Cruz Celta, acima da caixa de respostas.</p>
+</div>
+<input type="text" id="q-10" placeholder="Faça sua pergunta objetiva..." onkeydown="if(event.key==='Enter')startTarot(10)">
+<button class="btn-portal" style="margin-top:15px" onclick="startTarot(10)">Iniciar Consulta</button>
+</div>
+<div id="area-10" class="selection-area"></div>
+<div id="res-10" class="result-box" style="display:none"></div>
+<div id="consultar-10" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(10)">Consulte Novamente</button></div>
 </section>
 <section id="page-sim-nao" class="page">
 <div class="form-container">
