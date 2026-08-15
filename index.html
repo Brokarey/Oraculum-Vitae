@@ -386,9 +386,9 @@ Entrar com o Google
 <thead><tr><th>Plano</th><th>Valor</th><th>Benefícios</th><th>Ação</th></tr></thead>
 <tbody>
 <tr><td>Aprendiz</td><td>R$ 39,90 / mês</td><td>500 créditos mensais</td><td><button class="btn-portal" style="padding:5px" onclick="showModal('Aviso','Em breve.')">Assinar</button></td></tr>
-<tr><td>Veterano</td><td>R$ 29,90 / mês<br><span style="font-size:11px;color:#aaa">(Plano trimestral: de R$ 119,70 por R$ 89,70)</span></td><td>500 créditos mensais</td><td><button class="btn-portal" style="padding:5px" onclick="showModal('Aviso','Em breve.')">Assinar</button></td></tr>
-<tr><td>Mestre</td><td>R$ 19,90 / mês<br><span style="font-size:11px;color:#aaa">(Plano anual: de R$ 478,80 por R$ 238,80)</span></td><td>500 créditos mensais</td><td><button class="btn-portal" style="padding:5px" onclick="showModal('Aviso','Em breve.')">Assinar</button></td></tr>
-<tr><td>MAGO</td><td>R$ 59,90 / mês<br><span style="font-size:11px;color:#aaa">(Plano anual: de R$ 1.437,60 por R$ 718,80)</span></td><td>500 créditos mensais</td><td><button class="btn-portal" style="padding:5px;background:var(--gold);color:black" onclick="showModal('Aviso','Em breve.')">Assinar</button></td></tr>
+<tr><td>Veterano</td><td>R$ 29,90 / mês<br><span style="font-size:11px;color:#aaa">(Plano trimestral: de <s>R$ 119,70</s> por R$ 89,70)</span></td><td>500 créditos mensais</td><td><button class="btn-portal" style="padding:5px" onclick="showModal('Aviso','Em breve.')">Assinar</button></td></tr>
+<tr><td>Mestre</td><td>R$ 19,90 / mês<br><span style="font-size:11px;color:#aaa">(Plano anual: de <s>R$ 478,80</s> por R$ 238,80)</span></td><td>500 créditos mensais</td><td><button class="btn-portal" style="padding:5px" onclick="showModal('Aviso','Em breve.')">Assinar</button></td></tr>
+<tr><td>MAGO</td><td>R$ 59,90 / mês<br><span style="font-size:11px;color:#aaa">(Plano anual: de <s>R$ 1.437,60</s> por R$ 718,80)</span></td><td>créditos ilimitados</td><td><button class="btn-portal" style="padding:5px;background:var(--gold);color:black" onclick="showModal('Aviso','Em breve.')">Assinar</button></td></tr>
 </tbody>
 </table>
 <p style="font-size:12px;color:#bbb;line-height:1.6;margin-top:15px">Sua assinatura dos planos Veterano, Mestre ou Mago é renovada automaticamente. No plano Mensal, o acesso continua ativo até o fim do período de 30 dias, sem reembolso. Os planos: Veterano, Mestre ou Mago oferecem descontos exclusivos por tempo de fidelidade (3 ou 12 meses); caso decida cancelar antes desse prazo, o valor dos meses já utilizados será recalculado com base no preço cheio mensal vigente sem desconto, e o saldo restante (se houver) será devolvido. O cancelamento pode ser feito a qualquer momento.</p>
@@ -1024,21 +1024,36 @@ return html;
 function renderHorseshoe(cards){
 var labels = ['O Passado','O Presente','O Futuro Próximo','A Atitude','O Entorno','Obstáculos ou Conselho','O Resultado'];
 function cardWithLabel(c,label,idx){
-return '<div style="text-align:center">'+cardHTML(c,'100px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:100px">'+idx+'. '+label+'</div></div>';
+return '<div style="text-align:center">'+cardHTML(c,'90px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:90px">'+idx+'. '+label+'</div></div>';
 }
-var html = '<div style="display:flex;flex-direction:column;align-items:center;margin:20px auto;max-width:520px">';
-html += '<div style="display:flex;justify-content:center;margin-bottom:14px">'+cardWithLabel(cards[3],labels[3],4)+'</div>';
-html += '<div style="display:flex;justify-content:space-between;width:100%;margin-bottom:14px">'+cardWithLabel(cards[2],labels[2],3)+cardWithLabel(cards[4],labels[4],5)+'</div>';
-html += '<div style="display:flex;justify-content:space-between;width:100%;margin-bottom:14px">'+cardWithLabel(cards[1],labels[1],2)+cardWithLabel(cards[5],labels[5],6)+'</div>';
-html += '<div style="display:flex;justify-content:space-between;width:100%">'+cardWithLabel(cards[0],labels[0],1)+cardWithLabel(cards[6],labels[6],7)+'</div>';
+var html = '<div style="display:flex;flex-direction:column;align-items:center;margin:20px auto;max-width:560px">';
+html += '<div style="display:flex;justify-content:center">'+cardWithLabel(cards[3],labels[3],4)+'</div>';
+html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[2],labels[2],3)+cardWithLabel(cards[4],labels[4],5)+'</div>';
+html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[1],labels[1],2)+cardWithLabel(cards[5],labels[5],6)+'</div>';
+html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[0],labels[0],1)+cardWithLabel(cards[6],labels[6],7)+'</div>';
 html += '</div>';
 return html;
 }
+/* ===== V INVERTIDO DO TARÔ DO AMOR (∧) ===== */
+function renderAmorV(cards){
+var labels = ['Consulente (Mental)','Consulente (Emocional)','Consulente (Físico)','Parceiro (Mental)','Parceiro (Emocional)','Parceiro (Físico)','O Futuro da Relação'];
+function cardWithLabel(c,label,idx){
+return '<div style="text-align:center">'+cardHTML(c,'90px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:90px">'+idx+'. '+label+'</div></div>';
+}
+var html = '<div style="display:flex;flex-direction:column;align-items:center;margin:20px auto;max-width:560px">';
+html += '<div style="display:flex;justify-content:space-between;width:100%">'+cardWithLabel(cards[5],labels[5],6)+cardWithLabel(cards[6],labels[6],7)+'</div>';
+html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[3],labels[3],4)+cardWithLabel(cards[4],labels[4],5)+'</div>';
+html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[1],labels[1],2)+cardWithLabel(cards[2],labels[2],3)+'</div>';
+html += '<div style="display:flex;justify-content:center;margin-top:14px">'+cardWithLabel(cards[0],labels[0],1)+'</div>';
+html += '</div>';
+return html;
+}
+/* ===== TARÔ 10 CARTAS: EM LINHA (SEM CRUZ CELTA) ===== */
 function renderCelticCross(cards){
-var labels = ['1. Momento Atual','2. Obstáculo','3. A Raiz','4. Passado Recente','5. O Topo','6. Futuro Imediato','7. O Consulente','8. Ambiente','9. Esperanças/Medos','10. Resultado'];
-var html = '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 0">';
+var labels = ['1. O Momento Atual','2. O Obstáculo','3. A Raiz','4. Passado Recente','5. O Topo','6. Futuro Imediato','7. O Consulente','8. Ambiente','9. Esperanças/Medos','10. Resultado'];
+var html = '<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 0">';
 for(var i=0;i<10;i++){
-html += '<div style="text-align:center">'+cardHTML(cards[i],'95px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:95px">'+labels[i]+'</div></div>';
+html += '<div style="text-align:center">'+cardHTML(cards[i],'85px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:85px">'+labels[i]+'</div></div>';
 }
 html += '</div>';
 return html;
@@ -1298,8 +1313,13 @@ text = buildThreeCardNarrative(cards,q);
 area.innerHTML = renderCross(cards);
 text = buildFiveCardNarrative(cards,q);
 }else if(count===7){
+if(currentReading.type==='Amor'){
+area.innerHTML = renderAmorV(cards);
+text = buildSevenCardNarrative(cards,q);
+}else{
 area.innerHTML = renderHorseshoe(cards);
 text = buildSevenCardNarrative(cards,q);
+}
 }else if(count===10){
 area.innerHTML = renderCelticCross(cards);
 text = buildTenCardNarrative(cards,q);
