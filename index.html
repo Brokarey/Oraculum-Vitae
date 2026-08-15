@@ -330,7 +330,17 @@ Entrar com o Google
 <div class="form-container" style="text-align:center">
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
 <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Carta do Dia</h2>
-<p class="tarot-info-text">Sua orientação gratuita diária. Escolha uma carta para revelar sua energia e o foco do seu dia.</p>
+<div style="text-align:left">
+<p class="tarot-info-text"><strong>Carta do Dia:</strong> A Carta do Dia é uma ferramenta de reflexão diária baseada na sabedoria do Tarô. Ela funciona como um conselho rápido e direcionado para as próximas 24 horas da sua jornada.</p>
+<p class="tarot-info-text">Para tornar sua experiência única e dinâmica, nosso sistema realiza um duplo sorteio aleatório todos os dias:</p>
+<p class="tarot-info-text"><strong>A Carta:</strong> Sorteamos uma das 78 cartas do Tarô para identificar a energia que influenciará o seu dia.<br><strong>O Foco:</strong> O sistema escolhe aleatoriamente apenas uma área da sua vida (como Trabalho, Relacionamentos, Dinheiro ou Família) para aplicar o conselho da carta de forma ultra-específica.</p>
+<p class="tarot-info-text"><strong>📜 Regras de Uso:</strong></p>
+<ul class="tarot2-list">
+<li><strong>Uma vez por dia:</strong> Como usuário cadastrado, você tem direito a tirar uma carta gratuita a cada 24 horas.</li>
+<li><strong>Sem repetição:</strong> O conselho expira à meia-noite, abrindo espaço para a energia do dia seguinte.</li>
+<li><strong>Momento de reflexão:</strong> Use o conselho para antecipar desafios ou aproveitar oportunidades na área sorteada.</li>
+</ul>
+</div>
 <div id="carta-dia-cards" class="cards-grid"></div>
 <div id="carta-dia-result" class="result-box" style="display:none"></div>
 </div>
@@ -338,9 +348,32 @@ Entrar com o Google
 <section id="page-amor" class="page tarot-bg">
 <div class="form-container" style="text-align:center">
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
-<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:#ff69b4">Templo de Afrodite</h2>
-<p class="tarot-info-text">Mapeie a dinâmica entre duas pessoas: mental, emocional e físico de ambos. (7 Cartas | 70 Créditos)</p>
-<button class="btn-portal" style="background:#ff69b4" onclick="initTarotPage(7,'Amor')">Iniciar Leitura do Amor</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:#ff69b4;margin-bottom:12px">Templo de Afrodite</h2>
+<div style="text-align:left">
+<p class="tarot-info-text">O método Templo de Afrodite é uma das tiragens mais famosas do Tarô para analisar relacionamentos amorosos. Ele utiliza 7 cartas dispostas no formato das colunas de um templo grego.</p>
+<p class="tarot-info-text">Este jogo compara diretamente o que os dois parceiros sentem, pensam e desejam, além de mostrar o futuro da relação.</p>
+<p class="tarot-info-text"><strong>Significado das Cartas e Colunas</strong></p>
+<p class="tarot-info-text"><strong>Coluna da Esquerda (Cartas 1, 2 e 3): O Consulente</strong><br>Esta coluna representa você (ou a pessoa que está fazendo a pergunta).</p>
+<ul class="tarot2-list">
+<li><strong>Carta 1 (Mental):</strong> O que você pensa sobre a relação e o parceiro. Ideias, planos lógicos e a visão consciente.</li>
+<li><strong>Carta 2 (Emocional):</strong> O que você sente. Amor, medos, carinho, mágoas ou desejos afetivos profundos.</li>
+<li><strong>Carta 3 (Físico/Instintivo):</strong> Atração sexual, química, desejo carnal e como você age na prática na relação.</li>
+</ul>
+<p class="tarot-info-text"><strong>Coluna da Direita (Cartas 4, 5 e 6): O(A) Parceiro(A)</strong><br>Esta coluna representa a outra pessoa da relação.</p>
+<ul class="tarot2-list">
+<li><strong>Carta 4 (Mental):</strong> O que o parceiro pensa sobre você e sobre o relacionamento.</li>
+<li><strong>Carta 5 (Emocional):</strong> Os sentimentos verdadeiros dele(a) por você.</li>
+<li><strong>Carta 6 (Físico/Instintivo):</strong> O desejo sexual dele(a), o nível de atração física e o comportamento prático.</li>
+</ul>
+<p class="tarot-info-text"><strong>O Topo (Carta 7): O Futuro / O Elo</strong><br><strong>Carta 7:</strong> O destino provável da relação a curto/médio prazo. Mostra se as energias de ambos se alinham ou se colidem no futuro.</p>
+<p class="tarot-info-text"><strong>Como Interpretar os Cruzamentos (Dica de Ouro)</strong><br>A grande mágica deste jogo está em ler as cartas em pares:</p>
+<ul class="tarot2-list">
+<li><strong>Compare a 1 com a 4:</strong> Os pensamentos e objetivos de vocês combinam?</li>
+<li><strong>Compare a 2 com a 5:</strong> O amor é recíproco ou um sente mais que o outro?</li>
+<li><strong>Compare a 3 com a 6:</strong> A química na cama e o dia a dia funcionam bem?</li>
+</ul>
+</div>
+<button class="btn-portal" style="background:#ff69b4;margin-top:10px" onclick="initTarotPage(7,'Amor')">Iniciar Leitura do Amor (7 Cartas | 70 Créditos)</button>
 </div>
 </section>
 <section id="page-mapa-astral" class="page">
@@ -1034,28 +1067,42 @@ html += '<div style="display:flex;justify-content:space-between;width:100%;margi
 html += '</div>';
 return html;
 }
-/* ===== V INVERTIDO DO TARÔ DO AMOR (∧) ===== */
+/* ===== TEMPLO DE AFRODITE (TARÔ DO AMOR): DUAS COLUNAS + TOPO ===== */
 function renderAmorV(cards){
-var labels = ['Consulente (Mental)','Consulente (Emocional)','Consulente (Físico)','Parceiro (Mental)','Parceiro (Emocional)','Parceiro (Físico)','O Futuro da Relação'];
-function cardWithLabel(c,label,idx){
-return '<div style="text-align:center">'+cardHTML(c,'90px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:90px">'+idx+'. '+label+'</div></div>';
+var labels = ['1. Consulente (Mental)','2. Consulente (Emocional)','3. Consulente (Físico)','4. Parceiro (Mental)','5. Parceiro (Emocional)','6. Parceiro (Físico)','7. O Futuro / O Elo'];
+function c(card,label){
+return '<div style="text-align:center">'+cardHTML(card,'90px')+'<div style="font-size:9px;color:var(--gold-light);margin-top:4px;line-height:1.2;max-width:90px">'+label+'</div></div>';
 }
-var html = '<div style="display:flex;flex-direction:column;align-items:center;margin:20px auto;max-width:560px">';
-html += '<div style="display:flex;justify-content:space-between;width:100%">'+cardWithLabel(cards[5],labels[5],6)+cardWithLabel(cards[6],labels[6],7)+'</div>';
-html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[3],labels[3],4)+cardWithLabel(cards[4],labels[4],5)+'</div>';
-html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[1],labels[1],2)+cardWithLabel(cards[2],labels[2],3)+'</div>';
-html += '<div style="display:flex;justify-content:center;margin-top:14px">'+cardWithLabel(cards[0],labels[0],1)+'</div>';
+var html = '<div style="display:flex;flex-direction:column;align-items:center;margin:20px auto;max-width:520px">';
+html += '<div style="margin-bottom:20px">'+c(cards[6],labels[6])+'</div>';
+html += '<div style="display:flex;justify-content:center;gap:60px">'+c(cards[0],labels[0])+c(cards[3],labels[3])+'</div>';
+html += '<div style="display:flex;justify-content:center;gap:60px;margin-top:14px">'+c(cards[1],labels[1])+c(cards[4],labels[4])+'</div>';
+html += '<div style="display:flex;justify-content:center;gap:60px;margin-top:14px">'+c(cards[2],labels[2])+c(cards[5],labels[5])+'</div>';
 html += '</div>';
 return html;
 }
-/* ===== TARÔ 10 CARTAS: EM LINHA (SEM CRUZ CELTA) ===== */
+/* ===== CRUZ CELTA CORRETA: CRUZ (1-6) + PILAR (7-10) ===== */
 function renderCelticCross(cards){
-var labels = ['1. O Momento Atual','2. O Obstáculo','3. A Raiz','4. Passado Recente','5. O Topo','6. Futuro Imediato','7. O Consulente','8. Ambiente','9. Esperanças/Medos','10. Resultado'];
-var html = '<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 0">';
-for(var i=0;i<10;i++){
-html += '<div style="text-align:center">'+cardHTML(cards[i],'85px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:85px">'+labels[i]+'</div></div>';
+var labels = ['1. Momento Atual','2. Obstáculo','3. A Raiz','4. Passado Recente','5. O Topo','6. Futuro Imediato','7. O Consulente','8. Ambiente','9. Esperanças/Medos','10. Resultado'];
+function c(card,label,w){
+return '<div style="text-align:center">'+cardHTML(card,w||'80px')+'<div style="font-size:9px;color:var(--gold-light);margin-top:4px;line-height:1.2;max-width:90px">'+label+'</div></div>';
 }
-html += '</div>';
+var cross = '<div style="display:flex;flex-direction:column;align-items:center;gap:10px">';
+cross += '<div>'+c(cards[2],labels[2])+'</div>';
+cross += '<div style="display:flex;align-items:center;gap:10px">'
++ c(cards[4],labels[4])
++ '<div style="position:relative">'+c(cards[0],labels[0])+'<div style="position:absolute;top:0;left:0;transform:rotate(90deg);transform-origin:center">'+cardHTML(cards[1],'80px')+'</div></div>'
++ c(cards[5],labels[5])
++ '</div>';
+cross += '<div>'+c(cards[3],labels[3])+'</div>';
+cross += '</div>';
+var pilar = '<div style="display:flex;flex-direction:column;align-items:center;gap:10px">';
+pilar += '<div>'+c(cards[9],labels[9])+'</div>';
+pilar += '<div>'+c(cards[8],labels[8])+'</div>';
+pilar += '<div>'+c(cards[7],labels[7])+'</div>';
+pilar += '<div>'+c(cards[6],labels[6])+'</div>';
+pilar += '</div>';
+var html = '<div style="display:flex;justify-content:center;align-items:center;gap:60px;margin:20px auto;flex-wrap:wrap">'+cross+pilar+'</div>';
 return html;
 }
 var currentUser = null;
