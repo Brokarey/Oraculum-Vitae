@@ -311,6 +311,21 @@ Entrar com o Google
 <div id="res-10" class="result-box" style="display:none"></div>
 <div id="consultar-10" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(10)">Consulte Novamente</button></div>
 </section>
+<!-- ===== PÁGINA PRÓPRIA DO TARÔ DO AMOR (DISTINTA DO TARÔ 7) ===== -->
+<section id="page-tarot-amor" class="page tarot-bg">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-amor')"><i class="fas fa-arrow-left"></i> Voltar ao Templo de Afrodite</button>
+<h2 id="tarot-title-amor" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:#ff69b4;margin-bottom:12px">Tarô do Amor</h2>
+<div class="tarot2-info">
+<p>Escolha as 7 cartas. Elas serão dispostas no formato do <strong>Templo de Afrodite</strong>: duas colunas paralelas (uma para cada pessoa) e uma carta no topo que une ambas.</p>
+</div>
+<input type="text" id="q-amor" placeholder="Faça sua pergunta objetiva por 70 créditos" onkeydown="if(event.key==='Enter')startTarotAmor()">
+<button class="btn-portal" style="margin-top:15px;background:#ff69b4" onclick="startTarotAmor()">Iniciar Consulta</button>
+</div>
+<div id="area-amor" class="selection-area"></div>
+<div id="res-amor" class="result-box" style="display:none"></div>
+<div id="consultar-amor" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoAmor()">Consulte Novamente</button></div>
+</section>
 <section id="page-sim-nao" class="page">
 <div class="form-container">
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
@@ -373,7 +388,7 @@ Entrar com o Google
 <li><strong>Compare a 3 com a 6:</strong> A química na cama e o dia a dia funcionam bem?</li>
 </ul>
 </div>
-<button class="btn-portal" style="background:#ff69b4;margin-top:10px" onclick="initTarotPage(7,'Amor')">Iniciar Leitura do Amor (7 Cartas | 70 Créditos)</button>
+<button class="btn-portal" style="background:#ff69b4;margin-top:10px" onclick="initTarotAmor()">Iniciar Leitura do Amor (7 Cartas | 70 Créditos)</button>
 </div>
 </section>
 <section id="page-mapa-astral" class="page">
@@ -668,6 +683,8 @@ return;
 }
 if(pendingType==='simnao'){
 proceedSimNao(pendingQuestion);
+}else if(pendingType==='amor'){
+proceedTarotAmor(pendingQuestion);
 }else{
 proceedTarot(pendingCount, pendingQuestion);
 }
@@ -1249,6 +1266,77 @@ b.style.display = 'block';
 setTimeout(function(){b.style.display='none';},6000);
 localStorage.setItem(key,today);
 }
+}
+/* ===== TARÔ DO AMOR (PÁGINA PRÓPRIA - TEMPLO DE AFRODITE) ===== */
+function initTarotAmor(){
+currentReading = {count:7,type:'Amor',cost:70,selected:[],question:'',active:false,phase:'all'};
+var elTitle = document.getElementById('tarot-title-amor'); if(elTitle){elTitle.innerText='Tarô do Amor';}
+var qEl = document.getElementById('q-amor'); if(qEl){qEl.value='';}
+var resEl = document.getElementById('res-amor'); if(resEl){resEl.style.display='none';resEl.innerHTML='';}
+var areaEl = document.getElementById('area-amor'); if(areaEl){areaEl.innerHTML='';}
+var consEl = document.getElementById('consultar-amor'); if(consEl){consEl.style.display='none';}
+showPage('page-tarot-amor');
+}
+function startTarotAmor(){
+var q = document.getElementById('q-amor').value;
+if(!exigePerguntaValida(q)){return;}
+if(!currentUser.isMago && currentUser.credits < 70){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
+askConfirmQuestion(q.trim(), 'amor', 7);
+}
+function proceedTarotAmor(q){
+currentReading.question = q;
+currentReading.selected = [];
+currentReading.active = true;
+if(!currentUser.isMago){currentUser.credits -= 70; saveUser(currentUser); updateCreditsDisplay();}
+document.getElementById('q-amor').value = '';
+showChooseBalloon(false);
+var area = document.getElementById('area-amor');
+area.innerHTML = '<div id="grid-amor" class="cards-grid"></div>';
+renderDeckAmor();
+}
+function renderDeckAmor(){
+var pool = shuffle(DECK);
+var grid = document.getElementById('grid-amor');
+grid.innerHTML = '';
+for(var i=0;i<pool.length;i++){
+(function(card,idx){
+var slot = document.createElement('div');
+slot.className = 'card-slot';
+slot.innerHTML = '<div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div><div class="card-num">'+(idx+1)+'</div>';
+slot.onclick = function(){selectCardAmor(this,card);};
+grid.appendChild(slot);
+})(pool[i],i);
+}
+}
+function selectCardAmor(el,card){
+if(!currentReading.active || el.classList.contains('flipped')){return;}
+if(currentReading.selected.length >= 7){return;}
+el.classList.add('flipped');
+currentReading.selected.push(card);
+if(currentReading.selected.length === 7){
+currentReading.active = false;
+finishReadingAmor();
+}
+}
+function finishReadingAmor(){
+var res = document.getElementById('res-amor');
+var area = document.getElementById('area-amor');
+var cards = currentReading.selected;
+var q = currentReading.question;
+area.innerHTML = renderAmorV(cards);
+var text = buildSevenCardNarrative(cards,q);
+res.innerHTML = text;
+res.style.display = 'block';
+document.getElementById('consultar-amor').style.display = 'flex';
+setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},200);
+}
+function voltarTopoAmor(){
+document.getElementById('res-amor').style.display = 'none';
+document.getElementById('res-amor').innerHTML = '';
+document.getElementById('area-amor').innerHTML = '';
+document.getElementById('consultar-amor').style.display = 'none';
+document.getElementById('q-amor').value = '';
+window.scrollTo(0,0);
 }
 function initTarotPage(count,type){
 type = type || '';
