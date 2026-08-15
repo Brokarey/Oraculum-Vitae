@@ -60,6 +60,13 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 #page-horoscopo{background-image:url('Tela_Horoscopo.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-horoscopo .form-container{background:rgba(13,5,32,0.5)}
 #horoscopo-grid .dash-card{background:rgba(26,10,46,0.5)}
+/* Numerologia: fundo Tela_Numerologia.png + quadro com 50% de opacidade */
+#page-numerologia{background-image:url('Tela_Numerologia.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-numerologia .form-container{background:rgba(13,5,32,0.5)}
+/* Planos: fundo Tela_Planos.png + quadro com 50% de opacidade */
+#page-planos{background-image:url('Tela_Planos.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-planos .form-container{background:rgba(13,5,32,0.5)}
+#page-planos table{background:rgba(26,10,46,0.5)}
 .dash-header{position:relative;display:flex;justify-content:center;align-items:center;max-width:1200px;margin:0 auto;padding:24px 20px 0}
 .dash-header h2{font-size:clamp(20px,3.2vw,34px);color:var(--gold);text-align:center;line-height:1.2}
 .dash-header .voltar-link{position:absolute;left:20px;top:24px;margin:0;white-space:nowrap}
@@ -1530,9 +1537,9 @@ document.getElementById('consultar-simnao').style.display='none';
 document.getElementById('sim-nao-question').value = '';
 window.scrollTo(0,0);
 }
-/* ===== CARTA DO DIA: IMAGEM DA CARTA EM 70mm x 120mm (200px) + RESPOSTA COMPLETA ===== */
+/* ===== CARTA DO DIA (v2): NOVA CHAVE + IMAGEM 70mm x 120mm (200px) ===== */
 function initCartaDia(){
-var key = 'carta_dia_'+currentUser.email;
+var key = 'carta_dia_v2_'+currentUser.email;
 var today = new Date().toDateString();
 var stored = localStorage.getItem(key);
 var container = document.getElementById('carta-dia-cards');
