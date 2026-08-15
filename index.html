@@ -53,6 +53,13 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo%20Tar%C3%B4.png'),url('Fundo-Tar.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-tarot-amor{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo_Afrodite.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-sim-nao{background-image:linear-gradient(rgba(13,5,32,0.35),rgba(13,5,32,0.35)),url('Fundo_Sim.png');background-size:100% 100%;background-position:center;background-repeat:no-repeat;min-height:100vh}
+/* Carta do Dia: cartão no formato 70mm x 120mm */
+.carta-dia-card{width:200px;flex-shrink:0}
+.carta-dia-card .card-slot{width:200px;cursor:default}
+/* Horóscopo: fundo Tela_Horoscopo.png + quadro dos signos com 50% de opacidade */
+#page-horoscopo{background-image:url('Tela_Horoscopo.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-horoscopo .form-container{background:rgba(13,5,32,0.5)}
+#horoscopo-grid .dash-card{background:rgba(26,10,46,0.5)}
 .dash-header{position:relative;display:flex;justify-content:center;align-items:center;max-width:1200px;margin:0 auto;padding:24px 20px 0}
 .dash-header h2{font-size:clamp(20px,3.2vw,34px);color:var(--gold);text-align:center;line-height:1.2}
 .dash-header .voltar-link{position:absolute;left:20px;top:24px;margin:0;white-space:nowrap}
@@ -1523,7 +1530,7 @@ document.getElementById('consultar-simnao').style.display='none';
 document.getElementById('sim-nao-question').value = '';
 window.scrollTo(0,0);
 }
-/* ===== CARTA DO DIA: IMAGEM DA CARTA + RESPOSTA COMPLETA ===== */
+/* ===== CARTA DO DIA: IMAGEM DA CARTA EM 70mm x 120mm (200px) + RESPOSTA COMPLETA ===== */
 function initCartaDia(){
 var key = 'carta_dia_'+currentUser.email;
 var today = new Date().toDateString();
@@ -1553,9 +1560,11 @@ if(document.querySelector('#carta-dia-cards .flipped')){return;}
 this.classList.add('flipped');
 var focos = ["Trabalho","Amor","Dinheiro","Família","Saúde","Espiritualidade"];
 var foco = focos[Math.floor(Math.random()*focos.length)];
-var desc = '<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;margin-top:10px">'
-+ '<div style="width:130px;flex-shrink:0"><div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div></div>'
-+ '<div style="flex:1;min-width:220px">'
+var desc = '<div style="display:flex;gap:30px;align-items:flex-start;flex-wrap:wrap;margin-top:15px">'
++ '<div class="carta-dia-card">'
++ '<div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div>'
++ '</div>'
++ '<div style="flex:1;min-width:240px">'
 + '<p><strong>'+card.n+'</strong> — '+card.d+'</p>'
 + '<p style="margin-top:8px"><strong>Sua energia hoje ('+foco+'):</strong> '+card.cen+'</p>'
 + '<p style="margin-top:8px"><strong>Conselho para o dia:</strong> '+card.cam+'</p>'
@@ -1593,7 +1602,7 @@ if(selectedMapaCost>=200){html += '<p><strong>Júpiter:</strong> Sagitário - Ex
 res.innerHTML = html;
 setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
 }
-/* ===== HORÓSCOPO COM A NOVA API GRATUITA (AZTRO) ===== */
+/* ===== HORÓSCOPO COM A NOVA API GRATUITA (horoscope-app-api) ===== */
 function initHoroscopo(){
 var grid = document.getElementById('horoscopo-grid');
 grid.innerHTML = '';
@@ -1611,14 +1620,13 @@ card.onclick = function(){
 var res = document.getElementById('horoscopo-result');
 res.style.display = 'block';
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Consultando os astros...</p>';
-fetch('https://aztro.sameerkumar.website/?sign='+s.s+'&day=today', {method:'POST'})
+var url = 'https://horoscope-app-api.vercel.app/api/todays-horoscope?sign='+s.s+'&day=today';
+fetch(url)
 .then(function(r){ if(!r.ok){throw new Error('erro');} return r.json(); })
 .then(function(data){
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3>'
-+ '<p style="font-size:12px;color:#aaa">'+data.current_date+'</p>'
-+ '<p>'+data.description+'</p>'
-+ '<p style="margin-top:10px"><strong>Humor:</strong> '+data.mood+' &nbsp;|&nbsp; <strong>Número da sorte:</strong> '+data.lucky_number+' &nbsp;|&nbsp; <strong>Cor da sorte:</strong> '+data.lucky_color+'</p>'
-+ '<p><strong>Compatibilidade:</strong> '+data.compatibility+'</p>';
++ '<p style="font-size:12px;color:#aaa">'+data.date+'</p>'
++ '<p>'+data.horoscope+'</p>';
 })
 .catch(function(){
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Não conseguimos conectar com o cosmos agora. Tente novamente mais tarde.</p>';
