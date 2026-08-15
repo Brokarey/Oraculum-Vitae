@@ -186,14 +186,13 @@ Entrar com o Google
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
 <h2 id="tarot-title-2" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 2 Cartas</h2>
 <div class="tarot2-info">
-<p><strong>O tarô de 2 cartas</strong> é um método de tiragem rápida e direta, focado em resolver dilemas, analisar duas vertentes de uma situação ou trazer uma resposta objetiva. Em vez de leituras complexas com várias cartas, este formato simplifica a interpretação cruzando apenas duas energias complementares, por apenas <strong>20 créditos</strong>.</p>
+<p><strong>O Tarô de 2 Cartas</strong> é um método de tiragem rápida e direta, focado em resolver dilemas, analisar duas vertentes de uma situação ou trazer uma resposta objetiva. Em vez de leituras complexas com várias cartas, este formato simplifica a interpretação cruzando apenas duas energias complementares, por apenas <strong>20 créditos</strong>.</p>
+<p><strong>· Primeira Carta (Arcano Maior):</strong> Representa o tema central, a energia arquetípica dominante e a grande lição espiritual ou psicológica do seu momento.</p>
+<p><strong>· Segunda Carta (Arcano Menor):</strong> Representa a aplicação prática no cotidiano, as ações imediatas, os detalhes práticos e o cenário do dia a dia.</p>
 <p><strong>Modelos de Leitura:</strong></p>
 <ul class="tarot2-list">
 <li><strong>Conselho e Advertência:</strong> a primeira carta indica o que fazer e a segunda aponta o que evitar.</li>
-<li><strong>Situação e Informação Adicional:</strong> mostra o cenário atual e revela um detalhe oculto sobre ele.</li>
 <li><strong>Caminho A e Caminho B:</strong> avalia os prós ou os resultados de duas escolhas diferentes.</li>
-<li><strong>Desejo Real versus Situação Atual:</strong> contrasta o que você quer com o que está aceitando no momento.</li>
-<li><strong>Você e o Outro:</strong> analisa a dinâmica entre o consulente e um adversário ou parceiro.</li>
 </ul>
 <p>Após escolher as 2 cartas, elas serão exibidas lado a lado, na ordem selecionada, acima da caixa de respostas.</p>
 </div>
@@ -304,6 +303,7 @@ Entrar com o Google
 <li><strong>Carta 9: Esperanças e Medos</strong> – Seus desejos secretos ou os bloqueios psicológicos que te travam.</li>
 <li><strong>Carta 10: O Resultado Final</strong> – O desfecho a longo prazo, caso você siga no caminho atual.</li>
 </ul>
+<p>Após escolher as 10 cartas, elas serão exibidas em formato de ferradura, acima da caixa de respostas.</p>
 </div>
 <input type="text" id="q-10" placeholder="Faça sua pergunta objetiva por 100 créditos" onkeydown="if(event.key==='Enter')startTarot(10)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(10)">Iniciar Consulta</button>
@@ -1523,6 +1523,7 @@ document.getElementById('consultar-simnao').style.display='none';
 document.getElementById('sim-nao-question').value = '';
 window.scrollTo(0,0);
 }
+/* ===== CARTA DO DIA: IMAGEM DA CARTA + RESPOSTA COMPLETA ===== */
 function initCartaDia(){
 var key = 'carta_dia_'+currentUser.email;
 var today = new Date().toDateString();
@@ -1534,7 +1535,7 @@ var data = JSON.parse(stored);
 if(data.date===today){
 container.style.display = 'none';
 resDiv.style.display = 'block';
-resDiv.innerHTML = '<h3>Sua Carta do Dia: '+data.carta+'</h3><p><strong>Foco de hoje:</strong> '+data.foco+'</p><p>'+data.desc+'</p>';
+resDiv.innerHTML = '<h3>Sua Carta do Dia: '+data.carta+'</h3><p><strong>Foco de hoje:</strong> '+data.foco+'</p>'+data.desc;
 return;
 }
 }
@@ -1551,12 +1552,21 @@ slot.onclick = function(){
 if(document.querySelector('#carta-dia-cards .flipped')){return;}
 this.classList.add('flipped');
 var focos = ["Trabalho","Amor","Dinheiro","Família","Saúde","Espiritualidade"];
-var sorteio = {date:today,carta:card.n,foco:focos[Math.floor(Math.random()*focos.length)],desc:card.d};
+var foco = focos[Math.floor(Math.random()*focos.length)];
+var desc = '<div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;margin-top:10px">'
++ '<div style="width:130px;flex-shrink:0"><div class="card-slot flipped"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div></div>'
++ '<div style="flex:1;min-width:220px">'
++ '<p><strong>'+card.n+'</strong> — '+card.d+'</p>'
++ '<p style="margin-top:8px"><strong>Sua energia hoje ('+foco+'):</strong> '+card.cen+'</p>'
++ '<p style="margin-top:8px"><strong>Conselho para o dia:</strong> '+card.cam+'</p>'
++ '<p style="margin-top:8px"><strong>Como você se apresenta:</strong> '+card.out+'</p>'
++ '</div></div>';
+var sorteio = {date:today,carta:card.n,foco:foco,desc:desc};
 localStorage.setItem(key,JSON.stringify(sorteio));
 setTimeout(function(){
 container.style.display = 'none';
 resDiv.style.display = 'block';
-resDiv.innerHTML = '<h3>Sua Carta do Dia: '+sorteio.carta+'</h3><p><strong>Foco de hoje:</strong> '+sorteio.foco+'</p><p>'+sorteio.desc+'</p>';
+resDiv.innerHTML = '<h3>Sua Carta do Dia: '+sorteio.carta+'</h3><p><strong>Foco de hoje:</strong> '+sorteio.foco+'</p>'+sorteio.desc;
 },1000);
 };
 container.appendChild(slot);
@@ -1583,6 +1593,7 @@ if(selectedMapaCost>=200){html += '<p><strong>Júpiter:</strong> Sagitário - Ex
 res.innerHTML = html;
 setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
 }
+/* ===== HORÓSCOPO COM A NOVA API GRATUITA (AZTRO) ===== */
 function initHoroscopo(){
 var grid = document.getElementById('horoscopo-grid');
 grid.innerHTML = '';
@@ -1600,10 +1611,14 @@ card.onclick = function(){
 var res = document.getElementById('horoscopo-result');
 res.style.display = 'block';
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Consultando os astros...</p>';
-fetch('https://ohmanda.com/api/horoscope/'+s.s)
+fetch('https://aztro.sameerkumar.website/?sign='+s.s+'&day=today', {method:'POST'})
 .then(function(r){ if(!r.ok){throw new Error('erro');} return r.json(); })
 .then(function(data){
-res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p style="font-size:12px;color:#aaa">'+data.date+'</p><p>'+data.horoscope+'</p>';
+res.innerHTML = '<h3>Previsão para '+s.n+'</h3>'
++ '<p style="font-size:12px;color:#aaa">'+data.current_date+'</p>'
++ '<p>'+data.description+'</p>'
++ '<p style="margin-top:10px"><strong>Humor:</strong> '+data.mood+' &nbsp;|&nbsp; <strong>Número da sorte:</strong> '+data.lucky_number+' &nbsp;|&nbsp; <strong>Cor da sorte:</strong> '+data.lucky_color+'</p>'
++ '<p><strong>Compatibilidade:</strong> '+data.compatibility+'</p>';
 })
 .catch(function(){
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Não conseguimos conectar com o cosmos agora. Tente novamente mais tarde.</p>';
