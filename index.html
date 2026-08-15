@@ -51,6 +51,7 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .btn-logout:hover{transform:scale(1.1)}
 #page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Tela.png');background-size:cover;background-position:center}
 .tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo%20Tar%C3%B4.png'),url('Fundo-Tar.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-tarot-amor{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Fundo_Afrodite.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-sim-nao{background-image:linear-gradient(rgba(13,5,32,0.35),rgba(13,5,32,0.35)),url('Fundo_Sim.png');background-size:100% 100%;background-position:center;background-repeat:no-repeat;min-height:100vh}
 .dash-header{position:relative;display:flex;justify-content:center;align-items:center;max-width:1200px;margin:0 auto;padding:24px 20px 0}
 .dash-header h2{font-size:clamp(20px,3.2vw,34px);color:var(--gold);text-align:center;line-height:1.2}
@@ -312,12 +313,12 @@ Entrar com o Google
 <div id="consultar-10" class="consultar-novamente-wrap" style="display:none"><button class="btn-consultar-novamente" onclick="voltarTopoTarot(10)">Consulte Novamente</button></div>
 </section>
 <!-- ===== PÁGINA PRÓPRIA DO TARÔ DO AMOR (DISTINTA DO TARÔ 7) ===== -->
-<section id="page-tarot-amor" class="page tarot-bg">
+<section id="page-tarot-amor" class="page">
 <div class="form-container">
 <button class="voltar-link" onclick="showPage('page-amor')"><i class="fas fa-arrow-left"></i> Voltar ao Templo de Afrodite</button>
-<h2 id="tarot-title-amor" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:#ff69b4;margin-bottom:12px">Tarô do Amor</h2>
+<h2 id="tarot-title-amor" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:#ff69b4;margin-bottom:12px">O Templo</h2>
 <div class="tarot2-info">
-<p>Escolha as 7 cartas. Elas serão dispostas no formato do <strong>Templo de Afrodite</strong>: duas colunas paralelas (uma para cada pessoa) e uma carta no topo que une ambas.</p>
+<p>Escolha as 7 cartas. Elas serão dispostas no formato do <strong>O Templo</strong>: duas colunas paralelas (uma para cada pessoa) e uma carta no topo que une ambas.</p>
 </div>
 <input type="text" id="q-amor" placeholder="Faça sua pergunta objetiva por 70 créditos" onkeydown="if(event.key==='Enter')startTarotAmor()">
 <button class="btn-portal" style="margin-top:15px;background:#ff69b4" onclick="startTarotAmor()">Iniciar Consulta</button>
@@ -388,7 +389,7 @@ Entrar com o Google
 <li><strong>Compare a 3 com a 6:</strong> A química na cama e o dia a dia funcionam bem?</li>
 </ul>
 </div>
-<button class="btn-portal" style="background:#ff69b4;margin-top:10px" onclick="initTarotAmor()">Iniciar Leitura do Amor (7 Cartas | 70 Créditos)</button>
+<button class="btn-portal" style="background:#ff69b4;margin-top:10px" onclick="initTarotAmor()">Entre no Templo de Afrodite</button>
 </div>
 </section>
 <section id="page-mapa-astral" class="page">
@@ -484,7 +485,7 @@ var DECK = [
 {n:"O Imperador",d:"autoridade, estrutura e base sólida",cen:"Você está em uma posição de autoridade e precisa de estrutura, disciplina e liderança para consolidar seus projetos.",cam:"Este caminho exige ordem, regras e visão de longo prazo. Com disciplina, você estabelece bases sólidas e duradouras.",out:"Você assume o controle com firmeza e protege aquilo que considera seu."},
 {n:"O Hierofante",d:"tradição, conformidade e busca espiritual",cen:"Você está buscando orientação em tradições, valores estabelecidos ou mestres. O momento pede respeito ao que já foi construído.",cam:"Este caminho valoriza a segurança das instituições e dos caminhos já trilhados. Será um percurso de aprendizado e conformidade.",out:"Você se apresenta como alguém que respeita regras e busca referência em fontes confiáveis."},
 {n:"Os Enamorados",d:"escolhas, união e valores compartilhados",cen:"Você está diante de uma escolha importante que envolve valores, afetos e compromissos. O coração e a razão pedem respostas.",cam:"Este caminho exige escolher conscientemente, alinhando-se ao que realmente importa para você.",out:"Você entra nessa dinâmica buscando harmonia e conexão verdadeira."},
-{n:"O Carro",d:"controle, vitória e determinação",cen:"Você está em movimento e sente que o controle está nas suas mãos. Determinação e foco levarão à vitória.",cam:"Este caminho é de avançar com direção. Supere obstáculos mantendo o foco no objetivo.",out:"Você demonstra força de vontade e conduz a situação com determinação."},
+{n:"A Carruagem",d:"controle, vitória e determinação",cen:"Você está em movimento e sente que o controle está nas suas mãos. Determinação e foco levarão à vitória.",cam:"Este caminho é de avançar com direção. Supere obstáculos mantendo o foco no objetivo.",out:"Você demonstra força de vontade e conduz a situação com determinação."},
 {n:"A Força",d:"coragem, paciência e controle suave",cen:"Você enfrenta desafios que exigem coragem, paciência e domínio suave das próprias emoções.",cam:"Este caminho pede resiliência e autocontrole. A vitória vem pela força tranquila, não pela imposição.",out:"Você lida com as situações com coragem serena e empatia."},
 {n:"O Eremita",d:"introspecção, solidão e busca da verdade",cen:"Você sente necessidade de recolhimento e reflexão. A resposta está na busca interior e na solidão produtiva.",cam:"Este caminho é de introspecção. Afaste-se do ruído externo e consulte a própria sabedoria.",out:"Você se mostra reservado, analítico e em busca de sentido."},
 {n:"A Roda da Fortuna",d:"mudança, ciclos e destino",cen:"Os ciclos estão em movimento e o destino parece agir a seu favor. Mudanças inevitáveis estão chegando.",cam:"Este caminho trará viradas de sorte, mas exige flexibilidade para aproveitar as oportunidades que surgirem.",out:"Você flui com as mudanças e confia nos ciclos da vida."},
@@ -518,7 +519,7 @@ var v = valores[vi];
 DECK.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No campo de "+naipeTemas[naipe].area+", esta carta representa "+valorLeitura[v]+". O momento pede atenção a esse aspecto da sua vida, que influencia diretamente a situação em questão.",cam:"Optar por este caminho significa trabalhar com "+valorLeitura[v]+" no âmbito de "+naipeTemas[naipe].area+". Os resultados dependem de como você conduz essa energia.",out:"O outro ou o mercado se apresenta como "+naipeTemas[naipe].pessoa+". A dinâmica envolvida reflete "+valorLeitura[v]+" no campo de "+naipeTemas[naipe].area+"."});
 }
 }
-var ARCANOS_MAIORES = ["O Louco","O Mago","A Sacerdotisa","A Imperatriz","O Imperador","O Hierofante","Os Enamorados","O Carro","A Força","O Eremita","A Roda da Fortuna","A Justiça","O Pendurado","A Morte","A Temperança","O Diabo","A Torre","A Estrela","A Lua","O Sol","O Julgamento","O Mundo"];
+var ARCANOS_MAIORES = ["O Louco","O Mago","A Sacerdotisa","A Imperatriz","O Imperador","O Hierofante","Os Enamorados","A Carruagem","A Força","O Eremita","A Roda da Fortuna","A Justiça","O Pendurado","A Morte","A Temperança","O Diabo","A Torre","A Estrela","A Lua","O Sol","O Julgamento","O Mundo"];
 var NUM_EXTENSO = {"Ás":"Ás","2":"Dois","3":"Três","4":"Quatro","5":"Cinco","6":"Seis","7":"Sete","8":"Oito","9":"Nove","10":"Dez","Valete":"Valete","Cavaleiro":"Cavaleiro","Rainha":"Rainha","Rei":"Rei"};
 function stripAcc(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
 function cardBaseName(card){
@@ -570,7 +571,7 @@ var t = a[i]; a[i]=a[j]; a[j]=t;
 return a;
 }
 var FRASES_MISTICAS = ["O universo ouve quem pergunta com o coração.","Cada carta é um espelho da sua alma.","O destino não é escrito em pedra, mas em estrelas que você pode navegar.","A resposta que você busca já habita em seu silêncio.","Confie na sincronicidade do momento presente.","As sombras de hoje são os adubos da luz de amanhã.","Sua intuição é a bússola mais precisa que você possui.","O portal se abre para quem tem coragem de olhar para dentro."];
-var POLAR_MAJOR = {"O Louco":0.6,"O Mago":1,"A Sacerdotisa":0.5,"A Imperatriz":1,"O Imperador":0.9,"O Hierofante":0.3,"Os Enamorados":0.8,"O Carro":0.9,"A Força":0.9,"O Eremita":0.1,"A Roda da Fortuna":0.7,"A Justiça":0.7,"O Pendurado":0.2,"A Morte":0.2,"A Temperança":0.7,"O Diabo":-0.6,"A Torre":-0.7,"A Estrela":1,"A Lua":-0.4,"O Sol":1,"O Julgamento":0.8,"O Mundo":1};
+var POLAR_MAJOR = {"O Louco":0.6,"O Mago":1,"A Sacerdotisa":0.5,"A Imperatriz":1,"O Imperador":0.9,"O Hierofante":0.3,"Os Enamorados":0.8,"A Carruagem":0.9,"A Força":0.9,"O Eremita":0.1,"A Roda da Fortuna":0.7,"A Justiça":0.7,"O Pendurado":0.2,"A Morte":0.2,"A Temperança":0.7,"O Diabo":-0.6,"A Torre":-0.7,"A Estrela":1,"A Lua":-0.4,"O Sol":1,"O Julgamento":0.8,"O Mundo":1};
 var POLAR_SUIT = {"Ouros":0.7,"Copas":0.6,"Espadas":-0.2,"Paus":0.4};
 function cardPolarity(c){
 if(POLAR_MAJOR[c.n]!==undefined){return POLAR_MAJOR[c.n];}
@@ -1270,7 +1271,7 @@ localStorage.setItem(key,today);
 /* ===== TARÔ DO AMOR (PÁGINA PRÓPRIA - TEMPLO DE AFRODITE) ===== */
 function initTarotAmor(){
 currentReading = {count:7,type:'Amor',cost:70,selected:[],question:'',active:false,phase:'all'};
-var elTitle = document.getElementById('tarot-title-amor'); if(elTitle){elTitle.innerText='Tarô do Amor';}
+var elTitle = document.getElementById('tarot-title-amor'); if(elTitle){elTitle.innerText='O Templo';}
 var qEl = document.getElementById('q-amor'); if(qEl){qEl.value='';}
 var resEl = document.getElementById('res-amor'); if(resEl){resEl.style.display='none';resEl.innerHTML='';}
 var areaEl = document.getElementById('area-amor'); if(areaEl){areaEl.innerHTML='';}
@@ -1341,14 +1342,12 @@ window.scrollTo(0,0);
 function initTarotPage(count,type){
 type = type || '';
 var cost = count*10;
-if(type==='Amor') cost = 70;
 if(type==='Marselha') cost = 30;
 currentReading = {count:count,type:type,cost:cost,selected:[],question:'',active:false,phase:''};
 var titles = {2:'Tarô: 2 Cartas',3:'Tarô: 3 Cartas',5:'Tarô: 5 Cartas',7:'Tarô: 7 Cartas',10:'Tarô: 10 Cartas'};
 var elTitle = document.getElementById('tarot-title-'+count);
 if(elTitle){
 if(type==='Marselha'){elTitle.innerText = 'Tarô de Marselha';}
-else if(type==='Amor'){elTitle.innerText = 'Tarô do Amor';}
 else{elTitle.innerText = titles[count];}
 }
 var qEl = document.getElementById('q-'+count); if(qEl){qEl.value='';}
@@ -1448,13 +1447,8 @@ text = buildThreeCardNarrative(cards,q);
 area.innerHTML = renderCross(cards);
 text = buildFiveCardNarrative(cards,q);
 }else if(count===7){
-if(currentReading.type==='Amor'){
-area.innerHTML = renderAmorV(cards);
-text = buildSevenCardNarrative(cards,q);
-}else{
 area.innerHTML = renderHorseshoe(cards);
 text = buildSevenCardNarrative(cards,q);
-}
 }else if(count===10){
 area.innerHTML = renderCelticCross(cards);
 text = buildTenCardNarrative(cards,q);
