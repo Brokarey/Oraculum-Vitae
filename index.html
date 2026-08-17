@@ -152,13 +152,13 @@ th{background:var(--accent);color:var(--gold)}
 /* ===== V INVERTIDO — TARÔ 7 CARTAS ===== */
 .ferradura{position:relative!important;width:100%!important;max-width:760px!important;height:460px!important;margin:24px auto!important}
 .ferradura .card-slot{position:absolute!important;transform:translate(-50%,-50%)!important;width:96px!important;transition:all .4s ease!important}
-.ferradura .card-slot.pos-1{left:8%;top:88%}
+.ferradura .card-slot.pos-1{left:5%;top:88%}
 .ferradura .card-slot.pos-2{left:25%;top:66%}
-.ferradura .card-slot.pos-3{left:42%;top:44%}
+.ferradura .card-slot.pos-3{left:45%;top:44%}
 .ferradura .card-slot.pos-4{left:50%;top:14%}
-.ferradura .card-slot.pos-5{left:58%;top:44%}
+.ferradura .card-slot.pos-5{left:55%;top:44%}
 .ferradura .card-slot.pos-6{left:75%;top:66%}
-.ferradura .card-slot.pos-7{left:92%;top:88%}
+.ferradura .card-slot.pos-7{left:95%;top:88%}
 </style>
 </head>
 <body>
@@ -1769,6 +1769,74 @@ function montarFerradura(container){
   for(var i = 0; i < slots.length; i++){ slots[i].className = 'card-slot ' + pos[i]; }
   container.classList.add('ferradura');
 }
+/* ===== NOVOS AJUSTES AUTOMÁTICOS ===== */
+
+// 1) FUNDO AUTOMÁTICO DAS 3 DASHBOARDS DE MAPA ASTRAL
+function aplicarNivelMapa(level){
+  var pg = document.getElementById('page-mapa-astral');
+  if(!pg) return;
+  pg.classList.remove('nivel-portico','nivel-orbita','nivel-cosmos');
+  if(level.indexOf('Pórtico') > -1) pg.classList.add('nivel-portico');
+  else if(level.indexOf('Órbita') > -1) pg.classList.add('nivel-orbita');
+  else if(level.indexOf('Cosmos') > -1) pg.classList.add('nivel-cosmos');
+}
+setInterval(function(){
+  var pg = document.getElementById('page-mapa-astral');
+  if(!pg) return;
+  if(getComputedStyle(pg).display !== 'none'){
+    var t = document.getElementById('mapa-title');
+    aplicarNivelMapa(t ? t.innerText : '');
+  }
+}, 800);
+
+// 2) BALÃO DE REFLEXÃO AO ENTRAR NO PAINEL (logo após o login)
+var frasesReflexao = [
+  'O autoconhecimento é o princípio de toda sabedoria. Seu mapa astral é um espelho, não uma sentença.',
+  'Você não controla os astros, mas pode escolher como dançar sob eles.',
+  'A jornada mais longa é a que vai de fora para dentro.',
+  'A sorte favorece os corajosos; a sabedoria, os pacientes.',
+  'Seu destino não está escrito no céu — está nas escolhas que você faz todos os dias.',
+  'O que está fora de você é reflexo do que está dentro. Observe sem julgar.',
+  'Conhece-te a ti mesmo e conhecerás o universo.',
+  'A vida não é esperar a tempestade passar, é aprender a dançar na chuva.'
+];
+var balaoJaMostrado = false;
+setInterval(function(){
+  var pg = document.getElementById('page-dashboard');
+  if(!pg || balaoJaMostrado) return;
+  if(getComputedStyle(pg).display !== 'none'){
+    balaoJaMostrado = true;
+    var frase = frasesReflexao[Math.floor(Math.random()*frasesReflexao.length)];
+    if(typeof showModal === 'function'){
+      setTimeout(function(){ showModal('✨ Reflexão do Dia', frase); }, 600);
+    }
+  }
+}, 800);
+
+// 3) V INVERTIDO NO TARÔ DE 7 CARTAS (automático)
+function montarFerradura(container){
+  if(!container) return;
+  var slots = container.querySelectorAll('.card-slot');
+  if(slots.length !== 7) return;
+  var pos = ['pos-1','pos-2','pos-3','pos-4','pos-5','pos-6','pos-7'];
+  for(var i = 0; i < slots.length; i++){ slots[i].className = 'card-slot ' + pos[i]; }
+  container.classList.add('ferradura');
+}
+setInterval(function(){
+  var pages = document.querySelectorAll('.page');
+  for(var i = 0; i < pages.length; i++){
+    var p = pages[i];
+    if(p.id.indexOf('7') === -1) continue;
+    if(getComputedStyle(p).display === 'none') continue;
+    var slots = p.querySelectorAll('.card-slot');
+    if(slots.length === 7){
+      var cont = slots[0].parentNode;
+      if(cont && !cont.classList.contains('ferradura')){
+        montarFerradura(cont);
+      }
+    }
+  }
+}, 900);
 </script>
 </body>
 </html>
