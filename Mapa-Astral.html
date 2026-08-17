@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Astral | Oraculum Vitae</title>
+<!-- ============================================================
+     ESTE ARQUIVO CONTÉM A ÁREA DE MAPA ASTRAL COM 3 DASHBOARDS:
+     1. Mapa Astral: Pórtico Celestial
+     2. Mapa Astral: Órbita Pessoal
+     3. Mapa Astral: Cosmos Absoluto
+     Todo conteúdo astrológico usa PLACEHOLDERS ({{nome}}, {{sol_signo}}...)
+     que serão preenchidos por um BACKEND no futuro.
+     NENHUM dado astrológico é calculado ou inventado aqui.
+     ============================================================ -->
+<style>
+/* ============================================================
+   STYLE.CSS (embutido) — visual premium, místico e responsivo
+   ============================================================ */
+:root{
+  --bg-deep:#0b1026;          /* azul-marinho muito escuro */
+  --bg-card:rgba(255,255,255,0.05);
+  --gold:#d4af37;             /* dourado suave */
+  --lilac:#b8a8e8;            /* lilás */
+  --violet:#8e7cc3;           /* violeta */
+  --sky:#a8c8e8;              /* azul celestial */
+  --text:#f2ecf5;             /* lavanda muito clara */
+  --text-sec:#a89bb8;         /* cinza-lilás */
+  --border:rgba(255,255,255,0.12);
+  --radius:16px;
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Segoe UI',Helvetica,Arial,sans-serif;
+  background:radial-gradient(ellipse at top,#141a3a 0%,#0b1026 55%,#070a18 100%);
+  background-attachment:fixed;
+  color:var(--text);
+  line-height:1.65;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+
+/* ---- Cabeçalho ---- */
+header.site-header{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;
+  padding:18px 0;border-bottom:1px solid var(--border);margin-bottom:34px;
+}
+.logo{font-family:Georgia,serif;font-size:24px;letter-spacing:3px;color:var(--gold);font-weight:bold}
+.logo span{color:var(--violet)}
+.back-link{color:var(--sky);text-decoration:none;font-size:14px;display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid var(--border);border-radius:40px;transition:.3s}
+.back-link:hover{border-color:var(--gold);color:var(--gold)}
+nav.main-nav{display:flex;gap:8px;flex-wrap:wrap}
+nav.main-nav button{
+  background:transparent;border:1px solid var(--border);color:var(--text-sec);
+  padding:8px 14px;border-radius:40px;cursor:pointer;font-size:13px;transition:.3s;font-family:inherit;
+}
+nav.main-nav button:hover{color:var(--gold);border-color:var(--gold)}
+nav.main-nav button.ativo{background:rgba(212,175,55,0.12);border-color:var(--gold);color:var(--gold)}
+
+/* ---- Apresentação ---- */
+.apresentacao{text-align:center;max-width:760px;margin:0 auto 40px}
+.apresentacao h1{font-size:clamp(30px,5vw,46px);color:var(--gold);letter-spacing:2px}
+.apresentacao .subtitulo{color:var(--text-sec);margin-top:10px;font-size:15px}
+.aviso-etica{
+  margin-top:18px;padding:14px 18px;border:1px solid var(--border);border-left:3px solid var(--violet);
+  border-radius:10px;background:rgba(142,124,195,0.06);font-size:13px;color:var(--text-sec);text-align:left;
+}
+
+/* ---- Cards de planos ---- */
+.planos{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin:36px 0}
+.plano-card{
+  position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 22px;backdrop-filter:blur(8px);transition:.3s;display:flex;flex-direction:column;
+}
+.plano-card:hover{transform:translateY(-4px);border-color:var(--gold)}
+.plano-card .icone{font-size:30px;color:var(--gold);margin-bottom:10px}
+.plano-card h3{color:var(--gold);font-size:19px;margin-bottom:6px}
+.plano-card .desc{font-size:13px;color:var(--text-sec);margin-bottom:12px}
+.plano-card ul{list-style:none;font-size:13px;color:var(--text);margin-bottom:16px}
+.plano-card ul li{padding:4px 0;padding-left:18px;position:relative}
+.plano-card ul li::before{content:"✦";position:absolute;left:0;color:var(--violet);font-size:10px;top:7px}
+.plano-card .btn-plano{
+  margin-top:auto;background:linear-gradient(135deg,var(--gold),#b8912e);border:none;color:#14102a;
+  padding:12px;border-radius:10px;font-weight:bold;cursor:pointer;font-size:14px;letter-spacing:1px;transition:.3s;
+}
+.plano-card .btn-plano:hover{filter:brightness(1.1)}
+.etiqueta{
+  position:absolute;top:-12px;right:14px;font-size:11px;padding:4px 12px;border-radius:20px;letter-spacing:1px;font-weight:bold;
+}
+.etiqueta.top{background:#2a2245;color:var(--lilac);border:1px solid var(--violet)}
+.etiqueta.vip{background:linear-gradient(135deg,#3a2c1a,#57401f);color:var(--gold);border:1px solid var(--gold)}
+
+/* ---- Formulário ---- */
+.form-card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;backdrop-filter:blur(8px);margin:36px 0;box-shadow:var(--shadow);
+}
+.form-card h2{color:var(--gold);font-size:22px;margin-bottom:4px}
+.form-card .form-hint{font-size:13px;color:var(--text-sec);margin-bottom:20px}
+.grid-form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-form .full{grid-column:1/-1}
+label{display:block;font-size:13px;color:var(--text);margin-bottom:6px}
+label small{color:var(--text-sec);font-weight:normal}
+input,select{
+  width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);
+  background:rgba(0,0,0,0.3);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.3s;
+}
+input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,0.15)}
+select option{background:#141a3a}
+.help-msg{font-size:12px;color:var(--violet);margin-top:6px}
+.erro-campo{font-size:12px;color:#ff9d9d;margin-top:4px;display:none}
+.btn-primario{
+  grid-column:1/-1;margin-top:8px;background:linear-gradient(135deg,var(--gold),#b8912e);border:none;color:#14102a;
+  padding:15px;border-radius:10px;font-weight:bold;font-size:15px;letter-spacing:2px;cursor:pointer;transition:.3s;
+}
+.btn-primario:hover{filter:brightness(1.1)}
+
+/* ---- Dashboards (todas as 3 usam estas classes base) ---- */
+.dashboard{display:none;margin-top:10px}
+.dashboard.ativa{display:block;animation:fadeIn .5s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.dash-header{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px;backdrop-filter:blur(8px);box-shadow:var(--shadow);margin-bottom:22px;
+}
+.dash-header h2{color:var(--gold);font-size:clamp(24px,4vw,32px)}
+.dash-header .frase-apoio{color:var(--text-sec);font-size:14px;margin-top:6px;max-width:640px}
+.selo-status{
+  display:inline-block;margin-top:12px;padding:5px 14px;border-radius:20px;font-size:12px;
+  background:rgba(142,124,195,0.14);border:1px solid var(--violet);color:var(--lilac);letter-spacing:1px;
+}
+.dados-nascimento{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:var(--text-sec)}
+.dados-nascimento strong{color:var(--text)}
+.bloco{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px;backdrop-filter:blur(8px);margin-bottom:20px;box-shadow:var(--shadow);
+}
+.bloco h3{color:var(--gold);font-size:19px;margin-bottom:12px;letter-spacing:1px}
+.bloco p{font-size:14px;color:var(--text);margin-bottom:8px}
+.bloco .placeholder-destaque{color:var(--lilac);font-family:monospace;font-size:14px;background:rgba(142,124,195,0.1);padding:2px 8px;border-radius:6px}
+.visao-geral{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.roda-mapa{
+  aspect-ratio:1/1;max-height:420px;border-radius:50%;border:1px dashed var(--violet);
+  display:flex;align-items:center;justify-content:center;color:var(--text-sec);font-size:13px;text-align:center;
+  background:radial-gradient(circle,rgba(142,124,195,0.06) 0%,transparent 70%);padding:20px;
+}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px}
+.mini-card{
+  background:rgba(0,0,0,0.22);border:1px solid var(--border);border-radius:12px;padding:18px;
+  transition:.3s;
+}
+.mini-card:hover{border-color:var(--violet)}
+.mini-card .rotulo{font-size:11px;letter-spacing:2px;color:var(--text-sec);text-transform:uppercase}
+.mini-card .valor{font-size:20px;color:var(--gold);font-family:Georgia,serif;margin-top:6px}
+.mini-card .info{font-size:13px;color:var(--text);margin-top:6px}
+.mini-card .ph{font-size:12px;color:var(--lilac);font-family:monospace;margin-top:8px;word-break:break-all}
+.dados-simbolicos{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:8px}
+.dados-simbolicos .item{background:rgba(0,0,0,0.22);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.dados-simbolicos .item .k{font-size:12px;color:var(--text-sec);letter-spacing:1px;text-transform:uppercase}
+.dados-simbolicos .item .v{font-size:18px;color:var(--gold);margin-top:6px}
+.dados-simbolicos .item .ph{font-size:12px;color:var(--lilac);font-family:monospace;margin-top:6px}
+
+/* ---- Potenciais / atenção / perguntas ---- */
+.itens-valor{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:10px}
+.item-valor{background:rgba(0,0,0,0.22);border:1px solid var(--border);border-radius:12px;padding:18px}
+.item-valor .t{color:var(--gold);font-weight:bold;font-size:15px;margin-bottom:6px}
+.item-valor .d{font-size:13px;color:var(--text)}
+.item-valor .ph{font-size:11px;color:var(--lilac);font-family:monospace;margin-top:8px;word-break:break-all}
+
+/* ---- Aspectos ---- */
+.aspecto-item{
+  display:flex;align-items:center;gap:14px;background:rgba(0,0,0,0.22);border:1px solid var(--border);
+  border-radius:12px;padding:14px 16px;margin-bottom:10px;
+}
+.aspecto-simbolo{font-size:26px;color:var(--gold);width:44px;text-align:center;flex-shrink:0}
+.aspecto-info{flex:1}
+.aspecto-info .n{color:var(--text);font-weight:bold;font-size:14px}
+.aspecto-info .d{font-size:13px;color:var(--text-sec)}
+.aspecto-info .ph{font-size:11px;color:var(--lilac);font-family:monospace}
+
+/* ---- 12 casas (expansível) ---- */
+.grid-casas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:10px}
+.casa-card{background:rgba(0,0,0,0.22);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.casa-card summary{
+  cursor:pointer;padding:14px 16px;font-weight:bold;color:var(--gold);font-size:14px;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.casa-card summary::after{content:"+";font-size:18px;color:var(--violet)}
+.casa-card[open] summary::after{content:"–"}
+.casa-card .casa-corpo{padding:0 16px 16px;font-size:13px;color:var(--text)}
+.casa-card .casa-corpo .ph{font-size:11px;color:var(--lilac);font-family:monospace;margin-top:6px;word-break:break-all}
+
+/* ---- Painéis de posições (Cosmos) ---- */
+.painel-posicoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:10px}
+.posicao-card{background:rgba(0,0,0,0.22);border:1px solid var(--border);border-radius:12px;padding:16px}
+.posicao-card .nome{color:var(--gold);font-weight:bold;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.posicao-card .cond{font-size:11px;color:#ffb84d;background:rgba(255,184,77,0.1);padding:2px 8px;border-radius:10px}
+.posicao-card .ph{font-size:12px;color:var(--lilac);font-family:monospace;margin-top:10px;word-break:break-all}
+
+/* ---- Padrões (Cosmos) ---- */
+.padrao-item{display:flex;gap:12px;align-items:flex-start;background:rgba(0,0,0,0.22);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.padrao-item .nome{color:var(--gold);font-weight:bold;font-size:14px}
+.padrao-item .ph{font-size:11px;color:var(--lilac);font-family:monospace;margin-top:4px;word-break:break-all}
+.padrao-item.vazio{opacity:.55}
+
+/* ---- Síntese final ---- */
+.sintese-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+.sintese-item{background:rgba(0,0,0,0.22);border:1px solid var(--border);border-radius:12px;padding:16px}
+.sintese-item .t{color:var(--gold);font-weight:bold;font-size:14px;margin-bottom:6px}
+.sintese-item .ph{font-size:12px;color:var(--lilac);font-family:monospace;word-break:break-all}
+
+/* ---- Utilitários ---- */
+.escondido{display:none!important}
+.rodape{margin-top:44px;padding:22px 0;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--text-sec)}
+.botao-acao{
+  display:inline-block;background:transparent;border:1px solid var(--border);color:var(--sky);
+  padding:10px 20px;border-radius:40px;cursor:pointer;font-size:13px;transition:.3s;font-family:inherit;
+}
+.botao-acao:hover{border-color:var(--gold);color:var(--gold)}
+.sucesso-form{display:none;margin-top:14px;padding:14px;border-radius:10px;background:rgba(212,175,55,0.1);border:1px solid var(--gold);color:var(--gold);font-size:14px}
+
+/* ---- Responsividade ---- */
+@media(max-width:768px){
+  .grid-form{grid-template-columns:1fr}
+  .visao-geral{grid-template-columns:1fr}
+  .sintese-grid{grid-template-columns:1fr}
+  .grid-casas{grid-template-columns:1fr}
+  .painel-posicoes{grid-template-columns:1fr}
+  header.site-header{justify-content:center;text-align:center}
+  nav.main-nav{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CABEÇALHO GERAL
+     ============================================================ -->
+<header class="site-header wrap">
+  <div class="logo">ORACULUM <span>VITAE</span></div>
+  <a class="back-link" href="index.html">← Voltar ao site de Tarô</a>
+  <nav class="main-nav" aria-label="Navegação entre níveis de mapa astral">
+    <button onclick="irPara('planos')">Planos</button>
+    <button onclick="irPara('formulario')">Seus Dados</button>
+    <button onclick="abrirDashboard('dash-portico')">Pórtico Celestial</button>
+    <button onclick="abrirDashboard('dash-orbita')">Órbita Pessoal</button>
+    <button onclick="abrirDashboard('dash-cosmos')">Cosmos Absoluto</button>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- ============================================================
+       APRESENTAÇÃO
+       ============================================================ -->
+  <section class="apresentacao" aria-label="Apresentação do Mapa Astral">
+    <h1>Mapa Astral</h1>
+    <p class="subtitulo">Uma leitura simbólica do céu no momento do seu nascimento — um convite ao autoconhecimento e à reflexão.</p>
+    <div class="aviso-etica">
+      <strong>Aviso ético e responsável:</strong> a astrologia é apresentada como uma ferramenta simbólica de autoconhecimento e reflexão.
+      Esta leitura não determina o futuro e não substitui orientações profissionais em saúde, direito, finanças ou psicologia.
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ÁREA DE ESCOLHA DE PLANO
+       ============================================================ -->
+  <section id="planos" class="planos" aria-label="Escolha o seu plano de mapa astral">
+    <!-- CARD 1: PÓRTICO CELESTIAL -->
+    <article class="plano-card">
+      <div class="icone">🌌</div>
+      <h3>Mapa Astral: Pórtico Celestial</h3>
+      <p class="desc">Os símbolos essenciais do seu céu: identidade, emoções e a forma como você se apresenta ao mundo.</p>
+      <ul>
+        <li>Sol, Lua e Ascendente</li>
+        <li>Elementos e modalidades</li>
+        <li>Potenciais e pontos de atenção</li>
+        <li>Perguntas para reflexão</li>
+      </ul>
+      <button class="btn-plano" onclick="abrirFormulario('Pórtico Celestial')">Começar com o Pórtico</button>
+    </article>
+
+    <!-- CARD 2: ÓRBITA PESSOAL (MAIS ESCOLHIDO) -->
+    <article class="plano-card">
+      <span class="etiqueta top">✦ Mais escolhido</span>
+      <div class="icone">🪐</div>
+      <h3>Mapa Astral: Órbita Pessoal</h3>
+      <p class="desc">Uma leitura aprofundada sobre como você pensa, se relaciona, deseja, cresce e constrói seu caminho.</p>
+      <ul>
+        <li>Tudo do Pórtico Celestial</li>
+        <li>Mercúrio, Vênus, Marte, Júpiter e Saturno</li>
+        <li>Nodos Lunares e Quíron</li>
+        <li>Aspectos e casas ativadas</li>
+        <li>Orientações para vocação e relações</li>
+      </ul>
+      <button class="btn-plano" onclick="abrirFormulario('Órbita Pessoal')">Aprofundar com a Órbita</button>
+    </article>
+
+    <!-- CARD 3: COSMOS ABSOLUTO (EXPERIÊNCIA COMPLETA) -->
+    <article class="plano-card">
+      <span class="etiqueta vip">✦ Experiência completa</span>
+      <div class="icone">🌀</div>
+      <h3>Mapa Astral: Cosmos Absoluto</h3>
+      <p class="desc">Uma exploração integral da arquitetura do seu mapa: planetas, casas, aspectos, padrões e ciclos.</p>
+      <ul>
+        <li>Tudo dos planos anteriores</li>
+        <li>Urano, Netuno e Plutão</li>
+        <li>As 12 casas em detalhe</li>
+        <li>Aspectos avançados e padrões</li>
+        <li>Ciclos atuais e síntese de propósito</li>
+      </ul>
+      <button class="btn-plano" onclick="abrirFormulario('Cosmos Absoluto')">Viver o Cosmos</button>
+    </article>
+  </section>
+
+  <!-- ============================================================
+       FORMULÁRIO DE DADOS DE NASCIMENTO
+       ============================================================ -->
+  <section id="formulario" class="form-card" aria-label="Formulário de dados de nascimento">
+    <h2>Seus dados de nascimento</h2>
+    <p class="form-hint">A hora exata faz toda a diferença no mapa. Quanto mais precisa, mais fiel é a leitura simbólica.</p>
+    <!-- action e method demonstrativos — o backend futuro receberá estes dados -->
+    <form id="formMapa" action="/api/mapa-astral" method="POST" novalidate>
+      <div class="grid-form">
+        <div>
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" placeholder="Seu nome completo" aria-label="Nome">
+          <span class="erro-campo" id="erro-nome">Informe seu nome.</span>
+        </div>
+        <div>
+          <label for="dataNasc">Data de nascimento</label>
+          <input type="date" id="dataNasc" name="data_nascimento" aria-label="Data de nascimento">
+          <span class="erro-campo" id="erro-data">Informe a data.</span>
+        </div>
+        <div>
+          <label for="horaNasc">Hora de nascimento <small>(se souber)</small></label>
+          <input type="time" id="horaNasc" name="hora_nascimento" aria-label="Hora de nascimento">
+          <p class="help-msg">A hora exata define o Ascendente e as casas.</p>
+        </div>
+        <div>
+          <label for="cidadeNasc">Cidade de nascimento</label>
+          <input type="text" id="cidadeNasc" name="cidade_nascimento" placeholder="Cidade" aria-label="Cidade de nascimento">
+          <span class="erro-campo" id="erro-cidade">Informe a cidade.</span>
+        </div>
+        <div>
+          <label for="paisNasc">País</label>
+          <input type="text" id="paisNasc" name="pais" placeholder="País" aria-label="País">
+        </div>
+        <div>
+          <label for="sistemaCasas">Sistema de casas</label>
+          <select id="sistemaCasas" name="sistema_casas" aria-label="Sistema de casas">
+            <option value="Placidus">Placidus</option>
+            <option value="Casas Inteiras">Casas Inteiras</option>
+            <option value="Casas Iguais">Casas Iguais</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="planoSelecionado">Plano escolhido</label>
+          <select id="planoSelecionado" name="plano" aria-label="Plano">
+            <option value="Pórtico Celestial">Pórtico Celestial</option>
+            <option value="Órbita Pessoal">Órbita Pessoal</option>
+            <option value="Cosmos Absoluto">Cosmos Absoluto</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primario">GERAR MEU MAPA</button>
+      </div>
+      <div class="sucesso-form" id="sucessoForm">
+        ✅ Mapa gerado (demonstração). Quando o backend estiver conectado, seus dados serão enviados aqui e a leitura aparecerá abaixo.
+      </div>
+    </form>
+  </section>
+
+  <!-- ============================================================
+       DASHBOARD 1 — PÓRTICO CELESTIAL
+       ============================================================ -->
+  <section id="dash-portico" class="dashboard" aria-label="Dashboard Pórtico Celestial">
+
+    <!-- Cabeçalho da dashboard -->
+    <div class="dash-header">
+      <h2>Pórtico Celestial</h2>
+      <p class="frase-apoio">Os símbolos essenciais do seu céu: identidade, emoções e a forma como você se apresenta ao mundo.</p>
+      <span class="selo-status">✦ Mapa calculado</span>
+      <div class="dados-nascimento">
+        <span><strong>Nome:</strong> {{nome}}</span>
+        <span><strong>Nascimento:</strong> {{data_nascimento_formatada}} às {{hora_nascimento}}</span>
+        <span><strong>Cidade:</strong> {{cidade_nascimento}}</span>
+        <span><strong>Sistema:</strong> {{sistema_casas}}</span>
+      </div>
+    </div>
+
+    <!-- Visão geral: roda + resumo + Sol/Lua/Asc -->
+    <div class="visao-geral">
+      <div class="roda-mapa" id="roda-portico">
+        <!-- O SVG da roda astral será renderizado AQUI pelo backend -->
+        {{svg_mapa_astral}}
+      </div>
+      <div class="bloco">
+        <h3>Resumo do seu Pórtico</h3>
+        <p class="placeholder-destaque">{{resumo_central_portico}}</p>
+        <div class="grid-cards">
+          <div class="mini-card">
+            <div class="rotulo">☀ Sol</div>
+            <div class="valor">{{sol_signo}}</div>
+            <div class="info">Casa {{sol_casa}}</div>
+            <div class="ph">{{interpretacao_sol}}</div>
+          </div>
+          <div class="mini-card">
+            <div class="rotulo">☾ Lua</div>
+            <div class="valor">{{lua_signo}}</div>
+            <div class="info">Casa {{lua_casa}}</div>
+            <div class="ph">{{interpretacao_lua}}</div>
+          </div>
+          <div class="mini-card">
+            <div class="rotulo">↑ Ascendente</div>
+            <div class="valor">{{ascendente_signo}}</div>
+            <div class="info">Sua presença</div>
+            <div class="ph">{{interpretacao_ascendente}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seções interpretativas -->
+    <div class="bloco">
+      <h3>Sua Essência Solar</h3>
+      <p class="placeholder-destaque">{{interpretacao_sol}}</p>
+    </div>
+    <div class="bloco">
+      <h3>Seu Mundo Emocional</h3>
+      <p class="placeholder-destaque">{{interpretacao_lua}}</p>
+    </div>
+    <div class="bloco">
+      <h3>A Sua Presença no Mundo</h3>
+      <p class="placeholder-destaque">{{interpretacao_ascendente}}</p>
+    </div>
+    <div class="bloco">
+      <h3>A Linguagem do Seu Mapa</h3>
+      <p class="placeholder-destaque">{{interpretacao_elementos_modalidades}}</p>
+      <div class="dados-simbolicos">
+        <div class="item"><div class="k">Elemento</div><div class="v">{{elemento_predominante}}</div><div class="ph">{{elemento_predominante}}</div></div>
+        <div class="item"><div class="k">Modalidade</div><div class="v">{{modalidade_predominante}}</div><div class="ph">{{modalidade_predominante}}</div></div>
+        <div class="item"><div class="k">Hemisfério</div><div class="v">{{hemisferio_predominante}}</div><div class="ph">{{hemisferio_predominante}}</div></div>
+      </div>
+    </div>
+
+    <!-- Potenciais -->
+    <div class="bloco">
+      <h3>Potenciais que o seu mapa ilumina</h3>
+      <div class="itens-valor">
+        <div class="item-valor"><div class="t">{{potencial_1_titulo}}</div><div class="d">{{potencial_1_descricao}}</div></div>
+        <div class="item-valor"><div class="t">{{potencial_2_titulo}}</div><div class="d">{{potencial_2_descricao}}</div></div>
+        <div class="item-valor"><div class="t">{{potencial_3_titulo}}</div><div class="d">{{potencial_3_descricao}}</div></div>
+      </div>
+    </div>
+
+    <!-- Pontos de atenção -->
+    <div class="bloco">
+      <h3>Pontos de atenção e desenvolvimento</h3>
+      <div class="itens-valor">
+        <div class="item-valor"><div class="t">{{atencao_1_titulo}}</div><div class="d">{{atencao_1_descricao}}</div></div>
+        <div class="item-valor"><div class="t">{{atencao_2_titulo}}</div><div class="d">{{atencao_2_descricao}}</div></div>
+        <div class="item-valor"><div class="t">{{atencao_3_titulo}}</div><div class="d">{{atencao_3_descricao}}</div></div>
+      </div>
+    </div>
+
+    <!-- Perguntas reflexivas -->
+    <div class="bloco">
+      <h3>Uma pausa para olhar para dentro</h3>
+      <p>✦ {{pergunta_reflexao_1}}</p>
+      <p>✦ {{pergunta_reflexao_2}}</p>
+      <p>✦ {{pergunta_reflexao_3}}</p>
+    </div>
+
+    <button class="botao-acao" onclick="copiarLink()">🔗 Copiar link do resultado</button>
+  </section>
+
+  <!-- ============================================================
+       DASHBOARD 2 — ÓRBITA PESSOAL
+       ============================================================ -->
+  <section id="dash-orbita" class="dashboard" aria-label="Dashboard Órbita Pessoal">
+
+    <!-- Cabeçalho -->
+    <div class="dash-header">
+      <h2>Órbita Pessoal</h2>
+      <p class="frase-apoio">Uma leitura aprofundada sobre a forma como você pensa, se relaciona, deseja, cresce e constrói seu caminho.</p>
+      <span class="selo-status">✦ Relatório aprofundado</span>
+      <div class="dados-nascimento">
+        <span><strong>Nome:</strong> {{nome}}</span>
+        <span><strong>Nascimento:</strong> {{data_nascimento_formatada}} às {{hora_nascimento}}</span>
+        <span><strong>Local:</strong> {{cidade_nascimento}}, {{pais}}</span>
+        <span><strong>Ascendente:</strong> {{ascendente_signo}}</span>
+        <span><strong>Regente do Ascendente:</strong> {{regente_ascendente}} ({{regente_ascendente_signo_casa}})</span>
+        <span><strong>Meio do Céu:</strong> {{meio_ceu_signo}}</span>
+        <span><strong>Nodo Norte:</strong> {{nodo_norte_signo_casa}}</span>
+      </div>
+    </div>
+
+    <!-- Área principal -->
+    <div class="visao-geral">
+      <div class="roda-mapa" id="roda-orbita">
+        {{svg_mapa_astral}}
+      </div>
+      <div class="bloco">
+        <h3>Síntese da sua Órbita</h3>
+        <p class="placeholder-destaque">{{resumo_central_orbita}}</p>
+        <div class="dados-simbolicos" style="margin-top:14px">
+          <div class="item"><div class="k">Elemento</div><div class="v">{{elemento_predominante}}</div></div>
+          <div class="item"><div class="k">Modalidade</div><div class="v">{{modalidade_predominante}}</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards dos planetas e pontos -->
+    <div class="bloco">
+      <h3>Os protagonistas da sua história</h3>
+      <div class="painel-posicoes">
+        <div class="posicao-card">
+          <div class="nome">☿ Mercúrio <span style="font-size:12px;color:var(--text-sec)">{{mercurio_signo}} · Casa {{mercurio_casa}}</span></div>
+          <p style="font-size:13px;color:var(--text);margin-top:8px">Mente, comunicação e linguagem.</p>
+          <div class="ph">{{interpretacao_mercurio}}</div>
+        </div>
+        <div class="posicao-card">
+          <div class="nome">♀ Vênus <span style="font-size:12px;color:var(--text-sec)">{{venus_signo}} · Casa {{venus_casa}}</span></div>
+          <p style="font-size:13px;color:var(--text);margin-top:8px">Amor, valores, afeto e prazer.</p>
+          <div class="ph">{{interpretacao_venus}}</div>
+        </div>
+        <div class="posicao-card">
+          <div class="nome">♂ Marte <span style="font-size:12px;color:var(--text-sec)">{{marte_signo}} · Casa {{marte_casa}}</span></div>
+          <p style="font-size:13px;color:var(--text);margin-top:8px">Desejo, ação, coragem e energia.</p>
+          <div class="ph">{{interpretacao_marte}}</div>
+        </div>
+        <div class="posicao-card">
+          <div class="nome">♃ Júpiter <span style="font-size:12px;color:var(--text-sec)">{{jupiter_signo}} · Casa {{jupiter_casa}}</span></div>
+          <p style="font-size:13px;color:var(--text);margin-top:8px">Expansão, confiança, estudos e oportunidades.</p>
+          <div class="ph">{{interpretacao_jupiter}}</div>
+        </div>
+        <div class="posicao-card">
+          <div class="nome">♄ Saturno <span style="font-size:12px;color:var(--text-sec)">{{saturno_signo}} · Casa {{saturno_casa}}</span></div>
+          <p style="font-size:13px;color:var(--text);margin-top:8px">Limites, responsabilidade e amadurecimento.</p>
+          <div class="ph">{{interpretacao_saturno}}</div>
+        </div>
+        <div class="posicao-card">
+          <div class="nome">☊ Nodos Lunares</div>
+          <p style="font-size:13px;color:var(--text);margin-top:8px">Eixo simbólico de desenvolvimento.</p>
+          <div class="ph">{{interpretacao_nodos_lunares}}</div>
+        </div>
+        <div class="posicao-card">
+          <div class="nome">⚷ Quíron <span style="font-size:12px;color:var(--text-sec)">{{quiron_signo_casa}}</span></div>
+          <p style="font-size:13px;color:var(--text);margin-top:8px">Vulnerabilidade, cura e sabedoria.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aspectos -->
+    <div class="bloco">
+      <h3>Aspectos que movimentam a sua história</h3>
+      <div class="aspecto-item">
+        <div class="aspecto-simbolo">{{aspecto_1_simbolo}}</div>
+        <div class="aspecto-info"><div class="n">{{aspecto_1_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_1_orbe}})</span></div><div class="d">{{aspecto_1_interpretacao_curta}}</div></div>
+      </div>
+      <div class="aspecto-item">
+        <div class="aspecto-simbolo">{{aspecto_2_simbolo}}</div>
+        <div class="aspecto-info"><div class="n">{{aspecto_2_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_2_orbe}})</span></div><div class="d">{{aspecto_2_interpretacao_curta}}</div></div>
+      </div>
+      <div class="aspecto-item">
+        <div class="aspecto-simbolo">{{aspecto_3_simbolo}}</div>
+        <div class="aspecto-info"><div class="n">{{aspecto_3_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_3_orbe}})</span></div><div class="d">{{aspecto_3_interpretacao_curta}}</div></div>
+      </div>
+      <div class="aspecto-item">
+        <div class="aspecto-simbolo">{{aspecto_4_simbolo}}</div>
+        <div class="aspecto-info"><div class="n">{{aspecto_4_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_4_orbe}})</span></div><div class="d">{{aspecto_4_interpretacao_curta}}</div></div>
+      </div>
+      <div class="aspecto-item">
+        <div class="aspecto-simbolo">{{aspecto_5_simbolo}}</div>
+        <div class="aspecto-info"><div class="n">{{aspecto_5_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_5_orbe}})</span></div><div class="d">{{aspecto_5_interpretacao_curta}}</div></div>
+      </div>
+    </div>
+
+    <!-- Casas ativadas -->
+    <div class="bloco">
+      <h3>Casas mais ativadas</h3>
+      <p><strong>Casa em destaque:</strong> {{casa_destaque_1}}</p>
+      <p class="placeholder-destaque" style="margin-top:10px">{{interpretacao_casas_ativadas}}</p>
+    </div>
+
+    <!-- Vocação -->
+    <div class="bloco">
+      <h3>Caminhos profissionais e vocação</h3>
+      <p><strong>Meio do Céu em:</strong> {{meio_ceu_signo}}</p>
+      <p class="placeholder-destaque" style="margin-top:10px">{{interpretacao_meio_ceu}}</p>
+    </div>
+
+    <!-- Integração prática -->
+    <div class="bloco">
+      <h3>Integração prática para sua jornada</h3>
+      <p><strong>Relacionamentos:</strong> {{orientacao_relacionamentos}}</p>
+      <p><strong>Vida profissional:</strong> {{orientacao_profissional}}</p>
+      <p><strong>Autoconhecimento:</strong> {{orientacao_autoconhecimento}}</p>
+    </div>
+
+    <button class="botao-acao" onclick="copiarLink()">🔗 Copiar link do resultado</button>
+  </section>
+
+  <!-- ============================================================
+       DASHBOARD 3 — COSMOS ABSOLUTO
+       ============================================================ -->
+  <section id="dash-cosmos" class="dashboard" aria-label="Dashboard Cosmos Absoluto">
+
+    <!-- Cabeçalho premium -->
+    <div class="dash-header">
+      <h2>Cosmos Absoluto</h2>
+      <p class="frase-apoio">Uma exploração integral da arquitetura do seu mapa: planetas, casas, aspectos, padrões e ciclos.</p>
+      <span class="selo-status">✦ Experiência completa</span>
+      <div class="dados-nascimento">
+        <span><strong>Nome:</strong> {{nome}}</span>
+        <span><strong>Nascimento:</strong> {{data_nascimento_formatada}} às {{hora_nascimento}}</span>
+        <span><strong>Local:</strong> {{cidade_nascimento}}, {{pais}}</span>
+        <span><strong>Sistema de casas:</strong> {{sistema_casas}}</span>
+        <span><strong>Fuso horário:</strong> {{fuso_horario}}</span>
+        <span><strong>Ascendente:</strong> {{ascendente_signo_grau}}</span>
+        <span><strong>Meio do Céu:</strong> {{meio_ceu_signo_grau}}</span>
+      </div>
+    </div>
+
+    <!-- Visão panorâmica -->
+    <div class="visao-geral">
+      <div class="roda-mapa" id="roda-cosmos">
+        {{svg_mapa_astral}}
+      </div>
+      <div class="bloco">
+        <h3>Síntese do seu Cosmos</h3>
+        <p class="placeholder-destaque">{{resumo_central_cosmos}}</p>
+        <div class="dados-simbolicos" style="margin-top:14px">
+          <div class="item"><div class="k">Elemento</div><div class="v">{{elemento_predominante}}</div></div>
+          <div class="item"><div class="k">Modalidade</div><div class="v">{{modalidade_predominante}}</div></div>
+          <div class="item"><div class="k">Planeta dominante</div><div class="v">{{planeta_dominante}}</div></div>
+          <div class="item"><div class="k">Padrão principal</div><div class="v">{{padrao_principal}}</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painéis de posições -->
+    <div class="bloco">
+      <h3>Luminares</h3>
+      <div class="painel-posicoes">
+        <div class="posicao-card"><div class="nome">☀ Sol <span class="cond" id="cond-sol"></span></div><div class="ph">{{sol_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">☾ Lua <span class="cond" id="cond-lua"></span></div><div class="ph">{{lua_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">↑ Ascendente</div><div class="ph">{{ascendente_signo_grau}}</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <h3>Planetas pessoais</h3>
+      <div class="painel-posicoes">
+        <div class="posicao-card"><div class="nome">☿ Mercúrio</div><div class="ph">{{mercurio_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">♀ Vênus</div><div class="ph">{{venus_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">♂ Marte</div><div class="ph">{{marte_completo}}</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <h3>Planetas sociais</h3>
+      <div class="painel-posicoes">
+        <div class="posicao-card"><div class="nome">♃ Júpiter</div><div class="ph">{{jupiter_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">♄ Saturno</div><div class="ph">{{saturno_completo}}</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <h3>Planetas geracionais</h3>
+      <div class="painel-posicoes">
+        <div class="posicao-card"><div class="nome">♅ Urano</div><div class="ph">{{urano_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">♆ Netuno</div><div class="ph">{{netuno_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">♇ Plutão</div><div class="ph">{{plutao_completo}}</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <h3>Pontos adicionais</h3>
+      <div class="painel-posicoes">
+        <div class="posicao-card"><div class="nome">☊ Nodo Norte</div><div class="ph">{{nodo_norte_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">☋ Nodo Sul</div><div class="ph">{{nodo_sul_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">⚷ Quíron</div><div class="ph">{{quiron_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">⚸ Lilith</div><div class="ph">{{lilith_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">⊕ Parte da Fortuna</div><div class="ph">{{parte_fortuna_completo}}</div></div>
+        <div class="posicao-card"><div class="nome">⛧ Vértice</div><div class="ph">{{vertice_completo}}</div></div>
+      </div>
+    </div>
+
+    <!-- 12 casas -->
+    <div class="bloco">
+      <h3>As 12 casas do seu mapa</h3>
+      <div class="grid-casas" id="grid-casas">
+        <details class="casa-card"><summary>Casa 1 — Identidade</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_1_signo}}</span><br>Planetas: <span class="ph">{{casa_1_planetas}}</span><br>Resumo: <span class="ph">{{casa_1_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 2 — Recursos</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_2_signo}}</span><br>Planetas: <span class="ph">{{casa_2_planetas}}</span><br>Resumo: <span class="ph">{{casa_2_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 3 — Comunicação</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_3_signo}}</span><br>Planetas: <span class="ph">{{casa_3_planetas}}</span><br>Resumo: <span class="ph">{{casa_3_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 4 — Raízes</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_4_signo}}</span><br>Planetas: <span class="ph">{{casa_4_planetas}}</span><br>Resumo: <span class="ph">{{casa_4_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 5 — Criatividade</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_5_signo}}</span><br>Planetas: <span class="ph">{{casa_5_planetas}}</span><br>Resumo: <span class="ph">{{casa_5_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 6 — Rotina</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_6_signo}}</span><br>Planetas: <span class="ph">{{casa_6_planetas}}</span><br>Resumo: <span class="ph">{{casa_6_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 7 — Parcerias</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_7_signo}}</span><br>Planetas: <span class="ph">{{casa_7_planetas}}</span><br>Resumo: <span class="ph">{{casa_7_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 8 — Transformação</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_8_signo}}</span><br>Planetas: <span class="ph">{{casa_8_planetas}}</span><br>Resumo: <span class="ph">{{casa_8_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 9 — Sentido</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_9_signo}}</span><br>Planetas: <span class="ph">{{casa_9_planetas}}</span><br>Resumo: <span class="ph">{{casa_9_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 10 — Vocação</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_10_signo}}</span><br>Planetas: <span class="ph">{{casa_10_planetas}}</span><br>Resumo: <span class="ph">{{casa_10_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 11 — Coletivo</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_11_signo}}</span><br>Planetas: <span class="ph">{{casa_11_planetas}}</span><br>Resumo: <span class="ph">{{casa_11_resumo}}</span></div></details>
+        <details class="casa-card"><summary>Casa 12 — Interior</summary><div class="casa-corpo">Cúspide: <span class="ph">{{casa_12_signo}}</span><br>Planetas: <span class="ph">{{casa_12_planetas}}</span><br>Resumo: <span class="ph">{{casa_12_resumo}}</span></div></details>
+      </div>
+    </div>
+
+    <!-- Aspectos avançados -->
+    <div class="bloco">
+      <h3>Aspectos principais</h3>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_1_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_1_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_1_orbe}})</span></div><div class="d">{{aspecto_principal_1_interpretacao}}</div></div></div>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_2_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_2_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_2_orbe}})</span></div><div class="d">{{aspecto_principal_2_interpretacao}}</div></div></div>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_3_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_3_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_3_orbe}})</span></div><div class="d">{{aspecto_principal_3_interpretacao}}</div></div></div>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_4_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_4_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_4_orbe}})</span></div><div class="d">{{aspecto_principal_4_interpretacao}}</div></div></div>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_5_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_5_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_5_orbe}})</span></div><div class="d">{{aspecto_principal_5_interpretacao}}</div></div></div>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_6_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_6_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_6_orbe}})</span></div><div class="d">{{aspecto_principal_6_interpretacao}}</div></div></div>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_7_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_7_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_7_orbe}})</span></div><div class="d">{{aspecto_principal_7_interpretacao}}</div></div></div>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_8_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_8_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_8_orbe}})</span></div><div class="d">{{aspecto_principal_8_interpretacao}}</div></div></div>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_9_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_9_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_9_orbe}})</span></div><div class="d">{{aspecto_principal_9_interpretacao}}</div></div></div>
+      <div class="aspecto-item"><div class="aspecto-simbolo">{{aspecto_principal_10_simbolo}}</div><div class="aspecto-info"><div class="n">{{aspecto_principal_10_nome}} <span style="color:var(--violet);font-weight:normal">(orbe {{aspecto_principal_10_orbe}})</span></div><div class="d">{{aspecto_principal_10_interpretacao}}</div></div></div>
+    </div>
+
+    <!-- Configurações e padrões -->
+    <div class="bloco">
+      <h3>Configurações e padrões do mapa</h3>
+      <div class="padrao-item" id="padrao-stellium"><div><div class="nome">✦ Stellium</div><div class="ph">{{stellium}}</div></div></div>
+      <div class="padrao-item" id="padrao-figura"><div><div class="nome">✦ Figura geométrica</div><div class="ph">{{figura_geometrica}}</div></div></div>
+      <div class="padrao-item" id="padrao-hemisferios"><div><div class="nome">✦ Distribuição por hemisférios</div><div class="ph">{{hemisferios}}</div></div></div>
+      <div class="padrao-item" id="padrao-elementos"><div><div class="nome">✦ Distribuição dos elementos</div><div class="ph">{{distribuicao_elementos}}</div></div></div>
+      <div class="padrao-item" id="padrao-modalidades"><div><div class="nome">✦ Distribuição das modalidades</div><div class="ph">{{distribuicao_modalidades}}</div></div></div>
+      <div class="padrao-item" id="padrao-retrogrados"><div><div class="nome">✦ Planetas retrógrados</div><div class="ph">{{planetas_retrogrados}}</div></div></div>
+      <div class="padrao-item" id="padrao-dignidades"><div><div class="nome">✦ Dignidades planetárias</div><div class="ph">{{dignidades_planetarias}}</div></div></div>
+    </div>
+
+    <!-- Áreas interpretativas premium -->
+    <div class="bloco"><h3>Vocação, carreira e contribuição</h3><p class="placeholder-destaque">{{cosmos_vocacao}}</p></div>
+    <div class="bloco"><h3>Relações, parcerias e espelhos</h3><p class="placeholder-destaque">{{cosmos_relacionamentos}}</p></div>
+    <div class="bloco"><h3>Recursos, autoestima e autonomia</h3><p class="placeholder-destaque">{{cosmos_recursos}}</p></div>
+    <div class="bloco"><h3>Intimidade, transformação e renascimento</h3><p class="placeholder-destaque">{{cosmos_transformacao}}</p></div>
+    <div class="bloco"><h3>Filosofia de vida, estudos, viagens e expansão</h3><p class="placeholder-destaque">{{cosmos_sentido}}</p></div>
+    <div class="bloco"><h3>Espiritualidade, inconsciente e mundo interior</h3><p class="placeholder-destaque">{{cosmos_espiritualidade}}</p></div>
+
+    <!-- Ciclos atuais (opcional — só aparece quando o backend enviar dados) -->
+    <div class="bloco" id="bloco-ciclos">
+      <h3>Ciclos e movimentos atuais</h3>
+      <p><strong>Trânsitos:</strong> <span class="ph">{{transito_principal_interpretacao}}</span></p>
+      <p><strong>Progressões secundárias:</strong> <span class="ph">{{progressao_principal_interpretacao}}</span></p>
+      <p><strong>Revolução Solar:</strong> <span class="ph">{{revolucao_solar_interpretacao}}</span></p>
+    </div>
+
+    <!-- Síntese final -->
+    <div class="bloco">
+      <h3>Síntese final</h3>
+      <div class="sintese-grid">
+        <div class="sintese-item"><div class="t">Essência</div><div class="ph">{{sintese_essencia}}</div></div>
+        <div class="sintese-item"><div class="t">Potenciais</div><div class="ph">{{sintese_potenciais}}</div></div>
+        <div class="sintese-item"><div class="t">Desafios de integração</div><div class="ph">{{sintese_desafios}}</div></div>
+        <div class="sintese-item"><div class="t">Caminho consciente</div><div class="ph">{{sintese_caminho}}</div></div>
+      </div>
+      <p style="margin-top:18px"><strong>Perguntas para habitar o seu próprio cosmos:</strong></p>
+      <p>✦ {{pergunta_cosmos_1}}</p>
+      <p>✦ {{pergunta_cosmos_2}}</p>
+      <p>✦ {{pergunta_cosmos_3}}</p>
+    </div>
+
+    <button class="botao-acao" onclick="copiarLink()">🔗 Copiar link do resultado</button>
+  </section>
+
+</main>
+
+<footer class="rodape wrap">
+  <p>A astrologia é uma linguagem simbólica de autoconhecimento e reflexão. Esta página não realiza cálculos astrológicos e não substitui orientação profissional.</p>
+</footer>
+
+<script>
+/* ============================================================
+   SCRIPT.JS (embutido) — interações úteis apenas
+   NENHUM cálculo astrológico é realizado aqui.
+   ============================================================ */
+
+/* --- Navegação suave entre seções --- */
+function irPara(id){
+  var el = document.getElementById(id);
+  if(el){ el.scrollIntoView({behavior:'smooth'}); }
+}
+
+/* --- Alternância entre dashboards --- */
+function abrirDashboard(id){
+  var dashes = document.querySelectorAll('.dashboard');
+  for(var i = 0; i < dashes.length; i++){ dashes[i].classList.remove('ativa'); }
+  var alvo = document.getElementById(id);
+  if(alvo){ alvo.classList.add('ativa'); alvo.scrollIntoView({behavior:'smooth'}); }
+}
+
+/* --- Abrir formulário com o plano pré-selecionado --- */
+function abrirFormulario(plano){
+  var sel = document.getElementById('planoSelecionado');
+  if(sel){ sel.value = plano; }
+  irPara('formulario');
+}
+
+/* --- Validação simples do formulário --- */
+document.addEventListener('DOMContentLoaded', function(){
+  var form = document.getElementById('formMapa');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var ok = true;
+
+      var nome = document.getElementById('nome').value.trim();
+      var data = document.getElementById('dataNasc').value;
+      var cidade = document.getElementById('cidadeNasc').value.trim();
+
+      mostrarErro('erro-nome', nome.length < 2); if(nome.length < 2) ok = false;
+      mostrarErro('erro-data', !data);           if(!data) ok = false;
+      mostrarErro('erro-cidade', cidade.length < 2); if(cidade.length < 2) ok = false;
+
+      if(ok){
+        document.getElementById('sucessoForm').style.display = 'block';
+        // AQUI o backend futuro receberá os dados (action="/api/mapa-astral" method="POST")
+        var plano = document.getElementById('planoSelecionado').value;
+        var alvo = (plano.indexOf('Pórtico') > -1) ? 'dash-portico' : (plano.indexOf('Órbita') > -1) ? 'dash-orbita' : 'dash-cosmos';
+        abrirDashboard(alvo);
+      } else {
+        document.getElementById('sucessoForm').style.display = 'none';
+      }
+    });
+  }
+  esconderSecoesSemDados();
+  atualizarCiclos();
+});
+
+function mostrarErro(id, condicao){
+  var el = document.getElementById(id);
+  if(el){ el.style.display = condicao ? 'block' : 'none'; }
+}
+
+/* --- Esconder seções cujos placeholders não foram preenchidos ---
+   Regra: qualquer elemento com classe .ph cujo texto ainda for o
+   placeholder original ({{...}}) indica que o backend não enviou
+   aquele dado. O item pai é ocultado. */
+function esconderSecoesSemDados(){
+  var phs = document.querySelectorAll('.ph');
+  for(var i = 0; i < phs.length; i++){
+    var txt = phs[i].textContent.trim();
+    if(txt.indexOf('{{') === 0 && txt.indexOf('}}') > -1){
+      var pai = phs[i].closest('.posicao-card, .aspecto-item, .item-valor, .padrao-item, .sintese-item, .mini-card');
+      if(pai){ pai.classList.add('vazio'); }
+    }
+  }
+  // Esconde o bloco de ciclos se todos os placeholders estiverem vazios
+  var blocoCiclos = document.getElementById('bloco-ciclos');
+  if(blocoCiclos){
+    var temDados = blocoCiclos.textContent.indexOf('{{') === -1;
+    if(!temDados){ blocoCiclos.classList.add('escondido'); }
+  }
+}
+
+/* --- Exibir condição retrógrada quando o backend informar ---
+   O backend pode preencher spans com id cond-sol, cond-lua etc. */
+function atualizarCiclos(){
+  // Placeholder: se o backend enviar "R" para retrógrado, marcar.
+  // Exemplo: document.getElementById('cond-sol').textContent = 'Retrógrado';
+}
+
+/* --- Copiar link do resultado (demonstrativo) --- */
+function copiarLink(){
+  var url = window.location.href;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(function(){
+      alert('Link copiado: ' + url);
+    });
+  } else {
+    prompt('Copie o link:', url);
+  }
+}
+</script>
+</body>
+</html>
