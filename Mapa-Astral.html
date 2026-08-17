@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Astral | Oraculum Vitae</title>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#d4a73f;--gold-light:#e8c86a;--bg-card:rgba(26,10,46,0.85);--accent:rgba(212,167,63,0.4)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;background:radial-gradient(ellipse at top,#1b1030 0%,#0d0716 60%,#07030c 100%);background-attachment:fixed;color:#e8dcc0;font-family:Georgia,"Times New Roman",serif;padding:30px 16px 60px}
+.wrap{max-width:820px;margin:0 auto}
+h1{font-family:"Pirata One",cursive;text-align:center;font-size:52px;letter-spacing:4px;color:var(--gold);text-shadow:0 0 20px rgba(212,167,63,0.5)}
+.subtitle{text-align:center;color:#a3926e;font-size:14px;margin-top:2px;letter-spacing:1px}
+.voltar{display:inline-flex;align-items:center;gap:8px;color:var(--gold);cursor:pointer;font-weight:bold;text-decoration:none;margin-bottom:18px;font-size:15px;background:none;border:none;font-family:inherit}
+.voltar:hover{text-shadow:0 0 12px rgba(212,167,63,0.8)}
+.card{margin-top:24px;background:var(--bg-card);border:1px solid var(--accent);border-radius:12px;padding:26px;backdrop-filter:blur(6px);box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+label{display:block;font-size:13px;color:#c9b98a;margin:14px 0 6px}
+label:first-of-type{margin-top:0}
+input[type=text],input[type=date],input[type=time],select{width:100%;padding:12px 13px;border-radius:8px;border:1px solid var(--accent);background:rgba(0,0,0,0.35);color:#f2e8cf;font-size:15px;font-family:inherit;outline:none}
+input:focus,select:focus{border-color:var(--gold)}
+select option{background:#160d02;color:#f2e8cf}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn{display:block;width:100%;margin-top:22px;padding:15px 0;border:none;border-radius:8px;cursor:pointer;background:linear-gradient(135deg,var(--gold),#b8860b);color:#160d02;font-weight:bold;letter-spacing:3px;font-family:"Pirata One",cursive;font-size:20px}
+.btn:disabled{opacity:0.6;cursor:wait}
+.resultado{margin-top:26px}
+.bloco{background:var(--bg-card);border:1px solid var(--accent);border-radius:12px;padding:22px;margin-top:18px}
+.bloco h2{color:var(--gold);font-family:"Pirata One",cursive;font-size:24px;letter-spacing:1px}
+.bloco h3{color:var(--gold);font-family:"Pirata One",cursive;font-size:18px;margin:16px 0 6px;letter-spacing:1px}
+.bloco p{font-size:15px;line-height:1.7;margin-top:8px}
+.boas-vindas{font-size:17px;line-height:1.8;color:#f2e8cf}
+.trindade{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.trindade .item{background:rgba(0,0,0,0.25);border:1px solid var(--accent);border-radius:10px;padding:16px;text-align:center}
+.trindade .item .rot{font-size:12px;color:#a3926e;letter-spacing:2px;text-transform:uppercase}
+.trindade .item .val{font-size:20px;color:var(--gold);font-family:"Pirata One",cursive;margin-top:6px}
+.trindade .item .desc{font-size:12px;color:#c9b98a;margin-top:6px;line-height:1.5}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.mini-grid .item{background:rgba(0,0,0,0.25);border:1px solid var(--accent);border-radius:10px;padding:14px}
+.mini-grid .item .rot{font-size:12px;color:#a3926e;letter-spacing:1px;text-transform:uppercase}
+.mini-grid .item .val{font-size:16px;color:var(--gold);margin-top:4px}
+.potencial,.atencao{display:flex;gap:12px;margin-top:12px;padding:14px;border-radius:10px;background:rgba(0,0,0,0.2);border:1px solid var(--accent)}
+.potencial .icone{color:var(--gold);font-size:20px;flex-shrink:0}
+.atencao .icone{color:#ffb84d;font-size:20px;flex-shrink:0}
+.potencial strong,.atencao strong{color:var(--gold);display:block;margin-bottom:4px}
+.atencao strong{color:#ffb84d}
+.potencial p,.atencao p{font-size:14px;line-height:1.6;margin:0}
+.mensagem-final{margin-top:18px;padding:18px;border-radius:10px;background:rgba(212,167,63,0.08);border:1px solid rgba(212,167,63,0.3);font-size:15px;line-height:1.7}
+.aviso{margin-top:16px;font-size:12px;color:#8a7c5c;text-align:center;line-height:1.6}
+.tag-ia{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;background:rgba(212,167,63,0.15);border:1px solid var(--accent);color:var(--gold);margin-bottom:10px}
+.erro{color:#ff8a7a;text-align:center;margin-top:14px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="voltar" href="index.html"><i class="fas fa-arrow-left"></i> Voltar ao Início</a>
+  <h1>MAPA ASTRAL</h1>
+  <p class="subtitle">Pórtico Celestial — a porta de entrada para o seu mapa</p>
+
+  <div class="card">
+    <span class="tag-ia"><i class="fas fa-magic"></i> Leitura simbólica de autoconhecimento</span>
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" placeholder="Seu nome">
+    <div class="row">
+      <div>
+        <label for="data">Data de nascimento</label>
+        <input type="date" id="data">
+      </div>
+      <div>
+        <label for="hora">Hora de nascimento</label>
+        <input type="time" id="hora">
+      </div>
+    </div>
+    <label for="cidade">Cidade de nascimento</label>
+    <input type="text" id="cidade" placeholder="Cidade, Estado">
+    <button class="btn" id="btnGerar" onclick="gerarLeitura()">GERAR MEU MAPA</button>
+    <p class="erro" id="erro" style="display:none"></p>
+  </div>
+
+  <div class="resultado" id="resultado" style="display:none">
+    <div class="bloco">
+      <h2 id="titulo"></h2>
+      <p class="boas-vindas" id="boasVindas"></p>
+    </div>
+
+    <div class="bloco">
+      <h3>✦ A Tríade Central</h3>
+      <div class="trindade" id="trindade"></div>
+    </div>
+
+    <div class="bloco">
+      <h3>✦ Elementos e Modalidades</h3>
+      <div class="mini-grid" id="elementos"></div>
+    </div>
+
+    <div class="bloco">
+      <h3>✦ Identidade, Emoções e Presença</h3>
+      <p id="leituraTrindade"></p>
+    </div>
+
+    <div class="bloco">
+      <h3>✦ Potenciais Percebidos</h3>
+      <div id="potenciais"></div>
+    </div>
+
+    <div class="bloco">
+      <h3>✦ Pontos de Atenção e Desenvolvimento</h3>
+      <div id="atencao"></div>
+    </div>
+
+    <div class="bloco">
+      <h3>✦ Mensagem de Integração</h3>
+      <div class="mensagem-final" id="mensagemFinal"></div>
+      <p class="aviso" id="aviso"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// BASE DE CONHECIMENTO — SIGNOS, ELEMENTOS, MODALIDADES
+// ============================================================
+var SIGNOS = {
+  'Áries':{elem:'Fogo',mod:'Cardinal',desc:'impulso, iniciativa e coragem',sol:'identidade pioneira, que gosta de começar e abrir caminhos',lua:'emoções rápidas e diretas, que precisam de ação para se sentir viva',asc:'presença enérgica e direta, que chega marcando território'},
+  'Touro':{elem:'Terra',mod:'Fixo',desc:'estabilidade, sensorialidade e constância',sol:'identidade firme, que valoriza segurança e prazer concreto',lua:'emoções serenas e apegadas, que buscam conforto e previsibilidade',asc:'presença calma e sólida, que transmite confiança e estabilidade'},
+  'Gêmeos':{elem:'Ar',mod:'Mutável',desc:'comunicação, curiosidade e versatilidade',sol:'identidade curiosa e comunicativa, que se renova pelo aprendizado',lua:'emoções expressas por palavras, que precisam conversar para se entender',asc:'presença ágil e falante, que conecta pessoas e ideias'},
+  'Câncer':{elem:'Água',mod:'Cardinal',desc:'sensibilidade, memória e cuidado',sol:'identidade acolhedora, ligada à família e ao lar',lua:'emoções profundas e intuitivas, que sentem tudo intensamente',asc:'presença protetora e afetuosa, que gera pertencimento'},
+  'Leão':{elem:'Fogo',mod:'Fixo',desc:'criatividade, orgulho e generosidade',sol:'identidade criativa e luminosa, que busca brilhar e inspirar',lua:'emoções calorosas e dramáticas, que precisam de reconhecimento',asc:'presença magnética e confiante, que ocupa o centro'},
+  'Virgem':{elem:'Terra',mod:'Mutável',desc:'análise, precisão e serviço',sol:'identidade prática e detalhista, que busca aperfeiçoar',lua:'emoções contidas e analíticas, que se acalmam na ordem',asc:'presença discreta e competente, que cuida dos detalhes'},
+  'Libra':{elem:'Ar',mod:'Cardinal',desc:'harmonia, parceria e justiça',sol:'identidade equilibrada e diplomática, que busca harmonia',lua:'emoções que se equilibram no outro, que precisam de paz',asc:'presença elegante e agradável, que busca conexão'},
+  'Escorpião':{elem:'Água',mod:'Fixo',desc:'intensidade, transformação e profundidade',sol:'identidade intensa e transformadora, que mergulha fundo',lua:'emoções profundas e poderosas, que se renovam na crise',asc:'presença magnética e misteriosa, que transmite força'},
+  'Sagitário':{elem:'Fogo',mod:'Mutável',desc:'expansão, otimismo e busca de sentido',sol:'identidade aventureira e filosófica, que busca sentido',lua:'emoções expansivas e otimistas, que precisam de liberdade',asc:'presença entusiasta e aberta, que inspira movimento'},
+  'Capricórnio':{elem:'Terra',mod:'Cardinal',desc:'disciplina, ambição e responsabilidade',sol:'identidade madura e ambiciosa, que constrói no tempo',lua:'emoções reservadas e responsáveis, que buscam segurança',asc:'presença séria e confiável, que transmite autoridade'},
+  'Aquário':{elem:'Ar',mod:'Fixo',desc:'originalidade, coletividade e futuro',sol:'identidade original e humanitária, que pensa no coletivo',lua:'emoções independentes e racionais, que precisam de espaço',asc:'presença única e inovadora, que surpreende'},
+  'Peixes':{elem:'Água',mod:'Mutável',desc:'sensibilidade, imaginação e compaixão',sol:'identidade sensível e imaginativa, que sonha e acolhe',lua:'emoções fluidas e empáticas, que absorvem o ambiente',asc:'presença suave e inspiradora, que transmite empatia'}
+};
+var ELEMENTOS = {
+  'Fogo':{desc:'energia, iniciativa e entusiasmo',forca:'ação, coragem e vitalidade',cuidado:'impaciência e impulsividade'},
+  'Terra':{desc:'praticidade, estabilidade e concretude',forca:'segurança, persistência e senso do real',cuidado:'rigidez e resistência à mudança'},
+  'Ar':{desc:'razão, comunicação e sociabilidade',forca:'clareza, diálogo e objetividade',cuidado:'excesso de análise e distanciamento emocional'},
+  'Água':{desc:'emoção, intuição e sensibilidade',forca:'empatia, profundidade e percepção',cuidado:'sensibilidade excessiva e dificuldade de limites'}
+};
+var MODALIDADES = {
+  'Cardinal':{desc:'inicia, lidera e dá o primeiro passo',forca:'iniciativa e capacidade de começar',cuidado:'impaciência para sustentar'},
+  'Fixo':{desc:'sustenta, consolida e persevera',forca:'determinação e estabilidade',cuidado:'resistência à mudança'},
+  'Mutável':{desc:'adapta, flexibiliza e transforma',forca:'versatilidade e capacidade de ajuste',cuidado:'dificuldade de decidir'}
+};
+
+// ============================================================
+// DADOS DE EXEMPLO (substituíveis pela integração de efemérides)
+// ============================================================
+// Quando houver conexão com a IA ou uma biblioteca de efemérides,
+// estes valores serão preenchidos automaticamente a partir de
+// data/hora/cidade. Por enquanto, usamos um mapa de exemplo.
+function obterMapaDeExemplo(nome){
+  return {
+    sol:'Leão', lua:'Câncer', ascendente:'Touro',
+    elementos:{Fogo:3,Terra:4,Ar:2,Agua:3},
+    modalidades:{Cardinal:3,Fixo:5,Mutavel:4}
+  };
+}
+
+// ============================================================
+// MOTOR DE INTERPRETAÇÃO — PÓRTICO CELESTIAL
+// ============================================================
+function gerarLeitura(){
+  var nome = document.getElementById('nome').value.trim();
+  var errEl = document.getElementById('erro');
+  errEl.style.display = 'none';
+  if(nome.length < 2){
+    errEl.textContent = 'Escreva o seu nome para começar.';
+    errEl.style.display = 'block';
+    return;
+  }
+  var btn = document.getElementById('btnGerar');
+  btn.disabled = true; btn.textContent = 'Calculando seu mapa…';
+  setTimeout(function(){
+    try{
+      var m = obterMapaDeExemplo(nome);
+      montarResultado(nome, m);
+      document.getElementById('resultado').style.display = 'block';
+      document.getElementById('resultado').scrollIntoView({behavior:'smooth'});
+    } catch(e){
+      errEl.textContent = 'Ocorreu um erro ao gerar o mapa. Tente novamente.';
+      errEl.style.display = 'block';
+    } finally {
+      btn.disabled = false; btn.textContent = 'GERAR MEU MAPA';
+    }
+  }, 700);
+}
+
+function montarResultado(nome, m){
+  var S = SIGNOS;
+  var sol = S[m.sol], lua = S[m.lua], asc = S[m.ascendente];
+
+  document.getElementById('titulo').textContent = 'Pórtico Celestial de ' + nome;
+  document.getElementById('boasVindas').innerHTML =
+    'Bem-vindo(a), <strong>' + nome + '</strong>. Este é o seu Pórtico Celestial: uma porta de entrada simbólica para o seu mapa astral. ' +
+    'A astrologia aqui é usada como uma linguagem de autoconhecimento e reflexão — um convite para observar padrões, ' +
+    'não uma sentença sobre o seu destino. Abaixo, uma síntese das três energias que mais moldam a sua forma de ser, sentir e se apresentar ao mundo.';
+
+  // Tríade central
+  document.getElementById('trindade').innerHTML =
+    '<div class="item"><div class="rot">Sol</div><div class="val">' + m.sol + '</div><div class="desc">' + sol.sol + '</div></div>' +
+    '<div class="item"><div class="rot">Lua</div><div class="val">' + m.lua + '</div><div class="desc">' + lua.lua + '</div></div>' +
+    '<div class="item"><div class="rot">Ascendente</div><div class="val">' + m.ascendente + '</div><div class="desc">' + asc.asc + '</div></div>';
+
+  // Elemento e modalidade predominantes
+  var elemPred = 'Fogo', modPred = 'Cardinal', maxE = -1, maxM = -1;
+  for(var e in m.elementos){ if(m.elementos[e] > maxE){ maxE = m.elementos[e]; elemPred = e; } }
+  for(var mo in m.modalidades){ if(m.modalidades[mo] > maxM){ maxM = m.modalidades[mo]; modPred = mo; } }
+  var E = ELEMENTOS[elemPred], M = MODALIDADES[modPred];
+
+  document.getElementById('elementos').innerHTML =
+    '<div class="item"><div class="rot">Elemento predominante</div><div class="val">' + elemPred + '</div><div class="desc" style="font-size:12px;color:#c9b98a;margin-top:4px">' + E.desc + '</div></div>' +
+    '<div class="item"><div class="rot">Modalidade predominante</div><div class="val">' + modPred + '</div><div class="desc" style="font-size:12px;color:#c9b98a;margin-top:4px">' + M.desc + '</div></div>';
+
+  // Leitura de identidade, emoções e presença
+  document.getElementById('leituraTrindade').innerHTML =
+    '<p><strong>Identidade (' + m.sol + '):</strong> ' + sol.sol + '. Sua essência se expressa pela ' + sol.desc + '.</p>' +
+    '<p><strong>Emoções (' + m.lua + '):</strong> ' + lua.lua + '. Internamente, você ' + lua.desc + '.</p>' +
+    '<p><strong>Forma de se apresentar (' + m.ascendente + '):</strong> ' + asc.asc + '. É assim que o mundo costuma percebê-lo(a) ao primeiro contato.</p>' +
+    '<p>O elemento <strong>' + elemPred + '</strong> dá a tônica geral da sua energia (' + E.forca + '), enquanto a modalidade <strong>' + modPred + '</strong> revela como você se move no tempo (' + M.forca + ').</p>';
+
+  // Potenciais
+  var potenciais = [
+    {t:'Iniciativa e vitalidade', d:'Sua energia ' + elemPred.toLowerCase() + ' favorece ' + E.forca.toLowerCase() + ' — um potencial para agir com entusiasmo e dar o primeiro passo quando algo desperta seu interesse.'},
+    {t:'Autenticidade', d:'O seu ' + m.sol + ' sugere uma identidade que se fortalece ao ser verdadeira consigo mesmo(a), expressando sua essência sem máscaras.'},
+    {t:'Sensibilidade e conexão', d:'Sua ' + m.lua + ' aponta para uma capacidade de perceber e acolher o que é sutil, criando vínculos genuínos e um mundo interno rico.'}
+  ];
+  document.getElementById('potenciais').innerHTML = potenciais.map(function(p){
+    return '<div class="potencial"><div class="icone"><i class="fas fa-star"></i></div><div><strong>' + p.t + '</strong><p>' + p.d + '</p></div></div>';
+  }).join('');
+
+  // Pontos de atenção
+  var atencao = [
+    {t:'Impaciência', d:'A energia ' + elemPred.toLowerCase() + ' pode trazer ' + E.cuidado + '. Vale observar como isso aparece quando as coisas não andam no seu ritmo.'},
+    {t:'Ritmo e sustentação', d:'A modalidade ' + modPred.toLowerCase() + ' sugere ' + M.cuidado + '. Um ponto de desenvolvimento é aprender a sustentar o que começa.'},
+    {t:'Equilíbrio emocional', d:'Com a Lua em ' + m.lua + ', pode haver momentos em que ' + lua.desc + ' pede atenção — um convite ao autocuidado e à escuta interna.'}
+  ];
+  document.getElementById('atencao').innerHTML = atencao.map(function(p){
+    return '<div class="atencao"><div class="icone"><i class="fas fa-seedling"></i></div><div><strong>' + p.t + '</strong><p>' + p.d + '</p></div></div>';
+  }).join('');
+
+  // Mensagem final
+  document.getElementById('mensagemFinal').innerHTML =
+    'Seu mapa não define quem você é — ele oferece um espelho simbólico para você se reconhecer. ' +
+    'A combinação do seu <strong>' + m.sol + '</strong>, da sua <strong>' + m.lua + '</strong> e do seu <strong>' + m.ascendente + '</strong> desenha um caminho de ' +
+    elemPred.toLowerCase() + ' e ' + modPred.toLowerCase() + ' que é único. Use estas reflexões como um ponto de partida para se observar com mais gentileza, ' +
+    'e lembre-se: a decisão sobre quem você quer ser é sempre sua.';
+
+  document.getElementById('aviso').textContent =
+    'Esta leitura utiliza a astrologia como linguagem simbólica de autoconhecimento e reflexão.';
+}
+</script>
+</body>
+</html>
