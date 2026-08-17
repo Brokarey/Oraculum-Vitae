@@ -1646,7 +1646,7 @@ setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},15
 }
 /* ===== HORÓSCOPO COM A NOVA API GRATUITA (horoscope-app-api) ===== */
 function initHoroscopo(){
-var grid = document.getElementById('horoscopo-grid');
+var url = 'https://freehoroscopeapi.com/api/v1/get-horoscope/daily?sign='+s.s;
 grid.innerHTML = '';
 var SIGNOS = [
 {n:"Áries",e:"ÁRIES",s:"aries"},{n:"Touro",e:"TOURO",s:"taurus"},{n:"Gêmeos",e:"GÊMEOS",s:"gemini"},{n:"Câncer",e:"CÂNCER",s:"cancer"},
@@ -1668,7 +1668,7 @@ fetch(url)
 .then(function(data){
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3>'
 + '<p style="font-size:12px;color:#aaa">'+data.date+'</p>'
-+ '<p>'+data.horoscope+'</p>';
++ '<p>'+data.data.horoscope+'</p>';
 })
 .catch(function(){
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Não conseguimos conectar com o cosmos agora. Tente novamente mais tarde.</p>';
