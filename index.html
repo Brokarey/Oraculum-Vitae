@@ -249,7 +249,7 @@ Entrar com o Google
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
 <h2 id="tarot-title-3" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 3 Cartas</h2>
 <div class="tarot2-info">
-<p><strong>Tarô de 3 Cartas:</strong> o tarô de 3 cartas é universalmente conhecido como a Tiragem das Três Linhas, Tríade ou simplesmente Passado, Presente e Futuro.</p>
+<pid="desc-tarot-3><strong>Tarô de 3 Cartas:</strong> o tarô de 3 cartas é universalmente conhecido como a Tiragem das Três Linhas, Tríade ou simplesmente Passado, Presente e Futuro.</p>
 <p>É um dos métodos de leitura mais populares, rápidos e eficientes para obter respostas diretas sobre qualquer área da vida. Nele, o tarólogo ou consulente retira exatamente três lâminas do baralho tradicional de 78 cartas para formar uma narrativa linear e integrada. Faça uma pergunta objetiva, por <strong>30 créditos</strong>.</p>
 <p><strong>Estrutura de leitura</strong></p>
 <ul class="tarot2-list">
@@ -1420,7 +1420,7 @@ window.scrollTo(0,0);
 function initTarotPage(count,type){
 type = type || '';
 var cost = count*10;
-if(type==='Marselha'){ cost = 30; MARSELHA_MODE = true; ativarMarselha(); } else { MARSELHA_MODE = false; }
+if(type==='Marselha') cost = 30;
 currentReading = {count:count,type:type,cost:cost,selected:[],question:'',active:false,phase:''};
 var titles = {2:'Tarô: 2 Cartas',3:'Tarô: 3 Cartas',5:'Tarô: 5 Cartas',7:'Tarô: 7 Cartas',10:'Tarô: 10 Cartas'};
 var elTitle = document.getElementById('tarot-title-'+count);
@@ -1428,11 +1428,18 @@ if(elTitle){
 if(type==='Marselha'){elTitle.innerText = 'Tarô de Marselha';}
 else{elTitle.innerText = titles[count];}
 }
-var qEl = document.getElementById('q-'+count); if(qEl){qEl.value='';}
-var resEl = document.getElementById('res-'+count); if(resEl){resEl.style.display='none';resEl.innerHTML='';}
-var areaEl = document.getElementById('area-'+count); if(areaEl){areaEl.innerHTML='';}
-var consEl = document.getElementById('consultar-'+count); if(consEl){consEl.style.display='none';}
-showPage('page-tarot-'+count);
+if(type==='Marselha'){
+var novaDesc = '<p>O Tarô de Marselha é o baralho de tarô mais famoso e tradicional do mundo, servindo de base para quase todas as leituras modernas. Revela uma linha do tempo clara: o Passado (a raiz do problema), o Presente (o momento atual) e o Futuro (o caminho provável). Por 30 créditos.</p>'
++ '<p><strong>O Jogo de 3 Cartas</strong></p>'
++ '<ul>'
++ '<li><strong>Carta 1: O Passado (A Origem)</strong> — O Eremita (IX): mostra um tempo de busca interna, isolamento ou lentidão. Você passou por uma fase de estudo ou de muita cautela, guardando sua luz para não errar.</li>'
++ '<li><strong>Carta 2: O Presente (O Momento)</strong> — A Justiça (VIII): indica a necessidade de equilíbrio, clareza e escolhas corretas. É hora de avaliar os fatos com frieza, cortar o que não serve e assumir a responsabilidade por seus atos.</li>'
++ '<li><strong>Carta 3: O Futuro (O Destino)</strong> — O Mundo (XXI): representa a realização máxima, o sucesso e a conclusão feliz de um ciclo. O caminho aponta para a liberdade e a expansão total após a lição aprendida.</li>'
++ '</ul>'
++ '<p>Após escolher as 3 cartas, elas serão exibidas lado a lado, na ordem selecionada, acima da caixa de respostas.</p>';
+var d = document.getElementById('desc-tarot-3');
+if(d){ d.innerHTML = novaDesc; }
+}
 }
 function startTarot(count){
 var q = document.getElementById('q-'+count).value;
