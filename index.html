@@ -563,11 +563,34 @@ DECK.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No c
 var ARCANOS_MAIORES = ["O Louco","O Mago","A Sacerdotisa","A Imperatriz","O Imperador","O Hierofante","Os Enamorados","A Carruagem","A Força","O Eremita","A Roda da Fortuna","A Justiça","O Pendurado","A Morte","A Temperança","O Diabo","A Torre","A Estrela","A Lua","O Sol","O Julgamento","O Mundo"];
 var NUM_EXTENSO = {"Ás":"Ás","2":"Dois","3":"Três","4":"Quatro","5":"Cinco","6":"Seis","7":"Sete","8":"Oito","9":"Nove","10":"Dez","Valete":"Valete","Cavaleiro":"Cavaleiro","Rainha":"Rainha","Rei":"Rei"};
 function stripAcc(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+var MARSELHA_MODE = false;
+var MARSELHA_NOMES = {
+'A Sacerdotisa':'A Papisa',
+'O Hierofante':'O Papa',
+'Os Enamorados':'O Enamorado',
+'A Carruagem':'O Carro',
+'O Pendurado':'O Enforcado'
+};
+function nomeMarselha(n){return MARSELHA_NOMES[n] || n;}
+function ativarMarselha(){
+MARSELHA_MODE = true;
+if(typeof DECK==='undefined'){return;}
+for(var i=0;i<DECK.length;i++){
+var novo = MARSELHA_NOMES[DECK[i].n];
+if(novo){DECK[i].n = novo;}
+}
+var iF=-1,iJ=-1;
+for(var j=0;j<DECK.length;j++){
+if(DECK[j].n==='A Força'){iF=j;}
+if(DECK[j].n==='A Justiça'){iJ=j;}
+}
+if(iF>-1&&iJ>-1){var t=DECK[iF];DECK[iF]=DECK[iJ];DECK[iJ]=t;}
+}
 function cardBaseName(card){
 var nome = card.n;
 var idx = ARCANOS_MAIORES.indexOf(nome);
 var base;
-if(idx>=0){base = nome;}
+if(idx>=0){base = MARSELHA_MODE ? nomeMarselha(nome) : nome;}
 else{
 var parts = nome.split(' de ');
 var valor = NUM_EXTENSO[parts[0]] || parts[0];
@@ -580,6 +603,12 @@ var base = cardBaseName(card);
 var noAcc = stripAcc(base);
 var arr = [];
 function add(s){var enc = encodeURI(s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
+if(MARSELHA_MODE){
+add(base + '_Marselha');
+add(noAcc + '_Marselha');
+add(base.replace(/ /g,'_') + '_Marselha');
+add(noAcc.replace(/ /g,'_') + '_Marselha');
+}
 add(base); add(noAcc); add(base.replace(/ /g,'_')); add(noAcc.replace(/ /g,'_'));
 return arr;
 }
@@ -1391,7 +1420,7 @@ window.scrollTo(0,0);
 function initTarotPage(count,type){
 type = type || '';
 var cost = count*10;
-if(type==='Marselha') cost = 30;
+if(type==='Marselha'){ cost = 30; MARSELHA_MODE = true; ativarMarselha(); } else { MARSELHA_MODE = false; }
 currentReading = {count:count,type:type,cost:cost,selected:[],question:'',active:false,phase:''};
 var titles = {2:'Tarô: 2 Cartas',3:'Tarô: 3 Cartas',5:'Tarô: 5 Cartas',7:'Tarô: 7 Cartas',10:'Tarô: 10 Cartas'};
 var elTitle = document.getElementById('tarot-title-'+count);
