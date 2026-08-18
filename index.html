@@ -1645,10 +1645,8 @@ res.innerHTML = html;
 setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
 }
 /* ===== HORÓSCOPO COM A NOVA API GRATUITA (horoscope-app-api) ===== */
-/* ===== HORÓSCOPO — API GRATUITA (freehoroscopeapi) ===== */
 function initHoroscopo(){
-var grid = document.getElementById('horoscopo-grid');
-if(!grid){return;}
+var url = 'https://freehoroscopeapi.com/api/v1/get-horoscope/daily?sign='+s.s;
 grid.innerHTML = '';
 var SIGNOS = [
 {n:"Áries",e:"ÁRIES",s:"aries"},{n:"Touro",e:"TOURO",s:"taurus"},{n:"Gêmeos",e:"GÊMEOS",s:"gemini"},{n:"Câncer",e:"CÂNCER",s:"cancer"},
@@ -1662,17 +1660,15 @@ card.className = 'dash-card';
 card.innerHTML = '<div style="font-size:20px;color:var(--gold)">'+s.e+'</div><h3>'+s.n+'</h3>';
 card.onclick = function(){
 var res = document.getElementById('horoscopo-result');
-if(!res){return;}
 res.style.display = 'block';
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Consultando os astros...</p>';
-var url = 'https://freehoroscopeapi.com/api/v1/get-horoscope/daily?sign='+s.s;
+var url = 'https://horoscope-app-api.vercel.app/api/todays-horoscope?sign='+s.s+'&day=today';
 fetch(url)
 .then(function(r){ if(!r.ok){throw new Error('erro');} return r.json(); })
 .then(function(data){
-var texto = (data && data.data && data.data.horoscope) ? data.data.horoscope : 'Previsão indisponível no momento.';
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3>'
-+ '<p style="font-size:12px;color:#aaa">'+ (data && data.data ? data.data.date : '') +'</p>'
-+ '<p>'+texto+'</p>';
++ '<p style="font-size:12px;color:#aaa">'+data.date+'</p>'
++ '<p>'+data.data.horoscope+'</p>';
 })
 .catch(function(){
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Não conseguimos conectar com o cosmos agora. Tente novamente mais tarde.</p>';
