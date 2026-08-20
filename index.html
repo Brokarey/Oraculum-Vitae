@@ -1663,7 +1663,9 @@ if(selectedMapaCost>=200){html += '<p><strong>Júpiter:</strong> Sagitário - Ex
 res.innerHTML = html;
 setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
 }
-// ===== HORÓSCOPO DA SEMANA (LÊ O ARQUIVO Horoscopo.txt) =====
+// ===== HORÓSCOPO DA SEMANA =====
+var SIGNOS_HOROSCOPO = ['Áries','Touro','Gêmeos','Câncer','Leão','Virgem','Libra','Escorpião','Sagitário','Capricórnio','Aquário','Peixes'];
+
 function getWeekNumber(d){
   d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
   var dayNum = d.getUTCDay() || 7;
@@ -1671,50 +1673,86 @@ function getWeekNumber(d){
   var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
   return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
 }
+
+function limparNome(s){
+  return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+}
+
 function extrairPorSigno(bloco, signo){
-  var signos = ['Áries','Touro','Gêmeos','Câncer','Leão','Virgem','Libra','Escorpião','Sagitário','Capricórnio','Aquário','Peixes'];
+  var alvo = limparNome(signo);
   var linhas = bloco.split('\n');
   var achou = -1;
-  for(var i = 0; i < linhas.length; i++){
-    if(linhas[i].trim().toLowerCase() === signo.toLowerCase()){ achou = i; break; }
+  for(var i=0;i<linhas.length;i++){
+    if(limparNome(linhas[i]) === alvo){ achou = i; break; }
   }
   if(achou === -1) return '';
   var texto = [];
-  for(var j = achou + 1; j < linhas.length; j++){
+  for(var j=achou+1;j<linhas.length;j++){
     var l = linhas[j].trim();
-    if(signos.some(function(s){ return s.toLowerCase() === l.toLowerCase(); })) break;
-    if(l) texto.push(l);
+    if(!l) continue;
+    var ehSigno = false;
+    for(var k=0;k<SIGNOS_HOROSCOPO.length;k++){
+      if(limparNome(l) === limparNome(SIGNOS_HOROSCOPO[k])){ ehSigno = true; break; }
+    }
+    if(ehSigno) break;
+    texto.push(l);
   }
   return texto.join(' ');
 }
+
 function horoscopo(signo){
-  var caixa = document.querySelector('#page-horoscopo .result-box, #page-horoscopo [id*="result"], #page-horoscopo [class*="result"]');
+  var sec = document.querySelector('#page-horoscopo');
+  if(!sec) return;
+  var caixa = sec.querySelector('.result-box');
   if(!caixa){
     caixa = document.createElement('div');
     caixa.className = 'result-box';
     caixa.style.cssText = 'margin:20px auto;max-width:700px;padding:20px;background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;color:var(--gold-light);line-height:1.6';
-    var sec = document.querySelector('#page-horoscopo');
-    if(sec) sec.appendChild(caixa);
+    sec.appendChild(caixa);
   }
   caixa.innerHTML = '<p style="text-align:center;color:var(--gold)">Carregando previsão da semana...</p>';
-  fetch('Horoscopo.txt').then(function(r){ return r.text(); }).then(function(texto){
-    var semana = getWeekNumber(new Date());
-    if(semana < 1) semana = 1;
-    if(semana > 52) semana = 52;
-    var partes = texto.split(/Semana\s+(\d+)/);
-    var previsao = '';
-    for(var i = 1; i < partes.length; i += 2){
-      if(parseInt(partes[i], 10) === semana){
-        previsao = extrairPorSigno(partes[i+1] || '', signo);
-        break;
+  fetch('Horoscopo.txt')
+    .then(function(r){ if(!r.ok) throw new Error('arquivo nao encontrado'); return r.text(); })
+    .then(function(texto){
+      var semana = getWeekNumber(new Date());
+      if(semana < 1) semana = 1;
+      if(semana > 52) semana = 52;
+      var partes = texto.split(/Semana\s+(\d+)/i);
+      var previsao = '';
+      for(var i=1;i<partes.length;i+=2){
+        if(parseInt(partes[i],10) === semana){
+          previsao = extrairPorSigno(partes[i+1] || '', signo);
+          break;
+        }
       }
-    }
-    if(!previsao) previsao = 'Previsão da semana ' + semana + ' para ' + signo + ' não encontrada.';
-    caixa.innerHTML = '<h3 style="color:var(--gold);margin-bottom:10px">' + signo + ' — Semana ' + semana + '</h3><p>' + previsao + '</p>';
-  }).catch(function(){
-    caixa.innerHTML = '<p style="color:#e88">Não foi possível carregar o horóscopo. Verifique se o arquivo Horoscopo.txt está no repositório.</p>';
-  });
+      if(!previsao) previsao = 'Previsão da semana ' + semana + ' para ' + signo + ' não encontrada.';
+      caixa.innerHTML = '<h3 style="color:var(--gold);margin-bottom:10px">' + signo + ' — Semana ' + semana + '</h3><p>' + previsao + '</p>';
+    })
+    .catch(function(){
+      caixa.innerHTML = '<p style="color:#e88">Não foi possível carregar o horóscopo. Verifique se o arquivo <strong>Horoscopo.txt</strong> está na mesma pasta do index.html.</p>';
+    });
 }
+
+// Cria os 12 botões
+(function(){
+  var sec = document.querySelector('#page-horoscopo');
+  if(!sec) return;
+  var grid = document.createElement('div');
+  grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:700px;margin:20px auto;padding:0 20px';
+  for(var i=0;i<SIGNOS_HOROSCOPO.length;i++){
+    (function(s){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = s;
+      b.style.cssText = 'background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e;border:none;padding:14px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;transition:transform .2s;opacity:0.25';
+      b.onmouseover = function(){ this.style.transform = 'scale(1.05)'; };
+      b.onmouseout = function(){ this.style.transform = 'scale(1)'; };
+      b.onclick = function(){ horoscopo(s); };
+      grid.appendChild(b);
+    })(SIGNOS_HOROSCOPO[i]);
+  }
+  sec.appendChild(grid);
+})();
 function calculateNumerology(){
 var nome = document.getElementById('num-nome').value.toUpperCase().replace(/[^A-Z]/g,'');
 var data = document.getElementById('num-data').value.replace(/-/g,'');
@@ -1812,26 +1850,6 @@ function montarFerradura(container){
   for(var i = 0; i < slots.length; i++){ slots[i].className = 'card-slot ' + pos[i]; }
   container.classList.add('ferradura');
 }
-// ===== RECRIA OS 12 BOTÕES DOS SIGNOS =====
-(function(){
-var signos = ['Áries','Touro','Gêmeos','Câncer','Leão','Virgem','Libra','Escorpião','Sagitário','Capricórnio','Aquário','Peixes'];
-var sec = document.querySelector('#page-horoscopo');
-if(!sec) return;
-var grid = document.createElement('div');
-grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:700px;margin:20px auto;padding:0 20px';
-for(var i=0;i<signos.length;i++){
-(function(s){
-var b = document.createElement('button');
-b.textContent = s;
-b.style.cssText = 'background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e;border:none;padding:14px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;transition:transform .2s;opacity:0.75';
-b.onmouseover = function(){ this.style.transform = 'scale(1.05)'; };
-b.onmouseout = function(){ this.style.transform = 'scale(1)'; };
-b.onclick = function(){ horoscopo(s); };
-grid.appendChild(b);
-})(signos[i]);
-}
-sec.appendChild(grid);
-})();
 </script>
 </body>
 </html>
