@@ -222,7 +222,7 @@ Entrar com o Google
 <div class="dash-card" onclick="openMapa('Pórtico Celestial',50)"><i class="fas fa-door-open"></i><h3>Mapa Astral: Pórtico Celestial</h3><p>A porta de entrada para o seu mapa</p></div>
 <div class="dash-card" onclick="openMapa('Órbita Pessoal',100)"><i class="fas fa-atom"></i><h3>Mapa Astral: Órbita Pessoal</h3><p>Uma visão mais ampla e detalhada da sua vida</p></div>
 <div class="dash-card" onclick="openMapa('Cosmos Absoluto',200)"><i class="fas fa-infinity"></i><h3>Mapa Astral: Cosmos Absoluto</h3><p>A leitura total e integrada do seu universo</p></div>
-<div class="dash-card" onclick="showPage('page-horoscopo')"><i class="fas fa-moon"></i><h3>Horóscopo</h3><p>Previsões Diárias</p></div>
+<div class="dash-card" onclick="showPage('page-horoscopo')"><i class="fas fa-moon"></i><h3>Horóscopo</h3><p>Previsões Semanais</p></div>
 <div class="dash-card" onclick="showPage('page-numerologia')"><i class="fas fa-fingerprint"></i><h3>Numerologia</h3><p>Vibração do Nome</p></div>
 <div class="dash-card disabled"><div class="badge-soon">EM BREVE</div><i class="fas fa-yin-yang"></i><h3>I Ching</h3><p>Sabedoria Chinesa</p></div>
 </div>
@@ -457,7 +457,7 @@ Entrar com o Google
 <section id="page-horoscopo" class="page">
 <div class="form-container" style="max-width:1000px">
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
-<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);text-align:center;margin-bottom:20px">Horóscopo do Dia</h2>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);text-align:center;margin-bottom:20px">Horóscopo da Semana</h2>
 <div class="dash-grid" id="horoscopo-grid"></div>
 <div id="horoscopo-result" class="result-box" style="display:none"></div>
 </div>
@@ -1663,40 +1663,57 @@ if(selectedMapaCost>=200){html += '<p><strong>Júpiter:</strong> Sagitário - Ex
 res.innerHTML = html;
 setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
 }
-/* ===== HORÓSCOPO COM A NOVA API GRATUITA (horoscope-app-api) ===== */
-function initHoroscopo(){
-var grid = document.getElementById('horoscopo-grid');
-grid.innerHTML = '';
-var SIGNOS = [
-{n:"Áries",e:"ÁRIES",s:"aries"},{n:"Touro",e:"TOURO",s:"taurus"},{n:"Gêmeos",e:"GÊMEOS",s:"gemini"},{n:"Câncer",e:"CÂNCER",s:"cancer"},
-{n:"Leão",e:"LEÃO",s:"leo"},{n:"Virgem",e:"VIRGEM",s:"virgo"},{n:"Libra",e:"LIBRA",s:"libra"},{n:"Escorpião",e:"ESCORPIÃO",s:"scorpio"},
-{n:"Sagitário",e:"SAGITÁRIO",s:"sagittarius"},{n:"Capricórnio",e:"CAPRICÓRNIO",s:"capricorn"},{n:"Aquário",e:"AQUÁRIO",s:"aquarius"},{n:"Peixes",e:"PEIXES",s:"pisces"}
-];
-for(var si=0;si<SIGNOS.length;si++){
-(function(s){
-var card = document.createElement('div');
-card.className = 'dash-card';
-card.innerHTML = '<div style="font-size:20px;color:var(--gold)">'+s.e+'</div><h3>'+s.n+'</h3>';
-card.onclick = function(){
-var res = document.getElementById('horoscopo-result');
-res.style.display = 'block';
-res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Consultando os astros...</p>';
-var url = 'https://horoscope-app-api.vercel.app/api/todays-horoscope?sign='+s.s+'&day=today';
-fetch(url)
-.then(function(r){ if(!r.ok){throw new Error('erro');} return r.json(); })
-.then(function(data){
-res.innerHTML = '<h3>Previsão para '+s.n+'</h3>'
-+ '<p style="font-size:12px;color:#aaa">'+data.date+'</p>'
-+ '<p>'+data.horoscope+'</p>';
-})
-.catch(function(){
-res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Não conseguimos conectar com o cosmos agora. Tente novamente mais tarde.</p>';
-});
-setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
-};
-grid.appendChild(card);
-})(SIGNOS[si]);
+// ===== HORÓSCOPO DA SEMANA (LÊ O ARQUIVO Horoscopo.txt) =====
+function getWeekNumber(d){
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  var dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
 }
+function extrairPorSigno(bloco, signo){
+  var signos = ['Áries','Touro','Gêmeos','Câncer','Leão','Virgem','Libra','Escorpião','Sagitário','Capricórnio','Aquário','Peixes'];
+  var linhas = bloco.split('\n');
+  var achou = -1;
+  for(var i = 0; i < linhas.length; i++){
+    if(linhas[i].trim().toLowerCase() === signo.toLowerCase()){ achou = i; break; }
+  }
+  if(achou === -1) return '';
+  var texto = [];
+  for(var j = achou + 1; j < linhas.length; j++){
+    var l = linhas[j].trim();
+    if(signos.some(function(s){ return s.toLowerCase() === l.toLowerCase(); })) break;
+    if(l) texto.push(l);
+  }
+  return texto.join(' ');
+}
+function horoscopo(signo){
+  var caixa = document.querySelector('#page-horoscopo .result-box, #page-horoscopo [id*="result"], #page-horoscopo [class*="result"]');
+  if(!caixa){
+    caixa = document.createElement('div');
+    caixa.className = 'result-box';
+    caixa.style.cssText = 'margin:20px auto;max-width:700px;padding:20px;background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;color:var(--gold-light);line-height:1.6';
+    var sec = document.querySelector('#page-horoscopo');
+    if(sec) sec.appendChild(caixa);
+  }
+  caixa.innerHTML = '<p style="text-align:center;color:var(--gold)">Carregando previsão da semana...</p>';
+  fetch('Horoscopo.txt').then(function(r){ return r.text(); }).then(function(texto){
+    var semana = getWeekNumber(new Date());
+    if(semana < 1) semana = 1;
+    if(semana > 52) semana = 52;
+    var partes = texto.split(/Semana\s+(\d+)/);
+    var previsao = '';
+    for(var i = 1; i < partes.length; i += 2){
+      if(parseInt(partes[i], 10) === semana){
+        previsao = extrairPorSigno(partes[i+1] || '', signo);
+        break;
+      }
+    }
+    if(!previsao) previsao = 'Previsão da semana ' + semana + ' para ' + signo + ' não encontrada.';
+    caixa.innerHTML = '<h3 style="color:var(--gold);margin-bottom:10px">' + signo + ' — Semana ' + semana + '</h3><p>' + previsao + '</p>';
+  }).catch(function(){
+    caixa.innerHTML = '<p style="color:#e88">Não foi possível carregar o horóscopo. Verifique se o arquivo Horoscopo.txt está no repositório.</p>';
+  });
 }
 function calculateNumerology(){
 var nome = document.getElementById('num-nome').value.toUpperCase().replace(/[^A-Z]/g,'');
