@@ -1507,7 +1507,7 @@ text = buildTenCardNarrative(cards,q);
 res.innerHTML = text;
 res.style.display = 'block';
 document.getElementById('consultar-'+count).style.display = 'flex';
-setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},200);
+setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function voltarTopoTarot(count){
 document.getElementById('res-'+count).style.display = 'none';
@@ -1644,7 +1644,7 @@ var html = '<h3>Mapa Astral de '+nome+'</h3><p><strong>Sol:</strong> Leão - Sua
 if(selectedMapaCost>=100){html += '<p><strong>Mercúrio:</strong> Virgem - Comunicação analítica.</p><p><strong>Vênus:</strong> Libra - Harmonia.</p><p><strong>Marte:</strong> Áries - Ação.</p>';}
 if(selectedMapaCost>=200){html += '<p><strong>Júpiter:</strong> Sagitário - Expansão.</p><p><strong>Saturno:</strong> Capricórnio - Estrutura.</p><p><strong>Casa 10:</strong> Sucesso pela persistência.</p>';}
 res.innerHTML = html;
-setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
+setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});
 }
 /* ===== HORÓSCOPO COM A NOVA API GRATUITA (horoscope-app-api) ===== */
 function initHoroscopo(){
@@ -1675,7 +1675,7 @@ res.innerHTML = '<h3>Previsão para '+s.n+'</h3>'
 .catch(function(){
 res.innerHTML = '<h3>Previsão para '+s.n+'</h3><p>Não conseguimos conectar com o cosmos agora. Tente novamente mais tarde.</p>';
 });
-setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
+setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});
 };
 grid.appendChild(card);
 })(SIGNOS[si]);
@@ -1716,7 +1716,7 @@ res.innerHTML = '<h3>Seu Perfil Numerológico</h3>'
 +'<p><strong>Impressão (Ego): '+rImp+'</strong><br>'+explicacao[rImp]+'</p>'
 +'<p><strong>Expressão (Personalidade): '+rExp+'</strong><br>'+explicacao[rExp]+'</p>'
 +'<p><strong>Destino (Caminho): '+rDest+'</strong><br>'+explicacao[rDest]+'</p>';
-setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
+setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function handleIndication(){
 var email = document.getElementById('indica-email').value;
