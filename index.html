@@ -63,16 +63,16 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 /* Numerologia: fundo Tela_Numerologia.png + quadro com 30% de opacidade */
 #page-numerologia{background-image:url('Tela_Numerologia.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-numerologia .form-container{background:rgba(13,5,32,0.3)}
-/* Planos: fundo Tela_Planos.png + quadro com 50% de opacidade */
+/* Planos: fundo Tela_Planos.png + quadro com 25% de opacidade */
 #page-planos{background-image:url('Tela_Planos.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
-#page-planos .form-container{background:rgba(13,5,32,0.5)}
-#page-planos table{background:rgba(26,10,46,0.5)}
-/* Indique: fundo Tela_Indique.png + quadro com 50% de opacidade */
+#page-planos .form-container{background:rgba(13,5,32,0.25)}
+#page-planos table{background:rgba(26,10,46,0.25)}
+/* Indique: fundo Tela_Indique.png + quadro com 25% de opacidade */
 #page-indicacao{background-image:url('Tela_Indique.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
-#page-indicacao .form-container{background:rgba(13,5,32,0.5)}
-/* FAQ: fundo Tela_Faq.png + quadro com 50% de opacidade */
+#page-indicacao .form-container{background:rgba(13,5,32,0.25)}
+/* FAQ: fundo Tela_Faq.png + quadro com 25% de opacidade */
 #page-faq{background-image:url('Tela_Faq.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
-#page-faq .form-container{background:rgba(13,5,32,0.5)}
+#page-faq .form-container{background:rgba(13,5,32,0.25)}
 .dash-header{position:relative;display:flex;justify-content:center;align-items:center;max-width:1200px;margin:0 auto;padding:24px 20px 0}
 .dash-header h2{font-size:clamp(20px,3.2vw,34px);color:var(--gold);text-align:center;line-height:1.2}
 .dash-header .voltar-link{position:absolute;left:20px;top:24px;margin:0;white-space:nowrap}
@@ -273,16 +273,17 @@ Entrar com o Google
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
 <h2 id="tarot-title-5" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 5 Cartas</h2>
 <div class="tarot2-info">
-<p><strong>Tarô de 5 Cartas:</strong> o tarô de 5 cartas é um método de tiragem focado em dar respostas detalhadas e profundas para uma pergunta específica. Mais conhecido por Cruz Simples (ou Cruz de Cinco Cartas). Em vez de puxar apenas uma carta, o tarólogo posiciona cinco cartas na mesa para analisar diferentes ângulos de uma situação. Faça uma pergunta específica, por <strong>50 créditos</strong>.</p>
-<p><strong>O Método em Cruz (Ideal para decisões)</strong></p>
-<ul class="tarot2-list">
-<li><strong>Carta 1 (Centro - O Momento):</strong> a sua situação atual.</li>
-<li><strong>Carta 2 (Esquerda - O Obstáculo):</strong> o desafio a vencer.</li>
-<li><strong>Carta 3 (Direita - Os Aliados):</strong> o que ajuda e as influências positivas.</li>
-<li><strong>Carta 4 (Base - O Passado):</strong> a causa do problema.</li>
-<li><strong>Carta 5 (Topo - O Desfecho):</strong> o resultado final.</li>
+<p><strong>Tarô de 5 Cartas (Método em Cruz - Sistema Péladan)</strong></p>
+<p>O Método em Cruz é uma das tiragens mais tradicionais e profundas do Tarot, ideal para analisar os prós, os contras e o desfecho de qualquer situação. Em vez de uma resposta isolada, este sistema dispõe cinco cartas na mesa para construir um panorama completo da sua questão, culminando em uma carta central de síntese. Faça uma pergunta específica, por 50 créditos.</p>
+<p><strong>Como funciona a estrutura da Cruz:</strong></p>
+<ul>
+<li><strong>Carta 1 (Esquerda - O que está a favor):</strong> As forças positivas, os seus pontos fortes e o que ajuda você nesta questão.</li>
+<li><strong>Carta 2 (Direita - O que está contra):</strong> O obstáculo, os desafios, bloqueios ou o que joga contra os seus planos.</li>
+<li><strong>Carta 3 (Topo - O Caminho):</strong> A ação necessária, as influências imediatas e os próximos acontecimentos.</li>
+<li><strong>Carta 4 (Base - O Desfecho):</strong> O resultado final, a consequência das ações ou a sentença do oráculo.</li>
+<li><strong>Carta 5 (Centro - A Síntese):</strong> A energia central que une, esclarece e resume o sentido de todas as outras quatro cartas.</li>
 </ul>
-<p>Após escolher as 5 cartas, elas serão exibidas em formato de Cruz, acima da caixa de respostas.</p>
+<p><strong>Instruções:</strong> Formule mentalmente uma pergunta bem específica e concentre-se na sua dúvida. As 5 cartas escolhidas serão exibidas graficamente em formato de Cruz logo acima da caixa de respostas.</p>
 </div>
 <input type="text" id="q-5" placeholder="Faça sua pergunta objetiva por 50 créditos" onkeydown="if(event.key==='Enter')startTarot(5)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(5)">Iniciar Consulta</button>
@@ -328,23 +329,23 @@ Entrar com o Google
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
 <h2 id="tarot-title-10" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Tarô: 10 Cartas</h2>
 <div class="tarot2-info">
-<p>O termo <strong>"tarô de 10 cartas"</strong> refere-se ao método de leitura mais famoso, antigo e utilizado no mundo: a Cruz Celta (ou Celtic Cross).</p>
-<p>Diferente das tiragens de 7 cartas, o método de 10 cartas funciona como um raio-X completo e extremamente detalhado de uma situação. Ele não apenas mostra o passado, presente e futuro, mas investiga a fundo os medos inconscientes, as energias externas e a raiz oculta do problema, por <strong>100 créditos</strong>.</p>
-<p>A disposição das cartas forma uma cruz (com 6 cartas) e uma coluna vertical ao lado direito (com 4 cartas). Veja o que cada uma das 10 posições significa:</p>
+<p><strong>Tarô de 10 Cartas (Cruz Celta)</strong></p>
+<p>O método de 10 cartas refere-se à tiragem mais famosa, tradicional e utilizada no mundo: a Cruz Celta (Celtic Cross). Este sistema funciona como um raio-X completo e extremamente detalhado de uma situação. Ele não apenas mapeia o passado, o presente e o futuro, mas investiga a fundo os medos inconscientes, as energias externas e a raiz oculta do problema.</p>
+<p><strong>Disponível por 100 créditos.</strong></p>
 <p><strong>Estrutura da Cruz Celta (As 10 Posições)</strong></p>
-<ul class="tarot2-list">
+<ul>
 <li><strong>Carta 1: O Momento Atual</strong> – A situação central em que você se encontra hoje.</li>
-<li><strong>Carta 2: O Obstáculo</strong> – O que está cruzando o seu caminho (o desafio imediato).</li>
+<li><strong>Carta 2: O Obstáculo</strong> – O que está cruzando o seu caminho e o desafio imediato a vencer.</li>
 <li><strong>Carta 3: A Base/Raiz</strong> – O passado distante ou a causa oculta que gerou o problema.</li>
-<li><strong>Carta 4: O Passado Recente</strong> – Acontecimentos recentes que ainda afetam o presente.</li>
-<li><strong>Carta 5: O Topo/Coroamento</strong> – Os seus objetivos conscientes ou o melhor resultado possível a curto prazo.</li>
-<li><strong>Carta 6: O Futuro Imediato</strong> – O próximo passo ou o que vai acontecer muito em breve.</li>
-<li><strong>Carta 7: O Consulente</strong> – A sua atitude mental e como você está lidando com a situação.</li>
-<li><strong>Carta 8: O Ambiente Externo</strong> – Como as pessoas ao redor, a família ou o trabalho influenciam o caso.</li>
+<li><strong>Carta 4: O Passado Recente</strong> – Acontecimentos recentes que ainda afetam diretamente o seu presente.</li>
+<li><strong>Carta 5: O Topo/Coroamento</strong> – Seus objetivos conscientes, pensamentos ou o que você consegue visualizar.</li>
+<li><strong>Carta 6: O Futuro Imediato</strong> – O próximo passo na linha do tempo ou o que vai acontecer muito em breve.</li>
+<li><strong>Carta 7: O Consulente</strong> – A sua atitude mental, postura interna e como você está lidando com o caso.</li>
+<li><strong>Carta 8: O Ambiente Externo</strong> – Como as pessoas ao redor, a família, os rivais ou o trabalho influenciam a situação.</li>
 <li><strong>Carta 9: Esperanças e Medos</strong> – Seus desejos secretos ou os bloqueios psicológicos que te travam.</li>
-<li><strong>Carta 10: O Resultado Final</strong> – O desfecho a longo prazo, caso você siga no caminho atual.</li>
+<li><strong>Carta 10: O Resultado Final</strong> – O desfecho a longo prazo, caso as energias sigam o curso atual.</li>
 </ul>
-<p>Após escolher as 10 cartas, elas serão exibidas em formato de ferradura, acima da caixa de respostas.</p>
+<p><strong>Instruções:</strong> Mentalize a sua pergunta com bastante foco antes de sortear as lâminas. Após escolher as 10 cartas, elas serão exibidas graficamente no formato tradicional de Cruz e Coluna acima da caixa de respostas.</p>
 </div>
 <input type="text" id="q-10" placeholder="Faça sua pergunta objetiva por 100 créditos" onkeydown="if(event.key==='Enter')startTarot(10)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(10)">Iniciar Consulta</button>
@@ -954,23 +955,24 @@ return html;
 }
 function buildFiveCardNarrative(cards,q){
 var c1=cards[0], c2=cards[1], c3=cards[2], c4=cards[3], c5=cards[4];
-var h = "<h3>Leitura de Tarô (Método em Cruz)</h3>";
-if(q){h += "<p><strong>Sua pergunta:</strong> \""+q+"\".</p>";}
-h += "<p><strong>Cartas Tiradas:</strong></p>";
-h += "<p><strong>Centro - O Momento:</strong> "+c1.n+"<br><strong>Esquerda - O Obstáculo:</strong> "+c2.n+"<br><strong>Direita - Os Aliados:</strong> "+c3.n+"<br><strong>Base - O Passado:</strong> "+c4.n+"<br><strong>Topo - O Desfecho:</strong> "+c5.n+"</p>";
-h += "<h4>1. Centro - O Momento ("+c1.n+")</h4>";
-h += "<p>"+c1.cen+"</p>";
-h += "<h4>2. Esquerda - O Obstáculo ("+c2.n+")</h4>";
-h += "<p>O desafio a vencer está representado por "+c2.n+". "+c2.out+" "+c2.cam+"</p>";
-h += "<h4>3. Direita - Os Aliados ("+c3.n+")</h4>";
-h += "<p>O que ajuda e as influências positivas vêm de "+c3.n+". "+c3.cam+"</p>";
-h += "<h4>4. Base - O Passado ("+c4.n+")</h4>";
-h += "<p>A causa dessa situação vem da energia de "+c4.n+". "+c4.cen+"</p>";
-h += "<h4>5. Topo - O Desfecho ("+c5.n+")</h4>";
-h += "<p>"+c5.cam+" "+c5.out+"</p>";
-h += "<h4>Resposta Conclusiva do Oráculo</h4>";
-h += buildFiveConclusion(cards,q);
-return h;
+var html='<h3>Leitura de Tarô</h3>';
+html+='<p><strong>Sua pergunta:</strong> '+q+'</p>';
+html+='<h4>Cartas Tiradas</h4>';
+html+='<div class="cross-layout" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;padding:20px;position:relative;min-height:280px;">';
+html+='<div style="display:flex;flex-direction:column;align-items:center;gap:10px;"><span class="pos-label">Carta 1 · A Favor</span>'+cardHTML(c1,90)+'</div>';
+html+='<div style="display:flex;flex-direction:column;align-items:center;gap:10px;"><span class="pos-label">Carta 2 · Contra</span>'+cardHTML(c2,90)+'</div>';
+html+='<div style="display:flex;flex-direction:column;align-items:center;gap:10px;"><span class="pos-label">Carta 3 · O Caminho</span>'+cardHTML(c3,90)+'</div>';
+html+='<div style="display:flex;flex-direction:column;align-items:center;gap:10px;"><span class="pos-label">Carta 4 · O Desfecho</span>'+cardHTML(c4,90)+'</div>';
+html+='<div style="display:flex;flex-direction:column;align-items:center;gap:10px;"><span class="pos-label">Carta 5 · A Síntese</span>'+cardHTML(c5,90)+'</div>';
+html+='</div>';
+html+='<h4>A leitura das cartas</h4>';
+html+='<p><strong>Carta 1 (Esquerda - O que está a favor):</strong> '+c1.n+'. '+c1.cen+'</p>';
+html+='<p><strong>Carta 2 (Direita - O que está contra):</strong> '+c2.n+'. '+c2.cen+'</p>';
+html+='<p><strong>Carta 3 (Topo - O Caminho):</strong> '+c3.n+'. '+c3.cam+'</p>';
+html+='<p><strong>Carta 4 (Base - O Desfecho):</strong> '+c4.n+'. '+c4.out+'</p>';
+html+='<p><strong>Carta 5 (Centro - A Síntese):</strong> '+c5.n+'. '+c5.d+'</p>';
+html+='<p><strong>Síntese e Conselho Final:</strong> '+buildFiveConclusion(cards,q)+'</p>';
+return html;
 }
 function buildSevenConclusion(cards,q){
 var topic = detectTopic(q);
@@ -1095,22 +1097,15 @@ var w = width?' style="width:'+width+'"':'';
 return '<div class="card-slot flipped"'+w+'><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div>';
 }
 function renderCross(cards){
-var labels = ['O Momento','O Obstáculo','Os Aliados','O Passado','O Desfecho'];
-var pos = [
-{left:'50%',top:'50%',tx:'-50%',ty:'-50%'},
-{left:'0%',top:'50%',tx:'0%',ty:'-50%'},
-{left:'100%',top:'50%',tx:'-100%',ty:'-50%'},
-{left:'50%',top:'100%',tx:'-50%',ty:'-100%'},
-{left:'50%',top:'0%',tx:'-50%',ty:'0%'}
-];
-var html = '<div class="cross-layout">';
-for(var i=0;i<5;i++){
-html += '<div class="cross-card" style="left:'+pos[i].left+';top:'+pos[i].top+';transform:translate('+pos[i].tx+','+pos[i].ty+')">'
-+ cardHTML(cards[i])
-+ '<div class="cross-label">'+labels[i]+'</div></div>';
-}
-html += '</div>';
-return html;
+var el=document.getElementById('area-'+currentReading.count);
+if(!el) return;
+var html='<div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:20px;padding:24px;min-height:300px;">';
+cards.forEach(function(c,i){
+var labels=['Carta 1 · A Favor','Carta 2 · Contra','Carta 3 · O Caminho','Carta 4 · O Desfecho','Carta 5 · A Síntese'];
+html+='<div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><span style="color:var(--gold);font-size:13px;">'+labels[i]+'</span>'+cardHTML(c,95)+'</div>';
+});
+html+='</div>';
+el.innerHTML=html;
 }
 /* ===== FERRADURA EM FORMATO "V" INVERTIDO (7 cartas) ===== */
 function renderHorseshoe(cards){
@@ -1387,7 +1382,6 @@ document.getElementById('area-amor').innerHTML = '';
 document.getElementById('consultar-amor').style.display = 'none';
 document.getElementById('q-amor').value = '';
 window.scrollTo(0,0);
-}
 function initTarotPage(count,type){
 type = type || '';
 var cost = count*10;
@@ -1399,11 +1393,18 @@ if(elTitle){
 if(type==='Marselha'){elTitle.innerText = 'Tarô de Marselha';}
 else{elTitle.innerText = titles[count];}
 }
-var qEl = document.getElementById('q-'+count); if(qEl){qEl.value='';}
-var resEl = document.getElementById('res-'+count); if(resEl){resEl.style.display='none';resEl.innerHTML='';}
-var areaEl = document.getElementById('area-'+count); if(areaEl){areaEl.innerHTML='';}
-var consEl = document.getElementById('consultar-'+count); if(consEl){consEl.style.display='none';}
-showPage('page-tarot-'+count);
+if(type==='Marselha'){
+var novaDesc = '<p><strong>O Tarô de Marselha</strong> é o baralho de tarô mais famoso e tradicional do mundo, servindo de base para quase todas as leituras modernas. Revela uma linha do tempo clara: o Passado (a raiz do problema), o Presente (o momento atual) e o Futuro (o caminho provável). Por 30 créditos.</p>'
++ '<p><strong>O Jogo de 3 Cartas</strong></p>'
++ '<ul>'
++ '<li><strong>Carta 1: O Passado (A Origem)</strong> — O Eremita (IX): mostra um tempo de busca interna, isolamento ou lentidão. Você passou por uma fase de estudo ou de muita cautela, guardando sua luz para não errar.</li>'
++ '<li><strong>Carta 2: O Presente (O Momento)</strong> — A Justiça (VIII): indica a necessidade de equilíbrio, clareza e escolhas corretas. É hora de avaliar os fatos com frieza, cortar o que não serve e assumir a responsabilidade por seus atos.</li>'
++ '<li><strong>Carta 3: O Futuro (O Destino)</strong> — O Mundo (XXI): representa a realização máxima, o sucesso e a conclusão feliz de um ciclo. O caminho aponta para a liberdade e a expansão total após a lição aprendida.</li>'
++ '</ul>'
++ '<p>Após escolher as 3 cartas, elas serão exibidas lado a lado, na ordem selecionada, acima da caixa de respostas.</p>';
+var d = document.querySelector('#page-tarot-3 .tarot2-info');
+if(d){ d.innerHTML = novaDesc; }
+}
 }
 function startTarot(count){
 var q = document.getElementById('q-'+count).value;
