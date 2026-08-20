@@ -284,8 +284,7 @@ Entrar com o Google
 <li><strong>Carta 4 (Base - O Desfecho):</strong> O resultado final, a consequência das ações ou a sentença do oráculo.</li>
 <li><strong>Carta 5 (Centro - A Síntese):</strong> A energia central que une, esclarece e resume o sentido de todas as outras quatro cartas.</li>
 </ul>
-
-<p><strong>Instruções:</strong> Formule mentalmente uma pergunta bem específica e concentre-se na sua dúvida. As 5 cartas escolhidas serão exibidas graficamente em formato de Cruz logo acima da caixa de respostas.</p>
+<p<p style="margin-top:18px"><strong>Instruções:</strong> Formule mentalmente uma pergunta bem específica e concentre-se na sua dúvida. As 5 cartas escolhidas serão exibidas graficamente em formato de Cruz logo acima da caixa de respostas.</p>
 </div>
 <input type="text" id="q-5" placeholder="Faça sua pergunta objetiva por 50 créditos" onkeydown="if(event.key==='Enter')startTarot(5)">
 <button class="btn-portal" style="margin-top:15px" onclick="startTarot(5)">Iniciar Consulta</button>
@@ -1118,14 +1117,15 @@ return html;
 /* ===== FERRADURA EM FORMATO "V" (7 cartas) ===== */
 function renderHorseshoe(cards){
 var labels = ['O Passado','O Presente','O Futuro Próximo','A Atitude','O Entorno','Obstáculos ou Conselho','O Resultado'];
-function cardWithLabel(c,label,idx){
-return '<div style="text-align:center">'+cardHTML(c,'90px')+'<div style="font-size:10px;color:var(--gold-light);margin-top:6px;line-height:1.2;max-width:90px">'+idx+'. '+label+'</div></div>';
-}
-var html = '<div style="display:flex;flex-direction:column;align-items:center;margin:20px auto;max-width:560px">';
-html += '<div style="display:flex;justify-content:center">'+cardWithLabel(cards[3],labels[3],4)+'</div>';
-html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[2],labels[2],3)+cardWithLabel(cards[4],labels[4],5)+'</div>';
-html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[1],labels[1],2)+cardWithLabel(cards[5],labels[5],6)+'</div>';
-html += '<div style="display:flex;justify-content:space-between;width:100%;margin-top:14px">'+cardWithLabel(cards[0],labels[0],1)+cardWithLabel(cards[6],labels[6],7)+'</div>';
+var html = '<div class="horseshoe-layout">';
+// Linha 1 (Topo): Carta 4 centralizada
+html += '<div class="horseshoe-row top-row"><div class="horseshoe-card">'+cardHTML(cards[3])+'<div class="horseshoe-label">'+labels[3]+'</div></div></div>';
+// Linha 2: Cartas 3 e 5 (mais para o centro)
+html += '<div class="horseshoe-row"><div class="horseshoe-card">'+cardHTML(cards[2])+'<div class="horseshoe-label">'+labels[2]+'</div></div><div class="horseshoe-card">'+cardHTML(cards[4])+'<div class="horseshoe-label">'+labels[4]+'</div></div></div>';
+// Linha 3: Cartas 2 e 6 (permanecem)
+html += '<div class="horseshoe-row"><div class="horseshoe-card">'+cardHTML(cards[1])+'<div class="horseshoe-label">'+labels[1]+'</div></div><div class="horseshoe-card">'+cardHTML(cards[5])+'<div class="horseshoe-label">'+labels[5]+'</div></div></div>';
+// Linha 4 (Base): Cartas 1 e 7 (se afastam do centro)
+html += '<div class="horseshoe-row base-row"><div class="horseshoe-card">'+cardHTML(cards[0])+'<div class="horseshoe-label">'+labels[0]+'</div></div><div class="horseshoe-card">'+cardHTML(cards[6])+'<div class="horseshoe-label">'+labels[6]+'</div></div></div>';
 html += '</div>';
 return html;
 }
@@ -1394,6 +1394,19 @@ if(elTitle){
 if(type==='Marselha'){elTitle.innerText = 'Tarô de Marselha';}
 else{elTitle.innerText = titles[count];}
 }
+if(type==='Marselha'){
+var novaDesc = '<p><strong>Tarô de Marselha</strong></p>'
++ '<p>O Tarô de Marselha é o baralho de tarô mais famoso e tradicional do mundo, servindo de base para quase todas as leituras modernas. Revela uma linha do tempo clara: o Passado (a raiz do problema), o Presente (o momento atual) e o Futuro (o caminho provável). <strong>Por 30 créditos.</strong></p>'
++ '<p><strong>O Jogo de 3 Cartas</strong></p>'
++ '<ul>'
++ '<li><strong>Carta 1: O Passado (A Origem)</strong> — O Eremita (IX): Mostra um tempo de busca interna, isolamento ou lentidão. Você passou por uma fase de estudo ou de muita cautela, guardando sua luz para não errar.</li>'
++ '<li><strong>Carta 2: O Presente (O Momento)</strong> — A Justiça (VIII): Indica a necessidade de equilíbrio, clareza e escolhas corretas. É hora de avaliar os fatos com frieza, cortar o que não serve e assumir a responsabilidade por seus atos.</li>'
++ '<li><strong>Carta 3: O Futuro (O Destino)</strong> — O Mundo (XXI): Representa a realização máxima, o sucesso e a conclusão feliz de um ciclo. O caminho aponta para a liberdade e a expansão total após a lição aprendida.</li>'
++ '</ul>'
++ '<p style="margin-top:18px"><strong>Após escolher as 3 cartas, elas serão exibidas lado a lado, na ordem selecionada, acima da caixa de respostas.</strong></p>';
+var d = document.querySelector('#page-tarot-3 .tarot2-info');
+if(d){ d.innerHTML = novaDesc; }
+}   
 var qEl = document.getElementById('q-'+count); if(qEl){qEl.value='';}
 var resEl = document.getElementById('res-'+count); if(resEl){resEl.style.display='none';resEl.innerHTML='';}
 var areaEl = document.getElementById('area-'+count); if(areaEl){areaEl.innerHTML='';}
