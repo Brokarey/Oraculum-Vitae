@@ -1796,16 +1796,13 @@ function montarFerradura(container){
   for(var i = 0; i < slots.length; i++){ slots[i].className = 'card-slot ' + pos[i]; }
   container.classList.add('ferradura');
 }
-// Enter confirma a pergunta automaticamente (clica no botão verde "Sim")
+// Enter confirma a pergunta automaticamente (clica no "Sim" quando a caixa estiver visível)
 document.addEventListener('keydown', function(e){
 if(e.key !== 'Enter') return;
-// Procura o botão "Sim" que está visível na tela
 var botoes = document.querySelectorAll('button');
 for(var i=0;i<botoes.length;i++){
 var b = botoes[i];
-var txt = (b.textContent || '').trim();
-// Só considera o botão "Sim" se ele estiver visível (a caixa de confirmação aberta)
-if(txt === 'Sim' && b.offsetParent !== null){
+if((b.textContent||'').trim() === 'Sim' && b.offsetParent !== null){
 e.preventDefault();
 b.click();
 return;
