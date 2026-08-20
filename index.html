@@ -1786,7 +1786,6 @@ function aplicarNivelMapa(level){
   else if(level.indexOf('Órbita') > -1) pg.classList.add('nivel-orbita');
   else if(level.indexOf('Cosmos') > -1) pg.classList.add('nivel-cosmos');
 }
-
 // ===== V INVERTIDO — TARÔ 7 CARTAS =====
 function montarFerradura(container){
   if(!container) return;
@@ -1796,19 +1795,6 @@ function montarFerradura(container){
   for(var i = 0; i < slots.length; i++){ slots[i].className = 'card-slot ' + pos[i]; }
   container.classList.add('ferradura');
 }
-// Enter confirma a pergunta automaticamente (clica no "Sim" quando a caixa estiver visível)
-document.addEventListener('keydown', function(e){
-if(e.key !== 'Enter') return;
-var botoes = document.querySelectorAll('button');
-for(var i=0;i<botoes.length;i++){
-var b = botoes[i];
-if((b.textContent||'').trim() === 'Sim' && b.offsetParent !== null){
-e.preventDefault();
-b.click();
-return;
-}
-}
-});
 </script>
 </body>
 </html>
