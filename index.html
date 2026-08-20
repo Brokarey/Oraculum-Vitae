@@ -1812,6 +1812,26 @@ function montarFerradura(container){
   for(var i = 0; i < slots.length; i++){ slots[i].className = 'card-slot ' + pos[i]; }
   container.classList.add('ferradura');
 }
+// ===== RECRIA OS 12 BOTÕES DOS SIGNOS =====
+(function(){
+var signos = ['Áries','Touro','Gêmeos','Câncer','Leão','Virgem','Libra','Escorpião','Sagitário','Capricórnio','Aquário','Peixes'];
+var sec = document.querySelector('#page-horoscopo');
+if(!sec) return;
+var grid = document.createElement('div');
+grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:700px;margin:20px auto;padding:0 20px';
+for(var i=0;i<signos.length;i++){
+(function(s){
+var b = document.createElement('button');
+b.textContent = s;
+b.style.cssText = 'background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e;border:none;padding:14px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;transition:transform .2s';
+b.onmouseover = function(){ this.style.transform = 'scale(1.05)'; };
+b.onmouseout = function(){ this.style.transform = 'scale(1)'; };
+b.onclick = function(){ horoscopo(s); };
+grid.appendChild(b);
+})(signos[i]);
+}
+sec.appendChild(grid);
+})();
 </script>
 </body>
 </html>
