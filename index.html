@@ -1698,7 +1698,6 @@ function extrairPorSigno(bloco, signo){
   }
   return texto.join(' ');
 }
-
 function horoscopo(signo){
   var sec = document.querySelector('#page-horoscopo');
   if(!sec) return;
@@ -1731,27 +1730,6 @@ function horoscopo(signo){
       caixa.innerHTML = '<p style="color:#e88">Não foi possível carregar o horóscopo. Verifique se o arquivo <strong>Horoscopo.txt</strong> está na mesma pasta do index.html.</p>';
     });
 }
-
-// Cria os 12 botões
-(function(){
-  var sec = document.querySelector('#page-horoscopo');
-  if(!sec) return;
-  var grid = document.createElement('div');
-  grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:700px;margin:20px auto;padding:0 20px';
-  for(var i=0;i<SIGNOS_HOROSCOPO.length;i++){
-    (function(s){
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.textContent = s;
-      b.style.cssText = 'background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e;border:none;padding:14px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;transition:transform .2s;opacity:0.25';
-      b.onmouseover = function(){ this.style.transform = 'scale(1.05)'; };
-      b.onmouseout = function(){ this.style.transform = 'scale(1)'; };
-      b.onclick = function(){ horoscopo(s); };
-      grid.appendChild(b);
-    })(SIGNOS_HOROSCOPO[i]);
-  }
-  sec.appendChild(grid);
-})();
 function calculateNumerology(){
 var nome = document.getElementById('num-nome').value.toUpperCase().replace(/[^A-Z]/g,'');
 var data = document.getElementById('num-data').value.replace(/-/g,'');
@@ -1849,7 +1827,28 @@ function montarFerradura(container){
   for(var i = 0; i < slots.length; i++){ slots[i].className = 'card-slot ' + pos[i]; }
   container.classList.add('ferradura');
 }
-function initHoroscopo(){}
+function initHoroscopo(){
+  var sec = document.querySelector('#page-horoscopo');
+  if(!sec) return;
+  var velho = sec.querySelector('.signos-grid');
+  if(velho) velho.remove();
+  var grid = document.createElement('div');
+  grid.className = 'signos-grid';
+  grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:700px;margin:20px auto;padding:0 20px';
+  for(var i=0;i<SIGNOS_HOROSCOPO.length;i++){
+    (function(s){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = s;
+      b.style.cssText = 'background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e;border:none;padding:14px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;transition:transform .2s;opacity:0.25';
+      b.onmouseover = function(){ this.style.transform = 'scale(1.05)'; };
+      b.onmouseout = function(){ this.style.transform = 'scale(1)'; };
+      b.onclick = function(){ horoscopo(s); };
+      grid.appendChild(b);
+    })(SIGNOS_HOROSCOPO[i]);
+  }
+  sec.appendChild(grid);
+}
 </script>
 </body>
 </html>
