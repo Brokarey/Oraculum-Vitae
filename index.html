@@ -1700,6 +1700,9 @@ function extrairPorSigno(bloco, signo){
 }
 function horoscopo(signo){
   var sec = document.querySelector('#page-horoscopo');
+
+    console.log(´sec´, sec);
+    
   if(!sec) return;
   var caixa = sec.querySelector('.result-box');
   if(!caixa){
@@ -1853,9 +1856,9 @@ function initHoroscopo(){
 // ===== DELEGAÇÃO DE EVENTOS: faz os botões funcionarem SEMPRE =====
 document.addEventListener('click', function(ev){
   var b = ev.target.closest ? ev.target.closest('[data-signo]') : null;
-    console.log(b);
   if(b){
-    horoscopo(b.getAttribute('data-signo')); 
+       console.log(´chamar horoscopo´)
+    horoscopo(b.getAttribute('data-signo'));
   }
 });
 
