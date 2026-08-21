@@ -1839,15 +1839,32 @@ function initHoroscopo(){
     (function(s){
       var b = document.createElement('button');
       b.type = 'button';
+      b.setAttribute('data-signo', s);
       b.textContent = s;
       b.style.cssText = 'background:linear-gradient(45deg,var(--gold),var(--gold-light));color:#1a0a2e;border:none;padding:14px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;transition:transform .2s;opacity:0.25';
       b.onmouseover = function(){ this.style.transform = 'scale(1.05)'; };
       b.onmouseout = function(){ this.style.transform = 'scale(1)'; };
-      b.onclick = function(){ horoscopo(s); };
       grid.appendChild(b);
     })(SIGNOS_HOROSCOPO[i]);
   }
   sec.appendChild(grid);
+}
+
+// ===== DELEGAÇÃO DE EVENTOS: faz os botões funcionarem SEMPRE =====
+document.addEventListener('click', function(ev){
+  var b = ev.target.closest ? ev.target.closest('[data-signo]') : null;
+  if(b){
+    horoscopo(b.getAttribute('data-signo'));
+  }
+});
+
+// ===== CRIA OS BOTÕES ASSIM QUE A PÁGINA CARREGA =====
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', function(){
+    if(document.getElementById('page-horoscopo')) initHoroscopo();
+  });
+} else {
+  if(document.getElementById('page-horoscopo')) initHoroscopo();
 }
 </script>
 </body>
