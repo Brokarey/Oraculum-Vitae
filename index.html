@@ -1698,6 +1698,7 @@ function extrairPorSigno(bloco, signo){
   }
   return texto.join(' ');
 }
+
 function horoscopo(signo){
   var sec = document.querySelector('#page-horoscopo');
 
@@ -1711,11 +1712,18 @@ function horoscopo(signo){
     caixa.style.cssText = 'margin:20px auto;max-width:700px;padding:20px;background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;color:var(--gold-light);line-height:1.6';
     sec.appendChild(caixa);
   }
+    
+  console.log('caixa', caixa);
+    
   caixa.innerHTML = '<p style="text-align:center;color:var(--gold)">Carregando previsão da semana...</p>';
+    
   fetch('Horoscopo.txt')
     .then(function(r){ if(!r.ok) throw new Error('arquivo nao encontrado'); return r.text(); })
     .then(function(texto){
       var semana = getWeekNumber(new Date());
+        
+       console.log('semana', semana);
+        
       if(semana < 1) semana = 1;
       if(semana > 52) semana = 52;
       var partes = texto.split(/Semana\s+(\d+)/i);
@@ -1730,9 +1738,11 @@ function horoscopo(signo){
       caixa.innerHTML = '<h3 style="color:var(--gold);margin-bottom:10px">' + signo + ' — Semana ' + semana + '</h3><p>' + previsao + '</p>';
     })
     .catch(function(){
+       console.log('catch')
       caixa.innerHTML = '<p style="color:#e88">Não foi possível carregar o horóscopo. Verifique se o arquivo <strong>Horoscopo.txt</strong> está na mesma pasta do index.html.</p>';
     });
 }
+
 function calculateNumerology(){
 var nome = document.getElementById('num-nome').value.toUpperCase().replace(/[^A-Z]/g,'');
 var data = document.getElementById('num-data').value.replace(/-/g,'');
