@@ -1853,12 +1853,10 @@ function initHoroscopo(){
 // ===== DELEGAÇÃO DE EVENTOS: faz os botões funcionarem SEMPRE =====
 document.addEventListener('click', function(ev){
   var b = ev.target.closest ? ev.target.closest('[data-signo]') : null;
+    console.log(b);
   if(b){
-    horoscopo(b.getAttribute('data-signo'));
+    horoscopo(b.getAttribute('data-signo')); 
   }
-    else {
-        alert(´nada´);
-    }
 });
 
 // ===== CRIA OS BOTÕES ASSIM QUE A PÁGINA CARREGA =====
