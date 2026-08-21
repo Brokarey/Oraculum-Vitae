@@ -455,12 +455,12 @@ Entrar com o Google
 </div>
 </section>
 <section id="page-horoscopo" class="page">
-<div class="form-container" style="max-width:1000px">
-<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
-<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);text-align:center;margin-bottom:20px">Horóscopo da Semana</h2>
-<div class="dash-grid" id="horoscopo-grid"></div>
-<div id="horoscopo-result" class="result-box" style="display:none"></div>
-</div>
+    <div class="form-container" style="max-width:1000px">
+    <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+    <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);text-align:center;margin-bottom:20px">Horóscopo da Semana</h2>
+    <div class="dash-grid" id="horoscopo-grid"></div>
+    <div id="horoscopo-result" class="result-box" style="display:none"></div>
+    </div>
 </section>
 <section id="page-numerologia" class="page">
 <div class="form-container">
@@ -1709,8 +1709,8 @@ function horoscopo(signo){
     caixa.style.cssText = 'margin:20px auto;max-width:700px;padding:20px;background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;color:var(--gold-light);line-height:1.6';
     sec.appendChild(caixa);
   }
+    caixa.style.display = 'block';
   caixa.innerHTML = '<p style="text-align:center;color:var(--gold)">Carregando previsão da semana...</p>';
-    
   fetch('Horoscopo.txt')
     .then(function(r){ if(!r.ok) throw new Error('arquivo nao encontrado'); return r.text(); })
     .then(function(texto){
