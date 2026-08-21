@@ -525,7 +525,7 @@ Entrar com o Google
 <div id="mystic-balloon"><p id="balloon-text" style="font-style:italic;font-size:14px"></p></div>
 <div id="choose-balloon">Escolha suas cartas abaixo</div>
 <script>
-var DECK = [
+var DECK_NORMAL = [
 {n:"O Louco",d:"novos começos, otimismo e uma jornada de fé",cen:"Você está diante de uma página em branco e sente um forte impulso de liberdade. A energia atual é de novos começos, idealismo e o desejo ardente de se libertar das amarras anteriores.",cam:"Este caminho trará uma jornada cheia de aprendizados, liberdade e novidades. Será uma aventura emocionante, mas com alto grau de imprevisibilidade e falta de garantias imediatas.",out:"Você entra nessa dinâmica com total desprendimento, entusiasmo e talvez um pouco de ingenuidade, pronto para mergulhar de cabeça sem olhar para trás."},
 {n:"O Mago",d:"poder, habilidade, concentração e ação consciente",cen:"Você possui todas as ferramentas necessárias e sente que está no controle do próprio destino. Há poder, habilidade e concentração disponíveis para transformar ideias em realidade.",cam:"Este caminho favorece a ação consciente e o domínio das circunstâncias. Você conseguirá manifestar o que deseja com foco e determinação, mas precisa agir com responsabilidade.",out:"Você se apresenta com confiança e competência, pronto para conduzir as situações com maestria."},
 {n:"A Sacerdotisa",d:"intuição, mistério e sabedoria interior",cen:"Você está sendo chamado a ouvir a própria intuição. O momento exige silêncio, observação e confiança nos saberes ocultos que você já carrega.",cam:"Este caminho pede paciência e escuta interior. As respostas não vêm de forma óbvia, mas a sabedoria interna indicará o próximo passo.",out:"Você age com reserva e profundidade, percebendo mais do que demonstra."},
@@ -564,7 +564,7 @@ for(var ni=0;ni<naipes.length;ni++){
 var naipe = naipes[ni];
 for(var vi=0;vi<valores.length;vi++){
 var v = valores[vi];
-DECK.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No campo de "+naipeTemas[naipe].area+", esta carta representa "+valorLeitura[v]+". O momento pede atenção a esse aspecto da sua vida, que influencia diretamente a situação em questão.",cam:"Optar por este caminho significa trabalhar com "+valorLeitura[v]+" no âmbito de "+naipeTemas[naipe].area+". Os resultados dependem de como você conduz essa energia.",out:"O outro ou o mercado se apresenta como "+naipeTemas[naipe].pessoa+". A dinâmica envolvida reflete "+valorLeitura[v]+" no campo de "+naipeTemas[naipe].area+"."});
+DECK_NORMAL.push({n:v+" de "+naipe,d:"energia de "+v+" no elemento de "+naipe,cen:"No campo de "+naipeTemas[naipe].area+", esta carta representa "+valorLeitura[v]+". O momento pede atenção a esse aspecto da sua vida, que influencia diretamente a situação em questão.",cam:"Optar por este caminho significa trabalhar com "+valorLeitura[v]+" no âmbito de "+naipeTemas[naipe].area+". Os resultados dependem de como você conduz essa energia.",out:"O outro ou o mercado se apresenta como "+naipeTemas[naipe].pessoa+". A dinâmica envolvida reflete "+valorLeitura[v]+" no campo de "+naipeTemas[naipe].area+"."});
 }
 }
 var ARCANOS_MAIORES = ["O Louco","O Mago","A Sacerdotisa","A Imperatriz","O Imperador","O Hierofante","Os Enamorados","A Carruagem","A Força","O Eremita","A Roda da Fortuna","A Justiça","O Enforcado","A Morte","A Temperança","O Diabo","A Torre","A Estrela","A Lua","O Sol","O Julgamento","O Mundo"];
@@ -742,7 +742,7 @@ var POSITIVE_PHRASES = ["a energia se apresenta favorável e confirma que essa d
 var NEGATIVE_PHRASES = ["as energias indicam que essa expectativa não encontra sustentação no momento","o campo emocional se mostra fechado ou distante, sem base para esse desejo","os sinais apontam para indiferença ou falta de envolvimento real","a dinâmica atual não favorece essa união, e forçar o caminho traria desgaste"];
 var MIXED_PHRASES = ["os sentimentos ainda estão em construção e podem se revelar com o tempo","o campo emocional está dividido, e o desfecho dependerá das próximas atitudes","existe interesse, mas ainda com ressalvas e incertezas a serem resolvidas","as energias se movimentam aos poucos, e nada está totalmente definido"];
 function randPick(arr){return arr[Math.floor(Math.random()*arr.length)];}
-function cardArcana(c){return DECK.indexOf(c)<22?"Arcano Maior":"Arcano Menor";}
+function cardArcana(c){return DECK_NORMAL.indexOf(c)<22?"Arcano Maior":"Arcano Menor";}
 function buildDynamicResponse(cards, q, verdict){
 var topic = detectTopic(q);
 var person = extractPerson(q);
@@ -1347,10 +1347,10 @@ document.getElementById('q-amor').value = '';
 showChooseBalloon(false);
 var area = document.getElementById('area-amor');
 area.innerHTML = '<div id="grid-amor" class="cards-grid"></div>';
-renderDeckAmor();
+renderDECK_NORMALAmor();
 }
-function renderDeckAmor(){
-var pool = shuffle(DECK);
+function renderDeckNormalAmor(){
+var pool = shuffle(DECK_NORMAL);
 var grid = document.getElementById('grid-amor');
 grid.innerHTML = '';
 for(var i=0;i<pool.length;i++){
@@ -1448,18 +1448,18 @@ area.innerHTML = '<div id="frozen-2" class="frozen-display" style="display:none"
 }else{
 area.innerHTML = '<div id="grid-'+count+'" class="cards-grid"></div>';
 }
-renderDeck(count);
+renderDeckNormal(count);
 }
-function renderDeck(count){
+function renderDeckNormal(count){
 var pool;
 if(count===2 && currentReading.phase==='major'){
-pool = DECK.slice(0,22);
+pool = DECK_NORMAL.slice(0,22);
 document.getElementById('phase-msg-2').innerText = "Passo 1 de 2: escolha 1 carta dos ARCANOS MAIORES.";
 }else if(count===2){
-pool = DECK.slice(22);
+pool = DECK_NORMAL.slice(22);
 document.getElementById('phase-msg-2').innerText = "Passo 2 de 2: agora escolha 1 carta dos ARCANOS MENORES.";
 }else{
-pool = shuffle(DECK);
+pool = shuffle(DECK_NORMAL);
 }
 var grid = document.getElementById('grid-'+count);
 grid.innerHTML = '';
@@ -1483,7 +1483,7 @@ var frozen = document.getElementById('frozen-2');
 frozen.style.display = 'flex';
 frozen.innerHTML = '<div class="card-slot flipped" style="width:150px;cursor:default"><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div>';
 currentReading.phase = 'minor';
-renderDeck(2);
+renderDeckNormal(2);
 return;
 }
 if(currentReading.selected.length === count){
@@ -1551,7 +1551,7 @@ document.getElementById('consultar-simnao').style.display='none';
 var grid = document.getElementById('sim-nao-cards');
 grid.style.display='grid';
 grid.innerHTML='';
-var shuffled = shuffle(DECK);
+var shuffled = shuffle(DECK_NORMAL);
 for(var i=0;i<78;i++){
 (function(card,idx){
 var slot=document.createElement('div');
@@ -1609,7 +1609,7 @@ return;
 container.style.display = 'grid';
 container.innerHTML = '';
 resDiv.style.display = 'none';
-var shuffled = shuffle(DECK);
+var shuffled = shuffle(DECK_NORMAL);
 for(var i=0;i<78;i++){
 (function(card,idx){
 var slot = document.createElement('div');
