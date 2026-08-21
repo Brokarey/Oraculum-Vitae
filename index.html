@@ -1857,7 +1857,6 @@ function initHoroscopo(){
 document.addEventListener('click', function(ev){
   var b = ev.target.closest ? ev.target.closest('[data-signo]') : null;
   if(b){
-       console.log(´chamar horoscopo´)
     horoscopo(b.getAttribute('data-signo'));
   }
 });
