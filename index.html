@@ -612,14 +612,19 @@ base = valor + ' de ' + parts[1];
 }
 return base;
 }
-
+    
 function cardImageVariants(card){
-var base = cardBaseName(card);
-var noAcc = stripAcc(base);
-var arr = [];
-function add(s){var enc = encodeURI('Normal/' + s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
-add(base); add(noAcc); add(base.replace(/ /g,'_')); add(noAcc.replace(/ /g,'_'));
-return arr;
+  var base = cardBaseName(card);
+  var noAcc = stripAcc(base);
+  var arr = [];
+  function add(s){var enc = encodeURI(s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
+  if(DECK_ATIVO === 'Marselha'){
+    var nomeMars = noAcc.replace(/ /g,'_') + '_Marselha';
+    add('Marselha/' + nomeMars);
+    return arr;
+  }
+  add('Normal/' + base); add('Normal/' + noAcc); add('Normal/' + base.replace(/ /g,'_')); add('Normal/' + noAcc.replace(/ /g,'_'));
+  return arr;
 }
 
 function cardImage(card){return cardImageVariants(card)[0];}
