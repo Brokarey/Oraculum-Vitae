@@ -14,8 +14,8 @@ export default async function handler(req, res) {
   if (!apiKey) {
     return res.status(500).json({ error: 'Chave da API não configurada no servidor.' });
   }
-  
-const modelo = 'gemini-2.0-flash';
+
+  const modelo = 'gemini-2.0-flash';
   const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + modelo + ':generateContent?key=' + apiKey;
 
   const cartasTexto = cartas.map(function(c){
@@ -41,10 +41,16 @@ const modelo = 'gemini-2.0-flash';
     });
 
     const dados = await resposta.json();
+
+    // MOSTRA o erro real do Gemini, se houver
+    if (!resposta.ok) {
+      return res.status(502).json({ error: 'Erro do Gemini: ' + JSON.stringify(dados) });
+    }
+
     const texto = dados && dados.candidates && dados.candidates[0] && dados.candidates[0].content && dados.candidates[0].content.parts && dados.candidates[0].content.parts[0] ? dados.candidates[0].content.parts[0].text : null;
 
     if (!texto) {
-      return res.status(502).json({ error: 'A IA não retornou resposta.' });
+      return res.status(502).json({ error: 'A IA não retornou resposta. Detalhes: ' + JSON.stringify(dados) });
     }
 
     res.status(200).json({ resposta: texto });
