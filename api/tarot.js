@@ -14,8 +14,8 @@ export default async function handler(req, res) {
   if (!apiKey) {
     return res.status(500).json({ error: 'Chave da API não configurada no servidor.' });
   }
-
-  const modelo = 'gemini-1.5-flash';
+  
+const modelo = 'gemini-2.0-flash';
   const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + modelo + ':generateContent?key=' + apiKey;
 
   const cartasTexto = cartas.map(function(c){
