@@ -617,7 +617,7 @@ function cardImageVariants(card){
 var base = cardBaseName(card);
 var noAcc = stripAcc(base);
 var arr = [];
-function add(s){var enc = encodeURI(s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
+function add(s){var enc = encodeURI('Normal/' + s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
 add(base); add(noAcc); add(base.replace(/ /g,'_')); add(noAcc.replace(/ /g,'_'));
 return arr;
 }
