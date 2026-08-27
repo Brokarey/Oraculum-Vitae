@@ -1114,6 +1114,126 @@ h += "<h4>Resposta Conclusiva do Oráculo</h4>";
 h += buildTenConclusion(cards,q);
 return h;
 }
+/* ====== INTEGRAÇÃO IA — NARRATIVA ÚNICA (SUBSTITUI AS ANTIGAS) ====== */
+var AREAS_CARTA_DIA = [
+  'Família e Dinâmica do Lar',
+  'Dinheiro e Finanças',
+  'Relacionamentos e Afeto',
+  'Profissão e Carreira',
+  'Saúde e Vitalidade',
+  'Desenvolvimento Pessoal e Emocional',
+  'Espiritualidade e Propósito',
+  'Orientação e Escolhas'
+];
+
+// Nomes das funções de cada método (ajuste se os nomes no seu site forem diferentes)
+var MAPA_METODOS = {
+  'buildDynamicResponse': 'Sim, Não ou Talvez',
+  'buildTwoCardNarrative': 'Tarô: 2 Cartas',
+  'buildThreeCardNarrative': 'Tarô: 3 Cartas',
+  'buildFiveCardNarrative': 'Tarô: 5 Cartas',
+  'buildSevenCardNarrative': 'Tarô: 7 Cartas',
+  'buildTenCardNarrative': 'Tarô: 10 Cartas'
+};
+// Adicione aqui os nomes das funções da Carta do Dia, Afrodite e Marselha (se existirem):
+var FUNCOES_CARTA_DIA = [];   // ex.: ['buildCartaDoDia']
+var FUNCOES_AFRODITE = [];    // ex.: ['buildAfroditeNarrative']
+var FUNCOES_MARSELHA = [];    // ex.: ['buildMarselhaNarrative']
+
+function sortearArea() {
+  return AREAS_CARTA_DIA[Math.floor(Math.random() * AREAS_CARTA_DIA.length)];
+}
+
+function detectarMetodo(nomeFn, cards) {
+  if (FUNCOES_CARTA_DIA.indexOf(nomeFn) > -1) return { metodo: 'Carta do Dia', area: sortearArea() };
+  if (FUNCOES_AFRODITE.indexOf(nomeFn) > -1) return { metodo: 'Templo de Afrodite', area: null };
+  if (FUNCOES_MARSELHA.indexOf(nomeFn) > -1) return { metodo: 'Tarô de Marselha', area: null };
+  var low = nomeFn.toLowerCase();
+  if (low.indexOf('dia') > -1 || low.indexOf('daily') > -1) return { metodo: 'Carta do Dia', area: sortearArea() };
+  if (low.indexOf('afrodite') > -1 || low.indexOf('amor') > -1 || low.indexOf('love') > -1) return { metodo: 'Templo de Afrodite', area: null };
+  if (low.indexOf('marselha') > -1) return { metodo: 'Tarô de Marselha', area: null };
+  if (MAPA_METODOS[nomeFn]) return { metodo: MAPA_METODOS[nomeFn], area: null };
+  var map = { 2: 'Tarô: 2 Cartas', 3: 'Tarô: 3 Cartas', 5: 'Tarô: 5 Cartas', 7: 'Tarô: 7 Cartas', 10: 'Tarô: 10 Cartas' };
+  return { metodo: map[cards.length] || (cards.length + ' Cartas'), area: null };
+}
+
+function cartasParaIA(cards) {
+  return cards.map(function (c) {
+    var obj = { nome: c.n || c.nome, posicao: c.pos || c.posicao || '' };
+    if (c.d) obj.descricao = c.d;
+    if (c.cen) obj.cenario = c.cen;
+    if (c.cam) obj.caminho = c.cam;
+    if (c.out) obj.postura = c.out;
+    return obj;
+  });
+}
+
+function formatarRespostaIA(texto, area) {
+  var html = '';
+  if (area) {
+    html += '<p style="font-size:13px;color:#c9a86a;margin-bottom:6px"><strong>Área do dia:</strong> ' + area + '</p>';
+  }
+  var blocos = texto.split(/\n{2,}/);
+  for (var i = 0; i < blocos.length; i++) {
+    var p = blocos[i].trim();
+    if (!p) continue;
+    p = p.replace(/^#{1,6}\s*/gm, '');
+    p = p.replace(/^\s*[-*]\s+/gm, '');
+    p = p.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    html += '<p>' + p.replace(/\n/g, ' ') + '</p>';
+  }
+  return html;
+}
+
+function consultarOraculoIA(cards, pergunta, nomeFn, fnOriginal, args) {
+  if (!cards || !cards.length) return fnOriginal.apply(null, args);
+  var det = detectarMetodo(nomeFn, cards);
+  var id = 'ia-' + Date.now() + '-' + Math.floor(Math.random() * 9999);
+  setTimeout(function () {
+    fetch('/api/tarot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        pergunta: pergunta || '',
+        cartas: cartasParaIA(cards),
+        baralho: det.metodo,
+        area: det.area
+      })
+    }).then(function (r) { return r.json(); })
+      .then(function (d) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (d && d.status === 'reformular') {
+          el.outerHTML = '<div class="ia-aviso" style="margin:10px 0;padding:12px;border:1px solid #c9a86a55;border-radius:8px;background:#c9a86a11"><p style="margin:0 0 6px;color:#c9a86a"><strong>✨ O oráculo pede uma pergunta mais específica</strong></p><p style="margin:0">' + d.mensagem + '</p><p style="margin:8px 0 0;font-size:13px;color:#aaa">Refaça a pergunta com detalhes e sorteie novamente.</p></div>';
+        } else if (d && d.resposta) {
+          el.outerHTML = '<div class="ia-resposta" style="margin:10px 0">' + formatarRespostaIA(d.resposta, d.area || det.area) + '</div>';
+        } else {
+          el.outerHTML = fnOriginal.apply(null, args);
+        }
+      })
+      .catch(function () {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.outerHTML = fnOriginal.apply(null, args);
+      });
+  }, 30);
+  return '<div id="' + id + '" style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">Consultando o oráculo...</div>';
+}
+
+// Envolve automaticamente TODAS as funções de narrativa (2,3,5,7,10, Sim/Não/Talvez + especiais)
+(function () {
+  var alvo = Object.keys(window).filter(function (k) {
+    return typeof window[k] === 'function' && /^build/.test(k) && (/Narrative/.test(k) || k === 'buildDynamicResponse' || FUNCOES_CARTA_DIA.indexOf(k) > -1 || FUNCOES_AFRODITE.indexOf(k) > -1 || FUNCOES_MARSELHA.indexOf(k) > -1);
+  });
+  alvo.forEach(function (nome) {
+    var original = window[nome];
+    window[nome] = function () {
+      return consultarOraculoIA(arguments[0], arguments[1], nome, original, arguments);
+    };
+  });
+})();
+/* ====== FIM DA INTEGRAÇÃO IA ====== */
+    
 function cardHTML(card,width){
 var w = width?' style="width:'+width+'"':'';
 return '<div class="card-slot flipped"'+w+'><div class="card-inner"><div class="card-back"></div><div class="card-front">'+cardImgHTML(card)+'</div></div></div>';
