@@ -624,6 +624,10 @@ return arr;
 
 function cardImage(card){return cardImageVariants(card)[0];}
 
+function formatCardName(name) {
+  return String(name).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "_");
+}
+  
 function cardImgHTML(card){
 var variants = cardImageVariants(card);
 return '<img src="'+variants[0]+'" alt="'+card.n+'" data-variants=\''+JSON.stringify(variants)+'\' onerror="imgFallback(this)">';
