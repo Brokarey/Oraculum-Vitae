@@ -654,20 +654,19 @@ function cardImageVariants(card, isMarselha){
 
   function add(s){
     var enc = encodeURI(s + '.png');
-    if(arr.indexOf(enc)===-1){arr.push(enc);}
+    if(arr.indexOf(enc) === -1){ arr.push(enc); }
   }
 
   if(isMarselha){
-    // Tenta com espaço, depois com underscore
+    // MARSELHA: tenta com espaço E underscore
     add('Marselha/' + base + ' Marselha');
-    add('Marselha/' + noAcc + ' Marselha');
     add('Marselha/' + base.replace(/ /g,'_') + '_Marselha');
     add('Marselha/' + noAcc.replace(/ /g,'_') + '_Marselha');
   } else {
-    // BARALHO NORMAL - adicione TODAS as variantes!
+    // NORMAL: tenta com espaço E underscore (SEM "_Marselha")
     add(base);
-    add(noAcc);
     add(base.replace(/ /g,'_'));
+    add(noAcc);
     add(noAcc.replace(/ /g,'_'));
   }
 
