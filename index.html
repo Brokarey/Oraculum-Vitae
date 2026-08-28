@@ -658,20 +658,30 @@ function cardImageVariants(card, isMarselha){
   }
 
   if(isMarselha){
-    // Tenta SEM "_Marselha" primeiro (como está no GitHub)
-    var marselhaName = base.replace(/ /g,'_');
+    // Mapeamento de nomes para Marselha
+    var nomeMap = {
+      "A Sacerdotisa": "A_Papisa",
+      "O Hierofante": "O_Papa",
+      "O Enamorado": "O_Enamorado",
+      "O Carro": "O_Carro",
+      "A Força": "A_Forca",
+      "A Justiça": "A_Justia",
+      "A Casa de Deus": "A_Casa_de_Deus"
+    };
+
+    var nomeMarselha = nomeMap[base] || base;
+    var marselhaName = nomeMarselha.replace(/ /g,'_') + '_Marselha';
+
     add('Marselha/' + marselhaName);
     add('Marselha/' + stripAcc(marselhaName));
-    // Se não encontrar, tenta com "_Marselha"
-    add('Marselha/' + marselhaName + '_Marselha');
-    add('Marselha/' + stripAcc(marselhaName) + '_Marselha');
-    return arr;
+    add('Marselha/' + nomeMarselha.replace(/ /g,'_') + '_Marselha');
+  } else {
+    add(base);
+    add(noAcc);
+    add(base.replace(/ /g,'_'));
+    add(noAcc.replace(/ /g,'_'));
   }
 
-  add(base);
-  add(noAcc);
-  add(base.replace(/ /g,'_'));
-  add(noAcc.replace(/ /g,'_'));
   return arr;
 }
 
