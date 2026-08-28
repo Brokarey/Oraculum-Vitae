@@ -658,9 +658,20 @@ function cardImageVariants(card, isMarselha){
   }
 
   if(isMarselha){
-    // Usa o nome COM ESPAÇOS (como está no GitHub)
-    add('Marselha/' + base + ' Marselha');
+    var marselhaName = base.replace(/ /g,'_');
+    var marselhaNameAcc = base;
+
+    // Tenta COM underscore primeiro
+    add('Marselha/' + marselhaName + ' Marselha');
+    add('Marselha/' + stripAcc(marselhaName) + ' Marselha');
+
+    // Tenta COM espaço
+    add('Marselha/' + marselhaNameAcc + ' Marselha');
     add('Marselha/' + noAcc + ' Marselha');
+
+    // Fallback: tenta sem espaço antes de "Marselha"
+    add('Marselha/' + marselhaName + '_Marselha');
+    add('Marselha/' + stripAcc(marselhaName) + '_Marselha');
   } else {
     add(base);
     add(noAcc);
