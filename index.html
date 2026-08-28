@@ -535,6 +535,7 @@ Entrar com o Google
 <div id="choose-balloon">Escolha suas cartas abaixo</div>
 <script>
 // ===== DECK E VARIÁVEIS GLOBAIS =====
+var DECK_ATIVO = 'Normal';
 var DECK_NORMAL = [
 {n:"O Louco",d:"novos começos, otimismo e uma jornada de fé",cen:"Você está diante de uma página em branco e sente um forte impulso de liberdade. A energia atual é de novos começos, idealismo e o desejo ardente de se libertar das amarras anteriores.",cam:"Este caminho trará uma jornada cheia de aprendizados, liberdade e novidades. Será uma aventura emocionante, mas com alto grau de imprevisibilidade e falta de garantias imediatas.",out:"Você entra nessa dinâmica com total desprendimento, entusiasmo e talvez um pouco de ingenuidade, pronto para mergulhar de cabeça sem olhar para trás."},
 {n:"O Mago",d:"poder, habilidade, concentração e ação consciente",cen:"Você possui todas as ferramentas necessárias e sente que está no controle do próprio destino. Há poder, habilidade e concentração disponíveis para transformar ideias em realidade.",cam:"Este caminho favorece a ação consciente e o domínio das circunstâncias. Você conseguirá manifestar o que deseja com foco e determinação, mas precisa agir com responsabilidade.",out:"Você se apresenta com confiança e competência, pronto para conduzir as situações com maestria."},
@@ -623,12 +624,20 @@ return base;
 }
 
 function cardImageVariants(card){
-var base = cardBaseName(card);
-var noAcc = stripAcc(base);
-var arr = [];
-function add(s){var enc = encodeURI('Normal/' + s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
-add(base); add(noAcc); add(base.replace(/ /g,'_')); add(noAcc.replace(/ /g,'_'));
-return arr;
+  var base = cardBaseName(card);
+  var noAcc = stripAcc(base);
+  var arr = [];
+  function add(s){var enc = encodeURI(s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
+  if(DECK_ATIVO === 'Marselha'){
+    var nomeMars = noAcc.replace(/ /g,'_') + '_Marselha';
+    add('Marselha/' + nomeMars);
+    return arr;
+  }
+  add('Normal/' + base);
+  add('Normal/' + noAcc);
+  add('Normal/' + base.replace(/ /g,'_'));
+  add('Normal/' + noAcc.replace(/ /g,'_'));
+  return arr;
 }
 
 function cardImage(card){return cardImageVariants(card)[0];}
@@ -1539,6 +1548,7 @@ window.scrollTo(0,0);
 function initTarotPage(count,type){
 type = type || '';
 var cost = count*10;
+DECK_ATIVO = (type === 'Marselha') ? 'Marselha' : 'Normal';
 if(type==='Marselha') cost = 30;
 currentReading = {count:count,type:type,cost:cost,selected:[],question:'',active:false,phase:''};
 var titles = {2:'Tarô: 2 Cartas',3:'Tarô: 3 Cartas',5:'Tarô: 5 Cartas',7:'Tarô: 7 Cartas',10:'Tarô: 10 Cartas'};
