@@ -647,7 +647,7 @@ base = valor + ' de ' + parts[1];
 return base;
 }
 
-function cardImageVariants(card){
+function cardImageVariants(card, isMarselha){
   var base = cardBaseName(card);
   var noAcc = stripAcc(base);
   var arr = [];
@@ -657,10 +657,14 @@ function cardImageVariants(card){
     if(arr.indexOf(enc)===-1){arr.push(enc);}
   }
 
-  if(DECK_ATIVO === 'Marselha'){
-    var nomeMars = getNomeArquivoMarselha(base);
-    add('Marselha/' + nomeMars + '_Marselha');
-    add('Marselha/' + stripAcc(nomeMars) + '_Marselha');
+  if(isMarselha){
+    // Tenta SEM "_Marselha" primeiro (como está no GitHub)
+    var marselhaName = base.replace(/ /g,'_');
+    add('Marselha/' + marselhaName);
+    add('Marselha/' + stripAcc(marselhaName));
+    // Se não encontrar, tenta com "_Marselha"
+    add('Marselha/' + marselhaName + '_Marselha');
+    add('Marselha/' + stripAcc(marselhaName) + '_Marselha');
     return arr;
   }
 
