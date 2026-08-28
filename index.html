@@ -601,7 +601,31 @@ var NEGATIVE_PHRASES = ["as energias indicam que essa expectativa não encontra 
 var MIXED_PHRASES = ["os sentimentos ainda estão em construção e podem se revelar com o tempo","o campo emocional está dividido, e o desfecho dependerá das próximas atitudes","existe interesse, mas ainda com ressalvas e incertezas a serem resolvidas","as energias se movimentam aos poucos, e nada está totalmente definido"];
 
 var SIGNOS_HOROSCOPO = ['Áries','Touro','Gêmeos','Câncer','Leão','Virgem','Libra','Escorpião','Sagitário','Capricórnio','Aquário','Peixes'];
+    
+// Mapeamento de nomes para Marselha
+var MARSELHA_NAME_MAP = {
+  "Os Enamorados": "O Enamorado",
+  "A Torre": "A Casa de Deus",
+  "A Sacerdotisa": "A Papisa",
+  "O Hierofante": "O Papa",
+  "A Carruagem": "O Carro"
+};
 
+function getNomeArquivoMarselha(nomeCarta) {
+  var nome = MARSELHA_NAME_MAP[nomeCarta] || nomeCarta;
+  nome = nome
+    .replace(/ç/g, 'c')
+    .replace(/ã/g, 'a')
+    .replace(/õ/g, 'o')
+    .replace(/á/g, 'a')
+    .replace(/é/g, 'e')
+    .replace(/í/g, 'i')
+    .replace(/ó/g, 'o')
+    .replace(/ú/g, 'u')
+    .replace(/ /g, '_');
+  return nome;
+}
+    
 var currentUser = null;
 var currentReading = {count:0,type:'',cost:0,selected:[],question:'',active:false,phase:''};
 var selectedMapaCost = 0;
@@ -627,16 +651,23 @@ function cardImageVariants(card){
   var base = cardBaseName(card);
   var noAcc = stripAcc(base);
   var arr = [];
-  function add(s){var enc = encodeURI(s + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
+
+  function add(s){
+    var enc = encodeURI(s + '.png');
+    if(arr.indexOf(enc)===-1){arr.push(enc);}
+  }
+
   if(DECK_ATIVO === 'Marselha'){
-    var nomeMars = noAcc.replace(/ /g,'_') + '_Marselha';
-    add('Marselha/' + nomeMars);
+    var nomeMars = getNomeArquivoMarselha(base);
+    add('Marselha/' + nomeMars + '_Marselha');
+    add('Marselha/' + stripAcc(nomeMars) + '_Marselha');
     return arr;
   }
-  add('Normal/' + base);
-  add('Normal/' + noAcc);
-  add('Normal/' + base.replace(/ /g,'_'));
-  add('Normal/' + noAcc.replace(/ /g,'_'));
+
+  add(base);
+  add(noAcc);
+  add(base.replace(/ /g,'_'));
+  add(noAcc.replace(/ /g,'_'));
   return arr;
 }
 
@@ -1679,6 +1710,7 @@ document.getElementById('consultar-'+count).style.display = 'flex';
 setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},200);
 }
 function voltarTopoTarot(count){
+DECK_ATIVO = 'Normal';
 document.getElementById('res-'+count).style.display = 'none';
 document.getElementById('res-'+count).innerHTML = '';
 document.getElementById('area-'+count).innerHTML = '';
