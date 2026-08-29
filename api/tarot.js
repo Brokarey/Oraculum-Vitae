@@ -1,4 +1,5 @@
 // api/tarot.js — Oraculum Vitae com IA (Gemini 3.6 Flash)
+const { processarReembolso } = require('./creditos.js');
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método não permitido' });
@@ -81,7 +82,7 @@ var prompt = 'Você é um tarólogo mestre com décadas de experiência, conheci
   '5. Equilibre simbolismo, arquétipo, emoção, psicologia e conselho prático.\n' +
   '6. Tom acolhedor, sábio, poético quando apropriado. NUNCA alarmista, NUNCA determinista, NUNCA com clichês de horóscopo.\n' +
   '7. A resposta DEVE começar com "<strong>RESPOSTA:</strong>" (a palavra RESPOSTA em negrito, seguida de dois-pontos) e, logo depois, o conteúdo da leitura. Nada antes disso.\n' +
-  '8. Separe os parágrafos com dupla quebra de linha (\\n\\n). Use texto simples, sem marcadores, sem emojis, sem títulos, exceto o "<strong>RESPOSTA:</strong>" inicial.';;
+  '8. Separe os parágrafos com dupla quebra de linha (\\n\\n). Use texto simples, sem marcadores, sem emojis, sem títulos, exceto o "<strong>RESPOSTA:</strong>" inicial.';
 
   try {
     const resposta = await fetch(url, {
@@ -125,8 +126,14 @@ var prompt = 'Você é um tarólogo mestre com décadas de experiência, conheci
     }
 
     if (parsed.status === 'reformular') {
-      return res.status(200).json({ status: 'reformular', mensagem: parsed.mensagem || 'Sua pergunta está muito genérica. Reformule com mais detalhes: quem está envolvido, o que você deseja saber e o contexto.' });
-    }
+  // A pergunta não foi compreendida → devolve o crédito ao usuário
+  const reembolso = await processarReembolso(parsed, (req.body.usuarioId || null), (req.body.custo || 0));
+  return res.status(200).json({
+    status: 'reformular',
+    mensagem: reembolso.mensagem,
+    reembolsoEfetuado: reembolso.reembolsou
+  });
+}
 
     if (!parsed.resposta) {
       return res.status(502).json({ error: 'A IA não gerou a leitura.' });
