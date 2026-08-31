@@ -10,23 +10,39 @@ export default async function handler(req, res) {
   if (!pergunta || !cartas || cartas.length === 0) {
     return res.status(400).json({ error: 'Envie a pergunta e as cartas.' });
   }
-  // ===== FILTRO DE PERGUNTA SEM SENTIDO =====
+  // ===== FILTRO DE PERGUNTA SEM SENTIDO (POR PALAVRA) =====
   function ehSemSentido(texto) {
     if (!texto) return true;
     var t = texto.trim();
     if (t.length < 4) return true;
-    var vogais = (t.match(/[aeiouáéíóúâêôãõà]/gi) || []).length;
-    if (vogais === 0) return true;
-    if (vogais / t.length < 0.18) return true;
+
+    // Palavras comuns do português (conectivos, verbos, pronomes)
+    var comuns = ['vou','eu','quero','saber','meu','minha','me','se','o','a','os','as','um','uma','de','do','da','dos','das','em','no','na','nos','nas','com','para','por','que','qual','quem','como','quando','onde','porque','ser','estou','esta','estao','tem','ter','fazer','vai','vamos','pode','posso','preciso','gostaria','amor','trabalho','dinheiro','saude','vida','futuro','relacionamento','casa','familia','hoje','amanha','agora','sempre','nunca','isso','isto','aquilo','ele','ela','eles','elas','voce','nos','nossa','nosso','essa','esse','esta','este','ano','mes','dia','semana','novo','nova','conseguir','acontecer','sera','sera','vira','virao'];
+
     var palavras = t.toLowerCase().split(/\s+/);
-    var palavrasReais = 0;
+    var invalidas = 0;
+    var total = 0;
+
     for (var i = 0; i < palavras.length; i++) {
       var p = palavras[i].replace(/[^a-zà-ú]/gi, '');
-      if (p.length >= 3 && /[aeiouáéíóúâêôãõ]/.test(p)) palavrasReais++;
+      if (p.length === 0) continue;
+      total++;
+
+      if (comuns.indexOf(p) > -1) continue;              // palavra conhecida → ok
+
+      if (!/[aeiouáéíóúâêôãõà]/.test(p)) { invalidas++; continue; }  // sem vogal → inválida
+
+      if (/([bcdfghjklmnpqrstvwxyz]{3,})/.test(p)) { invalidas++; continue; }  // 3+ consoantes seguidas → inválida
+
+      if (p.length <= 2) { invalidas++; continue; }      // muito curta e estranha → inválida
     }
-    if (palavrasReais === 0) return true;
+
+    if (total === 0) return true;
+    if (invalidas === total) return true;                 // nenhuma palavra válida
+    if (invalidas / total > 0.5) return true;            // maioria inválida
     return false;
   }
+  // ===== FIM DO FILTRO =====
    if (ehSemSentido(pergunta)) {
     return res.status(200).json({
       status: 'reformular',
