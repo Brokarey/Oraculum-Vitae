@@ -27,10 +27,10 @@ export default async function handler(req, res) {
     if (palavrasReais === 0) return true;
     return false;
   }
-  if (ehSemSentido(pergunta)) {
+   if (ehSemSentido(pergunta)) {
     return res.status(200).json({
       status: 'reformular',
-      mensagem: 'Sua pergunta não foi compreendida. O crédito desta consulta foi devolvido. Por favor, reformule com uma pergunta clara e específica (quem, o quê, contexto e prazo).',
+      mensagem: 'TESTE123 - Sua pergunta não foi compreendida. O crédito foi devolvido. Reformule por favor.',
       reembolsoEfetuado: true
     });
   }
