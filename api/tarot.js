@@ -10,7 +10,29 @@ export default async function handler(req, res) {
   if (!pergunta || !cartas || cartas.length === 0) {
     return res.status(400).json({ error: 'Envie a pergunta e as cartas.' });
   }
-
+    // ===== FILTRO DE PERGUNTA SEM SENTIDO (GIBBERISH) =====
+  function ehSemSentido(texto) {
+    if (!texto) return true;
+    var t = texto.trim();
+    if (t.length < 4) return true;
+    var palavras = t.toLowerCase().split(/\s+/);
+    var palavrasReais = 0;
+    for (var i = 0; i < palavras.length; i++) {
+      var p = palavras[i].replace(/[^a-zà-ú]/gi, '');
+      if (p.length >= 3 && /[aeiouáéíóúâêôãõ]/.test(p)) palavrasReais++;
+    }
+    if (palavrasReais === 0) return true;
+    var vogais = (t.match(/[aeiouáéíóúâêôãõà]/gi) || []).length;
+    if (vogais / t.length < 0.18) return true;
+    return false;
+  }
+  if (ehSemSentido(pergunta)) {
+    return res.status(200).json({
+      status: 'reformular',
+      mensagem: 'Sua pergunta não foi compreendida. O crédito desta consulta foi devolvido. Por favor, reformule com uma pergunta clara e específica (quem, o quê, contexto e prazo).',
+      reembolsoEfetuado: true
+    });
+  }
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'Chave da API não configurada no servidor.' });
