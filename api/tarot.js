@@ -1,6 +1,6 @@
 // api/tarot.js — Oraculum Vitae com IA (Gemini 3.6 Flash)
 const { processarReembolso } = require('./creditos.js');
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método não permitido' });
   }
