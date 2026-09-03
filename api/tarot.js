@@ -159,9 +159,22 @@ var prompt = 'Você é um tarólogo mestre com décadas de experiência, conheci
       return res.status(502).json({ error: 'A IA não retornou resposta. Detalhes: ' + JSON.stringify(dados) });
     }
 
-    var parsed = null;
-    try { parsed = JSON.parse(raw); } catch (e) { parsed = null; }
-
+        // ===== CORREÇÃO: extrai o JSON mesmo se a IA colocar texto extra ou marcadores de código =====
+    function extrairJSON(texto) {
+      if (!texto) return null;
+      var t = texto.trim();
+      var m = t.match(/
+```(?:json)?\s*([\s\S]*?)
+```/i);
+      if (m) t = m[1].trim();
+      var inicio = t.indexOf('{');
+      var fim = t.lastIndexOf('}');
+      if (inicio > -1 && fim > inicio) {
+        t = t.substring(inicio, fim + 1);
+      }
+      try { return JSON.parse(t); } catch (e) { return null; }
+    }
+    var parsed = extrairJSON(raw);
     if (!parsed || !parsed.status) {
       return res.status(502).json({ error: 'Resposta da IA em formato inesperado: ' + raw });
     }
