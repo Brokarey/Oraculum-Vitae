@@ -159,14 +159,10 @@ var prompt = 'Você é um tarólogo mestre com décadas de experiência, conheci
       return res.status(502).json({ error: 'A IA não retornou resposta. Detalhes: ' + JSON.stringify(dados) });
     }
 
-        // ===== CORREÇÃO: extrai o JSON mesmo se a IA colocar texto extra ou marcadores de código =====
-    function extrairJSON(texto) {
-      if (!texto) return null;
+     function extrairJSON(texto) {
+      if (typeof texto !== 'string') return null;
       var t = texto.trim();
-      var m = t.match(/
-```(?:json)?\s*([\s\S]*?)
-```/i);
-      if (m) t = m[1].trim();
+      if (!t) return null;
       var inicio = t.indexOf('{');
       var fim = t.lastIndexOf('}');
       if (inicio > -1 && fim > inicio) {
@@ -178,7 +174,6 @@ var prompt = 'Você é um tarólogo mestre com décadas de experiência, conheci
     if (!parsed || !parsed.status) {
       return res.status(502).json({ error: 'Resposta da IA em formato inesperado: ' + raw });
     }
-
     if (parsed.status === 'reformular') {
   // A pergunta não foi compreendida → devolve o crédito ao usuário
   const reembolso = await processarReembolso(parsed, (req.body.usuarioId || null), (req.body.custo || 0));
