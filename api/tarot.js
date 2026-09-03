@@ -46,7 +46,7 @@ module.exports = async function handler(req, res) {
    if (ehSemSentido(pergunta)) {
     return res.status(200).json({
       status: 'reformular',
-      mensagem: 'TESTE123 - Sua pergunta não foi compreendida. O crédito foi devolvido. Reformule por favor.',
+      mensagem: 'Sua pergunta não foi compreendida. O crédito foi devolvido. Reformule por favor.',
       reembolsoEfetuado: true
     });
   }
