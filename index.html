@@ -613,6 +613,21 @@ base = valor + ' de ' + parts[1];
 return base;
 }
 
+function nomeCarta(card){
+var nome = card.n;
+if (currentReading && currentReading.type === 'Marselha') {
+  var alias = {
+    'A Sacerdotisa':'A Papisa',
+    'O Hierofante':'O Papa',
+    'Os Enamorados':'O Enamorado',
+    'O Enforcado':'O Pendurado',
+    'A Carruagem':'O Carro'
+  };
+  if (alias[nome]) { nome = alias[nome]; }
+}
+return nome;
+}
+
 function cardImageVariants(card){
 var base = cardBaseName(card);
 var noAcc = stripAcc(base);
