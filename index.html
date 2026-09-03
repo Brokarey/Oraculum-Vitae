@@ -619,12 +619,22 @@ var noAcc = stripAcc(base);
 var arr = [];
 var pasta = 'Normal';
 var sufixo = '';
-if (currentReading && currentReading.type === 'Marselha') { pasta = 'Marselha'; sufixo = ' Marselha'; }
-function add(s){var enc = encodeURI(pasta + '/' + s + sufixo + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);}}
+if (currentReading && currentReading.type === 'Marselha') {
+  pasta = 'Marselha';
+  sufixo = ' Marselha';
+  var alias = {
+    'A Sacerdotisa':'A Papisa',
+    'O Hierofante':'O Papa',
+    'Os Enamorados':'O Enamorado',
+    'O Enforcado':'O Pendurado',
+    'A Carruagem':'O Carro'
+  };
+  if (alias[base]) { base = alias[base]; noAcc = stripAcc(base); }
+}
+function add(s){var enc = encodeURI(pasta + '/' + s + sufixo + '.png'); if(arr.indexOf(enc)===-1){arr.push(enc);} var encJ = encodeURI(pasta + '/' + s + sufixo + '.jpg'); if(arr.indexOf(encJ)===-1){arr.push(encJ);}}
 add(base); add(noAcc); add(base.replace(/ /g,'_')); add(noAcc.replace(/ /g,'_'));
 return arr;
 }
-
 function cardImage(card){return cardImageVariants(card)[0];}
 
 function formatCardName(name) {
