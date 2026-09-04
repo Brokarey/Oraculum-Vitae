@@ -449,7 +449,10 @@ Entrar com o Google
 <input type="date" id="mapa-data">
 <input type="time" id="mapa-hora">
 <input type="text" id="mapa-cidade" placeholder="Cidade de Nascimento">
-<button class="btn-portal" onclick="generateMapa()">Gerar Mapa Astral</button>
+<input type="text" id="mapa-estado" placeholder="Estado de Nascimento (UF)">
+<button class="btn-portal" onclick="generateMapa('Pórtico Celestial')">Pórtico Celestial</button>
+<button class="btn-portal" onclick="generateMapa('Órbita Pessoal')">Órbita Pessoal</button>
+<button class="btn-portal" onclick="generateMapa('Cosmos Absoluto')">Cosmos Absoluto</button>
 </div>
 <div id="mapa-result" class="result-box" style="display:none;margin-top:20px"></div>
 </div>
@@ -1821,19 +1824,45 @@ document.getElementById('mapa-result').style.display = 'none';
 document.getElementById('mapa-result').innerHTML = '';
 showPage('page-mapa-astral');
 }
-function generateMapa(){
-if(!currentUser.isMago && currentUser.credits < selectedMapaCost){return showModal("Erro","Créditos insuficientes.");}
+function generateMapa(nivel) {
 var nome = document.getElementById('mapa-nome').value;
-if(!nome){return showModal("Erro","Preencha seu nome.");}
-if(!currentUser.isMago){currentUser.credits-=selectedMapaCost;saveUser(currentUser);updateCreditsDisplay();}
+var data = document.getElementById('mapa-data').value;
+var hora = document.getElementById('mapa-hora').value;
+var cidade = document.getElementById('mapa-cidade').value;
+var estado = document.getElementById('mapa-estado').value;
+if (!nome || !data || !hora || !cidade || !estado) {
+  alert('Preencha todos os campos: nome, data, hora, cidade e estado.');
+  return;
+}
 var res = document.getElementById('mapa-result');
 res.style.display = 'block';
-var html = '<h3>Mapa Astral de '+nome+'</h3><p><strong>Sol:</strong> Leão - Sua essência brilha com criatividade.</p><p><strong>Lua:</strong> Peixes - Suas emoções são profundas.</p><p><strong>Ascendente:</strong> Escorpião - Presença intensa e magnética.</p>';
-if(selectedMapaCost>=100){html += '<p><strong>Mercúrio:</strong> Virgem - Comunicação analítica.</p><p><strong>Vênus:</strong> Libra - Harmonia.</p><p><strong>Marte:</strong> Áries - Ação.</p>';}
-if(selectedMapaCost>=200){html += '<p><strong>Júpiter:</strong> Sagitário - Expansão.</p><p><strong>Saturno:</strong> Capricórnio - Estrutura.</p><p><strong>Casa 10:</strong> Sucesso pela persistência.</p>';}
-res.innerHTML = html;
-setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
+res.innerHTML = '<p style="text-align:center;color:var(--gold)">Consultando os astros... ✨</p>';
+fetch('/api/mapa', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ nome: nome, data: data, hora: hora, cidade: cidade, estado: estado, nivel: nivel })
+}).then(function (r) { return r.json(); })
+.then(function (d) {
+  if (d && d.status === 'ok') {
+    var linhas = d.mapa.split('\n').filter(function (l) { return l.trim(); });
+    var html = '<h3>' + nivel + ' — ' + nome + '</h3>';
+    for (var i = 0; i < linhas.length; i++) {
+      var l = linhas[i].trim();
+      if (/^\d+\./.test(l) || /^[A-ZÀ-Ú]{3,}/.test(l)) {
+        html += '<p style="margin-top:14px"><strong>' + l + '</strong></p>';
+      } else {
+        html += '<p>' + l + '</p>';
+      }
+    }
+    res.innerHTML = html;
+  } else {
+    res.innerHTML = '<p style="color:#e74c3c">' + (d && d.error ? d.error : 'Erro ao gerar o mapa astral.') + '</p>';
+  }
+}).catch(function () {
+  res.innerHTML = '<p style="color:#e74c3c">Erro de conexão. Tente novamente.</p>';
+});
 }
+
 function getWeekNumber(d){
   d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
   var dayNum = d.getUTCDay() || 7;
