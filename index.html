@@ -1190,14 +1190,25 @@ function detectarMetodo(nomeFn, cards) {
 }
 
 function cartasParaIA(cards) {
-  return cards.map(function (c) {
-    var obj = { nome: c.n || c.nome, posicao: c.pos || c.posicao || '' };
-    if (c.d) obj.descricao = c.d;
-    if (c.cen) obj.cenario = c.cen;
-    if (c.cam) obj.caminho = c.cam;
-    if (c.out) obj.postura = c.out;
-    return obj;
-  });
+return cards.map(function (c) {
+var nomeCarta = c.n || c.nome;
+if (currentReading && currentReading.type === 'Marselha') {
+var alias = {
+'A Sacerdotisa':'A Papisa',
+'O Hierofante':'O Papa',
+'Os Enamorados':'O Enamorado',
+'O Enforcado':'O Pendurado',
+'A Carruagem':'O Carro'
+};
+if (alias[nomeCarta]) { nomeCarta = alias[nomeCarta]; }
+}
+var obj = { nome: nomeCarta, posicao: c.pos || c.posicao || '' };
+if (c.d) obj.descricao = c.d;
+if (c.cen) obj.cenario = c.cen;
+if (c.cam) obj.caminho = c.cam;
+if (c.out) obj.postura = c.out;
+return obj;
+});
 }
 
 function formatarRespostaIA(texto, area) {
