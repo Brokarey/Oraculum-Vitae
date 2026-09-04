@@ -440,23 +440,52 @@ Entrar com o Google
 <button class="btn-portal" style="background:#ff69b4;margin-top:10px" onclick="initTarotAmor()">Entre no Templo de Afrodite</button>
 </div>
 </section>
-<section id="page-mapa-astral" class="page">
+<section id="page-mapa-portico" class="page nivel-portico">
 <div class="form-container">
 <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
-<h2 id="mapa-title" class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral</h2>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral: Pórtico Celestial</h2>
 <div class="auth-form">
-<input type="text" id="mapa-nome" placeholder="Nome Completo">
-<input type="date" id="mapa-data">
-<input type="time" id="mapa-hora">
-<input type="text" id="mapa-cidade" placeholder="Cidade de Nascimento">
-<input type="text" id="mapa-estado" placeholder="Estado de Nascimento (UF)">
-<button class="btn-portal" onclick="generateMapa('Pórtico Celestial')">Gerar Mapa Astral</button>
-<button class="btn-portal" onclick="generateMapa('Órbita Pessoal')">Gerar Mapa Astral</button>
-<button class="btn-portal" onclick="generateMapa('Cosmos Absoluto')">Gerar Mapa Astral</button>
+<input type="text" id="mapa-portico-nome" placeholder="Nome Completo">
+<input type="date" id="mapa-portico-data">
+<input type="time" id="mapa-portico-hora">
+<input type="text" id="mapa-portico-cidade" placeholder="Cidade de Nascimento">
+<input type="text" id="mapa-portico-estado" placeholder="Estado de Nascimento (UF)">
+<button class="btn-portal" onclick="generateMapa('Pórtico Celestial','mapa-portico')">Gerar Mapa Astral</button>
 </div>
-<div id="mapa-result" class="result-box" style="display:none;margin-top:20px"></div>
+<div id="mapa-portico-result" class="result-box" style="display:none;margin-top:20px"></div>
 </div>
 </section>
+<section id="page-mapa-orbita" class="page nivel-orbita">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral: Órbita Pessoal</h2>
+<div class="auth-form">
+<input type="text" id="mapa-orbita-nome" placeholder="Nome Completo">
+<input type="date" id="mapa-orbita-data">
+<input type="time" id="mapa-orbita-hora">
+<input type="text" id="mapa-orbita-cidade" placeholder="Cidade de Nascimento">
+<input type="text" id="mapa-orbita-estado" placeholder="Estado de Nascimento (UF)">
+<button class="btn-portal" onclick="generateMapa('Órbita Pessoal','mapa-orbita')">Gerar Mapa Astral</button>
+</div>
+<div id="mapa-orbita-result" class="result-box" style="display:none;margin-top:20px"></div>
+</div>
+</section>
+<section id="page-mapa-cosmos" class="page nivel-cosmos">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral: Cosmos Absoluto</h2>
+<div class="auth-form">
+<input type="text" id="mapa-cosmos-nome" placeholder="Nome Completo">
+<input type="date" id="mapa-cosmos-data">
+<input type="time" id="mapa-cosmos-hora">
+<input type="text" id="mapa-cosmos-cidade" placeholder="Cidade de Nascimento">
+<input type="text" id="mapa-cosmos-estado" placeholder="Estado de Nascimento (UF)">
+<button class="btn-portal" onclick="generateMapa('Cosmos Absoluto','mapa-cosmos')">Gerar Mapa Astral</button>
+</div>
+<div id="mapa-cosmos-result" class="result-box" style="display:none;margin-top:20px"></div>
+</div>
+</section>
+
 <section id="page-horoscopo" class="page">
     <div class="form-container" style="max-width:1000px">
     <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
@@ -1825,14 +1854,71 @@ document.getElementById('mapa-result').innerHTML = '';
 showPage('page-mapa-astral');
 }
 function generateMapa(nivel) {
-var nome = document.getElementById('mapa-nome').value;
-var data = document.getElementById('mapa-data').value;
-var hora = document.getElementById('mapa-hora').value;
-var cidade = document.getElementById('mapa-cidade').value;
-var estado = document.getElementById('mapa-estado').value;
-if (!nome || !data || !hora || !cidade || !estado) {
-  alert('Preencha todos os campos: nome, data, hora, cidade e estado.');
-  return;
+  var nome = document.getElementById('mapa-nome').value;
+  var data = document.getElementById('mapa-data').value;
+  var hora = document.getElementById('mapa-hora').value;
+  var cidade = document.getElementById('mapa-cidade').value;
+  var estado = document.getElementById('mapa-estado').value;
+  if (!nome || !data || !hora || !cidade || !estado) {
+    alert('Preencha todos os campos: nome, data, hora, cidade e estado.');
+    return;
+  }
+  var res = document.getElementById('mapa-result');
+  res.style.display = 'block';
+  res.innerHTML = '<p style="text-align:center;color:var(--gold)">Consultando os astros... ✨</p>';
+  fetch('/api/mapa', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nome: nome, data: data, hora: hora, cidade: cidade, estado: estado, nivel: nivel })
+  }).then(function (r) { return r.json(); })
+  .then(function (d) {
+    if (d && d.status === 'ok') {
+      var linhas = d.mapa.split('\n').filter(function (l) { return l.trim(); });
+      var html = '<h3>' + nivel + ' — ' + nome + '</h3>';
+      for (var i = 0; i < linhas.length; i++) {
+        var l = linhas[i].trim();
+        if (/^\d+\./.test(l) || /^[A-ZÀ-Ú]{3,}/.test(l)) {
+          html += '<p style="margin-top:14px"><strong>' + l + '</strong></p>';
+        } else {
+          html += '<p>' + l + '</p>';
+        }
+      }
+      res.innerHTML = html;
+    } else {
+      res.innerHTML = '<p style="color:#e74c3c">' + (d && d.error ? d.error : 'Erro ao gerar o mapa astral.') + '</p>';
+    }
+  }).catch(function () {
+    res.innerHTML = '<p style="color:#e74c3c">Erro de conexão. Tente novamente.</p>';
+  });
+}
+var res = document.getElementById(pref + '-result');
+res.style.display = 'block';
+res.innerHTML = '<p style="text-align:center;color:var(--gold)">Consultando os astros... ✨</p>';
+fetch('/api/mapa', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ nome: nome, data: data, hora: hora, cidade: cidade, estado: estado, nivel: nivel })
+}).then(function (r) { return r.json(); })
+.then(function (d) {
+  if (d && d.status === 'ok') {
+    var linhas = d.mapa.split('\n').filter(function (l) { return l.trim(); });
+    var html = '<h3>' + nivel + ' — ' + nome + '</h3>';
+    for (var i = 0; i < linhas.length; i++) {
+      var l = linhas[i].trim();
+      if (/^\d+\./.test(l) || /^[A-ZÀ-Ú]{3,}/.test(l)) {
+        html += '<p style="margin-top:14px"><strong>' + l + '</strong></p>';
+      } else {
+        html += '<p>' + l + '</p>';
+      }
+    }
+    res.innerHTML = html;
+  } else {
+    res.innerHTML = '<p style="color:#e74c3c">' + (d && d.error ? d.error : 'Erro ao gerar o mapa astral.') + '</p>';
+  }
+}).catch(function () {
+  res.innerHTML = '<p style="color:#e74c3c">Erro de conexão. Tente novamente.</p>';
+});
+}
 }
 var res = document.getElementById('mapa-result');
 res.style.display = 'block';
