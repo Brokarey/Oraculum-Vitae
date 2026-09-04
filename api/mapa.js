@@ -1,6 +1,4 @@
 // api/mapa.js — Mapa Astral (Pórtico Celestial, Órbita Pessoal, Cosmos Absoluto)
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-
 const PROMPTS = {
   'Pórtico Celestial': `Você é um astrólogo sênior do Oraculum Vitae, especializado em leituras de Mapa Astral acolhedoras e precisas.
 Dados do consulente: Nome: {nome} | Data: {data} | Hora: {hora} | Local: {cidade}/{estado}.
@@ -81,10 +79,14 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-    const result = await model.generateContent(prompt);
-    const texto = result.response.text();
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+    });
+    const data = await resp.json();
+    const texto = data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : '';
 
     if (!texto || texto.trim().length < 50) {
       return res.status(502).json({ error: 'A IA não gerou o mapa astral.' });
