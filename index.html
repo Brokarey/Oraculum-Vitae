@@ -142,12 +142,41 @@ th{background:var(--accent);color:var(--gold)}
 .modal-overlay,.modal-bg,[class*="modal-overlay"]{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;display:flex!important;align-items:center!important;justify-content:center!important;z-index:99999!important}
 [class*="modal-box"],[class*="modal-content"],[class*="modal-card"]{margin:auto!important;max-height:90vh!important;overflow-y:auto!important}
 
-/* ===== FUNDOS DAS 3 DASHBOARDS DE MAPA ASTRAL ===== */
-#page-mapa-astral{background-size:cover!important;background-position:center!important;background-attachment:fixed!important}
-#page-mapa-astral.nivel-portico{background-image:url('Graficos/Mapa_Portico_Celestial.png')!important}
-#page-mapa-astral.nivel-orbita{background-image:url('Graficos/Mapa_Orbita_Pessoal.png')!important}
-#page-mapa-astral.nivel-cosmos{background-image:url('Graficos/Mapa_Cosmos_Absoluto.png')!important}
-#page-mapa-astral .form-container{background:rgba(13,7,22,0.82)!important;border-radius:14px!important;backdrop-filter:blur(4px)!important}
+/* ===== FUNDOS DAS 3 PÁGINAS DE MAPA ASTRAL ===== */
+
+#page-mapa-portico,
+#page-mapa-orbita,
+#page-mapa-cosmos {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Pórtico Celestial */
+#page-mapa-portico {
+  background-image: url('Graficos/Mapa_Portico_Celestial.png');
+}
+
+/* Órbita Pessoal */
+#page-mapa-orbita {
+  background-image: url('Graficos/Mapa_Orbita_Pessoal.png');
+}
+
+/* Cosmos Absoluto */
+#page-mapa-cosmos {
+  background-image: url('Graficos/Mapa_Cosmos_Absoluto.png');
+}
+
+/* Caixa escura sobre o fundo, para o texto continuar legível */
+#page-mapa-portico .form-container,
+#page-mapa-orbita .form-container,
+#page-mapa-cosmos .form-container {
+  background: rgba(13, 7, 22, 0.82);
+  border-radius: 14px;
+  backdrop-filter: blur(4px);
+}
 
 /* ===== V INVERTIDO — TARÔ 7 CARTAS ===== */
 .ferradura{position:relative!important;width:100%!important;max-width:760px!important;height:460px!important;margin:24px auto!important}
@@ -219,9 +248,24 @@ Entrar com o Google
 <div class="dash-card" onclick="showPage('page-carta-dia')"><i class="fas fa-sun"></i><h3>Carta do Dia</h3><p>Grátis Diário</p></div>
 <div class="dash-card" onclick="showPage('page-amor')"><i class="fas fa-heart"></i><h3>Tarô do Amor</h3><p>Templo de Afrodite</p></div>
 <div class="dash-card" onclick="initTarotPage(3,'Marselha')"><i class="fas fa-scroll"></i><h3>Tarô de Marselha</h3><p>Sabedoria Tradicional</p></div>
-<div class="dash-card" onclick="openMapa('Pórtico Celestial',50)"><i class="fas fa-door-open"></i><h3>Mapa Astral: Pórtico Celestial</h3><p>A porta de entrada para o seu mapa</p></div>
-<div class="dash-card" onclick="openMapa('Órbita Pessoal',100)"><i class="fas fa-atom"></i><h3>Mapa Astral: Órbita Pessoal</h3><p>Uma visão mais ampla e detalhada da sua vida</p></div>
-<div class="dash-card" onclick="openMapa('Cosmos Absoluto',200)"><i class="fas fa-infinity"></i><h3>Mapa Astral: Cosmos Absoluto</h3><p>A leitura total e integrada do seu universo</p></div>
+    
+<div class="dash-card" onclick="openMapa('Pórtico Celestial',50)">
+  <i class="fas fa-door-open"></i>
+  <h3>Mapa Astral: Pórtico Celestial</h3>
+  <p>A porta de entrada para o seu mapa</p>
+</div>
+
+<div class="dash-card" onclick="openMapa('Órbita Pessoal',100)">
+  <i class="fas fa-atom"></i>
+  <h3>Mapa Astral: Órbita Pessoal</h3>
+  <p>Uma visão mais ampla e detalhada da sua vida</p>
+</div>
+
+<div class="dash-card" onclick="openMapa('Cosmos Absoluto',200)">
+  <i class="fas fa-infinity"></i>
+  <h3>Mapa Astral: Cosmos Absoluto</h3>
+  <p>A leitura total e integrada do seu universo</p>
+</div>
 <div class="dash-card" onclick="showPage('page-horoscopo')"><i class="fas fa-moon"></i><h3>Horóscopo</h3><p>Previsões Semanais</p></div>
 <div class="dash-card" onclick="showPage('page-numerologia')"><i class="fas fa-fingerprint"></i><h3>Numerologia</h3><p>Vibração do Nome</p></div>
 <div class="dash-card disabled"><div class="badge-soon">EM BREVE</div><i class="fas fa-yin-yang"></i><h3>I Ching</h3><p>Sabedoria Chinesa</p></div>
