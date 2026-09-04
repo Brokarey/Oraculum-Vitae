@@ -19,7 +19,7 @@ h1,h2,h3,.pirata{font-family:'Blackwood Castle Shadow','Pirata One',cursive;lett
 .page{display:none;min-height:100vh;width:100%;padding-top:100px;animation:fadeIn 0.5s ease}
 .page.active{display:block}
 @keyframes fadeIn{from{:0;transform:translateY(10px)}to{:1;transform:translateY(0)}}
-#page-login{display:none;flex-direction:column;align-items:center;justify-content:center;background-color:var(--bg-deep);background-image:url('Graficos/Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;padding:40px 20px}
+#page-login{display:none;flex-direction:column;align-items:center;justify-content:center;background-color:var(--bg-deep);background-image:url('Graficos/Tela-Inicial.avif'),url('Graficos/Tela-Inicial.webp'),url('Graficos/Tela-Inicial.png');background-repeat:no-repeat;background-position:center;background-size:cover;padding:40px 20px}
 #page-login.active{display:flex}
 .auth-container{background:rgba(13,5,32,0.93);padding:26px;border-radius:16px;border:1px solid var(--accent);width:100%;max-width:360px;box-shadow:0 0 40px rgba(0,0,0,0.7)}
 .auth-tabs{display:flex;margin-bottom:18px;border-bottom:1px solid var(--accent)}
@@ -49,29 +49,29 @@ header{position:fixed;top:0;width:100%;background:rgba(13,5,32,0.94);backdrop-fi
 .credits-badge{background:var(--accent);padding:5px 14px;border-radius:20px;border:1px solid var(--gold);color:var(--gold-light);font-weight:bold;font-size:13px;white-space:nowrap}
 .btn-logout{color:#ff4d4d;cursor:pointer;font-size:20px;transition:var(--transition)}
 .btn-logout:hover{transform:scale(1.1)}
-#page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Graficos/Tela.png');background-size:cover;background-position:center}
-.tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Graficos/Fundo_Taro.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
-#page-tarot-amor{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Graficos/Fundo_Afrodite.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
-#page-sim-nao{background-image:linear-gradient(rgba(13,5,32,0.35),rgba(13,5,32,0.35)),url('Graficos/Fundo_Sim.png');background-size:100% 100%;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-dashboard{background-image:linear-gradient(rgba(13,5,32,0.6),rgba(13,5,32,0.6)),url('Graficos/Tela.avif'),url('Graficos/Tela.webp'),url('Graficos/Tela.png');background-size:cover;background-position:center}
+.tarot-bg{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Graficos/Fundo_Taro.avif'),url('Graficos/Fundo_Taro.webp'),url('Graficos/Fundo_Taro.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-tarot-amor{background-image:linear-gradient(rgba(13,5,32,0.55),rgba(13,5,32,0.55)),url('Graficos/Fundo_Afrodite.avif'),url('Graficos/Fundo_Afrodite.webp'),url('Graficos/Fundo_Afrodite.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-sim-nao{background-image:linear-gradient(rgba(13,5,32,0.35),rgba(13,5,32,0.35)),url('Graficos/Fundo_Sim.avif'),url('Graficos/Fundo_Sim.webp'),url('Graficos/Fundo_Sim.png');background-size:100% 100%;background-position:center;background-repeat:no-repeat;min-height:100vh}
 /* Carta do Dia: cartão no formato 70mm x 120mm */
 .carta-dia-card{width:200px;flex-shrink:0}
 .carta-dia-card .card-slot{width:200px;cursor:default}
 /* Horóscopo: fundo Tela_Horoscopo.png + quadro dos signos com 50% de opacidade */
-#page-horoscopo{background-image:url('Graficos/Tela_Horoscopo.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-horoscopo{background-image:url('Graficos/Tela_Horoscopo.avif'),url('Graficos/Tela_Horoscopo.webp'),url('Graficos/Tela_Horoscopo.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-horoscopo .form-container{background:rgba(13,5,32,0.5)}
 #horoscopo-grid .dash-card{background:rgba(26,10,46,0.5)}
 /* Numerologia: fundo Tela_Numerologia.png + quadro com 30% de opacidade */
-#page-numerologia{background-image:url('Graficos/Tela_Numerologia.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-numerologia{background-image:url('Graficos/Tela_Numerologia.avif'),url('Graficos/Tela_Numerologia.webp'),url('Graficos/Tela_Numerologia.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-numerologia .form-container{background:rgba(13,5,32,0.3)}
 /* Planos: fundo Tela_Planos.png + quadro com 50% de opacidade */
-#page-planos{background-image:url('Graficos/Tela_Planos.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-planos{background-image:url('Graficos/Tela_Planos.avif'),url('Graficos/Tela_Planos.webp'),url('Graficos/Tela_Planos.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-planos .form-container{background:rgba(13,5,32,0.5)}
 #page-planos table{background:rgba(26,10,46,0.5)}
 /* Indique: fundo Tela_Indique.png + quadro com 50% de opacidade */
-#page-indicacao{background-image:url('Graficos/Tela_Indique.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-indicacao{background-image:url('Graficos/Tela_Indique.avif'),url('Graficos/Tela_Indique.webp'),url('Graficos/Tela_Indique.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-indicacao .form-container{background:rgba(13,5,32,0.5)}
 /* FAQ: fundo Tela_Faq.png + quadro com 50% de opacidade */
-#page-faq{background-image:url('Graficos/Tela_Faq.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
+#page-faq{background-image:url('Graficos/Tela_Faq.avif'),url('Graficos/Tela_Faq.webp'),url('Graficos/Tela_Faq.png');background-size:cover;background-position:center;background-repeat:no-repeat;min-height:100vh}
 #page-faq .form-container{background:rgba(13,5,32,0.5)}
 .dash-header{position:relative;display:flex;justify-content:center;align-items:center;max-width:1200px;margin:0 auto;padding:24px 20px 0}
 .dash-header h2{font-size:clamp(20px,3.2vw,34px);color:var(--gold);text-align:center;line-height:1.2}
@@ -156,17 +156,17 @@ th{background:var(--accent);color:var(--gold)}
 
 /* Pórtico Celestial */
 #page-mapa-portico {
-  background-image: url('Graficos/Mapa_Portico_Celestial.png');
+  background-image: url('Graficos/Mapa_Portico_Celestial.avif'),url('Graficos/Mapa_Portico_Celestial.webp'),url('Graficos/Mapa_Portico_Celestial.png');
 }
 
 /* Órbita Pessoal */
 #page-mapa-orbita {
-  background-image: url('Graficos/Mapa_Orbita_Pessoal.png');
+  background-image: url('Graficos/Mapa_Orbita_Pessoal.avif'),url('Graficos/Mapa_Orbita_Pessoal.webp'),url('Graficos/Mapa_Orbita_Pessoal.png');
 }
 
 /* Cosmos Absoluto */
 #page-mapa-cosmos {
-  background-image: url('Graficos/Mapa_Cosmos_Absoluto.png');
+  background-image: url('Graficos/Mapa_Cosmos_Absoluto.avif'),url('Graficos/Mapa_Cosmos_Absoluto.webp'),url('Graficos/Mapa_Cosmos_Absoluto.png');
 }
 
 /* Caixa escura sobre o fundo, para o texto continuar legível */
