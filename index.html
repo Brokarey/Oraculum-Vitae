@@ -1846,60 +1846,96 @@ container.appendChild(slot);
 })(shuffled[i],i);
 }
 }
-function openMapa(level,cost){
-selectedMapaCost = cost;
-document.getElementById('mapa-title').innerText = "Mapa Astral: "+level;
-document.getElementById('mapa-result').style.display = 'none';
-document.getElementById('mapa-result').innerHTML = '';
-showPage('page-mapa-astral');
+function openMapa(level, cost) {
+  selectedMapaCost = cost;
+
+  var prefixo = '';
+
+  if (level === 'Pórtico Celestial') {
+    prefixo = 'mapa-portico';
+  } else if (level === 'Órbita Pessoal') {
+    prefixo = 'mapa-orbita';
+  } else if (level === 'Cosmos Absoluto') {
+    prefixo = 'mapa-cosmos';
+  } else {
+    showModal('Erro', 'Nível de mapa astral não encontrado.');
+    return;
+  }
+
+  showPage('page-' + prefixo);
 }
-function generateMapa(nivel) {
-  var nome = document.getElementById('mapa-nome').value;
-  var data = document.getElementById('mapa-data').value;
-  var hora = document.getElementById('mapa-hora').value;
-  var cidade = document.getElementById('mapa-cidade').value;
-  var estado = document.getElementById('mapa-estado').value;
+
+function generateMapa(nivel, prefixo) {
+  var nome = document.getElementById(prefixo + '-nome').value.trim();
+  var data = document.getElementById(prefixo + '-data').value;
+  var hora = document.getElementById(prefixo + '-hora').value;
+  var cidade = document.getElementById(prefixo + '-cidade').value.trim();
+  var estado = document.getElementById(prefixo + '-estado').value.trim();
+
   if (!nome || !data || !hora || !cidade || !estado) {
-    alert('Preencha todos os campos: nome, data, hora, cidade e estado.');
+    showModal(
+      'Dados incompletos',
+      'Preencha nome, data, hora, cidade e estado de nascimento.'
+    );
     return;
   }
-function generateMapa(nivel) {
-  var nome = document.getElementById('mapa-nome').value;
-  var data = document.getElementById('mapa-data').value;
-  var hora = document.getElementById('mapa-hora').value;
-  var cidade = document.getElementById('mapa-cidade').value;
-  var estado = document.getElementById('mapa-estado').value;
-  if (!nome || !data || !hora || !cidade || !estado) {
-    alert('Preencha todos os campos: nome, data, hora, cidade e estado.');
-    return;
-  }
-  var res = document.getElementById('mapa-result');
+
+  var res = document.getElementById(prefixo + '-result');
+
   res.style.display = 'block';
-  res.innerHTML = '<p style="text-align:center;color:var(--gold)">Consultando os astros... ✨</p>';
+  res.innerHTML =
+    '<p style="text-align:center;color:var(--gold)">Consultando os astros... ✨</p>';
+
   fetch('/api/mapa', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nome: nome, data: data, hora: hora, cidade: cidade, estado: estado, nivel: nivel })
-  }).then(function (r) { return r.json(); })
-  .then(function (d) {
-    if (d && d.status === 'ok') {
-      var linhas = d.mapa.split('\n').filter(function (l) { return l.trim(); });
-      var html = '<h3>' + nivel + ' — ' + nome + '</h3>';
-      for (var i = 0; i < linhas.length; i++) {
-        var l = linhas[i].trim();
-        if (/^\d+\./.test(l) || /^[A-ZÀ-Ú]{3,}/.test(l)) {
-          html += '<p style="margin-top:14px"><strong>' + l + '</strong></p>';
-        } else {
-          html += '<p>' + l + '</p>';
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      nome: nome,
+      data: data,
+      hora: hora,
+      cidade: cidade,
+      estado: estado,
+      nivel: nivel
+    })
+  })
+    .then(function (r) {
+      return r.json();
+    })
+    .then(function (d) {
+      if (d && d.status === 'ok') {
+        var linhas = d.mapa.split('\n').filter(function (l) {
+          return l.trim();
+        });
+
+        var html = '<h3>' + nivel + ' — ' + nome + '</h3>';
+
+        for (var i = 0; i < linhas.length; i++) {
+          var linha = linhas[i].trim();
+
+          if (/^\d+\./.test(linha) || /^[A-ZÀ-Ú]{3,}/.test(linha)) {
+            html +=
+              '<p style="margin-top:14px"><strong>' +
+              linha +
+              '</strong></p>';
+          } else {
+            html += '<p>' + linha + '</p>';
+          }
         }
+
+        res.innerHTML = html;
+      } else {
+        res.innerHTML =
+          '<p style="color:#e74c3c">' +
+          (d && d.error ? d.error : 'Erro ao gerar o mapa astral.') +
+          '</p>';
       }
-      res.innerHTML = html;
-    } else {
-      res.innerHTML = '<p style="color:#e74c3c">' + (d && d.error ? d.error : 'Erro ao gerar o mapa astral.') + '</p>';
-    }
-  }).catch(function () {
-    res.innerHTML = '<p style="color:#e74c3c">Erro de conexão. Tente novamente.</p>';
-  });
+    })
+    .catch(function () {
+      res.innerHTML =
+        '<p style="color:#e74c3c">Erro de conexão. Tente novamente.</p>';
+    });
 }
 
 function getWeekNumber(d){
