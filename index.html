@@ -1003,6 +1003,244 @@
       }
     }
   </style>
+
+  <script>
+  // Funções essenciais para o carregamento inicial e interações do HTML
+  // =====================================================
+
+  // Função auxiliar para obter elementos por ID
+  function byId(id) {
+    return document.getElementById(id);
+  }
+
+  // Variáveis globais para modais e usuário
+  let currentConfirmCallback = null;
+  let currentUser = null;
+
+  // Exibe o modal de mensagem
+  function showModal(title, message, isConfirm = false, onConfirm = null) {
+    byId("modal-title").innerHTML = title;
+    byId("modal-message").innerHTML = message;
+    byId("modal-overlay").style.display = "flex";
+
+if (isConfirm) {
+  byId("confirm-buttons").style.display = "flex";
+  currentConfirmCallback = onConfirm;
+} else {
+  byId("confirm-buttons").style.display = "none";
+  currentConfirmCallback = null;
+}
+
+  }
+
+  // Esconde o modal de mensagem
+  function hideModal() {
+    byId("modal-overlay").style.display = "none";
+    currentConfirmCallback = null;
+  }
+
+  // Lida com a confirmação do modal
+  function confirmAction() {
+    if (currentConfirmCallback) {
+      currentConfirmCallback();
+    }
+    hideModal();
+  }
+
+  // Alterna entre formulários de login e registro
+  function toggleAuth(type) {
+    if (type === "login") {
+      byId("tab-login").classList.add("active");
+      byId("tab-register").classList.remove("active");
+      byId("form-login").style.display = "flex";
+      byId("form-register").style.display = "none";
+    } else {
+      byId("tab-login").classList.remove("active");
+      byId("tab-register").classList.add("active");
+      byId("form-login").style.display = "none";
+      byId("form-register").style.display = "flex";
+    }
+  }
+
+  // Lida com o login do usuário
+  function handleLogin() {
+    const email = byId("login-email").value.trim();
+    const password = byId("login-pass").value.trim();
+
+if (!email || !password) {
+  showModal("Erro", "Por favor, preencha e-mail e senha.");
+  return;
+}
+
+const storedUser = localStorage.getItem("user_" + email);
+if (storedUser) {
+  const user = JSON.parse(storedUser);
+  if (user.password === password) {
+    currentUser = user;
+    saveSession();
+    enterPortal();
+  } else {
+    showModal("Erro", "Senha incorreta.");
+  }
+} else {
+  showModal("Erro", "Usuário não encontrado. Por favor, cadastre-se.");
+}
+
+  }
+
+  // Lida com o registro de um novo usuário
+  function handleRegister() {
+    const name = byId("reg-name").value.trim();
+    const email = byId("reg-email").value.trim();
+    const password = byId("reg-pass").value.trim();
+    const confirmPassword = byId("reg-pass-confirm").value.trim();
+    const termsAccepted = byId("reg-terms").checked;
+
+if (!name || !email || !password || !confirmPassword) {
+  showModal("Erro", "Por favor, preencha todos os campos.");
+  return;
+}
+if (password !== confirmPassword) {
+  showModal("Erro", "As senhas não coincidem.");
+  return;
+}
+if (!termsAccepted) {
+  showModal("Erro", "Você deve aceitar os Termos de Uso.");
+  return;
+}
+if (localStorage.getItem("user_" + email)) {
+  showModal("Erro", "Este e-mail já está cadastrado.");
+  return;
+}
+
+const newUser = {
+  name: name,
+  email: email,
+  password: password,
+  credits: 50, // Créditos iniciais
+  lastDailyCard: null, // Para a Carta do Dia
+};
+localStorage.setItem("user_" + email, JSON.stringify(newUser));
+currentUser = newUser;
+saveSession();
+showModal("Sucesso", "Cadastro realizado! Você ganhou 50 créditos.");
+enterPortal();
+
+  }
+
+  // Restaura a sessão do usuário do localStorage
+  function restoreSession() {
+    const session = localStorage.getItem("oraculum_session");
+    if (session) {
+      return JSON.parse(session);
+    }
+    return null;
+  }
+
+  // Salva a sessão do usuário no localStorage
+  function saveSession() {
+    if (currentUser) {
+      localStorage.setItem("oraculum_session", JSON.stringify(currentUser));
+      localStorage.setItem("user_" + currentUser.email, JSON.stringify(currentUser));
+    }
+  }
+
+  // Limpa a sessão do usuário
+  function clearSession() {
+    localStorage.removeItem("oraculum_session");
+    currentUser = null;
+  }
+
+  // Atualiza a exibição de créditos no cabeçalho
+  function updateCreditsDisplay() {
+    if (currentUser) {
+      byId("display-credits").textContent = currentUser.credits;
+    }
+  }
+
+  // Verifica se o usuário tem créditos suficientes
+  function hasCredits(amount) {
+    return currentUser && currentUser.credits >= amount;
+  }
+
+  // Desconta créditos do usuário
+  function chargeCredits(amount) {
+    if (currentUser && currentUser.credits >= amount) {
+      currentUser.credits -= amount;
+      saveSession();
+      updateCreditsDisplay();
+      return true;
+    }
+    return false;
+  }
+
+  // Adiciona créditos ao usuário
+  function addCredits(amount) {
+    if (currentUser) {
+      currentUser.credits += amount;
+      saveSession();
+      updateCreditsDisplay();
+    }
+  }
+
+  // Entra no portal após login/cadastro
+  function enterPortal() {
+    byId("main-header").style.display = "flex";
+    updateCreditsDisplay();
+    showPage("page-dashboard");
+  }
+
+  // Exibe uma página específica e esconde as outras
+  function showPage(pageId) {
+    document.querySelectorAll(".page").forEach(function (page) {
+      page.classList.remove("active");
+    });
+    byId(pageId).classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    hideChooseBalloon();
+
+// Funções de inicialização específicas para cada página
+if (pageId === "page-horoscopo") {
+  initHoroscopo();
+} else if (pageId === "page-faq") {
+  initFAQ();
+} else if (pageId === "page-carta-dia") {
+  initCartaDia();
+} else if (pageId.startsWith("page-tarot-")) {
+  // Garante que o título do tarô seja atualizado se necessário
+  const count = parseInt(pageId.replace("page-tarot-", ""));
+  if (!isNaN(count)) {
+    byId("tarot-title-" + count).textContent = "Tarô: " + count + " Cartas";
+  }
+} else if (pageId === "page-tarot-amor") {
+  initTarotAmor();
+}
+
+  }
+
+  // Esconde o balão de "Escolha suas cartas"
+  function hideChooseBalloon() {
+    const chooseBalloon = byId("choose-balloon");
+    if (chooseBalloon) {
+      chooseBalloon.style.display = "none";
+    }
+  }
+
+  // Função para logout
+  function logout() {
+    clearSession();
+    byId("login-email").value = "";
+    byId("login-pass").value = "";
+    byId("main-header").style.display = "none";
+    showPage("page-login");
+  }
+
+  // Função para voltar ao login (usada no dashboard)
+  function voltarLogin() {
+    logout();
+  }
+</script>
+  
 </head>
 
 <body>
@@ -2429,717 +2667,7 @@
   // =====================================================
 
   // Atalho para document.getElementById
-  function byId(id) {
-    return document.getElementById(id);
-  }
-
-  // Remove acentos de uma string
-  function stripAccents(str) {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  }
-
-  // Capitaliza a primeira letra de uma string
-  function capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  // Embaralha um array (Fisher-Yates)
-  function shuffleArray(array) {
-    const arr = array.slice(); // Cria uma cópia para não modificar o original
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]]; // Troca elementos
-    }
-    return arr;
-  }
-
-  // Seleciona um item aleatório de um array
-  function randomItemFromArray(array) {
-    return array[Math.floor(Math.random() * array.length)];
-  }
-
-  // Escapa HTML para prevenir XSS
-  function escapeHTML(str) {
-    const div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
-  }
-
-  // Normaliza nome para numerologia (remove acentos e caracteres especiais)
-  function normalizeName(name) {
-    return stripAccents(name).replace(/[^a-zA-Z\s]/g, '');
-  }
-
-  // Obtém a chave do dia atual (YYYY-MM-DD)
-  function getTodayKey() {
-    return new Date().toISOString().slice(0, 10);
-  }
-
-  // =====================================================
-  //               FUNÇÕES DE IMAGENS DE CARTA
-  // =====================================================
-
-  // Retorna o nome base da carta para o arquivo de imagem
-  function getCardBaseName(card) {
-    let name = card.n;
-    if (ARCANOS_MAIORES.includes(name)) {
-      return name;
-    }
-    const parts = name.split(' de ');
-    const valueMap = {
-      "Ás": "As", "2": "Dois", "3": "Tres", "4": "Quatro", "5": "Cinco",
-      "6": "Seis", "7": "Sete", "8": "Oito", "9": "Nove", "10": "Dez",
-      "Valete": "Valete", "Cavaleiro": "Cavaleiro", "Rainha": "Rainha", "Rei": "Rei"
-    };
-    return (valueMap[parts[0]] || parts[0]) + ' de ' + parts[1];
-  }
-
-  // Retorna o nome da carta, aplicando aliases para o Tarô de Marselha
-  function getCardDisplayName(card) {
-    let name = card.n;
-    if (currentReading && currentReading.type === 'Marselha') {
-      const alias = {
-        'A Sacerdotisa': 'A Papisa',
-        'O Hierofante': 'O Papa',
-        'Os Enamorados': 'O Enamorado',
-        'O Enforcado': 'O Pendurado',
-        'A Carruagem': 'O Carro'
-      };
-      if (alias[name]) {
-        name = alias[name];
-      }
-    }
-    return name;
-  }
-
-  // Gera as variantes de URL para a imagem de uma carta
-  function getCardImageVariants(card, cardType = 'Tradicional') {
-    let baseName = getCardBaseName(card);
-    let folder = 'Normal';
-    let suffix = '';
-
-    if (cardType === 'Marselha') {
-      folder = 'Marselha';
-      suffix = ' Marselha';
-      const alias = {
-        'A Sacerdotisa': 'A Papisa', 'O Hierofante': 'O Papa',
-        'Os Enamorados': 'O Enamorado', 'O Enforcado': 'O Pendurado',
-        'A Carruagem': 'O Carro'
-      };
-      if (alias[baseName]) {
-        baseName = alias[baseName];
-      }
-    }
-
-    const noAccents = stripAccents(baseName);
-    const variants = [];
-
-    const addVariant = (name) => {
-      const encodedPng = encodeURI(`${folder}/${name}${suffix}.png`);
-      if (!variants.includes(encodedPng)) variants.push(encodedPng);
-      const encodedJpg = encodeURI(`${folder}/${name}${suffix}.jpg`);
-      if (!variants.includes(encodedJpg)) variants.push(encodedJpg);
-    };
-
-    addVariant(baseName);
-    addVariant(noAccents);
-    addVariant(baseName.replace(/ /g, '_'));
-    addVariant(noAccents.replace(/ /g, '_'));
-
-    return variants;
-  }
-
-  // Retorna o HTML da imagem de uma carta com fallback
-  function cardImageHTML(card, cardType = 'Tradicional') {
-    const variants = getCardImageVariants(card, cardType);
-    return `<img src="${variants[0]}" alt="${escapeHTML(card.n)}" data-variants='${JSON.stringify(variants)}' onerror="imageFallback(this)">`;
-  }
-
-  // Função de fallback para imagens de carta
-  function imageFallback(imgElement) {
-    let variants;
-    try {
-      variants = JSON.parse(imgElement.getAttribute('data-variants'));
-    } catch (e) {
-      console.error('Erro ao parsear data-variants:', e);
-      variants = [];
-    }
-
-    let tryIndex = parseInt(imgElement.getAttribute('data-tryidx') || '0', 10) + 1;
-
-    if (variants && tryIndex < variants.length) {
-      imgElement.setAttribute('data-tryidx', tryIndex);
-      imgElement.setAttribute('src', variants[tryIndex]);
-      return;
-    }
-
-    // Se todas as variantes falharem, exibe o nome da carta
-    const altText = imgElement.getAttribute('alt') || 'Carta';
-    const parent = imgElement.parentNode;
-    if (parent) {
-      parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px;font-size:12px;font-weight:bold;color:#1a0a2e;background:linear-gradient(135deg,#f0d080,#d4a843);border-radius:6px;">${escapeHTML(altText)}</div>`;
-    }
-  }
-
-  // Retorna o HTML de uma carta já revelada
-  function revealedCardHTML(card, cardType = 'Tradicional', width = '100px') {
-    return `
-      <div class="revealed-card" style="width:${width};">
-        ${cardImageHTML(card, cardType)}
-        <div class="card-name">${escapeHTML(getCardDisplayName(card))}</div>
-      </div>
-    `;
-  }
-
-  // =====================================================
-  //               FUNÇÕES DE INTERFACE (MODAIS E BALÕES)
-  // =====================================================
-
-  // Exibe um modal de aviso ou confirmação
-  function showModal(title, message, isConfirm = false, onConfirm = null) {
-    const modalOverlay = byId('modal-overlay');
-    const modalTitle = byId('modal-title');
-    const modalMessage = byId('modal-message');
-    const confirmButtons = byId('confirm-buttons');
-
-    modalTitle.innerHTML = escapeHTML(title);
-    modalMessage.innerHTML = message; // Mensagem pode ter HTML
-
-    if (isConfirm) {
-      confirmButtons.innerHTML = `
-        <button class="btn-portal" type="button" onclick="handleModalConfirm(true)">Sim</button>
-        <button class="btn-portal gray" type="button" onclick="handleModalConfirm(false)">Não</button>
-      `;
-      window.modalConfirmAction = onConfirm;
-    } else {
-      confirmButtons.innerHTML = `
-        <button class="btn-portal" type="button" onclick="hideModal()">Entendido</button>
-      `;
-      window.modalConfirmAction = null;
-    }
-
-    modalOverlay.style.display = 'flex';
-    modalOverlay.setAttribute('aria-modal', 'true');
-    modalOverlay.setAttribute('role', 'dialog');
-    modalOverlay.focus();
-  }
-
-  // Esconde o modal
-  function hideModal() {
-    const modalOverlay = byId('modal-overlay');
-    modalOverlay.style.display = 'none';
-    modalOverlay.removeAttribute('aria-modal');
-    modalOverlay.removeAttribute('role');
-    window.modalConfirmAction = null;
-  }
-
-  // Lida com a resposta do modal de confirmação
-  function handleModalConfirm(confirmed) {
-    if (window.modalConfirmAction) {
-      window.modalConfirmAction(confirmed);
-    }
-    hideModal();
-  }
-
-  // Exibe o balão místico com uma frase aleatória
-  function showMysticBalloon(message = null) {
-    const balloon = byId('mystic-balloon');
-    if (!message) {
-      const phrases = [
-        "O universo ouve quem pergunta com o coração.",
-        "Cada carta é um espelho da sua alma.",
-        "O destino não é escrito em pedra, mas em estrelas que você pode navegar.",
-        "A resposta que você busca já habita em seu silêncio.",
-        "Confie na sincronicidade do momento presente.",
-        "As sombras de hoje são os adubos da luz de amanhã.",
-        "Sua intuição é a bússola mais precisa que você possui.",
-        "O portal se abre para quem tem coragem de olhar para dentro."
-      ];
-      message = randomItemFromArray(phrases);
-    }
-    balloon.innerHTML = `<p>${escapeHTML(message)}</p>`;
-    balloon.style.display = 'block';
-    setTimeout(() => {
-      balloon.style.display = 'none';
-    }, 5000); // Exibe por 5 segundos
-  }
-
-  // Exibe o balão de "Escolha suas cartas"
-  function showChooseBalloon() {
-    const balloon = byId('choose-balloon');
-    balloon.style.display = 'block';
-    setTimeout(() => {
-      balloon.style.display = 'none';
-    }, 4000); // Exibe por 4 segundos
-  }
-
-  // Esconde todos os balões
-  function hideBalloons() {
-    byId('mystic-balloon').style.display = 'none';
-    byId('choose-balloon').style.display = 'none';
-  }
-
-  // =====================================================
-  //               FUNÇÕES DE NAVEGAÇÃO
-  // =====================================================
-
-  // Mostra uma página e esconde as outras
-  function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(page => {
-      page.classList.remove('active');
-    });
-    byId(pageId).classList.add('active');
-
-    // Ajusta visibilidade do cabeçalho
-    if (pageId === 'page-login') {
-      byId('main-header').style.display = 'none';
-    } else {
-      byId('main-header').style.display = 'flex';
-    }
-
-    // Inicializa funções específicas de página
-    if (pageId === 'page-horoscopo') {
-      initHoroscopo();
-    } else if (pageId === 'page-numerologia') {
-      // Nenhuma inicialização específica aqui, o formulário é direto
-    } else if (pageId === 'page-faq') {
-      initFAQ();
-    } else if (pageId === 'page-carta-dia') {
-      initCartaDia();
-    } else if (pageId === 'page-amor') {
-      // Página de explicação do Templo de Afrodite
-    } else if (pageId === 'page-tarot-amor') {
-      // Página de consulta do Templo de Afrodite
-    }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    hideBalloons();
-    showMysticBalloon();
-  }
-
-  // Volta para a tela de login
-  function voltarLogin() {
-    showPage('page-login');
-  }
-
-  // =====================================================
-  //               FUNÇÕES DE FUNDO ESTRELADO
-  // =====================================================
-
-  // Inicializa o fundo estrelado
-  function initStars() {
-    const container = byId('stars-container');
-    const numStars = 100;
-
-    for (let i = 0; i < numStars; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-      star.style.width = `${Math.random() * 3 + 1}px`;
-      star.style.height = star.style.width;
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.top = `${Math.random() * 100}%`;
-      star.style.animationDelay = `${Math.random() * 5}s`;
-      star.style.setProperty('--duration', `${Math.random() * 8 + 4}s`);
-      container.appendChild(star);
-    }
-  }
-</script>
-
-  // =====================================================
-  //               AUTENTICAÇÃO E SESSÃO
-  // =====================================================
-
-  // Alterna entre os formulários de login e cadastro
-  function toggleAuth(type) {
-    const loginForm = byId('form-login');
-    const registerForm = byId('form-register');
-    const loginTab = byId('tab-login');
-    const registerTab = byId('tab-register');
-
-    if (type === 'login') {
-      loginForm.style.display = 'flex';
-      registerForm.style.display = 'none';
-      loginTab.classList.add('active');
-      registerTab.classList.remove('active');
-    } else {
-      loginForm.style.display = 'none';
-      registerForm.style.display = 'flex';
-      loginTab.classList.remove('active');
-      registerTab.classList.add('active');
-    }
-  }
-
-  // Lida com o processo de login
-  function handleLogin() {
-    const email = byId('login-email').value.trim();
-    const password = byId('login-pass').value.trim();
-
-    if (!email || !password) {
-      showModal('Erro', 'Por favor, preencha e-mail e senha.');
-      return;
-    }
-
-    // Lógica de teste: g@gmail.com tem créditos infinitos
-    if (email === 'g@gmail.com' && password === '123456') {
-      currentUser = {
-        name: 'Guilherme (Teste)',
-        email: email,
-        credits: 999999, // Créditos infinitos para teste
-        isAdmin: true,
-      };
-      saveSession(currentUser);
-      enterPortal();
-      return;
-    }
-
-    const storedUser = JSON.parse(localStorage.getItem('user_' + email));
-
-    if (storedUser && storedUser.password === password) {
-      currentUser = storedUser;
-      saveSession(currentUser);
-      enterPortal();
-    } else {
-      showModal('Erro', 'E-mail ou senha incorretos.');
-    }
-  }
-
-  // Lida com o processo de cadastro
-  function handleRegister() {
-    const name = byId('reg-name').value.trim();
-    const email = byId('reg-email').value.trim();
-    const password = byId('reg-pass').value.trim();
-    const confirmPassword = byId('reg-pass-confirm').value.trim();
-    const termsAccepted = byId('reg-terms').checked;
-
-    if (!name || !email || !password || !confirmPassword) {
-      showModal('Erro', 'Por favor, preencha todos os campos.');
-      return;
-    }
-
-    if (!isValidEmail(email)) {
-      showModal('Erro', 'Por favor, insira um e-mail válido.');
-      return;
-    }
-
-    if (password.length < 6) {
-      showModal('Erro', 'A senha deve ter no mínimo 6 caracteres.');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      showModal('Erro', 'As senhas não coincidem.');
-      return;
-    }
-
-    if (!termsAccepted) {
-      showModal('Erro', 'Você deve aceitar os Termos de Uso.');
-      return;
-    }
-
-    if (localStorage.getItem('user_' + email)) {
-      showModal('Erro', 'Este e-mail já está cadastrado.');
-      return;
-    }
-
-    currentUser = {
-      name: name,
-      email: email,
-      password: password,
-      credits: 50, // Créditos iniciais para novos usuários
-      isAdmin: false,
-    };
-
-    saveSession(currentUser);
-    showModal('Sucesso', 'Conta criada! Você ganhou 50 créditos.');
-    enterPortal();
-  }
-
-  // Salva a sessão do usuário no localStorage
-  function saveSession(user) {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    localStorage.setItem('user_' + user.email, JSON.stringify(user)); // Salva o usuário completo
-  }
-
-  // Restaura a sessão do usuário do localStorage
-  function restoreSession() {
-    const session = localStorage.getItem('currentUser');
-    return session ? JSON.parse(session) : null;
-  }
-
-  // Remove a sessão do usuário
-  function logout() {
-    localStorage.removeItem('currentUser');
-    currentUser = null;
-    byId('main-header').style.display = 'none';
-    showPage('page-login');
-    showModal('Logout', 'Você saiu do portal.');
-  }
-
-  // Entra no portal após login/cadastro
-  function enterPortal() {
-    byId('main-header').style.display = 'flex';
-    updateCreditsDisplay();
-    showPage('page-dashboard');
-  }
-
-  // =====================================================
-  //               GERENCIAMENTO DE CRÉDITOS
-  // =====================================================
-
-  // Atualiza a exibição de créditos no cabeçalho
-  function updateCreditsDisplay() {
-    if (currentUser) {
-      byId('display-credits').textContent = currentUser.credits;
-    }
-  }
-
-  // Verifica se o usuário tem créditos suficientes
-  function hasCredits(amount) {
-    return currentUser && currentUser.credits >= amount;
-  }
-
-  // Cobra créditos do usuário
-  function chargeCredits(amount) {
-    if (!currentUser) {
-      showModal('Erro', 'Sessão expirada. Faça login novamente.');
-      logout();
-      return false;
-    }
-
-    if (currentUser.isAdmin) { // Admin não gasta créditos
-      return true;
-    }
-
-    if (currentUser.credits >= amount) {
-      currentUser.credits -= amount;
-      saveSession(currentUser);
-      updateCreditsDisplay();
-      return true;
-    } else {
-      showModal(
-        'Créditos insuficientes',
-        'Você não tem créditos suficientes para esta consulta. Visite a página de Planos para adquirir mais.'
-      );
-      return false;
-    }
-  }
-
-  // Adiciona créditos ao usuário (para futuras compras ou indicações)
-  function addCredits(amount) {
-    if (currentUser) {
-      currentUser.credits += amount;
-      saveSession(currentUser);
-      updateCreditsDisplay();
-    }
-  }
-
-  // Valida formato de e-mail
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  // =====================================================
-  //               LÓGICA PRINCIPAL DAS PÁGINAS
-  // =====================================================
-
-  // Formata a resposta da API para exibição
-  function formatAPIResponse(response) {
-    if (typeof response === "string") {
-      return "<p>" + escapeHTML(response) + "</p>";
-    }
-    if (typeof response === "object" && response !== null) {
-      let html = "";
-      for (const key in response) {
-        if (Object.prototype.hasOwnProperty.call(response, key)) {
-          html += "<h4>" + escapeHTML(key) + "</h4>";
-          html += "<p>" + escapeHTML(response[key]) + "</p>";
-        }
-      }
-      return html;
-    }
-    return "<p>Resposta inválida da API.</p>";
-  }
-
-  // HTML para os botões de ação após uma leitura
-  function resultActionsHTML() {
-    return (
-      '<div class="response-actions">' +
-      '<button class="response-action-btn" type="button" onclick="showPage(\'page-planos\')">' +
-      '<i class="fas fa-coins"></i> Comprar Créditos' +
-      "</button>" +
-      '<button class="response-action-btn" type="button" onclick="showPage(\'page-indicacao\')">' +
-      '<i class="fas fa-user-plus"></i> Indicar Amigo' +
-      "</button>" +
-      "</div>"
-    );
-  }
-
-  // Requer uma pergunta válida
-  function requireValidQuestion(question) {
-    if (question.length < 5) {
-      showModal("Pergunta inválida", "Por favor, faça uma pergunta mais detalhada.");
-      return false;
-    }
-    return true;
-  }
-
-  // Pergunta de confirmação antes de iniciar uma consulta
-  function askConfirmQuestion(question, type, count) {
-    let costText = "";
-    if (type === "simnao") {
-      costText = `Esta consulta de Sim/Não/Talvez custará <strong>${COSTS.simNao} créditos</strong>.`;
-    } else if (type === "amor") {
-      costText = `A leitura do Templo de Afrodite custará <strong>${COSTS.amor} créditos</strong>.`;
-    } else {
-      costText = `Esta tiragem de ${count} cartas custará <strong>${COSTS["tarot" + count]} créditos</strong>.`;
-    }
-
-    showModal(
-      "Confirmar Consulta",
-      `<p>Você perguntou: “${escapeHTML(question)}”</p><p>${costText}</p>`,
-      true,
-      function () {
-        if (type === "simnao") {
-          proceedSimNao(question);
-        } else if (type === "amor") {
-          proceedTarotAmor(question);
-        } else {
-          proceedTarot(count, question);
-        }
-      }
-    );
-  }
-
-  // Abre a página de mapa astral com o nível e custo corretos
-  function openMapa(level, cost) {
-    selectedMapaCost = cost; // Armazena o custo para uso posterior
-    let pageId = "";
-    if (level.includes("Pórtico")) pageId = "page-mapa-portico";
-    else if (level.includes("Órbita")) pageId = "page-mapa-orbita";
-    else if (level.includes("Cosmos")) pageId = "page-mapa-cosmos";
-
-    if (pageId) {
-      showPage(pageId);
-      // Limpa os campos do formulário ao abrir a página
-      byId(pageId.replace("page-", "") + "-nome").value = currentUser.name || "";
-      byId(pageId.replace("page-", "") + "-data").value = "";
-      byId(pageId.replace("page-", "") + "-hora").value = "";
-      byId(pageId.replace("page-", "") + "-cidade").value = "";
-      byId(pageId.replace("page-", "") + "-estado").value = "";
-      byId(pageId.replace("page-", "") + "-result").style.display = "none";
-    }
-  }
-
-  // =====================================================
-  //               FUNÇÕES DE TARÔ
-  // =====================================================
-
-  // Inicializa a página de Tarô para uma tiragem específica
-  function initTarotPage(count, type = "Tradicional") {
-    currentReading = {
-      count: count,
-      cost: COSTS["tarot" + count],
-      type: type,
-      question: "",
-      selected: [],
-      active: false,
-      phase: "all",
-    };
-
-    const pageId = "page-tarot-" + count;
-    const questionInput = byId("q-" + count);
-    const area = byId("area-" + count);
-    const result = byId("res-" + count);
-    const consultarNovamente = byId("consultar-" + count);
-    const title = byId("tarot-title-" + count);
-
-    if (type === "Marselha") {
-      title.textContent = "Tarô de Marselha: 3 Cartas";
-      questionInput.placeholder = `Faça sua pergunta objetiva por ${COSTS.tarot3} créditos`;
-      currentReading.cost = COSTS.tarot3;
-    } else {
-      title.textContent = `Tarô: ${count} Cartas`;
-      questionInput.placeholder = `Faça sua pergunta objetiva por ${COSTS["tarot" + count]} créditos`;
-    }
-
-    questionInput.value = "";
-    area.innerHTML = "";
-    result.innerHTML = "";
-    result.style.display = "none";
-    consultarNovamente.style.display = "none";
-
-    showPage(pageId);
-  }
-
-  // Inicia a tiragem de Tarô após a pergunta
-  function startTarot(count) {
-    const questionInput = byId("q-" + count);
-    const question = questionInput.value.trim();
-
-    if (!requireValidQuestion(question)) {
-      return;
-    }
-
-    const cost = currentReading.type === "Marselha" ? COSTS.tarot3 : COSTS["tarot" + count];
-
-    if (!hasCredits(cost)) {
-      showModal(
-        "Créditos insuficientes",
-        `Esta tiragem requer <strong>${cost} créditos</strong>.`
-      );
-      return;
-    }
-
-    askConfirmQuestion(question, "tarot", count);
-  }
-
-  // Procede com a tiragem de Tarô após a confirmação
-  function proceedTarot(count, question) {
-    currentReading.question = question;
-    currentReading.selected = [];
-    currentReading.active = true;
-
-    const area = byId("area-" + count);
-    area.innerHTML = '<div class="cards-grid"></div>';
-
-    const grid = area.querySelector(".cards-grid");
-    const deck = currentReading.type === "Marselha" ? DECK_MARSELHA : DECK_NORMAL;
-
-    shuffleArray(deck).forEach(function (card, index) {
-      const slot = document.createElement("button");
-      slot.type = "button";
-      slot.className = "card-slot";
-      slot.innerHTML =
-        '<span class="card-inner">' +
-        '<span class="card-back"></span>' +
-        '<span class="card-front">' +
-        cardImageHTML(card, currentReading.type) +
-        "</span>" +
-        "</span>" +
-        '<span class="card-num">' +
-        (index + 1) +
-        "</span>";
-
-      slot.addEventListener("click", function () {
-        if (!currentReading.active || slot.classList.contains("flipped")) {
-          return;
-        }
-
-        slot.classList.add("flipped");
-        currentReading.selected.push(card);
-
-        if (currentReading.selected.length === count) {
-          currentReading.active = false;
-          finishTarot(count);
-        }
-      });
-
-      grid.appendChild(slot);
-    });
-
-    showChooseBalloon();
-  }
-
+  
   // Finaliza a tiragem de Tarô e exibe o resultado
   async function finishTarot(count) {
     const cards = currentReading.selected;
