@@ -1134,6 +1134,27 @@
       margin-top: 8px;
       line-height: 1.3
     }
+
+    /* ===== CONSERTO: permitir rolagem até o fim ===== */
+.page{overflow-y:auto!important}
+body{background:#0d0716}
+
+/* ===== RODAPÉ ===== */
+.site-footer{width:100%;margin-top:60px;background:rgba(13,5,32,0.97);border-top:1px solid var(--gold);color:var(--gold-light);padding:35px 20px 15px;text-align:center}
+.footer-content{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;max-width:1100px;margin:0 auto 25px}
+.footer-col{flex:1 1 180px;max-width:260px}
+.footer-col h4{color:var(--gold);font-family:'Blackwood Castle Shadow',serif;font-size:18px;margin-bottom:12px;letter-spacing:1px}
+.footer-col a{display:block;color:var(--gold-light);text-decoration:none;font-size:14px;margin-bottom:8px;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-brand p{font-size:13px;line-height:1.6;margin:0}
+.footer-social{display:flex;justify-content:center;gap:14px}
+.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--gold);border-radius:50%;font-size:16px;color:var(--gold);transition:all .2s}
+.footer-social a:hover{background:var(--gold);color:#0d0716}
+.footer-bottom{border-top:1px solid rgba(212,168,67,0.25);padding-top:15px}
+.footer-bottom p{margin:5px 0;font-size:12px;line-height:1.5}
+.footer-legal{color:#a89bb8}
+.footer-18{color:var(--gold);font-weight:bold;letter-spacing:1px}
+    
   </style>
 </head>
 
@@ -3345,6 +3366,41 @@
       if (document.getElementById('page-horoscopo')) initHoroscopo();
     }
   </script>
+
+  <!-- ===== RODAPÉ ===== -->
+<footer class="site-footer">
+<div class="footer-content">
+<div class="footer-col footer-brand">
+<h4>🔮 Oraculum Vitae</h4>
+<p>Oráculos, tarô e autoconhecimento. A sabedoria ancestral guiando sua jornada.</p>
+</div>
+<div class="footer-col">
+<h4>Navegação</h4>
+<a href="#">Termos de Uso</a>
+<a href="#">Política de Privacidade</a>
+<a href="#">FAQ</a>
+<a href="#">Sobre</a>
+</div>
+<div class="footer-col">
+<h4>Contato</h4>
+<a href="mailto:contato@oraculumvitae.com">contato@oraculumvitae.com</a>
+</div>
+<div class="footer-col">
+<h4>Redes Sociais</h4>
+<div class="footer-social">
+<a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+<a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2026 Oraculum Vitae. Todos os direitos reservados.</p>
+<p class="footer-legal">Conteúdo para fins de entretenimento e autoconhecimento. Este site não substitui aconselhamento médico, psicológico, jurídico ou financeiro profissional.</p>
+<p class="footer-18">🔞 Conteúdo recomendado para maiores de 18 anos.</p>
+</div>
+</footer>
+  
 </body>
 
 </html>
