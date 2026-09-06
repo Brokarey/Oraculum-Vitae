@@ -8,25 +8,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 @font-face{font-family:'Blackwood Castle Shadow';src:url('BlackwoodCastleShadow.ttf') format('truetype');font-weight:normal;font-style:normal;font-display:swap}
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-:root{
-  --bg-deep:#0d0520;          /* fundo escuro da página */
-  --bg-card:#1a0a2e;          /* fundo dos cartões */
-  --accent:#4a2c7a;           /* cor de destaque (botões, bordas) */
-  --gold:#d4a843;             /* dourado – usado nos títulos */
-  --gold-light:#f0d080;       /* dourado mais claro – usado em detalhes */
-  --text:#e0d4ff;             /* cor do texto – agora mais clara para melhor contraste */
-  --transition:all 0.3s ease;
-}
+:root{--bg-deep:#0d0520;--bg-card:#1a0a2e;--accent:#4a2c7a;--gold:#d4a843;--gold-light:#f0d080;--text:#f0e6ff;--transition:all 0.3s ease}
 *{margin:0;padding:0;box-sizing:border-box;outline:none}
 html,body{height:100%}
-body{
-  background-color:var(--bg-deep);
-  color:var(--text);
-  font-family:'Inter',system-ui,Arial,sans-serif; /* fonte legível */
-  overflow-x:hidden;
-  min-height:100vh;
-}
+body{background-color:var(--bg-deep);color:var(--text);font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;overflow-x:hidden;min-height:100vh}
 h1,h2,h3,.pirata{font-family:'Blackwood Castle Shadow','Pirata One',cursive;letter-spacing:2px}
 #stars-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(circle at center,#1a0a2e 0%,#0d0520 100%)}
 .star{position:absolute;background:white;border-radius:50%;opacity:0.5;animation:twinkle var(--duration) infinite ease-in-out}
@@ -41,15 +26,7 @@ h1,h2,h3,.pirata{font-family:'Blackwood Castle Shadow','Pirata One',cursive;lett
 .tab{flex:1;text-align:center;padding:10px;cursor:pointer;color:#999;transition:var(--transition);font-size:15px;font-weight:600}
 .tab.active{color:var(--gold);border-bottom:2px solid var(--gold)}
 .auth-form{display:flex;flex-direction:column;gap:12px}
-input,select{
-  background:rgba(255,255,255,0.07);
-  border:1px solid var(--accent);
-  padding:14px;               /* espaço interno maior */
-  border-radius:8px;          /* cantos mais arredondados */
-  color:white;
-  width:100%;
-  font-size:14px;
-}
+input,select{background:rgba(255,255,255,0.07);border:1px solid var(--accent);padding:12px;border-radius:6px;color:white;width:100%;font-size:14px}
 input::placeholder{color:#999}
 .btn-portal{background:var(--accent);color:white;border:none;padding:13px;border-radius:6px;cursor:pointer;font-weight:bold;transition:var(--transition);display:block;width:100%;text-align:center;font-size:15px}
 .btn-portal:hover{background:#5e3a9a;box-shadow:0 0 15px var(--accent)}
@@ -220,7 +197,8 @@ th{background:var(--accent);color:var(--gold)}
 </head>
 <body>
 <div id="stars-container"></div>
-<section id="page-login" class="page active lazy-bg"><div class="auth-container">
+<section id="page-login" class="page active">
+<div class="auth-container">
 <div class="auth-tabs">
 <div id="tab-login" class="tab active" onclick="toggleAuth('login')">Entrar</div>
 <div id="tab-register" class="tab" onclick="toggleAuth('register')">Cadastrar</div>
@@ -245,7 +223,7 @@ Entrar com o Google
 </div>
 </div>
 </section>
-<header id="main-header" role="banner">
+<header id="main-header">
 <div class="logo pirata" onclick="showPage('page-dashboard')">ORACULUM VITAE</div>
 <div class="user-info">
 <button class="header-btn gold" onclick="showPage('page-planos')"><i class="fas fa-crown"></i> Planos</button>
@@ -255,7 +233,6 @@ Entrar com o Google
 <i class="fas fa-sign-out-alt btn-logout" onclick="logout()"></i>
 </div>
 </header>
-<main id="content">
 <section id="page-dashboard" class="page">
 <div class="dash-header">
 <h2 class="pirata">Bem-vindo ao Oraculum Vitae</h2>
@@ -614,7 +591,7 @@ Entrar com o Google
 <div id="faq-container"></div>
 </div>
 </section>
-<div id="modal-overlay" role="dialog" aria-modal="true" style="display:none" class="modal-overlay">
+<div id="modal-overlay">
 <div class="modal-content">
 <h3 id="modal-title">Aviso</h3>
 <p id="modal-msg"></p>
@@ -1490,13 +1467,9 @@ document.getElementById('form-login').style.display=type==='login'?'flex':'none'
 document.getElementById('form-register').style.display=type==='register'?'flex':'none';
 }
 function showModal(title,msg){
-  document.getElementById('modal-title').innerText = title;
-  document.getElementById('modal-msg').innerHTML = msg;
-  const overlay = document.getElementById('modal-overlay');
-  overlay.style.display = 'flex';
-  // coloca o foco no primeiro botão dentro do modal (fechar)
-  const closeBtn = overlay.querySelector('button, [role="button"]');
-  if(closeBtn) closeBtn.focus();
+document.getElementById('modal-title').innerText = title;
+document.getElementById('modal-msg').innerHTML = msg;
+document.getElementById('modal-overlay').style.display = 'flex';
 }
 function closeModal(){
 document.getElementById('modal-overlay').style.display = 'none';
@@ -2205,22 +2178,6 @@ if(document.readyState === 'loading'){
 } else {
   if(document.getElementById('page-horoscopo')) initHoroscopo();
 }
-// Lazy‑load de backgrounds (executa ao carregar)
-document.addEventListener('DOMContentLoaded',()=>{
-  const lazyEls = document.querySelectorAll('.lazy-bg');
-  lazyEls.forEach(el=>{
-    const match = el.style.backgroundImage.match(/url|$['"]?(.*?)['"]?$|/);
-    if(!match) return;
-    const src = match[1];
-    const img = new Image();
-    img.src = src;               // carrega a imagem em segundo plano
-    img.onload =()=>{ el.style.backgroundImage = `url('${src}')`; };
-  });
-});
 </script>
-</main>
-<footer role="contentinfo" class="credits-badge">
-<i class="fas fa-coins"></i> <span id="display-credits">0</span>
-</footer>
 </body>
 </html>
