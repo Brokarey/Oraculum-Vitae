@@ -26,10 +26,6 @@
   >
 
   <style>
-    /* ==================================================
-       FONTES, VARIÁVEIS E BASE GLOBAL
-    ================================================== */
-
     @font-face {
       font-family: "Blackwood Castle Shadow";
       src: url("BlackwoodCastleShadow.ttf") format("truetype");
@@ -41,20 +37,15 @@
     :root {
       --bg-deep: #0d0520;
       --bg-card: #1a0a2e;
-      --bg-card-soft: rgba(26, 10, 46, 0.88);
-
+      --bg-card-soft: rgba(26, 10, 46, 0.84);
       --accent: #4a2c7a;
       --accent-hover: #623d9d;
-
       --gold: #d4a843;
       --gold-light: #f0d080;
-
       --text: #f0e6ff;
       --muted: #c9bed8;
-
       --danger: #cf4c5b;
       --success: #2c7a4a;
-
       --shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
       --transition: 0.25s ease;
     }
@@ -162,7 +153,8 @@
     }
 
     /* ==================================================
-       ESTRUTURA DAS PÁGINAS
+       PÁGINAS
+       Sem efeito de cortina entre telas
     ================================================== */
 
     .page {
@@ -208,13 +200,13 @@
 
     #page-sim-nao {
       background-image:
-        linear-gradient(rgba(13, 5, 32, 0.40), rgba(13, 5, 32, 0.56)),
+        linear-gradient(rgba(13, 5, 32, 0.4), rgba(13, 5, 32, 0.56)),
         url("Graficos/Fundo_Sim.png");
     }
 
     #page-tarot-amor {
       background-image:
-        linear-gradient(rgba(13, 5, 32, 0.56), rgba(13, 5, 32, 0.70)),
+        linear-gradient(rgba(13, 5, 32, 0.56), rgba(13, 5, 32, 0.7)),
         url("Graficos/Fundo_Afrodite.png");
     }
 
@@ -267,7 +259,7 @@
     }
 
     /* ==================================================
-       LOGIN E CADASTRO
+       LOGIN
     ================================================== */
 
     .auth-container {
@@ -276,7 +268,7 @@
       border: 1px solid var(--accent);
       border-radius: 16px;
       background: rgba(13, 5, 32, 0.93);
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.70);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
     }
 
     .auth-tabs {
@@ -288,7 +280,6 @@
     .tab {
       flex: 1;
       padding: 10px;
-      border-bottom: 2px solid transparent;
       background: transparent;
       color: #999;
       cursor: pointer;
@@ -299,7 +290,7 @@
     }
 
     .tab.active {
-      border-bottom-color: var(--gold);
+      border-bottom: 2px solid var(--gold);
       color: var(--gold);
     }
 
@@ -359,10 +350,6 @@
       content: "";
     }
 
-    /* ==================================================
-       BOTÕES
-    ================================================== */
-
     .btn-portal {
       display: block;
       width: 100%;
@@ -404,25 +391,6 @@
       font-weight: 600;
     }
 
-    .voltar-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 20px;
-      padding: 0;
-      background: transparent;
-      color: var(--gold);
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 800;
-      text-decoration: none;
-      transition: var(--transition);
-    }
-
-    .voltar-link:hover {
-      text-shadow: 0 0 12px rgba(212, 168, 67, 0.88);
-    }
-
     /* ==================================================
        CABEÇALHO E DASHBOARD
     ================================================== */
@@ -448,7 +416,7 @@
       cursor: pointer;
       font-size: clamp(17px, 2.2vw, 25px);
       letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(212, 168, 67, 0.50);
+      text-shadow: 0 0 10px rgba(212, 168, 67, 0.5);
       transition: var(--transition);
       white-space: nowrap;
     }
@@ -510,7 +478,6 @@
     }
 
     .btn-logout {
-      background: transparent;
       color: #ff6767;
       cursor: pointer;
       font-size: 20px;
@@ -560,7 +527,7 @@
       padding: 26px 18px;
       border: 1px solid var(--accent);
       border-radius: 10px;
-      background: rgba(26, 10, 46, 0.60);
+      background: rgba(26, 10, 46, 0.6);
       color: var(--text);
       cursor: pointer;
       text-align: center;
@@ -570,7 +537,7 @@
 
     .dash-card:hover:not(:disabled) {
       border-color: var(--gold);
-      background: rgba(26, 10, 46, 0.80);
+      background: rgba(26, 10, 46, 0.8);
       box-shadow: 0 5px 20px rgba(74, 44, 122, 0.48);
       transform: translateY(-5px);
     }
@@ -595,7 +562,7 @@
 
     .dash-card.disabled {
       cursor: not-allowed;
-      opacity: 0.60;
+      opacity: 0.6;
     }
 
     .badge-soon {
@@ -716,7 +683,7 @@
       padding: 22px;
       border-left: 4px solid var(--gold);
       border-radius: 8px;
-      background: rgba(26, 10, 46, 0.90);
+      background: rgba(26, 10, 46, 0.9);
       scroll-margin-top: 100px;
     }
 
@@ -731,6 +698,16 @@
     .result-box p {
       margin-bottom: 12px;
     }
+
+    .verdict-gold {
+      color: var(--gold-light);
+      font-size: 1.25em;
+      font-weight: 900;
+    }
+
+    /* ==================================================
+       BOTÕES GLOBAIS DE RESULTADOS
+    ================================================== */
 
     .response-actions {
       display: flex;
@@ -751,7 +728,7 @@
       padding: 11px 16px;
       border: 1px solid var(--gold);
       border-radius: 22px;
-      background: rgba(74, 44, 122, 0.80);
+      background: rgba(74, 44, 122, 0.8);
       color: var(--gold-light);
       cursor: pointer;
       font-size: 13px;
@@ -784,12 +761,31 @@
     }
 
     .btn-consultar-novamente:hover {
-      box-shadow: 0 0 20px rgba(212, 168, 67, 0.70);
+      box-shadow: 0 0 20px rgba(212, 168, 67, 0.7);
       transform: scale(1.05);
     }
 
+    .voltar-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 0;
+      background: transparent;
+      color: var(--gold);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .voltar-link:hover {
+      text-shadow: 0 0 12px rgba(212, 168, 67, 0.88);
+    }
+
     /* ==================================================
-       MODAL E BALÕES
+       MODAIS
     ================================================== */
 
     #modal-overlay {
@@ -800,7 +796,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: rgba(0, 0, 0, 0.80);
+      background: rgba(0, 0, 0, 0.8);
     }
 
     .modal-content {
@@ -854,1518 +850,1538 @@
       padding: 22px 28px;
       border: 2px solid var(--gold);
       border-radius: 14px;
-      background: rgba(26, 10, 46, 0.97);
-      box-shadow: 0 0 38px rgba(212, 168, 67, 0.50);
-      color: var(--gold-light);
-      font-size: clamp(18px, 3vw, 23px);
-      font-weight: 900;
+      background: var(--bg-card);
+      box-shadow: var(--shadow);
       text-align: center;
       transform: translate(-50%, -50%);
     }
 
-    /* ==================================================
-       FAQ, TABELAS E ÁREAS COMPLEMENTARES
-    ================================================== */
-
-    .faq-category {
-      margin-bottom: 25px;
-    }
-
-    .faq-category h3 {
-      margin-bottom: 10px;
-    }
-
-    .faq-item {
-      margin-bottom: 10px;
-      overflow: hidden;
-      border: 1px solid var(--accent);
-      border-radius: 8px;
-      background: rgba(26, 10, 46, 0.72);
-    }
-
-    .faq-question {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 16px;
-      background: transparent;
+    #choose-balloon p {
+      margin-bottom: 0;
       color: var(--gold-light);
-      cursor: pointer;
-      font-weight: 800;
-      text-align: left;
-    }
-
-    .faq-answer {
-      display: none;
-      padding: 0 16px 16px;
-      color: var(--text);
-    }
-
-    .signos-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      max-width: 900px;
-      margin: 25px auto;
-    }
-
-    .planos-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-      overflow: hidden;
-      border: 1px solid var(--accent);
-      border-radius: 8px;
-    }
-
-    .planos-table th,
-    .planos-table td {
-      padding: 12px;
-      border-bottom: 1px solid rgba(74, 44, 122, 0.8);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .planos-table th {
-      background: rgba(74, 44, 122, 0.75);
-      color: var(--gold-light);
+      font-size: 1.1em;
+      font-weight: 600;
     }
 
     /* ==================================================
-       RESPONSIVIDADE
+       MEDIA QUERIES
     ================================================== */
 
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
       .dash-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dash-grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
       }
 
       .cards-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
-    }
-
-    @media (max-width: 640px) {
-      .page {
-        padding: 120px 12px 30px;
-      }
 
       header {
-        justify-content: center;
-        padding: 10px 12px;
-      }
-
-      .user-info {
-        justify-content: center;
-      }
-
-      .header-btn {
-        padding: 7px 9px;
-        font-size: 11px;
-      }
-
-      .dash-header {
-        display: block;
-        padding-top: 35px;
+        padding: 12px 15px;
       }
 
       .dash-header .voltar-link {
-        top: 5px;
-        left: 20px;
-      }
-
-      .dash-grid {
-        grid-template-columns: 1fr;
-        padding: 0 12px;
-      }
-
-      .cards-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 42px 12px;
-      }
-
-      .form-container {
-        padding: 22px 16px;
-      }
-
-      .response-action-btn {
-        width: 100%;
-      }
-
-      .signos-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .planos-table {
-        display: block;
-        overflow-x: auto;
+        left: 15px;
       }
     }
   </style>
 
   <script>
-  // Funções essenciais para o carregamento inicial e interações do HTML
-  // =====================================================
+    // Variáveis globais
+    let currentUser = null;
+    const API_BASE_URL = "https://oraculum-vitae-api.vercel.app/api";
+    const SIGNOS_HOROSCOPO = [
+      "Áries", "Touro", "Gêmeos", "Câncer", "Leão", "Virgem",
+      "Libra", "Escorpião", "Sagitário", "Capricórnio", "Aquário", "Peixes"
+    ];
+    const COSTS = {
+      "sim-nao": 10,
+      "tarot-2-cartas": 20,
+      "tarot-3-cartas": 30,
+      "tarot-5-cartas": 50,
+      "tarot-7-cartas": 70,
+      "tarot-10-cartas": 100,
+      "tarot-amor": 70,
+      "mapa-portico": 50,
+      "mapa-orbita": 100,
+      "mapa-cosmos": 200
+    };
 
-  // Função auxiliar para obter elementos por ID
-  function byId(id) {
-    return document.getElementById(id);
-  }
-
-  // Variáveis globais para modais e usuário
-  let currentConfirmCallback = null;
-  let currentUser = null;
-
-  // Exibe o modal de mensagem
-  function showModal(title, message, isConfirm = false, onConfirm = null) {
-    byId("modal-title").innerHTML = title;
-    byId("modal-message").innerHTML = message;
-    byId("modal-overlay").style.display = "flex";
-
-if (isConfirm) {
-  byId("confirm-buttons").style.display = "flex";
-  currentConfirmCallback = onConfirm;
-} else {
-  byId("confirm-buttons").style.display = "none";
-  currentConfirmCallback = null;
-}
-
-  }
-
-  // Esconde o modal de mensagem
-  function hideModal() {
-    byId("modal-overlay").style.display = "none";
-    currentConfirmCallback = null;
-  }
-
-  // Lida com a confirmação do modal
-  function confirmAction() {
-    if (currentConfirmCallback) {
-      currentConfirmCallback();
+    // Funções utilitárias
+    function byId(id) {
+      return document.getElementById(id);
     }
-    hideModal();
-  }
 
-  // Alterna entre formulários de login e registro
-  function toggleAuth(type) {
-    if (type === "login") {
-      byId("tab-login").classList.add("active");
-      byId("tab-register").classList.remove("active");
-      byId("form-login").style.display = "flex";
-      byId("form-register").style.display = "none";
-    } else {
-      byId("tab-login").classList.remove("active");
-      byId("tab-register").classList.add("active");
-      byId("form-login").style.display = "none";
-      byId("form-register").style.display = "flex";
+    function escapeHTML(str) {
+      const div = document.createElement("div");
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
     }
-  }
 
-  // Lida com o login do usuário
-  function handleLogin() {
-    const email = byId("login-email").value.trim();
-    const password = byId("login-pass").value.trim();
-
-if (!email || !password) {
-  showModal("Erro", "Por favor, preencha e-mail e senha.");
-  return;
-}
-
-const storedUser = localStorage.getItem("user_" + email);
-if (storedUser) {
-  const user = JSON.parse(storedUser);
-  if (user.password === password) {
-    currentUser = user;
-    saveSession();
-    enterPortal();
-  } else {
-    showModal("Erro", "Senha incorreta.");
-  }
-} else {
-  showModal("Erro", "Usuário não encontrado. Por favor, cadastre-se.");
-}
-
-  }
-
-  // Lida com o registro de um novo usuário
-  function handleRegister() {
-    const name = byId("reg-name").value.trim();
-    const email = byId("reg-email").value.trim();
-    const password = byId("reg-pass").value.trim();
-    const confirmPassword = byId("reg-pass-confirm").value.trim();
-    const termsAccepted = byId("reg-terms").checked;
-
-if (!name || !email || !password || !confirmPassword) {
-  showModal("Erro", "Por favor, preencha todos os campos.");
-  return;
-}
-if (password !== confirmPassword) {
-  showModal("Erro", "As senhas não coincidem.");
-  return;
-}
-if (!termsAccepted) {
-  showModal("Erro", "Você deve aceitar os Termos de Uso.");
-  return;
-}
-if (localStorage.getItem("user_" + email)) {
-  showModal("Erro", "Este e-mail já está cadastrado.");
-  return;
-}
-
-const newUser = {
-  name: name,
-  email: email,
-  password: password,
-  credits: 50, // Créditos iniciais
-  lastDailyCard: null, // Para a Carta do Dia
-};
-localStorage.setItem("user_" + email, JSON.stringify(newUser));
-currentUser = newUser;
-saveSession();
-showModal("Sucesso", "Cadastro realizado! Você ganhou 50 créditos.");
-enterPortal();
-
-  }
-
-  // Restaura a sessão do usuário do localStorage
-  function restoreSession() {
-    const session = localStorage.getItem("oraculum_session");
-    if (session) {
-      return JSON.parse(session);
+    function normalizeName(name) {
+      return name
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toUpperCase();
     }
-    return null;
-  }
 
-  // Salva a sessão do usuário no localStorage
-  function saveSession() {
-    if (currentUser) {
-      localStorage.setItem("oraculum_session", JSON.stringify(currentUser));
-      localStorage.setItem("user_" + currentUser.email, JSON.stringify(currentUser));
+    function formatAPIResponse(text) {
+      return text
+        .split("\n")
+        .map(function (paragraph) {
+          return "<p>" + escapeHTML(paragraph) + "</p>";
+        })
+        .join("");
     }
-  }
 
-  // Limpa a sessão do usuário
-  function clearSession() {
-    localStorage.removeItem("oraculum_session");
-    currentUser = null;
-  }
-
-  // Atualiza a exibição de créditos no cabeçalho
-  function updateCreditsDisplay() {
-    if (currentUser) {
-      byId("display-credits").textContent = currentUser.credits;
+    function resultActionsHTML() {
+      return (
+        '<div class="response-actions">' +
+        '<button class="response-action-btn" onclick="shareResult()">' +
+        '<i class="fas fa-share-alt"></i> Compartilhar' +
+        "</button>" +
+        '<button class="response-action-btn" onclick="saveResult()">' +
+        '<i class="fas fa-bookmark"></i> Salvar' +
+        "</button>" +
+        '<button class="response-action-btn" onclick="printResult()">' +
+        '<i class="fas fa-print"></i> Imprimir' +
+        "</button>" +
+        "</div>"
+      );
     }
-  }
 
-  // Verifica se o usuário tem créditos suficientes
-  function hasCredits(amount) {
-    return currentUser && currentUser.credits >= amount;
-  }
+    // Gerenciamento de sessão e créditos
+    function saveSession() {
+      localStorage.setItem("oraculumVitaeUser", JSON.stringify(currentUser));
+    }
 
-  // Desconta créditos do usuário
-  function chargeCredits(amount) {
-    if (currentUser && currentUser.credits >= amount) {
-      currentUser.credits -= amount;
-      saveSession();
+    function restoreSession() {
+      const user = localStorage.getItem("oraculumVitaeUser");
+      return user ? JSON.parse(user) : null;
+    }
+
+    function updateCreditsDisplay() {
+      const creditsSpan = byId("user-credits");
+
+      if (creditsSpan && currentUser) {
+        creditsSpan.textContent = currentUser.credits;
+      }
+    }
+
+    function hasCredits(amount) {
+      return currentUser && currentUser.credits >= amount;
+    }
+
+    function chargeCredits(amount) {
+      if (currentUser && currentUser.credits >= amount) {
+        currentUser.credits -= amount;
+        saveSession();
+        updateCreditsDisplay();
+        return true;
+      }
+
+      showModal(
+        "Créditos insuficientes",
+        "Você não tem créditos suficientes para esta consulta. Visite a página de Planos e Pacotes."
+      );
+      return false;
+    }
+
+    // Gerenciamento de páginas
+    function showPage(pageId, initFunction = null) {
+      document.querySelectorAll(".page").forEach(function (page) {
+        page.classList.remove("active");
+      });
+
+      const page = byId(pageId);
+
+      if (page) {
+        page.classList.add("active");
+        window.scrollTo(0, 0);
+
+        if (initFunction && typeof initFunction === "function") {
+          initFunction();
+        }
+      }
+    }
+
+    function enterPortal() {
+      byId("main-header").style.display = "flex";
       updateCreditsDisplay();
-      return true;
+      showPage("page-dashboard");
     }
-    return false;
-  }
 
-  // Adiciona créditos ao usuário
-  function addCredits(amount) {
-    if (currentUser) {
-      currentUser.credits += amount;
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem("oraculumVitaeUser");
+      byId("main-header").style.display = "none";
+      showPage("page-login");
+    }
+
+    function voltarLogin() {
+      logout();
+    }
+
+    // Modais e balões
+    function showModal(title, message, isConfirm = false, confirmCallback = null) {
+      const modalOverlay = byId("modal-overlay");
+      const modalTitle = byId("modal-title");
+      const modalMessage = byId("modal-message");
+      const confirmButtons = byId("confirm-buttons");
+      const okButton = byId("modal-ok-button");
+      const yesButton = byId("modal-yes-button");
+      const noButton = byId("modal-no-button");
+
+      if (!modalOverlay || !modalTitle || !modalMessage || !confirmButtons || !okButton || !yesButton || !noButton) {
+        console.error("Elementos do modal não encontrados.");
+        return;
+      }
+
+      modalTitle.innerHTML = escapeHTML(title);
+      modalMessage.innerHTML = message;
+
+      if (isConfirm) {
+        okButton.style.display = "none";
+        confirmButtons.style.display = "flex";
+        yesButton.onclick = function () {
+          hideModal();
+          if (confirmCallback) confirmCallback(true);
+        };
+        noButton.onclick = function () {
+          hideModal();
+          if (confirmCallback) confirmCallback(false);
+        };
+      } else {
+        okButton.style.display = "block";
+        confirmButtons.style.display = "none";
+        okButton.onclick = hideModal;
+      }
+
+      modalOverlay.style.display = "flex";
+    }
+
+    function hideModal() {
+      const modalOverlay = byId("modal-overlay");
+      if (modalOverlay) {
+        modalOverlay.style.display = "none";
+      }
+    }
+
+    function showMysticBalloon(message) {
+      const balloon = byId("mystic-balloon");
+      const balloonMessage = byId("mystic-balloon-message");
+
+      if (balloon && balloonMessage) {
+        balloonMessage.textContent = message;
+        balloon.style.display = "block";
+        setTimeout(function () {
+          balloon.style.display = "none";
+        }, 5000);
+      }
+    }
+
+    function hideChooseBalloon() {
+      const chooseBalloon = byId("choose-balloon");
+      if (chooseBalloon) {
+        chooseBalloon.style.display = "none";
+      }
+    }
+
+    // Autenticação
+    function handleLogin() {
+      const email = byId("login-email").value;
+      const password = byId("login-password").value;
+
+      if (!email || !password) {
+        showModal("Erro", "Por favor, preencha todos os campos.");
+        return;
+      }
+
+      // Simula autenticação
+      if (email === "teste@teste.com" && password === "123456") {
+        currentUser = {
+          email: email,
+          credits: 500
+        };
+        saveSession();
+        enterPortal();
+      } else {
+        showModal("Erro", "E-mail ou senha incorretos.");
+      }
+    }
+
+    function handleRegister() {
+      const email = byId("register-email").value;
+      const password = byId("register-password").value;
+      const confirmPassword = byId("register-confirm-password").value;
+      const acceptTerms = byId("accept-terms").checked;
+
+      if (!email || !password || !confirmPassword) {
+        showModal("Erro", "Por favor, preencha todos os campos.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showModal("Erro", "As senhas não coincidem.");
+        return;
+      }
+
+      if (!acceptTerms) {
+        showModal("Erro", "Você deve aceitar os Termos de Uso.");
+        return;
+      }
+
+      // Simula registro
+      currentUser = {
+        email: email,
+        credits: 50
+      }; // Novos usuários ganham 50 créditos
       saveSession();
-      updateCreditsDisplay();
+      showModal(
+        "Sucesso!",
+        "Cadastro realizado com sucesso! Você ganhou 50 créditos.",
+        false,
+        enterPortal
+      );
     }
-  }
 
-  // Entra no portal após login/cadastro
-  function enterPortal() {
-    byId("main-header").style.display = "flex";
-    updateCreditsDisplay();
-    showPage("page-dashboard");
-  }
+    // Tarô
+    let selectedCards = [];
+    let currentTarotType = "";
+    let maxCards = 0;
 
-  // Exibe uma página específica e esconde as outras
-  function showPage(pageId) {
-    document.querySelectorAll(".page").forEach(function (page) {
-      page.classList.remove("active");
+    const TAROT_CARDS = [
+      "O Louco", "O Mago", "A Papisa", "A Imperatriz", "O Imperador",
+      "O Papa", "Os Enamorados", "O Carro", "A Justiça", "O Eremita",
+      "A Roda da Fortuna", "A Força", "O Pendurado", "A Morte", "A Temperança",
+      "O Diabo", "A Torre", "A Estrela", "A Lua", "O Sol", "O Julgamento",
+      "O Mundo",
+      // Arcanos Menores (exemplo simplificado)
+      "Ás de Copas", "Dois de Copas", "Três de Copas", "Quatro de Copas", "Cinco de Copas",
+      "Seis de Copas", "Sete de Copas", "Oito de Copas", "Nove de Copas", "Dez de Copas",
+      "Valete de Copas", "Cavaleiro de Copas", "Rainha de Copas", "Rei de Copas",
+      "Ás de Espadas", "Dois de Espadas", "Três de Espadas", "Quatro de Espadas", "Cinco de Espadas",
+      "Seis de Espadas", "Sete de Espadas", "Oito de Espadas", "Nove de Espadas", "Dez de Espadas",
+      "Valete de Espadas", "Cavaleiro de Espadas", "Rainha de Espadas", "Rei de Espadas",
+      "Ás de Ouros", "Dois de Ouros", "Três de Ouros", "Quatro de Ouros", "Cinco de Ouros",
+      "Seis de Ouros", "Sete de Ouros", "Oito de Ouros", "Nove de Ouros", "Dez de Ouros",
+      "Valete de Ouros", "Cavaleiro de Ouros", "Rainha de Ouros", "Rei de Ouros",
+      "Ás de Paus", "Dois de Paus", "Três de Paus", "Quatro de Paus", "Cinco de Paus",
+      "Seis de Paus", "Sete de Paus", "Oito de Paus", "Nove de Paus", "Dez de Paus",
+      "Valete de Paus", "Cavaleiro de Paus", "Rainha de Paus", "Rei de Paus"
+    ];
+
+    function initTarot(type, numCards) {
+      currentTarotType = type;
+      maxCards = numCards;
+      selectedCards = [];
+
+      const resultBox = byId(type + "-result");
+      if (resultBox) resultBox.style.display = "none";
+
+      const cardsGrid = byId("cards-grid");
+      if (!cardsGrid) return;
+
+      cardsGrid.innerHTML = "";
+      for (let i = 0; i < 78; i += 1) {
+        const cardSlot = document.createElement("div");
+        cardSlot.className = "card-slot";
+        cardSlot.dataset.index = i;
+        cardSlot.innerHTML =
+          '<div class="card-inner">' +
+          '<div class="card-back"></div>' +
+          '<div class="card-front"></div>' +
+          "</div>";
+        cardSlot.addEventListener("click", function () {
+          selectCard(cardSlot);
+        });
+        cardsGrid.appendChild(cardSlot);
+      }
+
+      showPage(type);
+      byId("choose-balloon").style.display = "block";
+    }
+
+    function selectCard(cardSlot) {
+      if (selectedCards.length >= maxCards || cardSlot.classList.contains("flipped")) {
+        return;
+      }
+
+      cardSlot.classList.add("flipped");
+      selectedCards.push(cardSlot.dataset.index);
+
+      if (selectedCards.length === maxCards) {
+        hideChooseBalloon();
+        showModal(
+          "Cartas selecionadas!",
+          "Deseja prosseguir com a leitura?",
+          true,
+          function (confirm) {
+            if (confirm) {
+              performTarotReading();
+            } else {
+              // Se o usuário cancelar, vira as cartas de volta e limpa a seleção
+              document.querySelectorAll(".card-slot.flipped").forEach(function (card) {
+                card.classList.remove("flipped");
+              });
+              selectedCards = [];
+              byId("choose-balloon").style.display = "block";
+            }
+          }
+        );
+      }
+    }
+
+    async function performTarotReading() {
+      const resultBox = byId(currentTarotType + "-result");
+      const cost = COSTS[currentTarotType];
+
+      if (!hasCredits(cost)) {
+        resultBox.style.display = "none";
+        return;
+      }
+
+      resultBox.style.display = "block";
+      resultBox.innerHTML =
+        '<p style="text-align:center;color:var(--gold)">Consultando o oráculo...</p>';
+
+      const cardNames = selectedCards.map(function (index) {
+        return TAROT_CARDS[index];
+      });
+
+      try {
+        const response = await fetch(API_BASE_URL + "/tarot", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            type: currentTarotType,
+            cards: cardNames
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data) {
+          throw new Error(data && data.error ? data.error : "Erro ao gerar a leitura.");
+        }
+
+        const answer = data.tarot || data.resposta || data.response || data.leitura;
+
+        if (!answer) {
+          throw new Error("A API não retornou uma leitura de tarô válida.");
+        }
+
+        if (!chargeCredits(cost)) {
+          resultBox.style.display = "none";
+          return;
+        }
+
+        resultBox.innerHTML =
+          "<h3>Sua Leitura de Tarô</h3>" +
+          "<p><strong>Cartas selecionadas:</strong> " +
+          escapeHTML(cardNames.join(", ")) +
+          "</p>" +
+          formatAPIResponse(answer) +
+          resultActionsHTML();
+
+        // Exibe as imagens das cartas selecionadas
+        selectedCards.forEach(function (cardIndex, i) {
+          const cardSlot = document.querySelector(
+            '.card-slot[data-index="' + cardIndex + '"]'
+          );
+          if (cardSlot) {
+            const cardFront = cardSlot.querySelector(".card-front");
+            cardFront.innerHTML =
+              '<img src="Graficos/Cartas/' +
+              escapeHTML(TAROT_CARDS[cardIndex]) +
+              '.png" alt="' +
+              escapeHTML(TAROT_CARDS[cardIndex]) +
+              '">' +
+              '<span class="card-num">' +
+              (i + 1) +
+              "</span>";
+          }
+        });
+      } catch (error) {
+        resultBox.innerHTML =
+          '<p style="color:#ff9ea8"><strong>Não foi possível gerar sua leitura.</strong></p>' +
+          "<p>" +
+          escapeHTML(error.message || "Tente novamente mais tarde.") +
+          "</p>";
+      }
+    }
+
+    // Tarô Sim/Não
+    async function performSimNao() {
+      const question = byId("sim-nao-question").value;
+      const resultBox = byId("sim-nao-result");
+      const cost = COSTS["sim-nao"];
+
+      if (!question) {
+        showModal("Erro", "Por favor, faça uma pergunta.");
+        return;
+      }
+
+      if (!hasCredits(cost)) {
+        resultBox.style.display = "none";
+        return;
+      }
+
+      resultBox.style.display = "block";
+      resultBox.innerHTML =
+        '<p style="text-align:center;color:var(--gold)">Consultando o oráculo...</p>';
+
+      try {
+        const response = await fetch(API_BASE_URL + "/sim-nao", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            question: question
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data) {
+          throw new Error(data && data.error ? data.error : "Erro ao obter a resposta.");
+        }
+
+        const answer = data.simNao || data.resposta || data.response || data.leitura;
+
+        if (!answer) {
+          throw new Error("A API não retornou uma resposta válida.");
+        }
+
+        if (!chargeCredits(cost)) {
+          resultBox.style.display = "none";
+          return;
+        }
+
+        resultBox.innerHTML =
+          "<h3>Sua Resposta</h3>" +
+          "<p><strong>Pergunta:</strong> " +
+          escapeHTML(question) +
+          "</p>" +
+          '<p class="verdict-gold">' +
+          escapeHTML(answer) +
+          "</p>" +
+          resultActionsHTML();
+      } catch (error) {
+        resultBox.innerHTML =
+          '<p style="color:#ff9ea8"><strong>Não foi possível obter a resposta.</strong></p>' +
+          "<p>" +
+          escapeHTML(error.message || "Tente novamente mais tarde.") +
+          "</p>";
+      }
+    }
+
+    // Carta do Dia
+    async function getCartaDoDia() {
+      const resultBox = byId("carta-do-dia-result");
+      const lastDraw = localStorage.getItem("lastCartaDoDia");
+      const now = new Date().getTime();
+      const twentyFourHours = 24 * 60 * 60 * 1000;
+
+      if (lastDraw && now - lastDraw < twentyFourHours) {
+        showModal(
+          "Aguarde",
+          "Você já tirou sua Carta do Dia. Tente novamente em " +
+          Math.ceil((twentyFourHours - (now - lastDraw)) / (60 * 60 * 1000)) +
+          " horas."
+        );
+        resultBox.style.display = "none";
+        return;
+      }
+
+      resultBox.style.display = "block";
+      resultBox.innerHTML =
+        '<p style="text-align:center;color:var(--gold)">Sorteando sua carta...</p>';
+
+      try {
+        const response = await fetch(API_BASE_URL + "/carta-do-dia");
+        const data = await response.json();
+
+        if (!response.ok || !data) {
+          throw new Error(data && data.error ? data.error : "Erro ao obter a Carta do Dia.");
+        }
+
+        const card = data.card || data.carta;
+        const area = data.area || data.areaDaVida;
+        const meaning = data.meaning || data.significado;
+
+        if (!card || !area || !meaning) {
+          throw new Error("A API não retornou uma Carta do Dia válida.");
+        }
+
+        localStorage.setItem("lastCartaDoDia", now);
+
+        resultBox.innerHTML =
+          "<h3>Sua Carta do Dia</h3>" +
+          "<p><strong>Carta:</strong> " +
+          escapeHTML(card) +
+          "</p>" +
+          "<p><strong>Área da Vida:</strong> " +
+          escapeHTML(area) +
+          "</p>" +
+          formatAPIResponse(meaning) +
+          resultActionsHTML();
+      } catch (error) {
+        resultBox.innerHTML =
+          '<p style="color:#ff9ea8"><strong>Não foi possível obter a Carta do Dia.</strong></p>' +
+          "<p>" +
+          escapeHTML(error.message || "Tente novamente mais tarde.") +
+          "</p>";
+      }
+    }
+
+    // Mapa Astral
+    async function generateMapaAstral(level) {
+      const name = byId("mapa-" + level + "-nome").value;
+      const date = byId("mapa-" + level + "-data").value;
+      const time = byId("mapa-" + level + "-hora").value;
+      const city = byId("mapa-" + level + "-cidade").value;
+      const state = byId("mapa-" + level + "-estado").value;
+      const result = byId("mapa-" + level + "-result");
+      const cost = COSTS["mapa-" + level];
+
+      if (!name || !date || !time || !city || !state) {
+        showModal(
+          "Dados incompletos",
+          "Preencha nome, data, hora, cidade e estado de nascimento."
+        );
+        return;
+      }
+
+      if (!hasCredits(cost)) {
+        showModal(
+          "Créditos insuficientes",
+          "Este mapa requer <strong>" + cost + " créditos</strong>."
+        );
+        return;
+      }
+
+      result.style.display = "block";
+      result.innerHTML =
+        '<p style="text-align:center;color:var(--gold)">Consultando os astros...</p>';
+
+      try {
+        const response = await fetch(API_BASE_URL + "/mapa", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nivel: level,
+            nome: name,
+            data: date,
+            hora: time,
+            cidade: city,
+            estado: state
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data) {
+          throw new Error(data && data.error ? data.error : "Erro ao gerar o mapa.");
+        }
+
+        const answer = data.mapa || data.resposta || data.response || data.leitura;
+
+        if (!answer) {
+          throw new Error("A API não retornou um mapa astral válido.");
+        }
+
+        if (!chargeCredits(cost)) {
+          result.style.display = "none";
+          return;
+        }
+
+        result.innerHTML =
+          "<h3>" +
+          escapeHTML(level) +
+          "</h3>" +
+          "<p><strong>Consulente:</strong> " +
+          escapeHTML(name) +
+          "</p>" +
+          formatAPIResponse(answer) +
+          resultActionsHTML();
+      } catch (error) {
+        result.innerHTML =
+          '<p style="color:#ff9ea8"><strong>Não foi possível gerar seu mapa.</strong></p>' +
+          "<p>" +
+          escapeHTML(error.message || "Tente novamente mais tarde.") +
+          "</p>";
+      }
+    }
+
+    // Horóscopo
+    function initHoroscopo() {
+      const grid = byId("horoscopo-grid");
+
+      if (!grid || grid.dataset.ready === "true") {
+        return;
+      }
+
+      grid.dataset.ready = "true";
+      grid.innerHTML = "";
+
+      SIGNOS_HOROSCOPO.forEach(function (signo) {
+        const button = document.createElement("button");
+
+        button.className = "dash-card";
+        button.type = "button";
+        button.innerHTML =
+          '<i class="fas fa-star-and-crescent"></i>' +
+          "<h3>" +
+          signo +
+          "</h3>" +
+          "<p>Ver previsão semanal</p>";
+
+        button.addEventListener("click", function () {
+          loadHoroscopo(signo);
+        });
+
+        grid.appendChild(button);
+      });
+    }
+
+    async function loadHoroscopo(signo) {
+      const result = byId("horoscopo-result");
+
+      result.style.display = "block";
+      result.innerHTML =
+        '<p style="text-align:center;color:var(--gold)">Consultando os astros...</p>';
+
+      try {
+        const response = await fetch("Horoscopo.txt");
+
+        if (!response.ok) {
+          throw new Error("Não foi possível carregar o arquivo de horóscopo.");
+        }
+
+        const text = await response.text();
+        const lines = text.split("\n");
+
+        let start = -1;
+
+        for (let index = 0; index < lines.length; index += 1) {
+          if (lines[index].trim().toLowerCase() === signo.toLowerCase()) {
+            start = index + 1;
+            break;
+          }
+        }
+
+        if (start === -1) {
+          throw new Error("Previsão não encontrada para " + signo + ".");
+        }
+
+        const content = [];
+
+        for (let index = start; index < lines.length; index += 1) {
+          const line = lines[index].trim();
+
+          if (SIGNOS_HOROSCOPO.some(function (item) {
+            return item.toLowerCase() === line.toLowerCase();
+          })) {
+            break;
+          }
+
+          if (line) {
+            content.push(line);
+          }
+        }
+
+        result.innerHTML =
+          "<h3>Horóscopo de " +
+          escapeHTML(signo) +
+          "</h3>" +
+          "<p>" +
+          escapeHTML(content.join(" ")) +
+          "</p>" +
+          resultActionsHTML();
+      } catch (error) {
+        result.innerHTML =
+          '<p style="color:#ff9ea8"><strong>Não foi possível carregar a previsão.</strong></p>' +
+          "<p>" +
+          escapeHTML(error.message) +
+          "</p>";
+      }
+    }
+
+    // Numerologia
+    function calculateNumerology() {
+      const name = normalizeName(byId("num-nome").value).toUpperCase();
+      const birthDate = byId("num-data").value;
+      const result = byId("num-result");
+
+      if (!name || !birthDate) {
+        showModal(
+          "Dados incompletos",
+          "Informe seu nome completo e sua data de nascimento."
+        );
+        return;
+      }
+
+      const letterValues = {
+        A: 1, J: 1, S: 1,
+        B: 2, K: 2, T: 2,
+        C: 3, L: 3, U: 3,
+        D: 4, M: 4, V: 4,
+        E: 5, N: 5, W: 5,
+        F: 6, O: 6, X: 6,
+        G: 7, P: 7, Y: 7,
+        H: 8, Q: 8, Z: 8,
+        I: 9, R: 9
+      };
+
+      function reduceNumber(value) {
+        let number = value;
+
+        while (number > 9 && number !== 11 && number !== 22) {
+          number = String(number)
+            .split("")
+            .reduce(function (sum, digit) {
+              return sum + Number(digit);
+            }, 0);
+        }
+
+        return number;
+      }
+
+      const nameValue = name
+        .replace(/[^A-Z]/g, "")
+        .split("")
+        .reduce(function (sum, letter) {
+          return sum + (letterValues[letter] || 0);
+        }, 0);
+
+      const dateValue = birthDate
+        .replace(/\D/g, "")
+        .split("")
+        .reduce(function (sum, digit) {
+          return sum + Number(digit);
+        }, 0);
+
+      const expression = reduceNumber(nameValue);
+      const destiny = reduceNumber(dateValue);
+
+      const meanings = {
+        1: "Liderança, independência e iniciativa.",
+        2: "Parcerias, sensibilidade e diplomacia.",
+        3: "Criatividade, expressão e comunicação.",
+        4: "Disciplina, estabilidade e construção.",
+        5: "Mudança, liberdade e adaptabilidade.",
+        6: "Cuidado, responsabilidade e harmonia.",
+        7: "Introspecção, estudo e espiritualidade.",
+        8: "Poder pessoal, realização e prosperidade.",
+        9: "Compaixão, encerramentos e humanitarismo.",
+        11: "Intuição elevada, inspiração e visão espiritual.",
+        22: "Capacidade de construir grandes realizações."
+      };
+
+      result.style.display = "block";
+      result.innerHTML =
+        "<h3>Seu Perfil Numerológico</h3>" +
+        "<p><strong>Número de Expressão: " +
+        expression +
+        "</strong><br>" +
+        meanings[expression] +
+        "</p>" +
+        "<p><strong>Número de Destino: " +
+        destiny +
+        "</strong><br>" +
+        meanings[destiny] +
+        "</p>" +
+        resultActionsHTML();
+    }
+
+    // FAQ
+    function initFAQ() {
+      const container = byId("faq-container");
+
+      if (!container || container.dataset.ready === "true") {
+        return;
+      }
+
+      container.dataset.ready = "true";
+
+      const questions = [
+        {
+          question: "O que são créditos?",
+          answer: "Créditos são utilizados para realizar consultas pagas de Tarô e Mapa Astral."
+        },
+        {
+          question: "A Carta do Dia é gratuita?",
+          answer: "Sim. Cada conta pode revelar uma Carta do Dia gratuitamente a cada 24 horas."
+        },
+        {
+          question: "Os créditos são descontados quando a API falha?",
+          answer: "Não. O desconto ocorre somente depois que a consulta recebe uma resposta válida da API."
+        },
+        {
+          question: "O Tarô determina o futuro?",
+          answer: "O Tarô é uma ferramenta simbólica de reflexão e autoconhecimento; suas escolhas continuam sendo fundamentais."
+        },
+        {
+          question: "Onde ficam salvos meus dados?",
+          answer: "Nesta versão, os dados de cadastro e sessão são salvos localmente no navegador."
+        }
+      ];
+
+      container.innerHTML = questions
+        .map(function (item, index) {
+          return (
+            '<div class="faq-item">' +
+            '<button class="faq-question" type="button" onclick="toggleFAQ(' +
+            index +
+            ')">' +
+            "<span>" +
+            escapeHTML(item.question) +
+            "</span>" +
+            '<i class="fas fa-chevron-down"></i>' +
+            "</button>" +
+            '<div id="faq-answer-' +
+            index +
+            '" class="faq-answer">' +
+            escapeHTML(item.answer) +
+            "</div>" +
+            "</div>"
+          );
+        })
+        .join("");
+    }
+
+    function toggleFAQ(index) {
+      const answer = byId("faq-answer-" + index);
+
+      if (!answer) return;
+
+      answer.style.display =
+        answer.style.display === "block" ? "none" : "block";
+    }
+
+    // Inicialização final
+    document.addEventListener("DOMContentLoaded", function () {
+      initStars();
+
+      const user = restoreSession();
+
+      if (user) {
+        currentUser = user;
+        enterPortal();
+      } else {
+        byId("main-header").style.display = "none";
+        showPage("page-login");
+      }
     });
-    byId(pageId).classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    hideChooseBalloon();
-
-// Funções de inicialização específicas para cada página
-if (pageId === "page-horoscopo") {
-  initHoroscopo();
-} else if (pageId === "page-faq") {
-  initFAQ();
-} else if (pageId === "page-carta-dia") {
-  initCartaDia();
-} else if (pageId.startsWith("page-tarot-")) {
-  // Garante que o título do tarô seja atualizado se necessário
-  const count = parseInt(pageId.replace("page-tarot-", ""));
-  if (!isNaN(count)) {
-    byId("tarot-title-" + count).textContent = "Tarô: " + count + " Cartas";
-  }
-} else if (pageId === "page-tarot-amor") {
-  initTarotAmor();
-}
-
-  }
-
-  // Esconde o balão de "Escolha suas cartas"
-  function hideChooseBalloon() {
-    const chooseBalloon = byId("choose-balloon");
-    if (chooseBalloon) {
-      chooseBalloon.style.display = "none";
-    }
-  }
-
-  // Função para logout
-  function logout() {
-    clearSession();
-    byId("login-email").value = "";
-    byId("login-pass").value = "";
-    byId("main-header").style.display = "none";
-    showPage("page-login");
-  }
-
-  // Função para voltar ao login (usada no dashboard)
-  function voltarLogin() {
-    logout();
-  }
-</script>
-  
+  </script>
 </head>
-
 <body>
-    <!-- =====================================================
-       MODAIS E BALÕES (INÍCIO)
-  ====================================================== -->
   <div id="modal-overlay">
     <div class="modal-content">
       <h3 id="modal-title"></h3>
       <p id="modal-message"></p>
       <div id="confirm-buttons" style="display: none;">
-        <button class="btn-portal" type="button" onclick="handleModalConfirm(true)">Sim</button>
-        <button class="btn-portal" type="button" onclick="handleModalConfirm(false)">Não</button>
+        <button class="btn-portal" id="modal-yes-button">Sim</button>
+        <button class="btn-portal gray" id="modal-no-button">Não</button>
       </div>
-      <button id="modal-ok-btn" class="btn-portal" type="button" onclick="hideModal()">OK</button>
+      <button class="btn-portal" id="modal-ok-button">Ok</button>
     </div>
   </div>
 
   <div id="mystic-balloon" style="display: none;">
-    <p>Olá! Precisa de ajuda? Posso guiar você pelos mistérios do portal. ✨</p>
+    <p id="mystic-balloon-message">✨</p>
   </div>
 
   <div id="choose-balloon" style="display: none;">
-    Escolha suas cartas abaixo
+    <p>Escolha suas cartas abaixo</p>
   </div>
-  <!-- =====================================================
-       MODAIS E BALÕES (FIM)
-  ====================================================== -->
+
   <div id="stars-container" aria-hidden="true"></div>
-<!-- =====================================================
-     MODAL DE MENSAGENS E BALÕES DE AJUDA (Adicionado aqui para ser carregado antes dos scripts)
-====================================================== -->
-<div id="modal-overlay">
-  <div class="modal-content">
-    <h3 id="modal-title"></h3>
-    <p id="modal-message"></p>
-    <div id="confirm-buttons" style="display: none;">
-      <button id="modal-cancel-btn" class="btn-portal" type="button" style="background: #555;" onclick="hideModal(false)">Cancelar</button>
-      <button id="modal-confirm-btn" class="btn-portal" type="button" onclick="hideModal(true)">Confirmar</button>
+
+  <header id="main-header">
+    <h1 class="logo" onclick="showPage('page-dashboard')">Oraculum Vitae</h1>
+    <div class="user-info">
+      <span class="credits-badge">Créditos: <span id="user-credits">0</span></span>
+      <button class="header-btn gold" onclick="showPage('page-planos')">
+        <i class="fas fa-gem"></i> Planos
+      </button>
+      <button class="header-btn" onclick="showPage('page-indicacao')">
+        <i class="fas fa-user-plus"></i> Indicar (+50)
+      </button>
+      <button class="header-btn" onclick="showPage('page-faq')">
+        <i class="fas fa-question-circle"></i> FAQ
+      </button>
+      <i class="fas fa-sign-out-alt btn-logout" onclick="logout()"></i>
     </div>
-    <button id="modal-ok-btn" class="btn-portal" type="button" onclick="hideModal()">OK</button>
-  </div>
-</div>
+  </header>
 
-<div id="mystic-balloon" style="display: none;">
-  <p>Olá! Precisa de ajuda? Posso guiar você pelos mistérios do portal. ✨</p>
-</div>
-
-<div id="choose-balloon" style="display: none;">
-  Escolha suas cartas abaixo
-</div>
-  
-  <!-- =====================================================
-       LOGIN E CADASTRO
-  ====================================================== -->
   <section id="page-login" class="page active">
     <div class="auth-container">
-      <div class="auth-tabs" role="tablist" aria-label="Acesso ao portal">
-        <button
-          id="tab-login"
-          class="tab active"
-          type="button"
-          role="tab"
-          aria-selected="true"
-          onclick="toggleAuth('login')"
-        >
-          Entrar
-        </button>
-
-        <button
-          id="tab-register"
-          class="tab"
-          type="button"
-          role="tab"
-          aria-selected="false"
-          onclick="toggleAuth('register')"
-        >
-          Cadastrar
-        </button>
+      <div class="auth-tabs">
+        <button class="tab active" onclick="showTab('login')">Entrar</button>
+        <button class="tab" onclick="showTab('register')">Cadastrar</button>
       </div>
 
-      <div id="form-login" class="auth-form">
-        <input
-          id="login-email"
-          type="email"
-          placeholder="Seu e-mail"
-          autocomplete="email"
-          onkeydown="if (event.key === 'Enter') handleLogin()"
-        >
-
-        <input
-          id="login-pass"
-          type="password"
-          placeholder="Sua senha"
-          autocomplete="current-password"
-          onkeydown="if (event.key === 'Enter') handleLogin()"
-        >
-
-        <button
-          class="btn-portal"
-          type="button"
-          onclick="handleLogin()"
-        >
-          Entrar no Portal
-        </button>
-
+      <div id="login-tab" class="auth-form">
+        <input type="email" id="login-email" placeholder="E-mail">
+        <input type="password" id="login-password" placeholder="Senha">
+        <button class="btn-portal" onclick="handleLogin()">Entrar no Portal</button>
         <div class="divider">ou</div>
-
-        <button
-          class="btn-google"
-          type="button"
-          onclick="showModal('Google Login', 'O acesso com Google estará disponível em breve.')"
-        >
-          <i class="fab fa-google"></i>
+        <button class="btn-google">
+          <img src="Graficos/google-icon.png" alt="Google Icon" width="18" height="18">
           Entrar com o Google
         </button>
       </div>
 
-      <div id="form-register" class="auth-form" style="display: none;">
-        <input
-          id="reg-name"
-          type="text"
-          placeholder="Nome completo"
-          autocomplete="name"
-          onkeydown="if (event.key === 'Enter') handleRegister()"
-        >
-
-        <input
-          id="reg-email"
-          type="email"
-          placeholder="E-mail"
-          autocomplete="email"
-          onkeydown="if (event.key === 'Enter') handleRegister()"
-        >
-
-        <input
-          id="reg-pass"
-          type="password"
-          placeholder="Senha"
-          autocomplete="new-password"
-          onkeydown="if (event.key === 'Enter') handleRegister()"
-        >
-
-        <input
-          id="reg-pass-confirm"
-          type="password"
-          placeholder="Repetir senha"
-          autocomplete="new-password"
-          onkeydown="if (event.key === 'Enter') handleRegister()"
-        >
-
+      <div id="register-tab" class="auth-form" style="display: none;">
+        <input type="email" id="register-email" placeholder="E-mail">
+        <input type="password" id="register-password" placeholder="Senha">
+        <input type="password" id="register-confirm-password" placeholder="Confirmar Senha">
         <label class="terms-label">
-          <input id="reg-terms" type="checkbox">
-          <span>Aceito os Termos de Uso</span>
+          <input type="checkbox" id="accept-terms">
+          Aceito os <a href="#" onclick="showModal('Termos de Uso', 'Aqui iriam os termos de uso do seu serviço.')">Termos de Uso</a>
         </label>
-
-        <button
-          class="btn-portal"
-          type="button"
-          onclick="handleRegister()"
-        >
-          Criar Conta e Ganhar 50 Créditos
-        </button>
+        <button class="btn-portal" onclick="handleRegister()">Criar Conta e Ganhar 50 Créditos</button>
       </div>
     </div>
   </section>
 
-  <!-- =====================================================
-       CABEÇALHO FIXO
-  ====================================================== -->
-  <header id="main-header">
-    <button
-      class="logo pirata"
-      type="button"
-      onclick="showPage('page-dashboard')"
-      aria-label="Ir para o início"
-    >
-      ORACULUM VITAE
-    </button>
-
-    <div class="user-info">
-      <button
-        class="header-btn gold"
-        type="button"
-        onclick="showPage('page-planos')"
-      >
-        <i class="fas fa-crown" aria-hidden="true"></i>
-        Planos
-      </button>
-
-      <button
-        class="header-btn green"
-        type="button"
-        onclick="showPage('page-indicacao')"
-      >
-        <i class="fas fa-user-plus" aria-hidden="true"></i>
-        Indicar (+50)
-      </button>
-
-      <button
-        class="header-btn gray"
-        type="button"
-        onclick="showPage('page-faq')"
-      >
-        <i class="fas fa-question-circle" aria-hidden="true"></i>
-        FAQ
-      </button>
-
-      <div class="credits-badge" title="Seus créditos disponíveis">
-        <i class="fas fa-coins" aria-hidden="true"></i>
-        <span id="display-credits">0</span>
-      </div>
-
-      <button
-        class="btn-logout"
-        type="button"
-        onclick="logout()"
-        aria-label="Sair do portal"
-        title="Sair"
-      >
-        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-      </button>
-    </div>
-  </header>
-
-  <!-- =====================================================
-       PAINEL INICIAL
-  ====================================================== -->
   <section id="page-dashboard" class="page">
     <div class="dash-header">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="voltarLogin()"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar
-      </button>
-
-      <h2 class="pirata">Bem-vindo ao Oraculum Vitae</h2>
+      <h2>Bem-vindo ao Oraculum Vitae</h2>
     </div>
-
     <div class="dash-grid">
-      <button
-        class="dash-card"
-        type="button"
-        onclick="showPage('page-sim-nao')"
-      >
-        <i class="fas fa-balance-scale" aria-hidden="true"></i>
+      <button class="dash-card" onclick="showPage('page-sim-nao')">
+        <i class="fas fa-question-circle"></i>
         <h3>Sim, Não, Talvez</h3>
         <p>Resposta direta</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="initTarotPage(2)"
-      >
-        <i class="fas fa-clone" aria-hidden="true"></i>
+      <button class="dash-card" onclick="initTarot('tarot-2-cartas', 2)">
+        <i class="fas fa-hand-sparkles"></i>
         <h3>Tarô: 2 Cartas</h3>
         <p>Conselho e advertência</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="initTarotPage(3)"
-      >
-        <i class="fas fa-layer-group" aria-hidden="true"></i>
+      <button class="dash-card" onclick="initTarot('tarot-3-cartas', 3)">
+        <i class="fas fa-hand-sparkles"></i>
         <h3>Tarô: 3 Cartas</h3>
         <p>Passado, presente e futuro</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="initTarotPage(5)"
-      >
-        <i class="fas fa-plus-square" aria-hidden="true"></i>
+      <button class="dash-card" onclick="initTarot('tarot-5-cartas', 5)">
+        <i class="fas fa-hand-sparkles"></i>
         <h3>Tarô: 5 Cartas</h3>
         <p>Cruz simples</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="initTarotPage(7)"
-      >
-        <i class="fas fa-horse-head" aria-hidden="true"></i>
+      <button class="dash-card" onclick="initTarot('tarot-7-cartas', 7)">
+        <i class="fas fa-hand-sparkles"></i>
         <h3>Tarô: 7 Cartas</h3>
         <p>Método da ferradura</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="initTarotPage(10)"
-      >
-        <i class="fas fa-cross" aria-hidden="true"></i>
+      <button class="dash-card" onclick="initTarot('tarot-10-cartas', 10)">
+        <i class="fas fa-hand-sparkles"></i>
         <h3>Tarô: 10 Cartas</h3>
         <p>Cruz Celta</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="showPage('page-carta-dia')"
-      >
-        <i class="fas fa-sun" aria-hidden="true"></i>
+      <button class="dash-card" onclick="getCartaDoDia()">
+        <i class="fas fa-calendar-day"></i>
         <h3>Carta do Dia</h3>
         <p>Grátis diariamente</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="showPage('page-amor')"
-      >
-        <i class="fas fa-heart" aria-hidden="true"></i>
+      <button class="dash-card" onclick="showPage('page-tarot-amor')">
+        <i class="fas fa-heart"></i>
         <h3>Tarô do Amor</h3>
         <p>Templo de Afrodite</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="initTarotMarselha()"
-      >
-        <i class="fas fa-scroll" aria-hidden="true"></i>
+      <button class="dash-card disabled">
+        <i class="fas fa-scroll"></i>
         <h3>Tarô de Marselha</h3>
         <p>Sabedoria tradicional</p>
+        <span class="badge-soon">EM BREVE</span>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="showPage('page-mapa-portico')"
-      >
-        <i class="fas fa-door-open" aria-hidden="true"></i>
-        <h3>Pórtico Celestial</h3>
-        <p>Mapa Astral inicial</p>
+      <button class="dash-card" onclick="showPage('page-mapa-portico')">
+        <i class="fas fa-globe-americas"></i>
+        <h3>Mapa Astral: Pórtico Celestial</h3>
+        <p>A porta de entrada para o seu mapa</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="showPage('page-mapa-orbita')"
-      >
-        <i class="fas fa-orbit" aria-hidden="true"></i>
-        <h3>Órbita Pessoal</h3>
-        <p>Mapa Astral ampliado</p>
+      <button class="dash-card" onclick="showPage('page-mapa-orbita')">
+        <i class="fas fa-globe-americas"></i>
+        <h3>Mapa Astral: Órbita Pessoal</h3>
+        <p>Uma visão mais ampla da sua vida</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="showPage('page-mapa-cosmos')"
-      >
-        <i class="fas fa-star" aria-hidden="true"></i>
-        <h3>Cosmos Absoluto</h3>
-        <p>Mapa Astral completo</p>
+      <button class="dash-card" onclick="showPage('page-mapa-cosmos')">
+        <i class="fas fa-globe-americas"></i>
+        <h3>Mapa Astral: Cosmos Absoluto</h3>
+        <p>A leitura integrada do seu universo</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="showPage('page-horoscopo')"
-      >
-        <i class="fas fa-moon" aria-hidden="true"></i>
+      <button class="dash-card" onclick="showPage('page-horoscopo', initHoroscopo)">
+        <i class="fas fa-star"></i>
         <h3>Horóscopo</h3>
         <p>Previsões semanais</p>
       </button>
-
-      <button
-        class="dash-card"
-        type="button"
-        onclick="showPage('page-numerologia')"
-      >
-        <i class="fas fa-hashtag" aria-hidden="true"></i>
+      <button class="dash-card" onclick="showPage('page-numerologia')">
+        <i class="fas fa-calculator"></i>
         <h3>Numerologia</h3>
         <p>Vibração do nome</p>
       </button>
-
-      <button
-        class="dash-card disabled"
-        type="button"
-        onclick="showModal('I Ching', 'Esta experiência estará disponível em breve.')"
-      >
-        <span class="badge-soon">EM BREVE</span>
-        <i class="fas fa-yin-yang" aria-hidden="true"></i>
+      <button class="dash-card disabled">
+        <i class="fas fa-yin-yang"></i>
         <h3>I Ching</h3>
         <p>Sabedoria chinesa</p>
+        <span class="badge-soon">EM BREVE</span>
       </button>
     </div>
   </section>
 
-  <!-- =====================================================
-       TARÔ — 2 CARTAS
-  ====================================================== -->
-  <section id="page-tarot-2" class="page tarot-bg">
+  <section id="page-sim-nao" class="page tarot-bg">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Sim, Não ou Talvez</h2>
+    </div>
     <div class="form-container">
-      <button class="voltar-link" type="button" onclick="showPage('page-dashboard')">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Tarô: 2 Cartas</h2>
-
-      <div class="tarot2-info">
-        <p>
-          <strong>O Tarô de 2 Cartas</strong> é uma leitura rápida e objetiva,
-          indicada para dilemas, duas possibilidades ou uma orientação direta.
-          A consulta custa <strong>20 créditos</strong>.
-        </p>
-
-        <ul class="tarot2-list">
-          <li><strong>Primeira carta:</strong> tema central, energia dominante e lição do momento.</li>
-          <li><strong>Segunda carta:</strong> aplicação prática, conselho ou ponto de atenção.</li>
-        </ul>
-      </div>
-
-      <input
-        id="q-2"
-        type="text"
-        maxlength="500"
-        placeholder="Faça sua pergunta objetiva por 20 créditos"
-        onkeydown="if (event.key === 'Enter') startTarot(2)"
-      >
-
-      <button class="btn-portal" type="button" style="margin-top: 15px;" onclick="startTarot(2)">
-        Iniciar Consulta
-      </button>
-    </div>
-
-    <div id="area-2" class="selection-area"></div>
-    <div id="res-2" class="result-box" style="display: none;"></div>
-
-    <div id="consultar-2" class="consultar-novamente-wrap" style="display: none;">
-      <button class="btn-consultar-novamente" type="button" onclick="voltarTopoTarot(2)">
-        Consulte Novamente
-      </button>
-    </div>
-  </section>
-
-  <!-- =====================================================
-       TARÔ — 3 CARTAS
-  ====================================================== -->
-  <section id="page-tarot-3" class="page tarot-bg">
-    <div class="form-container">
-      <button class="voltar-link" type="button" onclick="showPage('page-dashboard')">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Tarô: 3 Cartas</h2>
-
-      <div class="tarot2-info">
-        <p>
-          O <strong>Tarô de 3 Cartas</strong> é uma das tiragens mais conhecidas
-          e eficientes para compreender uma situação. A consulta custa
-          <strong>30 créditos</strong>.
-        </p>
-
-        <ul class="tarot2-list">
-          <li><strong>Passado:</strong> origem, experiência ou raiz da situação.</li>
-          <li><strong>Presente:</strong> momento atual e energia predominante.</li>
-          <li><strong>Futuro:</strong> tendência e conselho para o próximo passo.</li>
-        </ul>
-      </div>
-
-      <input
-        id="q-3"
-        type="text"
-        maxlength="500"
-        placeholder="Faça sua pergunta objetiva por 30 créditos"
-        onkeydown="if (event.key === 'Enter') startTarot(3)"
-      >
-
-      <button class="btn-portal" type="button" style="margin-top: 15px;" onclick="startTarot(3)">
-        Iniciar Consulta
-      </button>
-    </div>
-
-    <div id="area-3" class="selection-area"></div>
-    <div id="res-3" class="result-box" style="display: none;"></div>
-
-    <div id="consultar-3" class="consultar-novamente-wrap" style="display: none;">
-      <button class="btn-consultar-novamente" type="button" onclick="voltarTopoTarot(3)">
-        Consulte Novamente
-      </button>
-    </div>
-  </section>
-
-  <!-- =====================================================
-       TARÔ — 5 CARTAS
-  ====================================================== -->
-  <section id="page-tarot-5" class="page tarot-bg">
-    <div class="form-container">
-      <button class="voltar-link" type="button" onclick="showPage('page-dashboard')">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Tarô: 5 Cartas</h2>
-
-      <div class="tarot2-info">
-        <p>
-          O método de <strong>5 Cartas em Cruz</strong> oferece uma visão mais profunda
-          de uma questão, revelando forças, obstáculos e tendência de desfecho.
-          A consulta custa <strong>50 créditos</strong>.
-        </p>
-
-        <ul class="tarot2-list">
-          <li><strong>Carta 1:</strong> o que está a favor.</li>
-          <li><strong>Carta 2:</strong> o que está contra.</li>
-          <li><strong>Carta 3:</strong> o caminho ou ação necessária.</li>
-          <li><strong>Carta 4:</strong> o desfecho provável.</li>
-          <li><strong>Carta 5:</strong> a síntese central da leitura.</li>
-        </ul>
-      </div>
-
-      <input
-        id="q-5"
-        type="text"
-        maxlength="500"
-        placeholder="Faça sua pergunta objetiva por 50 créditos"
-        onkeydown="if (event.key === 'Enter') startTarot(5)"
-      >
-
-      <button class="btn-portal" type="button" style="margin-top: 15px;" onclick="startTarot(5)">
-        Iniciar Consulta
-      </button>
-    </div>
-
-    <div id="area-5" class="selection-area"></div>
-    <div id="res-5" class="result-box" style="display: none;"></div>
-
-    <div id="consultar-5" class="consultar-novamente-wrap" style="display: none;">
-      <button class="btn-consultar-novamente" type="button" onclick="voltarTopoTarot(5)">
-        Consulte Novamente
-      </button>
-    </div>
-  </section>
-
-  <!-- =====================================================
-       TARÔ — 7 CARTAS
-  ====================================================== -->
-  <section id="page-tarot-7" class="page tarot-bg">
-    <div class="form-container">
-      <button class="voltar-link" type="button" onclick="showPage('page-dashboard')">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Tarô: 7 Cartas</h2>
-
-      <div class="tarot2-info">
-        <p>
-          A leitura de <strong>7 Cartas</strong>, também chamada de
-          <strong>Método da Ferradura</strong>, aprofunda a análise de uma situação.
-          A consulta custa <strong>70 créditos</strong>.
-        </p>
-
-        <ul class="tarot2-list">
-          <li><strong>Carta 1:</strong> o passado.</li>
-          <li><strong>Carta 2:</strong> o presente.</li>
-          <li><strong>Carta 3:</strong> o futuro próximo.</li>
-          <li><strong>Carta 4:</strong> a atitude necessária.</li>
-          <li><strong>Carta 5:</strong> o entorno e as influências externas.</li>
-          <li><strong>Carta 6:</strong> o obstáculo ou conselho.</li>
-          <li><strong>Carta 7:</strong> o resultado provável.</li>
-        </ul>
-      </div>
-
-      <input
-        id="q-7"
-        type="text"
-        maxlength="500"
-        placeholder="Faça sua pergunta objetiva por 70 créditos"
-        onkeydown="if (event.key === 'Enter') startTarot(7)"
-      >
-
-      <button class="btn-portal" type="button" style="margin-top: 15px;" onclick="startTarot(7)">
-        Iniciar Consulta
-      </button>
-    </div>
-
-    <div id="area-7" class="selection-area"></div>
-    <div id="res-7" class="result-box" style="display: none;"></div>
-
-    <div id="consultar-7" class="consultar-novamente-wrap" style="display: none;">
-      <button class="btn-consultar-novamente" type="button" onclick="voltarTopoTarot(7)">
-        Consulte Novamente
-      </button>
-    </div>
-  </section>
-
-  <!-- =====================================================
-       TARÔ — 10 CARTAS
-  ====================================================== -->
-  <section id="page-tarot-10" class="page tarot-bg">
-    <div class="form-container">
-      <button class="voltar-link" type="button" onclick="showPage('page-dashboard')">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Tarô: 10 Cartas</h2>
-
-      <div class="tarot2-info">
-        <p>
-          A <strong>Cruz Celta</strong> é a leitura mais profunda do portal.
-          Ela examina presente, obstáculos, raízes, ambiente, medos e resultado.
-          A consulta custa <strong>100 créditos</strong>.
-        </p>
-
-        <ul class="tarot2-list">
-          <li><strong>1.</strong> Momento atual.</li>
-          <li><strong>2.</strong> Obstáculo.</li>
-          <li><strong>3.</strong> Raiz da questão.</li>
-          <li><strong>4.</strong> Passado recente.</li>
-          <li><strong>5.</strong> Objetivo ou coroamento.</li>
-          <li><strong>6.</strong> Futuro imediato.</li>
-          <li><strong>7.</strong> O consulente.</li>
-          <li><strong>8.</strong> Ambiente externo.</li>
-          <li><strong>9.</strong> Esperanças e medos.</li>
-          <li><strong>10.</strong> Resultado final.</li>
-        </ul>
-      </div>
-
-      <input
-        id="q-10"
-        type="text"
-        maxlength="500"
-        placeholder="Faça sua pergunta objetiva por 100 créditos"
-        onkeydown="if (event.key === 'Enter') startTarot(10)"
-      >
-
-      <button class="btn-portal" type="button" style="margin-top: 15px;" onclick="startTarot(10)">
-        Iniciar Consulta
-      </button>
-    </div>
-
-    <div id="area-10" class="selection-area"></div>
-    <div id="res-10" class="result-box" style="display: none;"></div>
-
-    <div id="consultar-10" class="consultar-novamente-wrap" style="display: none;">
-      <button class="btn-consultar-novamente" type="button" onclick="voltarTopoTarot(10)">
-        Consulte Novamente
-      </button>
-    </div>
-  </section>
-
-  <!-- =====================================================
-       SIM, NÃO OU TALVEZ
-  ====================================================== -->
-  <section id="page-sim-nao" class="page">
-    <div class="form-container">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Sim, Não ou Talvez</h2>
-
       <p class="tarot-info-text">
         Faça uma pergunta objetiva, que possa ser respondida com
         <strong>Sim</strong>, <strong>Não</strong> ou <strong>Talvez</strong>.
         A consulta custa <strong>10 créditos</strong>.
       </p>
-
-      <input
-        id="sim-nao-question"
-        type="text"
-        maxlength="500"
-        placeholder="Faça sua pergunta objetiva por 10 créditos"
-        onkeydown="if (event.key === 'Enter') startSimNao()"
-      >
-
-      <button
-        class="btn-portal"
-        type="button"
-        style="margin-top: 15px;"
-        onclick="startSimNao()"
-      >
-        Iniciar Consulta
+      <div class="auth-form">
+        <input type="text" id="sim-nao-question" placeholder="Sua pergunta...">
+        <button class="btn-portal" onclick="performSimNao()">Iniciar Consulta</button>
+      </div>
+      <div id="sim-nao-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="showPage('page-sim-nao')">
+        Consultar Novamente
       </button>
     </div>
+  </section>
 
-    <div id="sim-nao-selected" class="selection-area" style="display: none;"></div>
-    <div id="sim-nao-cards" class="cards-grid" style="display: none;"></div>
-    <div id="sim-nao-result" class="result-box" style="display: none;"></div>
-
-    <div id="consultar-simnao" class="consultar-novamente-wrap" style="display: none;">
-      <button class="btn-consultar-novamente" type="button" onclick="voltarTopoSimNao()">
+  <section id="page-tarot-2-cartas" class="page tarot-bg">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Tarô: 2 Cartas</h2>
+    </div>
+    <div class="form-container">
+      <p class="tarot-info-text">
+        <strong>O Tarô de 2 Cartas</strong> é uma leitura rápida e direta,
+        indicada para dilemas, duas possibilidades ou uma orientação objetiva.
+        A consulta custa <strong>20 créditos</strong>.
+      </p>
+      <ul class="tarot2-list">
+        <li>
+          <strong>Primeira carta:</strong> o tema central, a energia dominante
+          e a lição do momento.
+        </li>
+        <li>
+          <strong>Segunda carta:</strong> a aplicação prática, o conselho ou
+          o ponto que exige atenção.
+        </li>
+      </ul>
+      <p class="tarot-info-text">
+        A leitura pode revelar <strong>Conselho e Advertência</strong> ou
+        comparar o <strong>Caminho A e o Caminho B</strong>.
+      </p>
+      <button class="btn-portal" onclick="initTarot('tarot-2-cartas', 2)">Iniciar Consulta</button>
+    </div>
+    <div class="selection-area">
+      <div id="cards-grid" class="cards-grid"></div>
+      <div id="tarot-2-cartas-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="initTarot('tarot-2-cartas', 2)">
         Consulte Novamente
       </button>
     </div>
   </section>
 
-  <!-- =====================================================
-       CARTA DO DIA
-  ====================================================== -->
-  <section id="page-carta-dia" class="page">
+  <section id="page-tarot-3-cartas" class="page tarot-bg">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Tarô: 3 Cartas</h2>
+    </div>
     <div class="form-container">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
+      <p class="tarot-info-text">
+        O <strong>Tarô de 3 Cartas</strong> é uma das tiragens mais conhecidas
+        e eficientes para compreender uma situação. A consulta custa
+        <strong>30 créditos</strong>.
+      </p>
+      <ul class="tarot2-list">
+        <li>
+          <strong>Passado:</strong> a origem, a experiência ou a raiz da situação.
+        </li>
+        <li>
+          <strong>Presente:</strong> o momento atual e a energia predominante.
+        </li>
+        <li>
+          <strong>Futuro:</strong> a tendência e o conselho para o próximo passo.
+        </li>
+      </ul>
+      <p class="tarot-info-text">
+        Também pode ser interpretado como: obstáculo, causa e solução;
+        opção A, opção B e conselho; ou você, a outra pessoa e a dinâmica
+        da relação.
+      </p>
+      <button class="btn-portal" onclick="initTarot('tarot-3-cartas', 3)">Iniciar Consulta</button>
+    </div>
+    <div class="selection-area">
+      <div id="cards-grid" class="cards-grid"></div>
+      <div id="tarot-3-cartas-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="initTarot('tarot-3-cartas', 3)">
+        Consulte Novamente
       </button>
+    </div>
+  </section>
 
-      <h2 class="pirata">Carta do Dia</h2>
+  <section id="page-tarot-5-cartas" class="page tarot-bg">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Tarô: 5 Cartas</h2>
+    </div>
+    <div class="form-container">
+      <p class="tarot-info-text">
+        O método de <strong>5 Cartas em Cruz</strong> oferece uma visão mais
+        profunda de uma questão, revelando forças, obstáculos e tendência de
+        desfecho. A consulta custa <strong>50 créditos</strong>.
+      </p>
+      <ul class="tarot2-list">
+        <li><strong>Carta 1:</strong> o que está a favor.</li>
+        <li><strong>Carta 2:</strong> o que está contra.</li>
+        <li><strong>Carta 3:</strong> o caminho ou ação necessária.</li>
+        <li><strong>Carta 4:</strong> o desfecho provável.</li>
+        <li><strong>Carta 5:</strong> a síntese central da leitura.</li>
+      </ul>
+      <button class="btn-portal" onclick="initTarot('tarot-5-cartas', 5)">Iniciar Consulta</button>
+    </div>
+    <div class="selection-area">
+      <div id="cards-grid" class="cards-grid"></div>
+      <div id="tarot-5-cartas-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="initTarot('tarot-5-cartas', 5)">
+        Consulte Novamente
+      </button>
+    </div>
+  </section>
 
+  <section id="page-tarot-7-cartas" class="page tarot-bg">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Tarô: 7 Cartas</h2>
+    </div>
+    <div class="form-container">
+      <p class="tarot-info-text">
+        A leitura de <strong>7 Cartas</strong>, também chamada de
+        <strong>Método da Ferradura</strong>, aprofunda a análise de uma
+        situação e custa <strong>70 créditos</strong>.
+      </p>
+      <ul class="tarot2-list">
+        <li><strong>1.</strong> O passado;</li>
+        <li><strong>2.</strong> O presente;</li>
+        <li><strong>3.</strong> O futuro próximo;</li>
+        <li><strong>4.</strong> A atitude necessária;</li>
+        <li><strong>5.</strong> O entorno e as influências externas;</li>
+        <li><strong>6.</strong> O obstáculo ou conselho;</li>
+        <li><strong>7.</strong> O resultado provável.</li>
+      </ul>
+      <button class="btn-portal" onclick="initTarot('tarot-7-cartas', 7)">Iniciar Consulta</button>
+    </div>
+    <div class="selection-area">
+      <div id="cards-grid" class="cards-grid"></div>
+      <div id="tarot-7-cartas-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="initTarot('tarot-7-cartas', 7)">
+        Consulte Novamente
+      </button>
+    </div>
+  </section>
+
+  <section id="page-tarot-10-cartas" class="page tarot-bg">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Tarô: 10 Cartas</h2>
+    </div>
+    <div class="form-container">
+      <p class="tarot-info-text">
+        A <strong>Cruz Celta</strong> é a leitura mais profunda do portal.
+        Ela examina presente, obstáculos, raízes, ambiente, medos e resultado.
+        A consulta custa <strong>100 créditos</strong>.
+      </p>
+      <ul class="tarot2-list">
+        <li><strong>1.</strong> Momento atual;</li>
+        <li><strong>2.</strong> Obstáculo;</li>
+        <li><strong>3.</strong> Raiz da questão;</li>
+        <li><strong>4.</strong> Passado recente;</li>
+        <li><strong>5.</strong> Objetivo ou coroamento;</li>
+        <li><strong>6.</strong> Futuro imediato;</li>
+        <li><strong>7.</strong> O consulente;</li>
+        <li><strong>8.</strong> Ambiente externo;</li>
+        <li><strong>9.</strong> Esperanças e medos;</li>
+        <li><strong>10.</strong> Resultado final.</li>
+      </ul>
+      <button class="btn-portal" onclick="initTarot('tarot-10-cartas', 10)">Iniciar Consulta</button>
+    </div>
+    <div class="selection-area">
+      <div id="cards-grid" class="cards-grid"></div>
+      <div id="tarot-10-cartas-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="initTarot('tarot-10-cartas', 10)">
+        Consulte Novamente
+      </button>
+    </div>
+  </section>
+
+  <section id="page-carta-do-dia" class="page tarot-bg">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Carta do Dia</h2>
+    </div>
+    <div class="form-container">
       <p class="tarot-info-text">
         A <strong>Carta do Dia</strong> é uma orientação gratuita para as
         próximas 24 horas. Uma carta e uma área da vida são sorteadas para
         trazer um conselho pessoal.
       </p>
-
       <ul class="tarot2-list">
-        <li><strong>Uma vez por dia:</strong> consulta gratuita a cada 24 horas.</li>
-        <li><strong>Foco específico:</strong> amor, trabalho, dinheiro, família, saúde ou espiritualidade.</li>
-        <li><strong>Reflexão:</strong> use a mensagem como orientação, não como sentença.</li>
+        <li>
+          <strong>Uma vez por dia:</strong> consulta gratuita a cada 24 horas.
+        </li>
+        <li>
+          <strong>Foco específico:</strong> amor, trabalho, dinheiro, família, saúde ou espiritualidade.
+        </li>
+        <li>
+          <strong>Reflexão:</strong> use a mensagem como orientação, não como sentença.
+        </li>
       </ul>
+      <button class="btn-portal" onclick="getCartaDoDia()">Tirar Minha Carta do Dia</button>
+      <div id="carta-do-dia-result" class="result-box" style="display: none;"></div>
     </div>
-
-    <div id="carta-dia-cards" class="cards-grid"></div>
-    <div id="carta-dia-result" class="result-box" style="display: none;"></div>
-  </section>
-
-  <!-- =====================================================
-       TEMPLO DE AFRODITE
-  ====================================================== -->
-  <section id="page-amor" class="page">
-    <div class="form-container">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Templo de Afrodite</h2>
-
-      <p class="tarot-info-text">
-        O <strong>Templo de Afrodite</strong> é uma leitura amorosa de
-        <strong>7 cartas</strong>, indicada para analisar sentimentos,
-        intenções, química e a tendência de uma relação.
-      </p>
-
-      <p class="tarot-info-text">
-        As três cartas da esquerda representam você. As três cartas da direita
-        representam a outra pessoa. A carta do topo representa o elo e o futuro
-        provável da relação.
-      </p>
-
-      <ul class="tarot2-list">
-        <li><strong>Cartas 1, 2 e 3:</strong> seus pensamentos, sentimentos e atitudes.</li>
-        <li><strong>Cartas 4, 5 e 6:</strong> pensamentos, sentimentos e atitudes da outra pessoa.</li>
-        <li><strong>Carta 7:</strong> o elo, o destino e a tendência do vínculo.</li>
-      </ul>
-
-      <p class="tarot-info-text">
-        A consulta custa <strong>70 créditos</strong>.
-      </p>
-
-      <button
-        class="btn-portal"
-        type="button"
-        onclick="initTarotAmor()"
-      >
-        Entrar no Templo de Afrodite
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="getCartaDoDia()">
+        Tirar Novamente
       </button>
     </div>
   </section>
 
   <section id="page-tarot-amor" class="page tarot-bg">
-    <div class="form-container">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-amor')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Templo de Afrodite
-      </button>
-
-      <h2 class="pirata">O Templo</h2>
-
-      <p class="tarot-info-text">
-        Faça uma pergunta objetiva sobre a relação. Escolha sete cartas para
-        revelar a dinâmica entre as duas pessoas e a energia do elo.
-      </p>
-
-      <input
-        id="q-amor"
-        type="text"
-        maxlength="500"
-        placeholder="Faça sua pergunta objetiva por 70 créditos"
-        onkeydown="if (event.key === 'Enter') startTarotAmor()"
-      >
-
-      <button
-        class="btn-portal"
-        type="button"
-        style="margin-top: 15px;"
-        onclick="startTarotAmor()"
-      >
-        Iniciar Consulta
-      </button>
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Templo de Afrodite</h2>
     </div>
-
-    <div id="area-amor" class="selection-area"></div>
-    <div id="res-amor" class="result-box" style="display: none;"></div>
-
-    <div id="consultar-amor" class="consultar-novamente-wrap" style="display: none;">
-      <button class="btn-consultar-novamente" type="button" onclick="voltarTopoAmor()">
-        Consulte Novamente
+    <div class="form-container">
+      <p class="tarot-info-text">
+        O <strong>Templo de Afrodite</strong> é uma leitura amorosa de
+        <strong>7 cartas</strong>, indicada para analisar sentimentos,
+        intenções, química e a tendência de uma relação.
+      </p>
+      <p class="tarot-info-text">
+        As três cartas da esquerda representam você. As três cartas da direita
+        representam a outra pessoa. A carta do topo representa o elo e o futuro
+        provável da relação.
+      </p>
+      <ul class="tarot2-list">
+        <li>
+          <strong>Cartas 1, 2 e 3:</strong> seus pensamentos, sentimentos e atitudes.
+        </li>
+        <li>
+          <strong>Cartas 4, 5 e 6:</strong> pensamentos, sentimentos e atitudes da outra pessoa.
+        </li>
+        <li>
+          <strong>Carta 7:</strong> o elo, o destino e a tendência do vínculo.
+        </li>
+      </ul>
+      <p class="tarot-info-text">
+        A consulta custa <strong>70 créditos</strong>.
+      </p>
+      <button class="btn-portal" onclick="initTarot('tarot-amor', 7)">Entrar no Templo de Afrodite</button>
+    </div>
+    <div class="selection-area">
+      <div id="cards-grid" class="cards-grid"></div>
+      <div id="tarot-amor-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="initTarot('tarot-amor', 7)">
+        Voltar ao Templo de Afrodite
       </button>
     </div>
   </section>
 
-  <!-- =====================================================
-       MAPA ASTRAL
-  ====================================================== -->
   <section id="page-mapa-portico" class="page">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Mapa Astral: Pórtico Celestial</h2>
+    </div>
     <div class="form-container">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Mapa Astral: Pórtico Celestial</h2>
-
       <p class="tarot-info-text">
         A porta de entrada para compreender os principais movimentos do seu
         nascimento. Esta consulta custa <strong>50 créditos</strong>.
       </p>
-
       <div class="auth-form">
-        <input
-          id="portico-nome"
-          type="text"
-          placeholder="Seu nome completo"
-          autocomplete="name"
-        >
-        <input
-          id="portico-data"
-          type="date"
-          title="Data de nascimento"
-        >
-        <input
-          id="portico-hora"
-          type="time"
-          title="Hora de nascimento (aproximada)"
-        >
-        <input
-          id="portico-cidade"
-          type="text"
-          placeholder="Cidade de nascimento"
-        >
-        <input
-          id="portico-estado"
-          type="text"
-          placeholder="Estado de nascimento (ex: SP)"
-        >
-
-        <button
-          class="btn-portal"
-          type="button"
-          onclick="generateMapa('Pórtico Celestial', 'portico')"
-        >
-          Gerar Mapa Astral
-        </button>
+        <input type="text" id="mapa-mapa-portico-nome" placeholder="Seu nome completo">
+        <input type="date" id="mapa-mapa-portico-data">
+        <input type="time" id="mapa-mapa-portico-hora">
+        <input type="text" id="mapa-mapa-portico-cidade" placeholder="Cidade de nascimento">
+        <input type="text" id="mapa-mapa-portico-estado" placeholder="Estado de nascimento (UF)">
+        <button class="btn-portal" onclick="generateMapaAstral('mapa-portico')">Gerar Mapa Astral</button>
       </div>
-
-      <div
-        id="portico-result"
-        class="result-box"
-        style="display: none; margin-top: 24px;"
-      ></div>
+      <div id="mapa-mapa-portico-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="showPage('page-mapa-portico')">
+        Gerar Novamente
+      </button>
     </div>
   </section>
 
   <section id="page-mapa-orbita" class="page">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Mapa Astral: Órbita Pessoal</h2>
+    </div>
     <div class="form-container">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Mapa Astral: Órbita Pessoal</h2>
-
       <p class="tarot-info-text">
         Uma leitura mais ampla da sua personalidade, padrões e movimentos
         internos. Esta consulta custa <strong>100 créditos</strong>.
       </p>
-
       <div class="auth-form">
-        <input
-          id="orbita-nome"
-          type="text"
-          placeholder="Seu nome completo"
-          autocomplete="name"
-        >
-        <input
-          id="orbita-data"
-          type="date"
-          title="Data de nascimento"
-        >
-        <input
-          id="orbita-hora"
-          type="time"
-          title="Hora de nascimento (aproximada)"
-        >
-        <input
-          id="orbita-cidade"
-          type="text"
-          placeholder="Cidade de nascimento"
-        >
-        <input
-          id="orbita-estado"
-          type="text"
-          placeholder="Estado de nascimento (ex: SP)"
-        >
-
-        <button
-          class="btn-portal"
-          type="button"
-          onclick="generateMapa('Órbita Pessoal', 'orbita')"
-        >
-          Gerar Mapa Astral
-        </button>
+        <input type="text" id="mapa-mapa-orbita-nome" placeholder="Seu nome completo">
+        <input type="date" id="mapa-mapa-orbita-data">
+        <input type="time" id="mapa-mapa-orbita-hora">
+        <input type="text" id="mapa-mapa-orbita-cidade" placeholder="Cidade de nascimento">
+        <input type="text" id="mapa-mapa-orbita-estado" placeholder="Estado de nascimento (UF)">
+        <button class="btn-portal" onclick="generateMapaAstral('mapa-orbita')">Gerar Mapa Astral</button>
       </div>
-
-      <div
-        id="orbita-result"
-        class="result-box"
-        style="display: none; margin-top: 24px;"
-      ></div>
+      <div id="mapa-mapa-orbita-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="showPage('page-mapa-orbita')">
+        Gerar Novamente
+      </button>
     </div>
   </section>
 
   <section id="page-mapa-cosmos" class="page">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Mapa Astral: Cosmos Absoluto</h2>
+    </div>
     <div class="form-container">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Mapa Astral: Cosmos Absoluto</h2>
-
       <p class="tarot-info-text">
         A leitura mais profunda e integrada do seu universo pessoal. Esta
         consulta custa <strong>200 créditos</strong>.
       </p>
-
       <div class="auth-form">
-        <input
-          id="cosmos-nome"
-          type="text"
-          placeholder="Seu nome completo"
-          autocomplete="name"
-        >
-        <input
-          id="cosmos-data"
-          type="date"
-          title="Data de nascimento"
-        >
-        <input
-          id="cosmos-hora"
-          type="time"
-          title="Hora de nascimento (aproximada)"
-        >
-        <input
-          id="cosmos-cidade"
-          type="text"
-          placeholder="Cidade de nascimento"
-        >
-        <input
-          id="cosmos-estado"
-          type="text"
-          placeholder="Estado de nascimento (ex: SP)"
-        >
-
-        <button
-          class="btn-portal"
-          type="button"
-          onclick="generateMapa('Cosmos Absoluto', 'cosmos')"
-        >
-          Gerar Mapa Astral
-        </button>
+        <input type="text" id="mapa-mapa-cosmos-nome" placeholder="Seu nome completo">
+        <input type="date" id="mapa-mapa-cosmos-data">
+        <input type="time" id="mapa-mapa-cosmos-hora">
+        <input type="text" id="mapa-mapa-cosmos-cidade" placeholder="Cidade de nascimento">
+        <input type="text" id="mapa-mapa-cosmos-estado" placeholder="Estado de nascimento (UF)">
+        <button class="btn-portal" onclick="generateMapaAstral('mapa-cosmos')">Gerar Mapa Astral</button>
       </div>
-
-      <div
-        id="mapa-cosmos-result"
-        class="result-box"
-        style="display: none; margin-top: 24px;"
-      ></div>
+      <div id="mapa-mapa-cosmos-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="showPage('page-mapa-cosmos')">
+        Gerar Novamente
+      </button>
     </div>
   </section>
 
-  <!-- =====================================================
-       HORÓSCOPO
-  ====================================================== -->
   <section id="page-horoscopo" class="page">
-    <div class="form-container">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Horóscopo da Semana</h2>
+    </div>
+    <div id="horoscopo-grid" class="dash-grid">
+      <!-- Signos serão carregados aqui pelo JS -->
+    </div>
+    <div id="horoscopo-result" class="result-box" style="display: none;"></div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="showPage('page-horoscopo', initHoroscopo)">
+        Consultar Outro Signo
       </button>
-
-      <h2 class="pirata">Horóscopo da Semana</h2>
-
-      <p class="tarot-info-text">
-        Escolha o seu signo para revelar a energia predominante da semana.
-      </p>
-
-      <div id="horoscopo-grid" class="dash-grid">
-        <!-- Signos serão carregados aqui pelo JavaScript -->
-      </div>
-
-      <div
-        id="horoscopo-result"
-        class="result-box"
-        style="display: none; margin-top: 24px;"
-      ></div>
     </div>
   </section>
 
-  <!-- =====================================================
-       NUMEROLOGIA
-  ====================================================== -->
   <section id="page-numerologia" class="page">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Numerologia Pitagórica</h2>
+    </div>
     <div class="form-container">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata">Numerologia Pitagórica</h2>
-
       <p class="tarot-info-text">
         Descubra a vibração do seu nome e da sua data de nascimento pela
         tradição pitagórica.
       </p>
-
       <div class="auth-form">
-        <input
-          id="num-nome"
-          type="text"
-          placeholder="Seu nome completo"
-          autocomplete="name"
-        >
-        <input
-          id="num-data"
-          type="date"
-          title="Data de nascimento"
-        >
-
-        <button
-          class="btn-portal"
-          type="button"
-          onclick="calculateNumerology()"
-        >
-          Calcular Minha Vibração
-        </button>
+        <input type="text" id="num-nome" placeholder="Seu nome completo">
+        <input type="date" id="num-data">
+        <button class="btn-portal" onclick="calculateNumerology()">Calcular Minha Vibração</button>
       </div>
-
-      <div
-        id="num-result"
-        class="result-box"
-        style="display: none; margin-top: 24px;"
-      ></div>
+      <div id="num-result" class="result-box" style="display: none;"></div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="showPage('page-numerologia')">
+        Calcular Novamente
+      </button>
     </div>
   </section>
 
-  <!-- =====================================================
-       PLANOS E PACOTES
-  ====================================================== -->
   <section id="page-planos" class="page">
-    <div class="form-container" style="max-width: 900px;">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Voltar ao Início
-      </button>
-
-      <h2 class="pirata" style="margin-bottom: 18px;">Planos e Pacotes</h2>
-
-      <h3 style="margin-bottom: 15px;">Assinaturas</h3>
-      <div class="planos-table-wrapper">
-        <table class="planos-table">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Planos e Pacotes</h2>
+    </div>
+    <div class="form-container">
+      <h3>Assinaturas</h3>
+      <div class="table-responsive">
+        <table>
           <thead>
             <tr>
               <th>Plano</th>
@@ -2379,1536 +2395,109 @@ if (pageId === "page-horoscopo") {
               <td>Aprendiz</td>
               <td>R$ 39,90 / mês</td>
               <td>500 créditos mensais</td>
-              <td>
-                <button
-                  class="btn-portal"
-                  type="button"
-                  onclick="showModal('Aviso','Em breve.')"
-                >
-                  Assinar
-                </button>
-              </td>
+              <td><button class="header-btn green">Assinar</button></td>
             </tr>
             <tr>
               <td>Veterano</td>
-              <td>
-                R$ 29,90 / mês
-                <br>
-                <small>Trimestral: de <del>R$ 119,70</del> por R$ 89,70</small>
-              </td>
+              <td>R$ 29,90 / mês <br> Trimestral: de <del>R$ 119,70</del> por R$ 89,70</td>
               <td>500 créditos mensais</td>
-              <td>
-                <button
-                  class="btn-portal"
-                  type="button"
-                  onclick="showModal('Aviso','Em breve.')"
-                >
-                  Assinar
-                </button>
-              </td>
+              <td><button class="header-btn green">Assinar</button></td>
             </tr>
             <tr>
               <td>Mestre</td>
-              <td>
-                R$ 19,90 / mês
-                <br>
-                <small>Anual: de <del>R$ 478,80</del> por R$ 238,80</small>
-              </td>
+              <td>R$ 19,90 / mês <br> Anual: de <del>R$ 478,80</del> por R$ 238,80</td>
               <td>500 créditos mensais</td>
-              <td>
-                <button
-                  class="btn-portal"
-                  type="button"
-                  onclick="showModal('Aviso','Em breve.')"
-                >
-                  Assinar
-                </button>
-              </td>
+              <td><button class="header-btn green">Assinar</button></td>
             </tr>
             <tr>
               <td>MAGO</td>
-              <td>
-                R$ 59,90 / mês
-                <br>
-                <small>Anual: de <del>R$ 1.437,60</del> por R$ 718,80</small>
-              </td>
+              <td>R$ 59,90 / mês <br> Anual: de <del>R$ 1.437,60</del> por R$ 718,80</td>
               <td>Créditos ilimitados</td>
-              <td>
-                <button
-                  class="btn-portal"
-                  type="button"
-                  onclick="showModal('Aviso','Em breve.')"
-                >
-                  Assinar
-                </button>
-              </td>
+              <td><button class="header-btn green">Assinar</button></td>
             </tr>
           </tbody>
         </table>
       </div>
-
-      <p style="margin-top: 25px; font-size: 14px; color: var(--muted);">
+      <p class="tarot-info-text" style="font-size: 0.85em; margin-top: 15px;">
         Os planos Veterano, Mestre e MAGO possuem condições especiais de
         fidelidade. O cancelamento poderá ser solicitado a qualquer momento,
         conforme as condições aplicáveis ao período contratado.
       </p>
 
-      <h3 style="margin-top: 35px;">Pacotes Avulsos</h3>
-      <div class="dash-grid" style="padding: 0;">
+      <h3 style="margin-top: 30px;">Pacotes Avulsos</h3>
+      <div class="dash-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
         <div class="dash-card">
           <h3>100 Créditos</h3>
           <p>R$ 14,90</p>
-          <button
-            class="btn-portal"
-            type="button"
-            style="margin-top: 10px;"
-            onclick="showModal('Aviso','Em breve.')"
-          >
-            Comprar
-          </button>
+          <button class="header-btn gold" style="margin-top: 10px;">Comprar</button>
         </div>
         <div class="dash-card">
           <h3>250 Créditos</h3>
           <p>R$ 29,90</p>
-          <button
-            class="btn-portal"
-            type="button"
-            style="margin-top: 10px;"
-            onclick="showModal('Aviso','Em breve.')"
-          >
-            Comprar
-          </button>
+          <button class="header-btn gold" style="margin-top: 10px;">Comprar</button>
         </div>
         <div class="dash-card">
           <h3>500 Créditos</h3>
           <p>R$ 49,90</p>
-          <button
-            class="btn-portal"
-            type="button"
-            style="margin-top: 10px;"
-            onclick="showModal('Aviso','Em breve.')"
-          >
-            Comprar
-          </button>
+          <button class="header-btn gold" style="margin-top: 10px;">Comprar</button>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- =====================================================
-       INDICAÇÃO DE AMIGOS
-  ====================================================== -->
-  <section id="page-indicacao" class="page">
-    <div class="form-container" style="text-align: center;">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="showPage('page-dashboard')">
         Voltar ao Início
       </button>
+    </div>
+  </section>
 
-      <h2 class="pirata">Indique um Amigo</h2>
-
-      <p style="margin: 18px 0;">
+  <section id="page-indicacao" class="page">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Indique um Amigo</h2>
+    </div>
+    <div class="form-container">
+      <p class="tarot-info-text">
         Ganhe <strong>50 créditos</strong> quando seu amigo se cadastrar pelo
         seu convite.
       </p>
-
       <div class="auth-form">
-        <input
-          id="indica-email"
-          type="email"
-          placeholder="E-mail do seu amigo"
-          onkeydown="if (event.key === 'Enter') handleIndication()"
-        >
-        <button
-          class="btn-portal"
-          type="button"
-          onclick="handleIndication()"
-        >
-          Convidar
-        </button>
+        <input type="email" id="indica-email" placeholder="E-mail do amigo">
+        <button class="btn-portal" onclick="handleIndication()">Convidar</button>
       </div>
+      <div id="indica-result" class="result-box" style="display: none;"></div>
     </div>
-  </section>
-
-  <!-- =====================================================
-       PERGUNTAS FREQUENTES (FAQ)
-  ====================================================== -->
-  <section id="page-faq" class="page">
-    <div class="form-container" style="max-width: 800px;">
-      <button
-        class="voltar-link"
-        type="button"
-        onclick="showPage('page-dashboard')"
-      >
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="showPage('page-dashboard')">
         Voltar ao Início
       </button>
-
-      <h2 class="pirata" style="margin-bottom: 12px;">Perguntas Frequentes</h2>
-
-      <div id="faq-container">
-        <!-- FAQ será carregado aqui pelo JavaScript -->
-      </div>
     </div>
   </section>
 
-  <!-- =====================================================
-       MODAIS
-  ====================================================== -->
-  <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-content">
-      <h3 id="modal-title">Aviso</h3>
-      <p id="modal-msg"></p>
-      <div id="confirm-buttons" style="display: none;">
-        <button class="btn-portal" type="button" onclick="confirmAction(true)">Confirmar</button>
-        <button class="btn-portal" type="button" onclick="confirmAction(false)">Cancelar</button>
-      </div>
-      <button id="modal-ok-button" class="btn-portal" type="button" onclick="closeModal()">Entendido</button>
+  <section id="page-faq" class="page">
+    <div class="dash-header">
+      <a href="#" class="voltar-link" onclick="showPage('page-dashboard')">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+      <h2>Perguntas Frequentes</h2>
     </div>
+    <div class="form-container">
+      <div id="faq-container">
+        <!-- FAQ items will be loaded here by JS -->
+      </div>
+    </div>
+    <div class="consultar-novamente-wrap">
+      <button class="btn-consultar-novamente" onclick="showPage('page-dashboard')">
+        Voltar ao Início
+      </button>
+    </div>
+  </section>
+
+  <div id="cookie-notice" style="display: none;">
+    <p>Este site utiliza cookies essenciais para o funcionamento. Ao continuar, você concorda com o uso.</p>
+    <button id="accept-cookies">Entendido</button>
   </div>
-
-  <!-- =====================================================
-       BALÕES DE INTERAÇÃO
-  ====================================================== -->
-  <div id="mystic-balloon" aria-live="polite" aria-atomic="true">
-    <p id="balloon-text" style="font-style: italic; font-size: 14px;"></p>
-  </div>
-
-  <div id="choose-balloon" aria-live="polite" aria-atomic="true">
-    Escolha suas cartas abaixo
-  </div>
-
-  <!-- =====================================================
-       SCRIPTS JAVASCRIPT
-  ====================================================== -->
-  <script>
-    // Variáveis globais (DECK_NORMAL, ARCANOS_MAIORES, COSTS, etc.)
-    // e funções utilitárias (stripAcc, cardBaseName, cardImageVariants, etc.)
-    // serão inseridas aqui na Parte 6.
-  </script>
-
-  <script>
-    // Funções de controle de UI (showPage, toggleAuth, showModal, etc.)
-    // e lógica de autenticação (handleLogin, handleRegister, logout, etc.)
-    // serão inseridas aqui na Parte 7.
-  </script>
-
-  <script>
-    // Lógica de créditos (updateCredits, chargeCredits, hasCredits, etc.)
-    // e gerenciamento de sessão (saveSession, restoreSession, etc.)
-    // serão inseridas aqui na Parte 8.
-  </script>
-
-  <script>
-    // Lógica principal das tiragens de Tarô (initTarotPage, startTarot, finishTarot, etc.)
-    // e Sim/Não (startSimNao, finishSimNao, etc.)
-    // serão inseridas aqui na Parte 9.
-  </script>
-
-  <script>
-    // Lógica de Carta do Dia (initCartaDia), Templo de Afrodite (initTarotAmor, startTarotAmor),
-    // Mapas Astrais (generateMapa), Horóscopo (initHoroscopo, loadHoroscopo),
-    // Numerologia (calculateNumerology) e FAQ (initFAQ, toggleFAQ)
-    // serão inseridas aqui na Parte 10.
-  </script>
-
-  <script>
-    // Inicialização final (DOMContentLoaded, initStars, restoreSession)
-    // será inserida aqui na Parte 10.
-  </script>
-</body>
-</html>
-
-<script>
-  // =====================================================
-  //               VARIÁVEIS GLOBAIS
-  // =====================================================
-
-  // Constantes de custo para cada tipo de consulta
-  const COSTS = {
-    simNao: 10,
-    tarot2: 20,
-    tarot3: 30,
-    tarot5: 50,
-    tarot7: 70,
-    tarot10: 100,
-    amor: 70,
-    "Pórtico Celestial": 50,
-    "Órbita Pessoal": 100,
-    "Cosmos Absoluto": 200,
-  };
-
-  // Baralho de Arcanos Maiores
-  const ARCANOS_MAIORES = [
-    "O Louco", "O Mago", "A Sacerdotisa", "A Imperatriz", "O Imperador",
-    "O Hierofante", "Os Enamorados", "A Carruagem", "A Força", "O Eremita",
-    "A Roda da Fortuna", "A Justiça", "O Enforcado", "A Morte", "A Temperança",
-    "O Diabo", "A Torre", "A Estrela", "A Lua", "O Sol", "O Julgamento", "O Mundo"
-  ];
-
-  // Baralho de Arcanos Menores (completo)
-  const ARCANOS_MENORES = [
-    { n: "Ás de Ouros", s: "Ouros", v: "Ás" }, { n: "2 de Ouros", s: "Ouros", v: "2" },
-    { n: "3 de Ouros", s: "Ouros", v: "3" }, { n: "4 de Ouros", s: "Ouros", v: "4" },
-    { n: "5 de Ouros", s: "Ouros", v: "5" }, { n: "6 de Ouros", s: "Ouros", v: "6" },
-    { n: "7 de Ouros", s: "Ouros", v: "7" }, { n: "8 de Ouros", s: "Ouros", v: "8" },
-    { n: "9 de Ouros", s: "Ouros", v: "9" }, { n: "10 de Ouros", s: "Ouros", v: "10" },
-    { n: "Valete de Ouros", s: "Ouros", v: "Valete" }, { n: "Cavaleiro de Ouros", s: "Ouros", v: "Cavaleiro" },
-    { n: "Rainha de Ouros", s: "Ouros", v: "Rainha" }, { n: "Rei de Ouros", s: "Ouros", v: "Rei" },
-
-    { n: "Ás de Copas", s: "Copas", v: "Ás" }, { n: "2 de Copas", s: "Copas", v: "2" },
-    { n: "3 de Copas", s: "Copas", v: "3" }, { n: "4 de Copas", s: "Copas", v: "4" },
-    { n: "5 de Copas", s: "Copas", v: "5" }, { n: "6 de Copas", s: "Copas", v: "6" },
-    { n: "7 de Copas", s: "Copas", v: "7" }, { n: "8 de Copas", s: "Copas", v: "8" },
-    { n: "9 de Copas", s: "Copas", v: "9" }, { n: "10 de Copas", s: "Copas", v: "10" },
-    { n: "Valete de Copas", s: "Copas", v: "Valete" }, { n: "Cavaleiro de Copas", s: "Copas", v: "Cavaleiro" },
-    { n: "Rainha de Copas", s: "Copas", v: "Rainha" }, { n: "Rei de Copas", s: "Copas", v: "Rei" },
-
-    { n: "Ás de Espadas", s: "Espadas", v: "Ás" }, { n: "2 de Espadas", s: "Espadas", v: "2" },
-    { n: "3 de Espadas", s: "Espadas", v: "3" }, { n: "4 de Espadas", s: "Espadas", v: "4" },
-    { n: "5 de Espadas", s: "Espadas", v: "5" }, { n: "6 de Espadas", s: "Espadas", v: "6" },
-    { n: "7 de Espadas", s: "Espadas", v: "7" }, { n: "8 de Espadas", s: "Espadas", v: "8" },
-    { n: "9 de Espadas", s: "Espadas", v: "9" }, { n: "10 de Espadas", s: "Espadas", v: "10" },
-    { n: "Valete de Espadas", s: "Espadas", v: "Valete" }, { n: "Cavaleiro de Espadas", s: "Espadas", v: "Cavaleiro" },
-    { n: "Rainha de Espadas", s: "Espadas", v: "Rainha" }, { n: "Rei de Espadas", s: "Espadas", v: "Rei" },
-
-    { n: "Ás de Paus", s: "Paus", v: "Ás" }, { n: "2 de Paus", s: "Paus", v: "2" },
-    { n: "3 de Paus", s: "Paus", v: "3" }, { n: "4 de Paus", s: "Paus", v: "4" },
-    { n: "5 de Paus", s: "Paus", v: "5" }, { n: "6 de Paus", s: "Paus", v: "6" },
-    { n: "7 de Paus", s: "Paus", v: "7" }, { n: "8 de Paus", s: "Paus", v: "8" },
-    { n: "9 de Paus", s: "Paus", v: "9" }, { n: "10 de Paus", s: "Paus", v: "10" },
-    { n: "Valete de Paus", s: "Paus", v: "Valete" }, { n: "Cavaleiro de Paus", s: "Paus", v: "Cavaleiro" },
-    { n: "Rainha de Paus", s: "Paus", v: "Rainha" }, { n: "Rei de Paus", s: "Paus", v: "Rei" }
-  ];
-
-  // Baralho completo (Arcanos Maiores + Menores)
-  const DECK_NORMAL = [
-    ...ARCANOS_MAIORES.map(n => ({ n: n, s: "Maior", v: "" })),
-    ...ARCANOS_MENORES
-  ];
-
-  // Áreas para a Carta do Dia
-  const AREAS_CARTA_DIA = [
-    "Amor", "Trabalho", "Dinheiro", "Família", "Saúde", "Espiritualidade", "Amizades", "Criatividade"
-  ];
-
-  // Signos do zodíaco para o Horóscopo
-  const SIGNOS_HOROSCOPO = [
-    'Áries', 'Touro', 'Gêmeos', 'Câncer', 'Leão', 'Virgem', 'Libra',
-    'Escorpião', 'Sagitário', 'Capricórnio', 'Aquário', 'Peixes'
-  ];
-
-  // Variáveis de estado globais
-  let currentUser = null; // Usuário logado
-  let currentReading = { // Leitura atual em andamento
-    count: 0, type: '', cost: 0, selected: [], question: '', active: false, phase: ''
-  };
-  let selectedMapaCost = 0; // Custo do mapa astral selecionado
-
-  // =====================================================
-  //               FUNÇÕES UTILITÁRIAS GERAIS
-  // =====================================================
-
-  // Atalho para document.getElementById
-  
-  // Finaliza a tiragem de Tarô e exibe o resultado
-  async function finishTarot(count) {
-    const cards = currentReading.selected;
-    const area = byId("area-" + count);
-    const result = byId("res-" + count);
-
-    result.style.display = "block";
-    result.innerHTML =
-      '<p style="text-align:center;color:var(--gold)">Consultando o oráculo...</p>';
-
-    renderTarotLayout(area, cards, count, currentReading.type);
-
-    try {
-      const method =
-        currentReading.type === "Marselha"
-          ? "Tarô de Marselha"
-          : "Tarô de " + count + " Cartas";
-
-      // Simula a chamada à API
-      const answer = await simulateTarotAPI(
-        currentReading.question,
-        cards,
-        method
-      );
-
-      if (!chargeCredits(currentReading.cost)) {
-        result.style.display = "none";
-        return;
-      }
-
-      result.innerHTML =
-        "<h3>Leitura do Oráculo</h3>" +
-        "<p><strong>Sua pergunta:</strong> “" +
-        escapeHTML(currentReading.question) +
-        "”</p>" +
-        "<p><strong>Cartas reveladas:</strong> " +
-        cards
-          .map(function (card) {
-            return escapeHTML(card.n);
-          })
-          .join(", ") +
-        "</p>" +
-        formatAPIResponse(answer) +
-        resultActionsHTML();
-
-      byId("consultar-" + count).style.display = "flex";
-
-      setTimeout(function () {
-        result.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      }, 180);
-    } catch (error) {
-      result.innerHTML =
-        '<p style="color:#ff9ea8"><strong>Não foi possível consultar o oráculo.</strong></p>' +
-        "<p>" +
-        escapeHTML(error.message || "Tente novamente mais tarde.") +
-        "</p>";
-
-      currentReading.active = false;
-    }
-  }
-
-  // Renderiza o layout das cartas de Tarô
-  function renderTarotLayout(container, cards, count, type) {
-    container.innerHTML = ""; // Limpa o container antes de renderizar
-
-    if (count === 2) {
-      container.innerHTML =
-        '<div class="two-cards-display">' +
-        revealedCardHTML(cards[0], type, "150px") +
-        revealedCardHTML(cards[1], type, "150px") +
-        "</div>";
-      return;
-    }
-
-    if (count === 3) {
-      container.innerHTML =
-        '<div class="three-cards-display">' +
-        revealedCardHTML(cards[0], type, "150px") +
-        revealedCardHTML(cards[1], type, "150px") +
-        revealedCardHTML(cards[2], type, "150px") +
-        "</div>";
-      return;
-    }
-
-    if (count === 5) {
-      const labels = [
-        "A favor",
-        "Contra",
-        "O caminho",
-        "O desfecho",
-        "A síntese"
-      ];
-
-      const positions = [
-        "left:14%;top:50%",
-        "left:86%;top:50%",
-        "left:50%;top:12%",
-        "left:50%;top:88%",
-        "left:50%;top:50%"
-      ];
-
-      container.innerHTML =
-        '<div class="cross-layout">' +
-        cards
-          .map(function (card, index) {
-            return (
-              '<div class="cross-card" style="' +
-              positions[index] +
-              ';transform:translate(-50%,-50%)">' +
-              revealedCardHTML(card, type, "110px") +
-              '<div class="cross-label">' +
-              labels[index] +
-              "</div>" +
-              "</div>"
-            );
-          })
-          .join("") +
-        "</div>";
-
-      return;
-    }
-
-    if (count === 7) {
-      const labels = [
-        "Passado",
-        "Presente",
-        "Futuro próximo",
-        "Atitude",
-        "Entorno",
-        "Conselho",
-        "Resultado"
-      ];
-
-      const positions = [
-        "left:5%;top:85%",
-        "left:22%;top:57%",
-        "left:37%;top:30%",
-        "left:50%;top:8%",
-        "left:63%;top:30%",
-        "left:78%;top:57%",
-        "left:95%;top:85%"
-      ];
-
-      container.innerHTML =
-        '<div class="horseshoe-layout">' +
-        cards
-          .map(function (card, index) {
-            return (
-              '<div class="horseshoe-card" style="' +
-              positions[index] +
-              ';transform:translate(-50%,-50%)">' +
-              revealedCardHTML(card, type, "95px") +
-              '<div class="horseshoe-label">' +
-              labels[index] +
-              "</div>" +
-              "</div>"
-            );
-          })
-          .join("") +
-        "</div>";
-
-      return;
-    }
-
-    // Layout padrão para 10 cartas ou outros
-    container.innerHTML =
-      '<div class="cards-grid">' +
-      cards
-        .map(function (card) {
-          return revealedCardHTML(card, type, "100px");
-        })
-        .join("") +
-      "</div>";
-  }
-
-  // Retorna ao topo da página de Tarô e reinicia a consulta
-  function voltarTopoTarot(count) {
-    initTarotPage(count, currentReading.type);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  // Gera o HTML para uma carta revelada
-  function revealedCardHTML(card, type, size) {
-    const cardName = nomeCarta(card, type);
-    const cardImgSrc = cardImage(card, type);
-    return (
-      '<div class="revealed-card" style="width:' +
-      size +
-      '">' +
-      '<img src="' +
-      cardImgSrc +
-      '" alt="' +
-      cardName +
-      '">' +
-      '<div class="card-label">' +
-      escapeHTML(cardName) +
-      "</div>" +
-      "</div>"
-    );
-  }
-
-  // Retorna o nome da carta, com alias para Marselha
-  function nomeCarta(card, type) {
-    let nome = card.n;
-    if (type === "Marselha") {
-      const alias = {
-        "A Sacerdotisa": "A Papisa",
-        "O Hierofante": "O Papa",
-        "Os Enamorados": "O Enamorado",
-        "O Enforcado": "O Pendurado",
-        "A Carruagem": "O Carro",
-      };
-      if (alias[nome]) {
-        nome = alias[nome];
-      }
-    }
-    return nome;
-  }
-
-  // Retorna o caminho da imagem da carta
-  function cardImage(card, type) {
-    const baseName = cardBaseName(card);
-    const noAccents = stripAccents(baseName);
-    let folder = "Normal";
-    let suffix = "";
-
-    if (type === "Marselha") {
-      folder = "Marselha";
-      suffix = " Marselha";
-      const alias = {
-        "A Sacerdotisa": "A Papisa",
-        "O Hierofante": "O Papa",
-        "Os Enamorados": "O Enamorado",
-        "O Enforcado": "O Pendurado",
-        "A Carruagem": "O Carro",
-      };
-      if (alias[baseName]) {
-        // Usa o nome do alias para buscar a imagem se for Marselha
-        return `${folder}/${stripAccents(alias[baseName])}${suffix}.png`;
-      }
-    }
-
-    // Tenta várias combinações de nomes de arquivo
-    const possibleNames = [
-      baseName,
-      noAccents,
-      baseName.replace(/ /g, "_"),
-      noAccents.replace(/ /g, "_"),
-    ];
-
-    for (const name of possibleNames) {
-      // Prioriza PNG, mas aceita JPG
-      return `${folder}/${name}${suffix}.png`; // Retorna o primeiro que encontrar
-    }
-    return `${folder}/${noAccents}${suffix}.png`; // Fallback
-  }
-
-  // Retorna o nome base da carta (sem "de Ouros", etc.)
-  function cardBaseName(card) {
-    const nome = card.n;
-    if (ARCANOS_MAIORES.includes(nome)) {
-      return nome;
-    }
-    const parts = nome.split(" de ");
-    const valor = NUM_EXTENSO[parts[0]] || parts[0];
-    return valor + " de " + parts[1];
-  }
-
-  // Simula a resposta da API de Tarô
-  async function simulateTarotAPI(question, cards, method) {
-    // Simula um atraso de rede
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // Lógica de simulação de resposta
-    let response = {};
-    const cardNames = cards.map((c) => c.n);
-    const firstCard = cards[0];
-    const polarity = cardPolarity(firstCard);
-    const topic = detectTopic(question);
-    const person = extractPerson(question);
-    const action = extractAction(question);
-    const subject = questionSubject(question);
-
-    // Respostas mais elaboradas para tiragens maiores
-    if (cards.length > 3) {
-      response["Análise Geral"] = `A questão sobre "${escapeHTML(question)}" foi analisada. As cartas revelam uma complexidade de energias.`;
-      response["Cartas Chave"] = `As cartas ${cardNames.slice(0, 3).join(", ")} são centrais para a sua situação.`;
-      response["Conselho"] = `O oráculo sugere que você preste atenção aos detalhes e confie na sua intuição.`;
-    } else {
-      // Respostas mais diretas para tiragens menores
-      response["Leitura"] = `Para a sua pergunta sobre "${escapeHTML(question)}", a carta principal revelada é ${escapeHTML(firstCard.n)}.`;
-      response["Significado"] = `Esta carta indica ${randomItem(FRASES_MISTICAS)}.`;
-    }
-
-    if (method === "Sim, Não ou Talvez") {
-      if (polarity > 0.3) {
-        response["Veredito"] = `O oráculo indica um forte **SIM**! ${randomItem(POSITIVE_PHRASES)}.`;
-      } else if (polarity < -0.3) {
-        response["Veredito"] = `O oráculo aponta para um **NÃO** claro. ${randomItem(NEGATIVE_PHRASES)}.`;
-      } else {
-        response["Veredito"] = `O oráculo sugere um **TALVEZ**. ${randomItem(MIXED_PHRASES)}.`;
-      }
-    } else if (method === "Templo de Afrodite") {
-      response["Dinamica da Relação"] = `As cartas revelam a complexidade dos sentimentos envolvidos.`;
-      response["Seus Sentimentos"] = `Suas cartas mostram ${cardNames.slice(0, 3).join(", ")}.`;
-      response["Sentimentos do Outro"] = `As cartas do seu parceiro(a) indicam ${cardNames.slice(3, 6).join(", ")}.`;
-      response["O Elo"] = `A carta do elo, ${cardNames[6]}, sugere a tendência para o futuro da relação.`;
-    } else if (method === "Tarô de Marselha") {
-      response["Interpretação de Marselha"] = `A sabedoria ancestral de Marselha revela que ${cardNames.join(", ")} trazem uma mensagem profunda para sua jornada.`;
-    }
-
-    if (topic === "love") {
-      response["Foco no Amor"] = "As energias amorosas estão em destaque nesta leitura.";
-    } else if (topic === "work") {
-      response["Foco no Trabalho"] = "Questões profissionais e de carreira são o ponto central.";
-    } else if (topic === "money") {
-      response["Foco Financeiro"] = "As finanças são o tema principal desta consulta.";
-    } else if (topic === "health") {
-      response["Foco na Saúde"] = "A leitura aborda aspectos de bem-estar e saúde.";
-    }
-
-    if (person) {
-      response["Pessoa Envolvida"] = `A leitura também considera a influência de ${escapeHTML(person)}.`;
-    }
-    if (action) {
-      response["Ação Sugerida"] = `Em relação a "${escapeHTML(action)}", o oráculo oferece um caminho.`;
-    }
-    if (subject) {
-      response["Assunto Principal"] = `O cerne da sua questão sobre "${escapeHTML(subject)}" é abordado.`;
-    }
-
-    return response;
-  }
-
-  // =====================================================
-  //               SIM, NÃO OU TALVEZ
-  // =====================================================
-
-  // Inicia a consulta Sim, Não ou Talvez
-  function startSimNao() {
-    const question = byId("sim-nao-question").value.trim();
-
-    if (!requireValidQuestion(question)) {
-      return;
-    }
-
-    if (!hasCredits(COSTS.simNao)) {
-      showModal(
-        "Créditos insuficientes",
-        `Esta consulta requer <strong>${COSTS.simNao} créditos</strong>.`
-      );
-      return;
-    }
-
-    askConfirmQuestion(question, "simnao", 1);
-  }
-
-  // Procede com a consulta Sim, Não ou Talvez
-  function proceedSimNao(question) {
-    currentReading = {
-      count: 1,
-      cost: COSTS.simNao,
-      type: "Tradicional",
-      question: question,
-      selected: [],
-      active: true,
-      phase: "all",
-    };
-
-    const grid = byId("sim-nao-cards");
-    const result = byId("sim-nao-result");
-    const selected = byId("sim-nao-selected");
-
-    result.style.display = "none";
-    selected.style.display = "none";
-    grid.style.display = "grid";
-    grid.innerHTML = "";
-
-    shuffleArray(DECK_NORMAL).forEach(function (card, index) {
-      const slot = document.createElement("button");
-
-      slot.type = "button";
-      slot.className = "card-slot";
-      slot.innerHTML =
-        '<span class="card-inner">' +
-        '<span class="card-back"></span>' +
-        '<span class="card-front">' +
-        cardImageHTML(card, "Tradicional") +
-        "</span>" +
-        "</span>" +
-        '<span class="card-num">' +
-        (index + 1) +
-        "</span>";
-
-      slot.addEventListener("click", function () {
-        if (!currentReading.active) return;
-
-        currentReading.active = false;
-        slot.classList.add("flipped");
-        currentReading.selected = [card];
-
-        finishSimNao(card);
-      });
-
-      grid.appendChild(slot);
-    });
-
-    showChooseBalloon();
-  }
-
-  // Finaliza a consulta Sim, Não ou Talvez
-  async function finishSimNao(card) {
-    const selected = byId("sim-nao-selected");
-    const result = byId("sim-nao-result");
-
-    selected.style.display = "flex";
-    selected.innerHTML =
-      '<div class="simnao-card-display">' +
-      revealedCardHTML(card, "Tradicional", "190px") +
-      '<div class="card-label">' +
-      escapeHTML(card.n) +
-      "</div>" +
-      "</div>";
-
-    result.style.display = "block";
-    result.innerHTML =
-      '<p style="text-align:center;color:var(--gold)">Consultando o oráculo...</p>';
-
-    try {
-      const answer = await simulateTarotAPI(
-        currentReading.question,
-        [card],
-        "Sim, Não ou Talvez"
-      );
-
-      if (!chargeCredits(COSTS.simNao)) {
-        result.style.display = "none";
-        return;
-      }
-
-      result.innerHTML =
-        "<h3>Resposta do Oráculo</h3>" +
-        "<p><strong>Sua pergunta:</strong> “" +
-        escapeHTML(currentReading.question) +
-        "”</p>" +
-        "<p><strong>Carta revelada:</strong> " +
-        escapeHTML(card.n) +
-        "</p>" +
-        formatAPIResponse(answer) +
-        resultActionsHTML();
-
-      byId("consultar-simnao").style.display = "flex";
-    } catch (error) {
-      result.innerHTML =
-        '<p style="color:#ff9ea8"><strong>Falha na consulta.</strong></p>' +
-        "<p>" +
-        escapeHTML(error.message || "Tente novamente.") +
-        "</p>";
-    }
-  }
-
-  // Retorna ao topo da página Sim, Não ou Talvez e reinicia a consulta
-  function voltarTopoSimNao() {
-    byId("sim-nao-question").value = "";
-    byId("sim-nao-cards").innerHTML = "";
-    byId("sim-nao-cards").style.display = "none";
-    byId("sim-nao-selected").innerHTML = "";
-    byId("sim-nao-selected").style.display = "none";
-    byId("sim-nao-result").innerHTML = "";
-    byId("sim-nao-result").style.display = "none";
-    byId("consultar-simnao").style.display = "none";
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  // =====================================================
-  //               TEMPLO DE AFRODITE
-  // =====================================================
-
-  // Inicializa a página do Templo de Afrodite
-  function initTarotAmor() {
-    currentReading = {
-      count: 7,
-      cost: COSTS.amor,
-      type: "Amor",
-      question: "",
-      selected: [],
-      active: false,
-      phase: "all",
-    };
-
-    byId("q-amor").value = "";
-    byId("area-amor").innerHTML = "";
-    byId("res-amor").innerHTML = "";
-    byId("res-amor").style.display = "none";
-    byId("consultar-amor").style.display = "none";
-
-    showPage("page-tarot-amor");
-  }
-
-  // Inicia a consulta do Templo de Afrodite
-  function startTarotAmor() {
-    const question = byId("q-amor").value.trim();
-
-    if (!requireValidQuestion(question)) {
-      return;
-    }
-
-    if (!hasCredits(COSTS.amor)) {
-      showModal(
-        "Créditos insuficientes",
-        `O Templo de Afrodite requer <strong>${COSTS.amor} créditos</strong>.`
-      );
-      return;
-    }
-
-    askConfirmQuestion(question, "amor", 7);
-  }
-
-  // Procede com a consulta do Templo de Afrodite
-  function proceedTarotAmor(question) {
-    currentReading.question = question;
-    currentReading.selected = [];
-    currentReading.active = true;
-
-    const area = byId("area-amor");
-    area.innerHTML = '<div id="amor-grid" class="cards-grid"></div>';
-
-    const grid = byId("amor-grid");
-
-    shuffleArray(DECK_NORMAL).forEach(function (card, index) {
-      const slot = document.createElement("button");
-
-      slot.type = "button";
-      slot.className = "card-slot";
-      slot.innerHTML =
-        '<span class="card-inner">' +
-        '<span class="card-back"></span>' +
-        '<span class="card-front">' +
-        cardImageHTML(card, "Tradicional") +
-        "</span>" +
-        "</span>" +
-        '<span class="card-num">' +
-        (index + 1) +
-        "</span>";
-
-      slot.addEventListener("click", function () {
-        if (
-          !currentReading.active ||
-          slot.classList.contains("flipped") ||
-          currentReading.selected.length >= 7
-        ) {
-          return;
-        }
-
-        slot.classList.add("flipped");
-        currentReading.selected.push(card);
-
-        if (currentReading.selected.length === 7) {
-          currentReading.active = false;
-          finishTarotAmor();
-        }
-      });
-
-      grid.appendChild(slot);
-    });
-
-    showChooseBalloon();
-  }
-
-  // Finaliza a consulta do Templo de Afrodite
-  async function finishTarotAmor() {
-    const cards = currentReading.selected;
-    const area = byId("area-amor");
-    const result = byId("res-amor");
-
-    const labels = [
-      "Você: mental",
-      "Você: emocional",
-      "Você: físico",
-      "Parceria: mental",
-      "Parceria: emocional",
-      "Parceria: físico",
-      "O elo / futuro",
-    ];
-
-    area.innerHTML =
-      '<div style="display:flex;flex-direction:column;align-items:center;gap:20px">' +
-      '<div style="display:flex;gap:55px">' +
-      revealedCardHTML(cards[0], "Tradicional", "90px") +
-      revealedCardHTML(cards[3], "Tradicional", "90px") +
-      "</div>" +
-      '<div style="display:flex;gap:55px">' +
-      revealedCardHTML(cards[1], "Tradicional", "90px") +
-      revealedCardHTML(cards[4], "Tradicional", "90px") +
-      "</div>" +
-      '<div style="display:flex;gap:55px">' +
-      revealedCardHTML(cards[2], "Tradicional", "90px") +
-      revealedCardHTML(cards[5], "Tradicional", "90px") +
-      "</div>" +
-      '<div style="margin-top:15px">' +
-      revealedCardHTML(cards[6], "Tradicional", "100px") +
-      "</div>" +
-      "</div>";
-
-    result.style.display = "block";
-    result.innerHTML =
-      '<p style="text-align:center;color:#ff93c8">Consultando Afrodite...</p>';
-
-    try {
-      const answer = await simulateTarotAPI(
-        currentReading.question,
-        cards,
-        "Templo de Afrodite"
-      );
-
-      if (!chargeCredits(COSTS.amor)) {
-        result.style.display = "none";
-        return;
-      }
-
-      result.innerHTML =
-        '<h3 style="color:#ff93c8">Leitura do Templo de Afrodite</h3>' +
-        "<p><strong>Sua pergunta:</strong> “" +
-        escapeHTML(currentReading.question) +
-        "”</p>" +
-        "<p><strong>Posições:</strong> " +
-        labels.join(" • ") +
-        "</p>" +
-        formatAPIResponse(answer) +
-        resultActionsHTML();
-
-      byId("consultar-amor").style.display = "flex";
-    } catch (error) {
-      result.innerHTML =
-        '<p style="color:#ff9ea8"><strong>Não foi possível consultar Afrodite.</strong></p>' +
-        "<p>" +
-        escapeHTML(error.message || "Tente novamente.") +
-        "</p>";
-    }
-  }
-
-  // Retorna ao topo da página do Templo de Afrodite e reinicia a consulta
-  function voltarTopoAmor() {
-    initTarotAmor();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  // =====================================================
-  //               CARTA DO DIA
-  // =====================================================
-
-  // Retorna a chave do dia atual para o localStorage
-  function getTodayKey() {
-    const today = new Date();
-    return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-  }
-
-  // Inicializa a Carta do Dia
-  function initCartaDia() {
-    if (!currentUser) {
-      showModal("Erro", "Você precisa estar logado para acessar a Carta do Dia.");
-      showPage("page-login");
-      return;
-    }
-
-    const key = "oraculum_carta_dia_" + currentUser.email + "_" + getTodayKey();
-    const grid = byId("carta-dia-cards");
-    const result = byId("carta-dia-result");
-    const savedReading = localStorage.getItem(key);
-
-    // Se já houver uma leitura para o dia, exibe-a
-    if (savedReading) {
-      const data = JSON.parse(savedReading);
-
-      grid.style.display = "none";
-      result.style.display = "block";
-      result.innerHTML =
-        "<h3>Sua Carta do Dia: " +
-        escapeHTML(data.card.n) +
-        "</h3>" +
-        "<p><strong>Área do dia:</strong> " +
-        escapeHTML(data.area) +
-        "</p>" +
-        "<p><strong>Mensagem:</strong> " +
-        escapeHTML(data.message) +
-        "</p>" +
-        resultActionsHTML();
-
-      return;
-    }
-
-    // Caso contrário, prepara para uma nova leitura
-    result.style.display = "none";
-    grid.style.display = "grid";
-    grid.innerHTML = "";
-
-    shuffleArray(DECK_NORMAL).forEach(function (card, index) {
-      const slot = document.createElement("button");
-
-      slot.type = "button";
-      slot.className = "card-slot";
-      slot.innerHTML =
-        '<span class="card-inner">' +
-        '<span class="card-back"></span>' +
-        '<span class="card-front">' +
-        cardImageHTML(card, "Tradicional") +
-        "</span>" +
-        "</span>" +
-        '<span class="card-num">' +
-        (index + 1) +
-        "</span>";
-
-      slot.addEventListener("click", function () {
-        if (grid.querySelector(".flipped")) return; // Impede múltiplas seleções
-
-        slot.classList.add("flipped");
-
-        const area = randomItem(AREAS_CARTA_DIA);
-        const message =
-          "Hoje, a energia de " +
-          card.n +
-          " pede atenção à área de " +
-          area.toLowerCase() +
-          ". Reflita sobre como essa simbologia conversa com suas escolhas e atitudes nas próximas 24 horas.";
-
-        localStorage.setItem(
-          key,
-          JSON.stringify({
-            card: card,
-            area: area,
-            message: message,
-          })
-        );
-
-        setTimeout(function () {
-          initCartaDia(); // Recarrega a página para exibir o resultado
-        }, 700);
-      });
-
-      grid.appendChild(slot);
-    });
-    showChooseBalloon();
-  }
-
-  // =====================================================
-  //               MAPA ASTRAL
-  // =====================================================
-
-  // Gera o Mapa Astral
-  async function generateMapa(level, prefix) {
-    const name = byId(prefix + "-nome").value.trim();
-    const date = byId(prefix + "-data").value;
-    const time = byId(prefix + "-hora").value;
-    const city = byId(prefix + "-cidade").value.trim();
-    const state = byId(prefix + "-estado").value.trim();
-    const result = byId(prefix + "-result");
-    const cost = COSTS[level];
-
-    if (!name || !date || !time || !city || !state) {
-      showModal(
-        "Dados incompletos",
-        "Preencha nome, data, hora, cidade e estado de nascimento."
-      );
-      return;
-    }
-
-    if (!hasCredits(cost)) {
-      showModal(
-        "Créditos insuficientes",
-        `Este mapa requer <strong>${cost} créditos</strong>.`
-      );
-      return;
-    }
-
-    result.style.display = "block";
-    result.innerHTML =
-      '<p style="text-align:center;color:var(--gold)">Consultando os astros...</p>';
-
-    try {
-      // Simula a chamada à API de Mapa Astral
-      const answer = await simulateMapaAPI(level, name, date, time, city, state);
-
-      if (!chargeCredits(cost)) {
-        result.style.display = "none";
-        return;
-      }
-
-      result.innerHTML =
-        "<h3>" +
-        escapeHTML(level) +
-        "</h3>" +
-        "<p><strong>Consulente:</strong> " +
-        escapeHTML(name) +
-        "</p>" +
-        formatAPIResponse(answer) +
-        resultActionsHTML();
-    } catch (error) {
-      result.innerHTML =
-        '<p style="color:#ff9ea8"><strong>Não foi possível gerar seu mapa.</strong></p>' +
-        "<p>" +
-        escapeHTML(error.message || "Tente novamente mais tarde.") +
-        "</p>";
-    }
-  }
-
-  // Simula a resposta da API de Mapa Astral
-  async function simulateMapaAPI(level, name, date, time, city, state) {
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simula atraso
-
-    let response = {};
-    response["Introdução"] = `Olá, ${escapeHTML(name)}! Seu Mapa Astral ${escapeHTML(level)} foi gerado para ${escapeHTML(city)} em ${escapeHTML(date)} às ${escapeHTML(time)}.`;
-
-    if (level === "Pórtico Celestial") {
-      response["Visão Geral"] = "Este é um breve panorama das suas energias natais. Você possui uma forte inclinação para a criatividade e a comunicação.";
-      response["Ascendente"] = "Seu ascendente indica uma personalidade dinâmica e curiosa.";
-    } else if (level === "Órbita Pessoal") {
-      response["Análise Detalhada"] = "Sua órbita pessoal revela padrões de comportamento e talentos ocultos. Há uma grande capacidade de adaptação e aprendizado.";
-      response["Sol e Lua"] = "A combinação do seu Sol e Lua sugere um equilíbrio entre a razão e a emoção, buscando harmonia em seus relacionamentos.";
-    } else if (level === "Cosmos Absoluto") {
-      response["Interpretação Profunda"] = "O Cosmos Absoluto desvenda as camadas mais profundas de sua alma e propósito de vida. Sua jornada é marcada pela busca de conhecimento e sabedoria.";
-      response["Nodos Lunares"] = "Os Nodos Lunares indicam um caminho de evolução espiritual, incentivando o desenvolvimento da intuição e da compaixão.";
-      response["Casas Astrais"] = "As casas astrais revelam onde suas energias se manifestam, com destaque para a área de relacionamentos e carreira.";
-    }
-
-    response["Conselho Final"] = "Lembre-se que o mapa é um guia, e o livre arbítrio é seu maior poder. Use essa sabedoria para iluminar seu caminho!";
-    return response;
-  }
-
-  // =====================================================
-  //               HORÓSCOPO
-  // =====================================================
-
-  // Inicializa a grade de signos do Horóscopo
-  function initHoroscopo() {
-    const container = byId("page-horoscopo");
-    let grid = byId("horoscopo-grid");
-
-    if (!grid) {
-      grid = document.createElement("div");
-      grid.id = "horoscopo-grid";
-      grid.className = "dash-grid"; // Reutiliza o estilo de grid do dashboard
-      container.querySelector(".form-container").appendChild(grid);
-    }
-
-    if (grid.dataset.ready === "true") {
-      return;
-    }
-
-    grid.dataset.ready = "true";
-    grid.innerHTML = ""; // Limpa o grid antes de preencher
-
-    SIGNOS_HOROSCOPO.forEach(function (signo) {
-      const button = document.createElement("button");
-
-      button.className = "dash-card";
-      button.type = "button";
-      button.innerHTML =
-        '<i class="fas fa-star-and-crescent"></i>' +
-        "<h3>" +
-        escapeHTML(signo) +
-        "</h3>" +
-        "<p>Ver previsão semanal</p>";
-
-      button.addEventListener("click", function () {
-        loadHoroscopo(signo);
-      });
-
-      grid.appendChild(button);
-    });
-  }
-
-  // Carrega a previsão do Horóscopo
-  async function loadHoroscopo(signo) {
-    const result = byId("horoscopo-result");
-    if (!result) {
-      const container = byId("page-horoscopo").querySelector(".form-container");
-      const newResult = document.createElement("div");
-      newResult.id = "horoscopo-result";
-      newResult.className = "result-box";
-      newResult.style.display = "none";
-      container.appendChild(newResult);
-    }
-
-    result.style.display = "block";
-    result.innerHTML =
-      '<p style="text-align:center;color:var(--gold)">Consultando os astros...</p>';
-
-    try {
-      // Simula a busca do horóscopo de um arquivo local ou API
-      const horoscopoData = await simulateHoroscopoAPI(signo);
-
-      result.innerHTML =
-        "<h3>Horóscopo de " +
-        escapeHTML(signo) +
-        "</h3>" +
-        "<p>" +
-        escapeHTML(horoscopoData) +
-        "</p>" +
-        resultActionsHTML();
-    } catch (error) {
-      result.innerHTML =
-        '<p style="color:#ff9ea8"><strong>Não foi possível carregar a previsão.</strong></p>' +
-        "<p>" +
-        escapeHTML(error.message || "Tente novamente mais tarde.") +
-        "</p>";
-    }
-  }
-
-  // Simula a resposta da API de Horóscopo
-  async function simulateHoroscopoAPI(signo) {
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula atraso
-
-    const previsoes = {
-      "Áries": "Esta semana, Áries, sua energia estará em alta! Aproveite para iniciar novos projetos e desafios. Cuidado com a impulsividade.",
-      "Touro": "Touro, a estabilidade é sua palavra-chave. Foque em consolidar suas finanças e relacionamentos. Evite mudanças drásticas.",
-      "Gêmeos": "Gêmeos, a comunicação será seu ponto forte. Use sua versatilidade para resolver conflitos e aprender algo novo. Mantenha o foco.",
-      "Câncer": "Câncer, sua intuição estará aguçada. Confie em seus sentimentos e dedique-se à família. Busque o equilíbrio emocional.",
-      "Leão": "Leão, seu brilho natural estará em evidência. Lidere com confiança e inspire os outros. Cuidado para não ser arrogante.",
-      "Virgem": "Virgem, a organização será sua aliada. Planeje seus passos e cuide da sua saúde. Não se preocupe demais com a perfeição.",
-      "Libra": "Libra, a harmonia é essencial para você. Busque o equilíbrio em todas as áreas da vida e evite confrontos. Cultive a paz.",
-      "Escorpião": "Escorpião, sua intensidade estará no auge. Use sua paixão para transformar o que for necessário. Cuidado com o ciúme.",
-      "Sagitário": "Sagitário, a aventura te chama! Explore novos horizontes e expanda seus conhecimentos. Mantenha o otimismo.",
-      "Capricórnio": "Capricórnio, a disciplina te levará longe. Foque em seus objetivos de carreira e seja persistente. Não se esqueça de descansar.",
-      "Aquário": "Aquário, sua originalidade será valorizada. Inove e conecte-se com grupos que compartilham seus ideais. Seja autêntico.",
-      "Peixes": "Peixes, sua sensibilidade estará à flor da pele. Conecte-se com sua espiritualidade e pratique a empatia. Evite a fuga da realidade.",
-    };
-
-    if (previsoes[signo]) {
-      return previsoes[signo];
-    } else {
-      throw new Error("Previsão não encontrada para o signo de " + signo + ".");
-    }
-  }
-
-  // =====================================================
-  //               NUMEROLOGIA
-  // =====================================================
-
-  // Normaliza o nome para cálculo numerológico
-  function normalizeName(name) {
-    return name
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toUpperCase();
-  }
-
-  // Calcula a Numerologia
-  function calculateNumerology() {
-    const name = normalizeName(byId("num-nome").value);
-    const birthDate = byId("num-data").value;
-    const result = byId("num-result");
-
-    if (!name || !birthDate) {
-      showModal(
-        "Dados incompletos",
-        "Informe seu nome completo e sua data de nascimento."
-      );
-      return;
-    }
-
-    const letterValues = {
-      A: 1, J: 1, S: 1,
-      B: 2, K: 2, T: 2,
-      C: 3, L: 3, U: 3,
-      D: 4, M: 4, V: 4,
-      E: 5, N: 5, W: 5,
-      F: 6, O: 6, X: 6,
-      G: 7, P: 7, Y: 7,
-      H: 8, Q: 8, Z: 8,
-      I: 9, R: 9,
-    };
-
-    // Função para reduzir números (exceto Mestres 11 e 22)
-    function reduceNumber(value) {
-      let number = value;
-      while (number > 9 && number !== 11 && number !== 22) {
-        number = String(number)
-          .split("")
-          .reduce((sum, digit) => sum + Number(digit), 0);
-      }
-      return number;
-    }
-
-    // Cálculo do Número de Expressão (Nome)
-    const expressionValue = name
-      .split("")
-      .reduce((sum, char) => sum + (letterValues[char] || 0), 0);
-    const expression = reduceNumber(expressionValue);
-
-    // Cálculo do Número de Destino (Data de Nascimento)
-    const [year, month, day] = birthDate.split("-").map(Number);
-    const destinyValue = day + month + year;
-    const destiny = reduceNumber(destinyValue);
-
-    const meanings = {
-      1: "Liderança, independência e iniciativa. Você é um pioneiro nato.",
-      2: "Parcerias, sensibilidade e diplomacia. Busca harmonia e cooperação.",
-      3: "Criatividade, expressão e comunicação. Sua alegria é contagiante.",
-      4: "Disciplina, estabilidade e construção. Você é a base sólida.",
-      5: "Mudança, liberdade e adaptabilidade. A aventura te chama.",
-      6: "Cuidado, responsabilidade e harmonia. O lar e a família são prioridade.",
-      7: "Introspecção, estudo e espiritualidade. Busca a verdade interior.",
-      8: "Poder pessoal, realização e prosperidade. O sucesso é seu destino.",
-      9: "Compaixão, encerramentos e humanitarismo. Um líder altruísta.",
-      11: "Intuição elevada, inspiração e visão espiritual. Um mestre inspirador.",
-      22: "Capacidade de construir grandes realizações. O mestre construtor.",
-    };
-
-    result.style.display = "block";
-    result.innerHTML =
-      "<h3>Seu Perfil Numerológico</h3>" +
-      "<p><strong>Número de Expressão (Personalidade): " +
-      expression +
-      "</strong><br>" +
-      meanings[expression] +
-      "</p>" +
-      "<p><strong>Número de Destino (Caminho de Vida): " +
-      destiny +
-      "</strong><br>" +
-      meanings[destiny] +
-      "</p>" +
-      resultActionsHTML();
-  }
-
-  // =====================================================
-  //               FAQ
-  // =====================================================
-
-  // Inicializa a seção de FAQ
-  function initFAQ() {
-    const container = byId("faq-container");
-
-    if (!container || container.dataset.ready === "true") {
-      return;
-    }
-
-    container.dataset.ready = "true";
-
-    const questions = [
-      {
-        question: "O que é o Oraculum Vitae?",
-        answer: "É um portal esotérico completo de Tarô, Astrologia e Numerologia, projetado para oferecer autoconhecimento e orientação através de leituras e análises personalizadas."
-      },
-      {
-        question: "Como funciona o portal?",
-        answer: "Você se cadastra gratuitamente, ganha créditos iniciais, escolhe um oráculo (Tarô, Mapa Astral, Horóscopo ou Numerologia), faz sua pergunta e recebe uma leitura dissertativa e personalizada."
-      },
-      {
-        question: "O site é gratuito?",
-        answer: "O cadastro é gratuito e você ganha 50 créditos para começar. Algumas consultas, como a Carta do Dia, são gratuitas diariamente. Outras leituras mais aprofundadas utilizam créditos."
-      },
-      {
-        question: "O que são créditos?",
-        answer: "Créditos são a moeda interna do portal, utilizada para realizar consultas pagas de Tarô e Mapa Astral. Você pode ganhá-los indicando amigos ou comprando pacotes."
-      },
-      {
-        question: "Como compro créditos?",
-        answer: "Você pode comprar créditos na página 'Planos e Pacotes', escolhendo entre assinaturas mensais ou pacotes avulsos, conforme sua necessidade."
-      },
-      {
-        question: "O que é o Plano MAGO?",
-        answer: "O Plano MAGO é uma assinatura anual que oferece créditos ilimitados para todas as consultas do portal, ideal para quem busca acesso contínuo e irrestrito aos oráculos."
-      },
-      {
-        question: "Como funciona o Tarô?",
-        answer: "Você escolhe uma tiragem (ex: 3 cartas, Cruz Celta), faz uma pergunta objetiva e o sistema sorteia as cartas. Com base nas cartas e na sua pergunta, uma leitura interpretativa é gerada."
-      },
-      {
-        question: "O que é a Cruz Celta?",
-        answer: "É uma tiragem de 10 cartas que oferece uma análise profunda de uma situação, abordando presente, obstáculos, raízes, influências externas, esperanças, medos e o resultado final."
-      },
-      {
-        question: "O que são Arcanos Maiores?",
-        answer: "São as 22 cartas principais do Tarô, representando arquétipos universais e grandes lições de vida. Elas simbolizam as forças mais poderosas e os estágios da jornada humana."
-      },
-      {
-        question: "O que são Arcanos Menores?",
-        answer: "São as 56 cartas restantes do Tarô, divididas em quatro naipes (Copas, Espadas, Ouros e Paus). Elas representam os eventos e desafios do dia a dia, com detalhes mais específicos."
-      },
-      {
-        question: "O que é a Carta do Dia?",
-        answer: "É uma orientação gratuita diária. Uma carta e uma área da vida são sorteadas para oferecer um conselho ou reflexão para as próximas 24 horas. Você pode tirar uma vez a cada 24h."
-      },
-      {
-        question: "Posso tirar mais de uma Carta do Dia?",
-        answer: "Não. O limite é de uma consulta gratuita da Carta do Dia a cada 24 horas por usuário, para garantir que a reflexão seja focada e significativa."
-      },
-      {
-        question: "O que é Mapa Astral?",
-        answer: "É uma fotografia do céu no exato momento do seu nascimento. Ele revela a posição dos planetas, signos e casas, oferecendo insights sobre sua personalidade, talentos e desafios."
-      },
-      {
-        question: "O que é o Ascendente?",
-        answer: "O Ascendente é o signo que estava nascendo no horizonte leste no momento do seu nascimento. Ele representa sua personalidade exterior, como você se apresenta ao mundo e suas primeiras reações."
-      },
-      {
-        question: "Qual a diferença entre os níveis de Mapa Astral?",
-        answer: "Os níveis (Pórtico Celestial, Órbita Pessoal e Cosmos Absoluto) aumentam em profundidade e detalhamento. O Pórtico é uma introdução, a Órbita é mais ampla, e o Cosmos Absoluto é a leitura mais completa e integrada."
-      },
-      {
-        question: "O site usa cookies?",
-        answer: "Sim, o site utiliza apenas cookies essenciais para o funcionamento básico, como manter sua sessão logada e salvar suas preferências, garantindo uma experiência segura e funcional."
-      },
-      {
-        question: "Onde ficam salvos meus dados?",
-        answer: "Nesta versão, os dados de cadastro, sessão e créditos são salvos localmente no seu navegador (localStorage), garantindo sua privacidade e acesso rápido. Em futuras versões, haverá opção de backup em nuvem."
-      },
-      {
-        question: "Como reportar um erro?",
-        answer: "Se encontrar algum erro ou tiver sugestões, por favor, envie um print da tela e uma descrição detalhada para o nosso suporte técnico, que estará disponível em breve."
-      }
-    ];
-
-    container.innerHTML = questions
-      .map(function (item, index) {
-        return (
-          '<div class="faq-item">' +
-          '<button class="faq-question" type="button" onclick="toggleFAQ(' +
-          index +
-          ')">' +
-          "<span>" +
-          escapeHTML(item.question) +
-          "</span>" +
-          '<i class="fas fa-chevron-down"></i>' +
-          "</button>" +
-          '<div id="faq-answer-' +
-          index +
-          '" class="faq-answer">' +
-          escapeHTML(item.answer) +
-          "</div>" +
-          "</div>"
-        );
-      })
-      .join("");
-  }
-
-  // Alterna a visibilidade da resposta do FAQ
-  function toggleFAQ(index) {
-    const answer = byId("faq-answer-" + index);
-    const icon = answer.previousElementSibling.querySelector(".fa-chevron-down");
-
-    if (!answer || !icon) return;
-
-    const isVisible = answer.style.display === "block";
-    answer.style.display = isVisible ? "none" : "block";
-    icon.classList.toggle("fa-chevron-down", !isVisible);
-    icon.classList.toggle("fa-chevron-up", isVisible);
-  }
-
-  // =====================================================
-  //               INDICAÇÃO DE AMIGOS
-  // =====================================================
-
-  // Lida com a indicação de amigos
-  function handleIndication() {
-    const emailInput = byId("indica-email");
-    const email = emailInput.value.trim();
-
-    if (!email || !email.includes("@") || !email.includes(".")) {
-      showModal("Erro", "Por favor, insira um e-mail válido.");
-      return;
-    }
-
-    // Simula o envio da indicação
-    showModal(
-      "Sucesso",
-      `Um convite foi enviado para ${escapeHTML(email)}. Assim que seu amigo se cadastrar, você receberá 50 créditos!`
-    );
-    emailInput.value = ""; // Limpa o campo
-  }
-
-  // =====================================================
-  //               INICIALIZAÇÃO FINAL
-  // =====================================================
-
-  // Evento que ocorre quando o DOM está completamente carregado
-  document.addEventListener("DOMContentLoaded", function () {
-    initStars(); // Inicializa o fundo estrelado
-
-    const user = restoreSession(); // Tenta restaurar a sessão do usuário
-
-    if (user) {
-      currentUser = user;
-      enterPortal(); // Se houver sessão, entra no portal
-    } else {
-      byId("main-header").style.display = "none";
-      showPage("page-login"); // Caso contrário, mostra a página de login
-    }
-  });
-</script>
 
 </body>
 </html>
