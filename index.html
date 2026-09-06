@@ -1244,8 +1244,55 @@ if (pageId === "page-horoscopo") {
 </head>
 
 <body>
-  <div id="stars-container" aria-hidden="true"></div>
+    <!-- =====================================================
+       MODAIS E BALÕES (INÍCIO)
+  ====================================================== -->
+  <div id="modal-overlay">
+    <div class="modal-content">
+      <h3 id="modal-title"></h3>
+      <p id="modal-message"></p>
+      <div id="confirm-buttons" style="display: none;">
+        <button class="btn-portal" type="button" onclick="handleModalConfirm(true)">Sim</button>
+        <button class="btn-portal" type="button" onclick="handleModalConfirm(false)">Não</button>
+      </div>
+      <button id="modal-ok-btn" class="btn-portal" type="button" onclick="hideModal()">OK</button>
+    </div>
+  </div>
 
+  <div id="mystic-balloon" style="display: none;">
+    <p>Olá! Precisa de ajuda? Posso guiar você pelos mistérios do portal. ✨</p>
+  </div>
+
+  <div id="choose-balloon" style="display: none;">
+    Escolha suas cartas abaixo
+  </div>
+  <!-- =====================================================
+       MODAIS E BALÕES (FIM)
+  ====================================================== -->
+  <div id="stars-container" aria-hidden="true"></div>
+<!-- =====================================================
+     MODAL DE MENSAGENS E BALÕES DE AJUDA (Adicionado aqui para ser carregado antes dos scripts)
+====================================================== -->
+<div id="modal-overlay">
+  <div class="modal-content">
+    <h3 id="modal-title"></h3>
+    <p id="modal-message"></p>
+    <div id="confirm-buttons" style="display: none;">
+      <button id="modal-cancel-btn" class="btn-portal" type="button" style="background: #555;" onclick="hideModal(false)">Cancelar</button>
+      <button id="modal-confirm-btn" class="btn-portal" type="button" onclick="hideModal(true)">Confirmar</button>
+    </div>
+    <button id="modal-ok-btn" class="btn-portal" type="button" onclick="hideModal()">OK</button>
+  </div>
+</div>
+
+<div id="mystic-balloon" style="display: none;">
+  <p>Olá! Precisa de ajuda? Posso guiar você pelos mistérios do portal. ✨</p>
+</div>
+
+<div id="choose-balloon" style="display: none;">
+  Escolha suas cartas abaixo
+</div>
+  
   <!-- =====================================================
        LOGIN E CADASTRO
   ====================================================== -->
