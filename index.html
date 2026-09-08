@@ -3280,6 +3280,7 @@ var nome=nomeEl.value.toUpperCase().replace(/[^A-Z]/g,'');
 var raw=dataEl.value;
 if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
 if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
+if(!window.confirm("Deseja realizar a consulta Numerologia Pitagórica por 30 créditos? Seu saldo será descontado.")){return;}
 if(!currentUser.isMago){currentUser.credits-=30;saveUser(currentUser);updateCreditsDisplay();}
 var map={A:1,J:1,S:1,B:2,K:2,T:2,C:3,L:3,U:3,D:4,M:4,V:4,E:5,N:5,W:5,F:6,O:6,X:6,G:7,P:7,Y:7,H:8,Q:8,Z:8,I:9,R:9};
 var vogais="AEIOU";
