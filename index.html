@@ -1674,8 +1674,8 @@ body{background:#0d0716}
       <div class="auth-form">
         <input type="text" id="num-nome" placeholder="Nome Completo (sem acentos)">
         <input type="date" id="num-data">
-        <button class="btn-portal" onclick="calculateNumerology()">Calcular Minha Vibração</button>
-        <button class="btn-portal" style="margin-top:10px" onclick="calculateNumerologyPremium()">Perfil Completo (Numerologia Pitagórica) — 30 créditos</button>
+        <button class="btn-portal" onclick="numerologiaGratis()">Calcular Minha Vibração</button>
+        <button class="btn-portal" style="margin-top:10px" onclick="numerologiaPremium()">Perfil Completo (Numerologia Pitagórica) — 30 créditos</button>
       </div>
       <div id="num-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
@@ -3332,6 +3332,40 @@ var res=document.getElementById('num-result');
 res.style.display='block';
 res.innerHTML=h;
 setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
+}
+    function numerologiaGratis() {
+var nomeEl=document.getElementById('num-nome');
+var dataEl=document.getElementById('num-data');
+var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
+var raw=dataEl.value||'';
+if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
+var res=document.getElementById('num-result');
+res.style.display='block';
+res.innerHTML='<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">✨ Consultando os números da sua vibração...</div>';
+fetch('/api/numerologia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,data:raw,tipo:'gratis'})})
+.then(function(r){return r.json();})
+.then(function(d){if(d&&d.resposta){res.innerHTML='<h3>Seu Perfil Numerológico</h3>'+formatarRespostaIA(d.resposta,null);}else{mostrarNumerologiaLocal(false);}})
+.catch(function(){mostrarNumerologiaLocal(false);});
+}
+function numerologiaPremium() {
+var nomeEl=document.getElementById('num-nome');
+var dataEl=document.getElementById('num-data');
+var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
+var raw=dataEl.value||'';
+if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
+if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
+if(!currentUser.isMago){currentUser.credits-=30;saveUser(currentUser);updateCreditsDisplay();}
+var res=document.getElementById('num-result');
+res.style.display='block';
+res.innerHTML='<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">✨ Gerando seu perfil completo com a IA... isso pode levar alguns segundos.</div>';
+fetch('/api/numerologia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,data:raw,tipo:'premium'})})
+.then(function(r){return r.json();})
+.then(function(d){if(d&&d.resposta){res.innerHTML='<h3>Numerologia Pitagórica — Perfil Completo</h3>'+formatarRespostaIA(d.resposta,null);}else{mostrarNumerologiaLocal(true);}})
+.catch(function(){mostrarNumerologiaLocal(true);});
+}
+function mostrarNumerologiaLocal(premium) {
+if(premium){var r=document.getElementById('num-result');r.innerHTML='<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">A IA está instável no momento. Exibindo o perfil resumido, sem custo adicional.</div>';}
+calculateNumerology();
 }
     function handleIndication() {
       var email = document.getElementById('indica-email').value;
