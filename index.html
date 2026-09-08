@@ -3355,6 +3355,7 @@ var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
 var raw=dataEl.value||'';
 if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
 if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
+if(!window.confirm("Deseja realizar a consulta Numerologia Pitagórica por 30 créditos? Seu saldo será descontado.")){return;}
 if(!currentUser.isMago){currentUser.credits-=30;saveUser(currentUser);updateCreditsDisplay();}
 var res=document.getElementById('num-result');
 res.style.display='block';
