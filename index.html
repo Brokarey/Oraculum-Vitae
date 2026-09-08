@@ -1675,6 +1675,7 @@ body{background:#0d0716}
         <input type="text" id="num-nome" placeholder="Nome Completo (sem acentos)">
         <input type="date" id="num-data">
         <button class="btn-portal" onclick="calculateNumerology()">Calcular Minha Vibração</button>
+        <button class="btn-portal" style="margin-top:10px" onclick="calculateNumerologyPremium()">Perfil Completo (Numerologia Pitagórica) — 30 créditos</button>
       </div>
       <div id="num-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
@@ -3271,6 +3272,67 @@ body{background:#0d0716}
         + '<p><strong>Destino (Caminho): ' + rDest + '</strong><br>' + explicacao[rDest] + '</p>';
       setTimeout(function () {res.scrollIntoView({behavior: 'smooth', block: 'start'});}, 150);
     }
+    function toggleDet(id){var el=document.getElementById('det-'+id);if(el){el.style.display=(el.style.display==='none')?'block':'none';}}
+function calculateNumerologyPremium(){
+var nomeEl=document.getElementById('num-nome');
+var dataEl=document.getElementById('num-data');
+var nome=nomeEl.value.toUpperCase().replace(/[^A-Z]/g,'');
+var raw=dataEl.value;
+if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
+if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
+if(!currentUser.isMago){currentUser.credits-=30;saveUser(currentUser);updateCreditsDisplay();}
+var map={A:1,J:1,S:1,B:2,K:2,T:2,C:3,L:3,U:3,D:4,M:4,V:4,E:5,N:5,W:5,F:6,O:6,X:6,G:7,P:7,Y:7,H:8,Q:8,Z:8,I:9,R:9};
+var vogais="AEIOU";
+function reducePre(n){while(n>9&&n!==11&&n!==22&&n!==33){n=n.toString().split('').reduce(function(a,b){return parseInt(a)+parseInt(b);},0);}return n;}
+var LEITURA={1:"Liderança e independência: o início, a coragem e a força de vontade para abrir caminhos.",2:"Cooperação e sensibilidade: diplomacia, parcerias e busca pelo equilíbrio nas relações.",3:"Criatividade e expressão: comunicação, otimismo e expansão social.",4:"Estabilidade e trabalho: organização, disciplina e construção de bases sólidas.",5:"Liberdade e mudança: versatilidade, aventura e quebra de rotinas.",6:"Harmonia e responsabilidade: família, amor, serviço e cuidado com o próximo.",7:"Espiritualidade e análise: conhecimento profundo, introspecção e sabedoria interior.",8:"Poder e prosperidade: autoridade, sucesso material e justiça.",9:"Humanitarismo e conclusão: compaixão, desapego e encerramento de ciclos.",11:"Intuição elevada e inspiração: número mestre com percepção espiritual aguçada e idealismo.",22:"Mestre construtor: capacidade de transformar grandes sonhos em realidade tangível.",33:"Mestre do amor universal: dedicação ao próximo com sabedoria e compaixão."};
+var DET={1:"Você nasceu para liderar. A energia do 1 pede iniciativa, autonomia e coragem para seguir seus próprios caminhos. Cuidado apenas para não se fechar em demasia: aprender a pedir ajuda e ouvir o outro faz parte do seu amadurecimento.",2:"Sua força está nas relações e na diplomacia. Você percebe os dois lados de cada situação e sabe acalmar ambientes. Evite depender demais da aprovação alheia: sua sensibilidade é um dom, mas precisa de limites.",3:"A alegria e a comunicação são seus dons. Você inspira as pessoas com palavras, arte e otimismo. Para brilhar de verdade, foque em terminar o que começa — a dispersão é sua maior armadilha.",4:"Você constrói tudo com bases sólidas. Disciplina, organização e lealdade são seu superpoder. O risco é se acomodar na rotina: permita-se pequenas mudanças para não travar o seu crescimento.",5:"Você é a própria energia do movimento. Aventura, liberdade e versatilidade guiam seus passos. Sua lição é equilibrar a sede de novidades com compromissos que valham a pena.",6:"O amor e o cuidado são sua missão. Família e harmonia pedem sua presença, e você se doa naturalmente. Cuidado para não se esquecer de si mesmo enquanto cuida de todos.",7:"Sua mente busca o que está além da superfície. Estudo, espiritualidade e análise são seus refúgios. O desafio é não se isolar: compartilhar o que descobre multiplica sua sabedoria.",8:"Você tem energia para conquistar o mundo material. Poder, prosperidade e justiça fazem parte do seu destino. Use sua autoridade com ética — o verdadeiro sucesso respeita os outros.",9:"Você veio para concluir ciclos e servir ao próximo. Compaixão, desapego e visão ampla são seus dons. Liberte-se do passado para que o novo sempre encontre espaço.",11:"Você é um canal de inspiração. Sua intuição percebe além das aparências e toca as pessoas profundamente. O dom pede serenidade: aprenda a se proteger das energias ao redor.",22:"Você tem o poder de transformar sonhos em realidade. Visão grandiosa e capacidade de execução raramente andam juntas — e você tem as duas. Construa algo que sirva a muitos.",33:"Raro e poderoso: o amor em sua forma mais pura. Você cura, ensina e inspira quem está ao seu redor. Guarde energia para si também, para sustentar a chama que carrega."};
+var COR={1:{c:"Vermelho / Laranja",d:"Domingo",s:[1,10,19,28]},2:{c:"Branco / Prata",d:"Segunda-feira",s:[2,11,20,29]},3:{c:"Amarelo / Dourado",d:"Quinta-feira",s:[3,12,21,30]},4:{c:"Verde / Azul",d:"Sábado",s:[4,13,22,31]},5:{c:"Verde-claro / Turquesa",d:"Quarta-feira",s:[5,14,23]},6:{c:"Rosa / Azul-claro",d:"Sexta-feira",s:[6,15,24]},7:{c:"Violeta / Índigo",d:"Segunda-feira",s:[7,16,25]},8:{c:"Preto / Azul-escuro",d:"Sábado",s:[8,17,26]},9:{c:"Vermelho / Carmesim",d:"Terça-feira",s:[9,18,27]},11:{c:"Prata / Branco-perolado",d:"Segunda-feira",s:[11,22]},22:{c:"Dourado / Marrom",d:"Domingo",s:[22,44]},33:{c:"Rosa / Dourado",d:"Quinta-feira",s:[33,66]}};
+function bloco(t,n){var le=LEITURA[n]||LEITURA[1];var de=DET[n]||DET[1];var co=COR[n]||COR[n%9||9];return '<div style="background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;text-align:left"><div style="font-weight:bold;color:var(--gold);font-size:15px">'+t+' <span style="color:var(--gold-light)">· '+n+'</span></div><p style="margin:8px 0 0;line-height:1.6">'+le+'</p><button onclick="toggleDet('+n+')" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;margin-top:6px;padding:0">Ver mais</button><div id="det-'+n+'" style="display:none;margin-top:6px;line-height:1.6;color:#cbb8e0;font-size:13px">'+de+'</div></div>';}
+var p=raw.split('-');
+var anoN=parseInt(p[0],10),mesN=parseInt(p[1],10),diaN=parseInt(p[2],10);
+var agora=new Date();
+var anoAtual=agora.getFullYear(),mesAtual=agora.getMonth()+1;
+var mot=0,imp=0,exp=0;
+for(var ci=0;ci<nome.length;ci++){var val=map[nome[ci]]||0;exp+=val;if(vogais.indexOf(nome[ci])>=0){mot+=val;}else{imp+=val;}}
+var rMot=reducePre(mot),rImp=reducePre(imp),rExp=reducePre(exp);
+var rDest=reducePre(raw.replace(/-/g,'').split('').reduce(function(a,b){return parseInt(a)+parseInt(b);},0));
+var rAtitude=reducePre(diaN+mesN);
+var rAniver=reducePre(diaN);
+var ano2=anoN%100;
+var d1=Math.abs(diaN-mesN),d2=Math.abs(diaN-ano2),d3=Math.abs(d1-d2),d4=Math.abs(mesN-ano2);
+var rD1=reducePre(d1),rD2=reducePre(d2),rD3=reducePre(d3),rD4=reducePre(d4);
+var rAnoP=reducePre(diaN+mesN+anoAtual);
+var rMesP=reducePre(rAnoP+mesAtual);
+var c1=reducePre(mesN),c2=reducePre(diaN),c3=reducePre(anoN);
+var fim1=36-rDest, fim2=fim1+27;
+var corD= COR[rDest]||COR[rDest%9||9];
+var masters=[rMot,rImp,rExp,rDest].filter(function(v){return v===11||v===22||v===33;});
+var h='<h3 style="color:var(--gold)">Numerologia Pitagórica — Perfil Completo</h3><p style="font-size:13px;color:var(--gold-light);margin-bottom:10px">Nome: '+nome+' · Data: '+diaN+'/'+mesN+'/'+anoN+'</p>';
+h+='<div style="background:rgba(212,168,67,.12);border:1px solid var(--gold);border-radius:8px;padding:12px;margin:10px 0;text-align:left"><strong style="color:var(--gold)">🧭 Ano Pessoal de '+anoAtual+': '+rAnoP+'</strong><br><span style="color:var(--gold-light);font-size:13px;line-height:1.6">'+LEITURA[rAnoP]+'</span></div>';
+h+='<div style="background:rgba(212,168,67,.12);border:1px solid var(--gold);border-radius:8px;padding:12px;margin:10px 0;text-align:left"><strong style="color:var(--gold)">📅 Mês Pessoal de agora: '+rMesP+'</strong><br><span style="color:var(--gold-light);font-size:13px;line-height:1.6">'+LEITURA[rMesP]+'</span></div>';
+h+=bloco('❤️ Motivação (Alma)',rMot);
+h+=bloco('👤 Impressão (Ego)',rImp);
+h+=bloco('✍️ Expressão (Personalidade)',rExp);
+h+=bloco('🎯 Destino (Caminho de Vida)',rDest);
+h+=bloco('🌅 Atitude (Como os outros te veem)',rAtitude);
+h+=bloco('🎁 Aniversário (Seu presente de nascimento)',rAniver);
+h+='<h4 style="color:var(--gold);margin:20px 0 4px">🧩 Ciclos de Vida</h4>';
+h+=bloco('1º Ciclo — Formação (0 a '+fim1+' anos)',c1);
+h+=bloco('2º Ciclo — Produtividade ('+(fim1+1)+' a '+fim2+' anos)',c2);
+h+=bloco('3º Ciclo — Colheita (a partir de '+(fim2+1)+' anos)',c3);
+h+='<h4 style="color:var(--gold);margin:20px 0 4px">⚖️ Desafios (Lições de Vida)</h4>';
+h+=bloco('1º Desafio (infância)',rD1);
+h+=bloco('2º Desafio (juventude)',rD2);
+h+=bloco('3º Desafio (maturidade)',rD3);
+h+=bloco('4º Desafio (fase madura)',rD4);
+h+='<h4 style="color:var(--gold);margin:20px 0 4px">✨ Seu Talismã Numerológico</h4>';
+h+='<div style="background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;text-align:left"><div style="font-weight:bold;color:var(--gold);font-size:15px">Destino '+rDest+'</div><p style="margin:8px 0 0;line-height:1.6">Cor: <strong>'+corD.c+'</strong><br>Dia da semana: <strong>'+corD.d+'</strong><br>Números de sorte: <strong>'+corD.s.join(', ')+'</strong></p></div>';
+if(masters.length>0){h+='<div style="background:rgba(212,168,67,.15);border:1px solid var(--gold);border-radius:8px;padding:12px;margin:10px 0;text-align:left"><strong style="color:var(--gold)">🔮 Número(s) Mestre(s) detectado(s): '+masters.join(' e ')+'</strong><br><span style="color:var(--gold-light);font-size:13px;line-height:1.6">'+masters.map(function(m){return LEITURA[m];}).join(' ')+'</span></div>';}
+var res=document.getElementById('num-result');
+res.style.display='block';
+res.innerHTML=h;
+setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
+}
     function handleIndication() {
       var email = document.getElementById('indica-email').value;
       if (email.indexOf('@') < 0) {return showModal("Erro", "E-mail inválido.");}
