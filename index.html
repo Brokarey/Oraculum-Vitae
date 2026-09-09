@@ -3347,14 +3347,37 @@ fetch('/api/numerologia',{method:'POST',headers:{'Content-Type':'application/jso
 .then(function(d){if(d&&d.resposta){res.innerHTML='<h3>Seu Perfil Numerológico</h3>'+formatarRespostaIA(d.resposta,null);}else{mostrarNumerologiaLocal(false);}})
 .catch(function(){mostrarNumerologiaLocal(false);});
 }
-      function startNumerologiaPremium() {
+    function startNumerologiaPremium() {
 var nomeEl=document.getElementById('num-nome');
 var dataEl=document.getElementById('num-data');
 var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
 var raw=dataEl.value||'';
 if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
 if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
-askConfirmQuestion('','numerologia',null,{title:'Confirmação de Créditos',message:'Deseja realizar a consulta <strong>Numerologia Pitagórica</strong> (Perfil Completo) por <strong style="color:var(--gold)">30 créditos</strong>?<br><br>Seu saldo será descontado apenas se você confirmar.'});
+document.getElementById('modal-title').innerText='Confirmação de Créditos';
+document.getElementById('modal-msg').innerHTML='Deseja realizar a consulta <strong>Numerologia Pitagórica</strong> (Perfil Completo) por <strong style="color:var(--gold)">30 créditos</strong>?<br><br>Seu saldo será descontado apenas se você confirmar.';
+var overlay=document.getElementById('modal-overlay');
+overlay.style.display='flex';
+var btn=overlay.querySelector('.modal-content .btn-portal');
+btn.style.display='none';
+var confirmDiv=document.getElementById('confirm-buttons');
+if(!confirmDiv){
+confirmDiv=document.createElement('div');
+confirmDiv.id='confirm-buttons';
+confirmDiv.style.cssText='display:flex;gap:12px;justify-content:center;margin-top:10px';
+overlay.querySelector('.modal-content').appendChild(confirmDiv);
+}
+confirmDiv.innerHTML='<button class="btn-portal" style="background:#2c7a4a;flex:1" onclick="confirmarNumerologia(true)">Sim</button><button class="btn-portal" style="background:#a33;flex:1" onclick="confirmarNumerologia(false)">Não</button>';
+}
+function confirmarNumerologia(ok) {
+var overlay=document.getElementById('modal-overlay');
+var btn=overlay.querySelector('.modal-content .btn-portal');
+btn.style.display='block';
+var confirmDiv=document.getElementById('confirm-buttons');
+if(confirmDiv){confirmDiv.innerHTML='';}
+overlay.style.display='none';
+if(!ok){showModal("Consulta cancelada","Nenhum crédito foi descontado.");return;}
+numerologiaPremium();
 }
 function numerologiaPremium() {
 var nomeEl=document.getElementById('num-nome');
