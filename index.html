@@ -119,7 +119,7 @@
       background-image: url('Graficos/Tela-Inicial.avif'), url('Graficos/Tela-Inicial.webp'), url('Graficos/Tela-Inicial.png');
       background-repeat: no-repeat;
       background-position: center;
-      background-size: 100% 100%;
+      background-size: cover;
       padding: 40px 20px
     }
 
@@ -134,8 +134,7 @@
       border: 1px solid var(--accent);
       width: 100%;
       max-width: 360px;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
-      transform:translateY(-20px)
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.7)
     }
 
     .auth-tabs {
@@ -1135,27 +1134,6 @@
       margin-top: 8px;
       line-height: 1.3
     }
-
-    /* ===== CONSERTO: permitir rolagem até o fim ===== */
-.page{overflow-y:auto!important}
-body{background:#0d0716}
-
-/* ===== RODAPÉ ===== */
-.site-footer{width:100%;margin-top:0;background:rgba(13,5,32,0.97);border-top:1px solid var(--gold);color:var(--gold-light);padding:35px 20px 15px;text-align:center}
-.footer-content{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;max-width:1100px;margin:0 auto 25px}
-.footer-col{flex:1 1 180px;max-width:260px}
-.footer-col h4{color:var(--gold);font-family:'Blackwood Castle Shadow',serif;font-size:18px;margin-bottom:12px;letter-spacing:1px}
-.footer-col a{display:block;color:var(--gold-light);text-decoration:none;font-size:14px;margin-bottom:8px;transition:color .2s}
-.footer-col a:hover{color:var(--gold)}
-.footer-brand p{font-size:13px;line-height:1.6;margin:0}
-.footer-social{display:flex;justify-content:center;gap:14px}
-.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--gold);border-radius:50%;font-size:16px;color:var(--gold);transition:all .2s}
-.footer-social a:hover{background:var(--gold);color:#0d0716}
-.footer-bottom{border-top:1px solid rgba(212,168,67,0.25);padding-top:15px}
-.footer-bottom p{margin:5px 0;font-size:12px;line-height:1.5}
-.footer-legal{color:#a89bb8}
-.footer-18{color:var(--gold);font-weight:bold;letter-spacing:1px}
-    
   </style>
 </head>
 
@@ -1275,11 +1253,11 @@ body{background:#0d0716}
       </div>
       <div class="dash-card" onclick="showPage('page-horoscopo')"><i class="fas fa-moon"></i>
         <h3>Horóscopo</h3>
-        <p>Previsões Semanais Gratuitas</p>
+        <p>Previsões Semanais</p>
       </div>
       <div class="dash-card" onclick="showPage('page-numerologia')"><i class="fas fa-fingerprint"></i>
         <h3>Numerologia</h3>
-        <p>Vibração do Nome - Opção Gratuita</p>
+        <p>Vibração do Nome</p>
       </div>
       <div class="dash-card disabled">
         <div class="badge-soon">EM BREVE</div><i class="fas fa-yin-yang"></i>
@@ -1674,8 +1652,7 @@ body{background:#0d0716}
       <div class="auth-form">
         <input type="text" id="num-nome" placeholder="Nome Completo (sem acentos)">
         <input type="date" id="num-data">
-        <button class="btn-portal" onclick="numerologiaGratis()">Calcular Minha Vibração</button>
-        <button class="btn-portal" style="margin-top:10px" onclick="startNumerologiaPremium()")">Perfil Completo (Numerologia Pitagórica) — 30 créditos</button>
+        <button class="btn-portal" onclick="calculateNumerology()">Calcular Minha Vibração</button>
       </div>
       <div id="num-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
@@ -2041,7 +2018,7 @@ body{background:#0d0716}
     var pendingType = null;
     var pendingCount = 0;
 
-     function askConfirmQuestion(q, type, count) {
+    function askConfirmQuestion(q, type, count) {
       pendingQuestion = q;
       pendingType = type;
       pendingCount = count;
@@ -2847,9 +2824,9 @@ body{background:#0d0716}
           + '<p>O Tarô de Marselha é o baralho de tarô mais famoso e tradicional do mundo, servindo de base para quase todas as leituras modernas. Revela uma linha do tempo clara: o Passado (a raiz do problema), o Presente (o momento atual) e o Futuro (o caminho provável). <strong>Por 30 créditos.</strong></p>'
           + '<p><strong>O Jogo de 3 Cartas</strong></p>'
           + '<ul>'
-                    + '<li><strong>O Passado (A Raiz):</strong> Olhamos para trás não para reviver as dores, mas para compreender as origens. As cartas revelam os padrões, as memórias e as escolhas que trouxeram você até o momento atual. É o momento de acolher a sua história e extrair dela o aprendizado necessário.</li>'
-          + '<li><strong>O Presente (A Semente):</strong> O único momento onde você tem o poder de agir. Aqui, o Tarô funciona como um diagnóstico claro e sem julgamentos da sua realidade atual. Mostramos as energias que cercam você hoje, as influências invisíveis e os recursos internos que você já possui para enfrentar os seus desafios.</li>'
-          + '<li><strong>O Futuro (As Folhas):</strong> O futuro não é um destino fixo e imutável gravado na pedra, mas sim um mapa de tendências. Revelamos os caminhos mais prováveis caso você continue na rota atual e as oportunidades que estão prestes a florescer, devolvendo a você o poder do livre-arbítrio para moldar o seu amanhã.</li>'
+          + '<li><strong>Carta 1: O Passado (A Origem)</strong> — O Eremita (IX): Mostra um tempo de busca interna, isolamento ou lentidão. Você passou por uma fase de estudo ou de muita cautela, guardando sua luz para não errar.</li>'
+          + '<li><strong>Carta 2: O Presente (O Momento)</strong> — A Justiça (VIII): Indica a necessidade de equilíbrio, clareza e escolhas corretas. É hora de avaliar os fatos com frieza, cortar o que não serve e assumir a responsabilidade por seus atos.</li>'
+          + '<li><strong>Carta 3: O Futuro (O Destino)</strong> — O Mundo (XXI): Representa a realização máxima, o sucesso e a conclusão feliz de um ciclo. O caminho aponta para a liberdade e a expansão total após a lição aprendida.</li>'
           + '</ul>'
           + '<p style="margin-top:18px"><strong>Após escolher as 3 cartas, elas serão exibidas lado a lado, na ordem selecionada, acima da caixa de respostas.</strong></p>';
         var d = document.querySelector('#page-tarot-3 .tarot2-info');
@@ -3272,133 +3249,6 @@ body{background:#0d0716}
         + '<p><strong>Destino (Caminho): ' + rDest + '</strong><br>' + explicacao[rDest] + '</p>';
       setTimeout(function () {res.scrollIntoView({behavior: 'smooth', block: 'start'});}, 150);
     }
-    function toggleDet(id){var el=document.getElementById('det-'+id);if(el){el.style.display=(el.style.display==='none')?'block':'none';}}
-function calculateNumerologyPremium(){
-var nomeEl=document.getElementById('num-nome');
-var dataEl=document.getElementById('num-data');
-var nome=nomeEl.value.toUpperCase().replace(/[^A-Z]/g,'');
-var raw=dataEl.value;
-if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
-if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
-if(!currentUser.isMago){currentUser.credits-=30;saveUser(currentUser);updateCreditsDisplay();}
-var map={A:1,J:1,S:1,B:2,K:2,T:2,C:3,L:3,U:3,D:4,M:4,V:4,E:5,N:5,W:5,F:6,O:6,X:6,G:7,P:7,Y:7,H:8,Q:8,Z:8,I:9,R:9};
-var vogais="AEIOU";
-function reducePre(n){while(n>9&&n!==11&&n!==22&&n!==33){n=n.toString().split('').reduce(function(a,b){return parseInt(a)+parseInt(b);},0);}return n;}
-var LEITURA={1:"Liderança e independência: o início, a coragem e a força de vontade para abrir caminhos.",2:"Cooperação e sensibilidade: diplomacia, parcerias e busca pelo equilíbrio nas relações.",3:"Criatividade e expressão: comunicação, otimismo e expansão social.",4:"Estabilidade e trabalho: organização, disciplina e construção de bases sólidas.",5:"Liberdade e mudança: versatilidade, aventura e quebra de rotinas.",6:"Harmonia e responsabilidade: família, amor, serviço e cuidado com o próximo.",7:"Espiritualidade e análise: conhecimento profundo, introspecção e sabedoria interior.",8:"Poder e prosperidade: autoridade, sucesso material e justiça.",9:"Humanitarismo e conclusão: compaixão, desapego e encerramento de ciclos.",11:"Intuição elevada e inspiração: número mestre com percepção espiritual aguçada e idealismo.",22:"Mestre construtor: capacidade de transformar grandes sonhos em realidade tangível.",33:"Mestre do amor universal: dedicação ao próximo com sabedoria e compaixão."};
-var DET={1:"Você nasceu para liderar. A energia do 1 pede iniciativa, autonomia e coragem para seguir seus próprios caminhos. Cuidado apenas para não se fechar em demasia: aprender a pedir ajuda e ouvir o outro faz parte do seu amadurecimento.",2:"Sua força está nas relações e na diplomacia. Você percebe os dois lados de cada situação e sabe acalmar ambientes. Evite depender demais da aprovação alheia: sua sensibilidade é um dom, mas precisa de limites.",3:"A alegria e a comunicação são seus dons. Você inspira as pessoas com palavras, arte e otimismo. Para brilhar de verdade, foque em terminar o que começa — a dispersão é sua maior armadilha.",4:"Você constrói tudo com bases sólidas. Disciplina, organização e lealdade são seu superpoder. O risco é se acomodar na rotina: permita-se pequenas mudanças para não travar o seu crescimento.",5:"Você é a própria energia do movimento. Aventura, liberdade e versatilidade guiam seus passos. Sua lição é equilibrar a sede de novidades com compromissos que valham a pena.",6:"O amor e o cuidado são sua missão. Família e harmonia pedem sua presença, e você se doa naturalmente. Cuidado para não se esquecer de si mesmo enquanto cuida de todos.",7:"Sua mente busca o que está além da superfície. Estudo, espiritualidade e análise são seus refúgios. O desafio é não se isolar: compartilhar o que descobre multiplica sua sabedoria.",8:"Você tem energia para conquistar o mundo material. Poder, prosperidade e justiça fazem parte do seu destino. Use sua autoridade com ética — o verdadeiro sucesso respeita os outros.",9:"Você veio para concluir ciclos e servir ao próximo. Compaixão, desapego e visão ampla são seus dons. Liberte-se do passado para que o novo sempre encontre espaço.",11:"Você é um canal de inspiração. Sua intuição percebe além das aparências e toca as pessoas profundamente. O dom pede serenidade: aprenda a se proteger das energias ao redor.",22:"Você tem o poder de transformar sonhos em realidade. Visão grandiosa e capacidade de execução raramente andam juntas — e você tem as duas. Construa algo que sirva a muitos.",33:"Raro e poderoso: o amor em sua forma mais pura. Você cura, ensina e inspira quem está ao seu redor. Guarde energia para si também, para sustentar a chama que carrega."};
-var COR={1:{c:"Vermelho / Laranja",d:"Domingo",s:[1,10,19,28]},2:{c:"Branco / Prata",d:"Segunda-feira",s:[2,11,20,29]},3:{c:"Amarelo / Dourado",d:"Quinta-feira",s:[3,12,21,30]},4:{c:"Verde / Azul",d:"Sábado",s:[4,13,22,31]},5:{c:"Verde-claro / Turquesa",d:"Quarta-feira",s:[5,14,23]},6:{c:"Rosa / Azul-claro",d:"Sexta-feira",s:[6,15,24]},7:{c:"Violeta / Índigo",d:"Segunda-feira",s:[7,16,25]},8:{c:"Preto / Azul-escuro",d:"Sábado",s:[8,17,26]},9:{c:"Vermelho / Carmesim",d:"Terça-feira",s:[9,18,27]},11:{c:"Prata / Branco-perolado",d:"Segunda-feira",s:[11,22]},22:{c:"Dourado / Marrom",d:"Domingo",s:[22,44]},33:{c:"Rosa / Dourado",d:"Quinta-feira",s:[33,66]}};
-function bloco(t,n){var le=LEITURA[n]||LEITURA[1];var de=DET[n]||DET[1];var co=COR[n]||COR[n%9||9];return '<div style="background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;text-align:left"><div style="font-weight:bold;color:var(--gold);font-size:15px">'+t+' <span style="color:var(--gold-light)">· '+n+'</span></div><p style="margin:8px 0 0;line-height:1.6">'+le+'</p><button onclick="toggleDet('+n+')" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;margin-top:6px;padding:0">Ver mais</button><div id="det-'+n+'" style="display:none;margin-top:6px;line-height:1.6;color:#cbb8e0;font-size:13px">'+de+'</div></div>';}
-var p=raw.split('-');
-var anoN=parseInt(p[0],10),mesN=parseInt(p[1],10),diaN=parseInt(p[2],10);
-var agora=new Date();
-var anoAtual=agora.getFullYear(),mesAtual=agora.getMonth()+1;
-var mot=0,imp=0,exp=0;
-for(var ci=0;ci<nome.length;ci++){var val=map[nome[ci]]||0;exp+=val;if(vogais.indexOf(nome[ci])>=0){mot+=val;}else{imp+=val;}}
-var rMot=reducePre(mot),rImp=reducePre(imp),rExp=reducePre(exp);
-var rDest=reducePre(raw.replace(/-/g,'').split('').reduce(function(a,b){return parseInt(a)+parseInt(b);},0));
-var rAtitude=reducePre(diaN+mesN);
-var rAniver=reducePre(diaN);
-var ano2=anoN%100;
-var d1=Math.abs(diaN-mesN),d2=Math.abs(diaN-ano2),d3=Math.abs(d1-d2),d4=Math.abs(mesN-ano2);
-var rD1=reducePre(d1),rD2=reducePre(d2),rD3=reducePre(d3),rD4=reducePre(d4);
-var rAnoP=reducePre(diaN+mesN+anoAtual);
-var rMesP=reducePre(rAnoP+mesAtual);
-var c1=reducePre(mesN),c2=reducePre(diaN),c3=reducePre(anoN);
-var fim1=36-rDest, fim2=fim1+27;
-var corD= COR[rDest]||COR[rDest%9||9];
-var masters=[rMot,rImp,rExp,rDest].filter(function(v){return v===11||v===22||v===33;});
-var h='<h3 style="color:var(--gold)">Numerologia Pitagórica — Perfil Completo</h3><p style="font-size:13px;color:var(--gold-light);margin-bottom:10px">Nome: '+nome+' · Data: '+diaN+'/'+mesN+'/'+anoN+'</p>';
-h+='<div style="background:rgba(212,168,67,.12);border:1px solid var(--gold);border-radius:8px;padding:12px;margin:10px 0;text-align:left"><strong style="color:var(--gold)">🧭 Ano Pessoal de '+anoAtual+': '+rAnoP+'</strong><br><span style="color:var(--gold-light);font-size:13px;line-height:1.6">'+LEITURA[rAnoP]+'</span></div>';
-h+='<div style="background:rgba(212,168,67,.12);border:1px solid var(--gold);border-radius:8px;padding:12px;margin:10px 0;text-align:left"><strong style="color:var(--gold)">📅 Mês Pessoal de agora: '+rMesP+'</strong><br><span style="color:var(--gold-light);font-size:13px;line-height:1.6">'+LEITURA[rMesP]+'</span></div>';
-h+=bloco('❤️ Motivação (Alma)',rMot);
-h+=bloco('👤 Impressão (Ego)',rImp);
-h+=bloco('✍️ Expressão (Personalidade)',rExp);
-h+=bloco('🎯 Destino (Caminho de Vida)',rDest);
-h+=bloco('🌅 Atitude (Como os outros te veem)',rAtitude);
-h+=bloco('🎁 Aniversário (Seu presente de nascimento)',rAniver);
-h+='<h4 style="color:var(--gold);margin:20px 0 4px">🧩 Ciclos de Vida</h4>';
-h+=bloco('1º Ciclo — Formação (0 a '+fim1+' anos)',c1);
-h+=bloco('2º Ciclo — Produtividade ('+(fim1+1)+' a '+fim2+' anos)',c2);
-h+=bloco('3º Ciclo — Colheita (a partir de '+(fim2+1)+' anos)',c3);
-h+='<h4 style="color:var(--gold);margin:20px 0 4px">⚖️ Desafios (Lições de Vida)</h4>';
-h+=bloco('1º Desafio (infância)',rD1);
-h+=bloco('2º Desafio (juventude)',rD2);
-h+=bloco('3º Desafio (maturidade)',rD3);
-h+=bloco('4º Desafio (fase madura)',rD4);
-h+='<h4 style="color:var(--gold);margin:20px 0 4px">✨ Seu Talismã Numerológico</h4>';
-h+='<div style="background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;text-align:left"><div style="font-weight:bold;color:var(--gold);font-size:15px">Destino '+rDest+'</div><p style="margin:8px 0 0;line-height:1.6">Cor: <strong>'+corD.c+'</strong><br>Dia da semana: <strong>'+corD.d+'</strong><br>Números de sorte: <strong>'+corD.s.join(', ')+'</strong></p></div>';
-if(masters.length>0){h+='<div style="background:rgba(212,168,67,.15);border:1px solid var(--gold);border-radius:8px;padding:12px;margin:10px 0;text-align:left"><strong style="color:var(--gold)">🔮 Número(s) Mestre(s) detectado(s): '+masters.join(' e ')+'</strong><br><span style="color:var(--gold-light);font-size:13px;line-height:1.6">'+masters.map(function(m){return LEITURA[m];}).join(' ')+'</span></div>';}
-var res=document.getElementById('num-result');
-res.style.display='block';
-res.innerHTML=h;
-setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},150);
-}
-    function numerologiaGratis() {
-var nomeEl=document.getElementById('num-nome');
-var dataEl=document.getElementById('num-data');
-var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
-var raw=dataEl.value||'';
-if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
-var res=document.getElementById('num-result');
-res.style.display='block';
-res.innerHTML='<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">✨ Consultando os números da sua vibração...</div>';
-fetch('/api/numerologia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,data:raw,tipo:'gratis'})})
-.then(function(r){return r.json();})
-.then(function(d){if(d&&d.resposta){res.innerHTML='<h3>Seu Perfil Numerológico</h3>'+formatarRespostaIA(d.resposta,null);}else{mostrarNumerologiaLocal(false);}})
-.catch(function(){mostrarNumerologiaLocal(false);});
-}
-    function startNumerologiaPremium() {
-var nomeEl=document.getElementById('num-nome');
-var dataEl=document.getElementById('num-data');
-var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
-var raw=dataEl.value||'';
-if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
-if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
-document.getElementById('modal-title').innerText='Confirmação de Créditos';
-document.getElementById('modal-msg').innerHTML='Deseja realizar a consulta <strong>Numerologia Pitagórica</strong> (Perfil Completo) por <strong style="color:var(--gold)">30 créditos</strong>?<br><br>Seu saldo será descontado apenas se você confirmar.';
-var overlay=document.getElementById('modal-overlay');
-overlay.style.display='flex';
-var btn=overlay.querySelector('.modal-content .btn-portal');
-btn.style.display='none';
-var confirmDiv=document.getElementById('confirm-buttons');
-if(!confirmDiv){
-confirmDiv=document.createElement('div');
-confirmDiv.id='confirm-buttons';
-confirmDiv.style.cssText='display:flex;gap:12px;justify-content:center;margin-top:10px';
-overlay.querySelector('.modal-content').appendChild(confirmDiv);
-}
-confirmDiv.innerHTML='<button class="btn-portal" style="background:#2c7a4a;flex:1" onclick="confirmarNumerologia(true)">Sim</button><button class="btn-portal" style="background:#a33;flex:1" onclick="confirmarNumerologia(false)">Não</button>';
-}
-function confirmarNumerologia(ok) {
-var overlay=document.getElementById('modal-overlay');
-var btn=overlay.querySelector('.modal-content .btn-portal');
-btn.style.display='block';
-var confirmDiv=document.getElementById('confirm-buttons');
-if(confirmDiv){confirmDiv.innerHTML='';}
-overlay.style.display='none';
-if(!ok){showModal("Consulta cancelada","Nenhum crédito foi descontado.");return;}
-numerologiaPremium();
-}
-function numerologiaPremium() {
-var nomeEl=document.getElementById('num-nome');
-var dataEl=document.getElementById('num-data');
-var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
-var raw=dataEl.value||'';
-if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
-if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
-if(!currentUser.isMago){currentUser.credits-=30;saveUser(currentUser);updateCreditsDisplay();}
-var res=document.getElementById('num-result');
-res.style.display='block';
-res.innerHTML='<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">✨ Gerando seu perfil completo com a IA... isso pode levar alguns segundos.</div>';
-fetch('/api/numerologia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,data:raw,tipo:'premium'})})
-.then(function(r){return r.json();})
-.then(function(d){if(d&&d.resposta){res.innerHTML='<h3>Numerologia Pitagórica — Perfil Completo</h3>'+formatarRespostaIA(d.resposta,null);}else{mostrarNumerologiaLocal(true);}})
-.catch(function(){mostrarNumerologiaLocal(true);});
-}
-function mostrarNumerologiaLocal(premium) {
-if(premium){var r=document.getElementById('num-result');r.innerHTML='<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">A IA está instável no momento. Exibindo o perfil resumido, sem custo adicional.</div>';}
-calculateNumerology();
-}
     function handleIndication() {
       var email = document.getElementById('indica-email').value;
       if (email.indexOf('@') < 0) {return showModal("Erro", "E-mail inválido.");}
@@ -3495,41 +3345,6 @@ calculateNumerology();
       if (document.getElementById('page-horoscopo')) initHoroscopo();
     }
   </script>
-
-  <!-- ===== RODAPÉ ===== -->
-<footer class="site-footer">
-<div class="footer-content">
-<div class="footer-col footer-brand">
-<h4>🔮 Oraculum Vitae</h4>
-<p>Oráculos, tarô e autoconhecimento. A sabedoria ancestral guiando sua jornada.</p>
-</div>
-<div class="footer-col">
-<h4>Navegação</h4>
-<a href="#">Termos de Uso</a>
-<a href="#">Política de Privacidade</a>
-<a href="#">FAQ</a>
-<a href="#">Sobre</a>
-</div>
-<div class="footer-col">
-<h4>Contato</h4>
-<a href="mailto:contato@oraculumvitae.com">contato@oraculumvitae.com</a>
-</div>
-<div class="footer-col">
-<h4>Redes Sociais</h4>
-<div class="footer-social">
-<a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-<a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-<a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-</div>
-</div>
-</div>
-<div class="footer-bottom">
-<p>© 2026 Oraculum Vitae. Todos os direitos reservados.</p>
-<p class="footer-legal">Conteúdo para fins de entretenimento e autoconhecimento. Este site não substitui aconselhamento médico, psicológico, jurídico ou financeiro profissional.</p>
-<p class="footer-18">🔞 Conteúdo recomendado para maiores de 18 anos.</p>
-</div>
-</footer>
-  
 </body>
 
 </html>
