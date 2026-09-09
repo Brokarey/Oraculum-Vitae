@@ -1675,7 +1675,7 @@ body{background:#0d0716}
         <input type="text" id="num-nome" placeholder="Nome Completo (sem acentos)">
         <input type="date" id="num-data">
         <button class="btn-portal" onclick="numerologiaGratis()">Calcular Minha Vibração</button>
-        <button class="btn-portal" style="margin-top:10px" onclick="numerologiaPremium()">Perfil Completo (Numerologia Pitagórica) — 30 créditos</button>
+        <button class="btn-portal" style="margin-top:10px" onclick="startNumerologiaPremium()")">Perfil Completo (Numerologia Pitagórica) — 30 créditos</button>
       </div>
       <div id="num-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
@@ -2045,8 +2045,9 @@ body{background:#0d0716}
       pendingQuestion = q;
       pendingType = type;
       pendingCount = count;
-      document.getElementById('modal-title').innerText = 'Confirmação';
-      document.getElementById('modal-msg').innerHTML = 'Você está certo sobre esta pergunta?<br><br><em>"' + q + '"</em>';
+      var _opts = arguments[3] || {};
+document.getElementById('modal-title').innerText = _opts.title || 'Confirmação';
+document.getElementById('modal-msg').innerHTML = _opts.message || ('Você está certo sobre esta pergunta?<br><br><em>"' + q + '"</em>');
       var overlay = document.getElementById('modal-overlay');
       overlay.style.display = 'flex';
       var btn = overlay.querySelector('.modal-content .btn-portal');
@@ -2072,6 +2073,18 @@ body{background:#0d0716}
         showModal("Reformule a pergunta", "Sua pergunta não está clara. Por favor, reformule-a de forma objetiva para continuar.");
         return;
       }
+            if (!ok) {
+        if (pendingType === 'numerologia') { showModal("Consulta cancelada", "Nenhum crédito foi descontado."); return; }
+        showModal("Reformule a pergunta", "Sua pergunta não está clara. Por favor, reformule-a de forma objetiva para continuar.");
+        return;
+      }
+      if (pendingType === 'numerologia') {        
+        numerologiaPremium();                      
+        return;                                    
+      }                                            
+      if (pendingType === 'simnao') {
+        proceedSimNao(pendingQuestion);
+      } else if (pendingType === 'amor') {
       if (pendingType === 'simnao') {
         proceedSimNao(pendingQuestion);
       } else if (pendingType === 'amor') {
@@ -3280,7 +3293,6 @@ var nome=nomeEl.value.toUpperCase().replace(/[^A-Z]/g,'');
 var raw=dataEl.value;
 if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
 if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
-if(!window.confirm("Deseja realizar a consulta Numerologia Pitagórica por 30 créditos? Seu saldo será descontado.")){return;}
 if(!currentUser.isMago){currentUser.credits-=30;saveUser(currentUser);updateCreditsDisplay();}
 var map={A:1,J:1,S:1,B:2,K:2,T:2,C:3,L:3,U:3,D:4,M:4,V:4,E:5,N:5,W:5,F:6,O:6,X:6,G:7,P:7,Y:7,H:8,Q:8,Z:8,I:9,R:9};
 var vogais="AEIOU";
@@ -3348,6 +3360,15 @@ fetch('/api/numerologia',{method:'POST',headers:{'Content-Type':'application/jso
 .then(function(d){if(d&&d.resposta){res.innerHTML='<h3>Seu Perfil Numerológico</h3>'+formatarRespostaIA(d.resposta,null);}else{mostrarNumerologiaLocal(false);}})
 .catch(function(){mostrarNumerologiaLocal(false);});
 }
+      function startNumerologiaPremium() {
+var nomeEl=document.getElementById('num-nome');
+var dataEl=document.getElementById('num-data');
+var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
+var raw=dataEl.value||'';
+if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
+if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
+askConfirmQuestion('','numerologia',null,{title:'Confirmação de Créditos',message:'Deseja realizar a consulta <strong>Numerologia Pitagórica</strong> (Perfil Completo) por <strong style="color:var(--gold)">30 créditos</strong>?<br><br>Seu saldo será descontado apenas se você confirmar.'});
+}
 function numerologiaPremium() {
 var nomeEl=document.getElementById('num-nome');
 var dataEl=document.getElementById('num-data');
@@ -3355,7 +3376,6 @@ var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
 var raw=dataEl.value||'';
 if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
 if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
-if(!window.confirm("Deseja realizar a consulta Numerologia Pitagórica por 30 créditos? Seu saldo será descontado.")){return;}
 if(!currentUser.isMago){currentUser.credits-=30;saveUser(currentUser);updateCreditsDisplay();}
 var res=document.getElementById('num-result');
 res.style.display='block';
