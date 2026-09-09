@@ -2041,13 +2041,12 @@ body{background:#0d0716}
     var pendingType = null;
     var pendingCount = 0;
 
-    function askConfirmQuestion(q, type, count) {
+     function askConfirmQuestion(q, type, count) {
       pendingQuestion = q;
       pendingType = type;
       pendingCount = count;
-      var _opts = arguments[3] || {};
-document.getElementById('modal-title').innerText = _opts.title || 'Confirmação';
-document.getElementById('modal-msg').innerHTML = _opts.message || ('Você está certo sobre esta pergunta?<br><br><em>"' + q + '"</em>');
+      document.getElementById('modal-title').innerText = 'Confirmação';
+      document.getElementById('modal-msg').innerHTML = 'Você está certo sobre esta pergunta?<br><br><em>"' + q + '"</em>';
       var overlay = document.getElementById('modal-overlay');
       overlay.style.display = 'flex';
       var btn = overlay.querySelector('.modal-content .btn-portal');
@@ -2073,18 +2072,6 @@ document.getElementById('modal-msg').innerHTML = _opts.message || ('Você está 
         showModal("Reformule a pergunta", "Sua pergunta não está clara. Por favor, reformule-a de forma objetiva para continuar.");
         return;
       }
-            if (!ok) {
-        if (pendingType === 'numerologia') { showModal("Consulta cancelada", "Nenhum crédito foi descontado."); return; }
-        showModal("Reformule a pergunta", "Sua pergunta não está clara. Por favor, reformule-a de forma objetiva para continuar.");
-        return;
-      }
-      if (pendingType === 'numerologia') {        
-        numerologiaPremium();                      
-        return;                                    
-      }                                            
-      if (pendingType === 'simnao') {
-        proceedSimNao(pendingQuestion);
-      } else if (pendingType === 'amor') {
       if (pendingType === 'simnao') {
         proceedSimNao(pendingQuestion);
       } else if (pendingType === 'amor') {
