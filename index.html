@@ -1289,7 +1289,20 @@ body{background:#0d0716}
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-    
+    /* Balão Indique um Amigo (mesma posição do balão de benefícios) */
+#baloon-indique {
+  position: fixed;
+  left: 10vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  max-width: 80vw;
+  text-align: center;
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 25px rgba(201,168,106,.4);
+  z-index: 1000;
+  display: none;
+}
   </style>
 </head>
 
@@ -3720,11 +3733,26 @@ calculateNumerology();
   var logado = !!(currentUser && currentUser.name);
   el.style.display = logado ? 'none' : 'block';
 }
-atualizarBaloonGratis();
+atualizarBaloes();
     setTimeout(function(){
   var el = document.getElementById('baloon-gratis');
   if (el) el.style.opacity = '1';
 }, 100);
+
+    // Função que leva para a página "Indique um Amigo"
+function irParaIndiqueAmigo() {
+  showPage('page-indicacao');
+}
+
+// Controla os dois balões: benefícios (antes do cadastro) e Indique (depois)
+function atualizarBaloes() {
+  var logado = !!(currentUser && currentUser.name);
+  var gratis = document.getElementById('baloon-gratis');
+  var indique = document.getElementById('baloon-indique');
+  if (gratis) gratis.style.display = logado ? 'none' : 'block';
+  if (indique) indique.style.display = logado ? 'block' : 'none';
+}
+atualizarBaloes();
     
   </script>
 
@@ -3773,9 +3801,9 @@ atualizarBaloonGratis();
   </ul>
 </div>
 
-<!-- BALÃO 2: Indique um Amigo (aparece após o cadastro, permanente e clicável) -->
+<!-- BALÃO 2:  (aparece após o cadastro, permanente e clicável) -->
 <div id="baloon-indique" class="form-container baloon" onclick="irParaIndiqueAmigo()" style="cursor:pointer">
-  <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">🎁 Indique um Amigo</h2>
+  <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">🎁 </h2>
   <p style="margin:8px 0;font-size:14px">Ganhe <strong style="color:var(--gold)">50 créditos</strong> por cada amigo que você indicar!</p>
   <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
 </div>
@@ -3789,6 +3817,13 @@ atualizarBaloonGratis();
     <li>🔢 <strong style="color:var(--gold)">Numerologia</strong> — seu número pessoal</li>
     <li>🌟 <strong style="color:var(--gold)">Horóscopo</strong> — o que os astros reservam</li>
   </ul>
+</div>
+
+<!-- BALÃO 2: Indique um Amigo (aparece após o cadastro, permanente e clicável) -->
+<div id="baloon-indique" class="form-container baloon" onclick="irParaIndiqueAmigo()" style="cursor:pointer">
+  <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">🔮 Compartilhe o destino</h2>
+  <p style="margin:8px 0;font-size:14px">Ganhe <strong style="color:var(--gold)">50 créditos</strong> por cada amigo que indicar!</p>
+  <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
 </div>
   
 </body>
