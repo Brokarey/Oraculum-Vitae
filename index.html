@@ -76,7 +76,7 @@
 
       0%,
       100% {
-        : 0.3;
+        opacity: 0.3;
         transform: scale(1)
       }
 
@@ -100,8 +100,8 @@
 
     @keyframes fadeIn {
       from {
-        : 0;
-        transform: translateY(10px)
+        opacity: 0;
+              transform: translateY(10px)
       }
 
       to {
@@ -715,6 +715,7 @@
     @keyframes popIn {
       from {
         transform: translate(-50%, -50%) scale(0.7);
+        opacity: 0
         : 0
       }
 
