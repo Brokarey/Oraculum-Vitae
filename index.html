@@ -8,14 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    @font-face {
-      font-family: 'Blackwood Castle Shadow';
-      src: url('BlackwoodCastleShadow.ttf#baloon-gratis {
+ @font-face {
+  font-family: 'Blackwood Castle Shadow';
+  src: url('BlackwoodCastleShadow.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+#baloon-gratis {
   position: fixed;
   left: 10vw;
-  top: 50%;              ← centralizado na vertical
+  top: 50%;
   transform: translateY(-50%);
-  width: 150px;          ← metade do tamanho
+  width: 150px;
   max-width: 80vw;
   text-align: center;
   border: 1px solid var(--gold);
@@ -23,11 +29,12 @@
   z-index: 1000;
   opacity: 0;
   animation: baloonFadeIn 3s ease forwards;
-}') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap
-    }
+}
+
+@keyframes baloonFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
     :root {
       --bg-deep: #0d0520;
