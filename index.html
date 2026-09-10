@@ -1255,10 +1255,10 @@ body{background:#0d0716}
     /* Balão de benefícios gratuitos */
 #baloon-gratis {
   position: fixed;
-  left: 15vw;
-  top: 47%;
+  left: 10vw;
+  top: 50%;              ← centralizado na vertical
   transform: translateY(-50%);
-  width: 300px;
+  width: 150px;          ← metade do tamanho
   max-width: 80vw;
   text-align: center;
   border: 1px solid var(--gold);
@@ -1267,7 +1267,6 @@ body{background:#0d0716}
   opacity: 0;
   animation: baloonFadeIn 3s ease forwards;
 }
-
 @keyframes baloonFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
