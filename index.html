@@ -1264,10 +1264,9 @@ body{background:#0d0716}
   border: 1px solid var(--gold);
   box-shadow: 0 0 25px rgba(201,168,106,.4);
   z-index: 1000;
-  opacity: 0;                          ← NOVA
-  animation: baloonFadeIn 3s ease forwards;   ← NOVA
-}
-@media (max-width: 900px) {
+  opacity: 0;
+  transition: opacity 3s ease;
+  @media (max-width: 900px) {
   #baloon-gratis { display: none; }
 }
 
@@ -3707,6 +3706,10 @@ calculateNumerology();
   el.style.display = logado ? 'none' : 'block';
 }
 atualizarBaloonGratis();
+    setTimeout(function(){
+  var el = document.getElementById('baloon-gratis');
+  if (el) el.style.opacity = '1';
+}, 100);
     
   </script>
 
