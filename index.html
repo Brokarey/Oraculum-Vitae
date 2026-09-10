@@ -1155,6 +1155,52 @@ body{background:#0d0716}
 .footer-bottom p{margin:5px 0;font-size:12px;line-height:1.5}
 .footer-legal{color:#a89bb8}
 .footer-18{color:var(--gold);font-weight:bold;letter-spacing:1px}
+
+    #balao-centralizado {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  display: none;
+  max-width: 520px;
+  width: 90%;
+  background: linear-gradient(135deg, rgba(201,168,106,.22), rgba(0,0,0,.92));
+  border: 1px solid var(--gold);
+  border-radius: 18px;
+  padding: 32px 28px;
+  text-align: center;
+  color: var(--gold-light);
+  box-shadow: 0 0 60px rgba(201,168,106,.55), 0 8px 32px rgba(0,0,0,.8);
+  animation: balaoFadeIn .4s ease-out;
+}
+#balao-centralizado .balao-icone {
+  font-size: 34px;
+  margin-bottom: 10px;
+  animation: balaoPulse 2.5s ease-in-out infinite;
+}
+#balao-centralizado .balao-frase {
+  font-size: 17px;
+  line-height: 1.55;
+  font-style: italic;
+  color: #f0e2c0;
+  text-shadow: 0 0 14px rgba(201,168,106,.5);
+  margin: 0 0 6px;
+}
+#balao-centralizado .balao-rodape {
+  font-size: 12px;
+  color: #999;
+  margin-top: 14px;
+  letter-spacing: 1px;
+}
+@keyframes balaoFadeIn {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(.96); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes balaoPulse {
+  0%, 100% { opacity: .75; }
+  50% { opacity: 1; text-shadow: 0 0 22px var(--gold); }
+}
     
   </style>
 </head>
@@ -2700,6 +2746,7 @@ body{background:#0d0716}
       showPage('page-dashboard');
       updateCreditsDisplay();
       checkBalloon();
+      mostrarBalaoCentralizado();
     }
     function handleLogin() {
       var email = normalizeEmail(document.getElementById('login-email').value);
@@ -3378,6 +3425,72 @@ if(confirmDiv){confirmDiv.innerHTML='';}
 overlay.style.display='none';
 if(!ok){showModal("Consulta cancelada","Nenhum crédito foi descontado.");return;}
 numerologiaPremium();
+}
+  var FRASES_ESTOICAS = [
+  "A felicidade da sua vida depende da qualidade dos seus pensamentos.",
+  "O que não é bom para a colmeia, não pode ser bom para a abelha.",
+  "Não é o que acontece com você, mas como você reage ao que acontece.",
+  "O homem não é perturbado pelas coisas, mas pela visão que tem delas.",
+  "Aceite as coisas às quais o destino o vincula.",
+  "A liberdade é o único objetivo que vale a pena.",
+  "O tempo é o nosso recurso mais escasso e valioso.",
+  "Viva como se fosse morrer amanhã. Aprenda como se fosse viver para sempre.",
+  "A raiva é um ácido que faz mais mal ao recipiente do que a qualquer coisa em que seja derramado.",
+  "Dificuldades fortalecem a mente, assim como o trabalho fortalece o corpo.",
+  "Onde há vida, há esperança.",
+  "O autoconhecimento é o início de toda sabedoria.",
+  "Não busque que as coisas aconteçam como deseja; deseje que aconteçam como acontecem.",
+  "A maior vitória é a vitória sobre si mesmo.",
+  "O segredo da felicidade não é fazer o que se gosta, mas gostar do que se faz.",
+  "A riqueza consiste muito mais em desfrutar do que em possuir.",
+  "Ninguém pode tirar de você o seu poder de escolha.",
+  "O que é necessário é fácil; o que é difícil não é necessário.",
+  "Não reclame do frio se você não se preparou para o inverno.",
+  "A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original.",
+  "Cuide do presente, e o futuro cuidará de si mesmo.",
+  "O caráter é o destino.",
+  "A calma é uma força silenciosa.",
+  "Quem tem um porquê enfrenta quase qualquer como.",
+  "Aprenda a ser indiferente ao que não está sob seu controle.",
+  "A vida é curta, mas o tempo é suficiente para quem sabe viver.",
+  "A dor é inevitável, o sofrimento é opcional.",
+  "Seja o mestre de si mesmo e escravo de ninguém.",
+  "A virtude é a única coisa que não pode ser roubada.",
+  "A natureza não faz nada em vão.",
+  "Não tenha medo das mudanças; elas são o caminho para o novo.",
+  "O silêncio é a linguagem dos sábios.",
+  "A moderação é a chave para todas as virtudes.",
+  "Honre seus ancestrais vivendo uma vida de valor.",
+  "Se você é capaz de olhar para dentro, é capaz de transformar o fora.",
+  "O medo é apenas uma sombra projetada por uma mente insegura.",
+  "A gratidão transforma o que temos em suficiente.",
+  "Não se compare com os outros; compare-se com quem você foi ontem.",
+  "O foco é a ferramenta que dá forma ao seu destino.",
+  "A disciplina é o caminho para a liberdade.",
+  "Não carregue o peso do passado, nem a ansiedade do futuro.",
+  "A verdade é a base de toda grandeza.",
+  "A simplicidade é o último grau de sofisticação.",
+  "O melhor momento para plantar uma árvore foi há 20 anos. O segundo melhor é agora.",
+  "O que os outros pensam de você não é da sua conta.",
+  "A humildade precede a honra.",
+  "Aprenda a encontrar o equilíbrio no caos.",
+  "Cada manhã é uma nova vida para o homem sábio.",
+  "Sua percepção é sua realidade.",
+  "O conhecimento é poder apenas se for aplicado."
+];
+function mostrarBalaoCentralizado() {
+  var b = document.getElementById('balao-centralizado');
+  if (!b) {
+    b = document.createElement('div');
+    b.id = 'balao-centralizado';
+    document.body.appendChild(b);
+  }
+  b.innerHTML = '<div class="balao-icone">✨</div>'
+    + '<p class="balao-frase">"' + FRASES_ESTOICAS[Math.floor(Math.random() * FRASES_ESTOICAS.length)] + '"</p>'
+    + '<div class="balao-rodape">— Oraculum Vitae · Sabedoria do Dia —</div>';
+  b.style.display = 'block';
+  clearTimeout(b._t);
+  b._t = setTimeout(function(){ b.style.display = 'none'; }, 5000);
 }
 function numerologiaPremium() {
 var nomeEl=document.getElementById('num-nome');
