@@ -1155,7 +1155,54 @@ body{background:#0d0716}
 .footer-bottom p{margin:5px 0;font-size:12px;line-height:1.5}
 .footer-legal{color:#a89bb8}
 .footer-18{color:var(--gold);font-weight:bold;letter-spacing:1px}
-    
+ 
+.baloon {
+  position: relative;
+  max-width: 300px;
+  background: linear-gradient(135deg, rgba(201,168,106,.18), rgba(0,0,0,.65));
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  padding: 20px;
+  color: var(--gold-light);
+  cursor: pointer;
+  animation: baloonPulse 3s ease-in-out infinite;
+  z-index: 5;
+}
+.baloon-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--gold), transparent, var(--gold));
+  filter: blur(10px);
+  opacity: .45;
+  z-index: -1;
+}
+.baloon-header {
+  font-size: 17px;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 10px;
+  text-shadow: 0 0 12px rgba(201,168,106,.6);
+}
+.baloon-body p { margin: 6px 0; font-size: 14px; }
+.baloon-body ul { margin: 8px 0; padding-left: 18px; }
+.baloon-body li { margin: 4px 0; font-size: 14px; }
+.baloon-cta {
+  margin-top: 10px;
+  font-weight: bold;
+  color: var(--gold);
+  text-align: center;
+  animation: ctaGlow 2s ease-in-out infinite;
+}
+@keyframes baloonPulse {
+  0%,100% { box-shadow: 0 0 18px rgba(201,168,106,.3); }
+  50% { box-shadow: 0 0 38px rgba(201,168,106,.6); }
+}
+@keyframes ctaGlow {
+  0%,100% { opacity: .8; }
+  50% { opacity: 1; text-shadow: 0 0 15px var(--gold); }
+}
+
   </style>
 </head>
 
@@ -2700,6 +2747,7 @@ body{background:#0d0716}
       showPage('page-dashboard');
       updateCreditsDisplay();
       checkBalloon();
+      mostrarMensagemMistica()
     }
     function handleLogin() {
       var email = normalizeEmail(document.getElementById('login-email').value);
@@ -3379,6 +3427,29 @@ overlay.style.display='none';
 if(!ok){showModal("Consulta cancelada","Nenhum crédito foi descontado.");return;}
 numerologiaPremium();
 }
+function atualizarBaloes() {
+  var logado = !!(currentUser && currentUser.name);
+  var b1 = document.getElementById('baloon-beneficios');
+  var b2 = document.getElementById('baloon-indique');
+  if (b1) b1.style.display = logado ? 'none' : 'block';
+  if (b2) b2.style.display = logado ? 'block' : 'none';
+}
+function irParaIndiqueAmigo() {
+  showPage('page-indique-amigo');
+}
+function mostrarMensagemMistica() {
+  var overlay = document.getElementById('modal-overlay');
+  document.getElementById('modal-title').innerText = '✨ Mensagem do Dia';
+  document.getElementById('modal-msg').innerHTML = '<em style="font-size:16px">Conectando-se ao cosmos...</em>';
+  overlay.style.display = 'flex';
+  fetch('/api/mensagem', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({})})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if (d && d.resposta) { document.getElementById('modal-msg').innerHTML = '<em style="font-size:16px">' + d.resposta + '</em>'; }
+  })
+  .catch(function(){});
+  setTimeout(function(){ overlay.style.display = 'none'; }, 5000);
+}
 function numerologiaPremium() {
 var nomeEl=document.getElementById('num-nome');
 var dataEl=document.getElementById('num-data');
@@ -3529,7 +3600,31 @@ calculateNumerology();
 <p class="footer-18">🔞 Conteúdo recomendado para maiores de 18 anos.</p>
 </div>
 </footer>
-  
+<!-- BALÃO 1: Benefícios gratuitos (aparece antes do cadastro) -->
+<div id="baloon-beneficios" class="baloon">
+  <div class="baloon-glow"></div>
+  <div class="baloon-header">✨ Bem-vindo ao Oraculum Vitae</div>
+  <div class="baloon-body">
+    <p>Descubra seu destino <strong>GRATUITAMENTE</strong>:</p>
+    <ul>
+      <li>🔮 <strong>Carta do Dia</strong></li>
+      <li>🔢 <strong>Numerologia</strong></li>
+      <li>🌟 <strong>Horóscopo</strong></li>
+    </ul>
+    <p class="baloon-cta">Cadastre-se e comece agora! 👇</p>
+  </div>
+</div>
+
+<!-- BALÃO 2: Indique um amigo (aparece após o cadastro, permanente) -->
+<div id="baloon-indique" class="baloon" onclick="irParaIndiqueAmigo()">
+  <div class="baloon-glow"></div>
+  <div class="baloon-header">🎁 Indique um Amigo</div>
+  <div class="baloon-body">
+    <p>Ganhe <strong>50 créditos</strong> por cada amigo que você indicar!</p>
+    <p class="baloon-cta">👉 Clique aqui para indicar</p>
+  </div>
+</div>
+
 </body>
 
 </html>
