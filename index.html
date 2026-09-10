@@ -1202,7 +1202,35 @@ body{background:#0d0716}
   0%, 100% { opacity: .75; }
   50% { opacity: 1; text-shadow: 0 0 22px var(--gold); }
 }
-    
+   
+.baloon {
+  position: absolute;
+  left: -340px;               /* fica ao lado esquerdo da caixa de login */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  max-width: 80vw;
+  text-align: center;
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 30px rgba(201,168,106,.45);
+  animation: baloonPulse 3s ease-in-out infinite;
+}
+@keyframes baloonPulse {
+  0%,100% { box-shadow: 0 0 18px rgba(201,168,106,.35); }
+  50% { box-shadow: 0 0 42px rgba(201,168,106,.7); }
+}
+/* Celular: sobrepõe a caixa de login, some em 3s */
+@media (max-width: 768px) {
+  .baloon {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 88vw;
+    z-index: 9999;
+  }
+}
+
   </style>
 </head>
 
@@ -3493,6 +3521,24 @@ function mostrarBalaoCentralizado() {
   clearTimeout(b._t);
   b._t = setTimeout(function(){ b.style.display = 'none'; }, 5000);
 }
+function atualizarBaloes() {
+  var logado = !!(currentUser && currentUser.name);
+  var b1 = document.getElementById('baloon-beneficios');
+  var b2 = document.getElementById('baloon-indique');
+  if (b1) b1.style.display = logado ? 'none' : 'block';
+  if (b2) b2.style.display = logado ? 'block' : 'none';
+  var tempo = window.innerWidth <= 768 ? 3000 : 5000; // 3s celular, 5s desktop
+  var visivel = logado ? b2 : b1;
+  if (visivel) {
+    visivel.style.display = 'block';
+    clearTimeout(visivel._timer);
+    visivel._timer = setTimeout(function(){ visivel.style.display = 'none'; }, tempo);
+  }
+}
+}
+function irParaIndiqueAmigo() {
+  showPage('page-indicacao');
+}
 function numerologiaPremium() {
 var nomeEl=document.getElementById('num-nome');
 var dataEl=document.getElementById('num-data');
@@ -3643,6 +3689,24 @@ calculateNumerology();
 <p class="footer-18">🔞 Conteúdo recomendado para maiores de 18 anos.</p>
 </div>
 </footer>
+
+<!-- BALÃO 1: Benefícios gratuitos (aparece antes do cadastro) -->
+<div id="baloon-beneficios" class="form-container baloon">
+  <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">✨ Bem-vindo ao Oraculum Vitae</h2>
+  <p style="margin:8px 0;font-size:14px">Descubra seu destino <strong style="color:var(--gold)">GRATUITAMENTE</strong>:</p>
+  <ul style="margin:8px 0 4px;padding-left:20px;font-size:14px">
+    <li>🔮 <strong>Carta do Dia</strong></li>
+    <li>🔢 <strong>Numerologia</strong></li>
+    <li>🌟 <strong>Horóscopo</strong></li>
+  </ul>
+</div>
+
+<!-- BALÃO 2: Indique um Amigo (aparece após o cadastro, permanente e clicável) -->
+<div id="baloon-indique" class="form-container baloon" onclick="irParaIndiqueAmigo()" style="cursor:pointer">
+  <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">🎁 Indique um Amigo</h2>
+  <p style="margin:8px 0;font-size:14px">Ganhe <strong style="color:var(--gold)">50 créditos</strong> por cada amigo que você indicar!</p>
+  <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
+</div>
   
 </body>
 
