@@ -3863,6 +3863,7 @@ if (sessionStorage.getItem('baloes_fechados') === '1') {
 
 <!-- BALÃO 1: Benefícios gratuitos (aparece antes do cadastro) -->
 <div id="baloon-beneficios" class="form-container baloon">
+  <span class="baloon-close" onclick="fecharBalao(event, this)" aria-label="Fechar">&times;</span>
   <h2 class="pirata" style="color:var(--gold);font-size:17px;margin-bottom:12px">
     ✨ Bem-vindo ao Oraculum Vitae
   </h2>
@@ -3882,12 +3883,13 @@ if (sessionStorage.getItem('baloes_fechados') === '1') {
   </p>
 </div>
 
-<!-- BALÃO 2:  (aparece após o cadastro, permanente e clicável) -->
+<!-- BALÃO 2: (aparece após o cadastro, permanente e clicável) -->
 <div id="baloon-indique" class="form-container baloon" onclick="irParaIndiqueAmigo()" style="cursor:pointer">
+  <span class="baloon-close" onclick="fecharBalao(event, this)" aria-label="Fechar">&times;</span>
   <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">🎁 </h2>
   <p style="margin:8px 0;font-size:14px">Ganhe <strong style="color:var(--gold)">50 créditos</strong> por cada amigo que você indicar!</p>
   <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
-</div>
+</div>>
 
 </body>
 
