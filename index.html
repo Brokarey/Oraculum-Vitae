@@ -1849,7 +1849,7 @@ body{background:#0d0716}
         <input type="text" id="num-nome" placeholder="Nome Completo (sem acentos)">
         <input type="date" id="num-data">
         <button class="btn-portal" onclick="numerologiaGratis()">Calcular Minha Vibração</button>
-        <button class="btn-portal" style="margin-top:10px" onclick="startNumerologiaPremium()")">Perfil Completo (Numerologia Pitagórica) — 30 créditos</button>
+        <button class="btn-portal" style="margin-top:10px" onclick="startNumerologiaPremium()">Perfil Completo (Numerologia Pitagórica) — 30 créditos</button>
       </div>
       <div id="num-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
@@ -3633,7 +3633,6 @@ function atualizarBaloes() {
     clearTimeout(visivel._timer);
     visivel._timer = setTimeout(function(){ visivel.style.display = 'none'; }, tempo);
   }
-}
 }
 function irParaIndiqueAmigo() {
   showPage('page-indicacao');
