@@ -1982,13 +1982,7 @@ body{background:#0d0716}
     <p id="balloon-text" style="font-style:italic;font-size:14px"></p>
   </div>
   <div id="choose-balloon">Escolha suas cartas abaixo</div>
-  // Se o usuário já fechou os balões nesta visita, não mostra novamente
-if (sessionStorage.getItem('baloes_fechados') === '1') {
-  var b1 = document.getElementById('baloon-beneficios');
-  var b2 = document.getElementById('baloon-indique');
-  if (b1) b1.style.display = 'none';
-  if (b2) b2.style.display = 'none';
-}
+  <script>
   <script>
     // ===== DECK E VARIÁVEIS GLOBAIS =====
     var DECK_NORMAL = [
