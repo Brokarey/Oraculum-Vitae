@@ -2975,6 +2975,15 @@ body{background:#0d0716}
     function updateCreditsDisplay() {
       document.getElementById('display-credits').innerText = currentUser.isMago ? '∞' : currentUser.credits;
     }
+        function updateCreditsDisplay() {
+      document.getElementById('display-credits').innerText = currentUser.isMago ? '∞' : currentUser.credits;
+    }
+    function updateGreeting() {
+      var el = document.getElementById('user-greeting');
+      if (!el) return;
+      el.innerText = (currentUser && currentUser.name) ? 'Bem-vindo, ' + currentUser.name : '';
+    }
+    function checkBalloon() {
     function checkBalloon() {
       var key = 'balloon_' + currentUser.email;
       var today = new Date().toDateString();
@@ -3502,6 +3511,28 @@ var res=document.getElementById('num-result');
 res.style.display='block';
 res.innerHTML='<div style="margin-top:10px;padding:14px;border:1px solid #c9a86a55;border-radius:8px;background:#c9a86a11;text-align:center;color:var(--gold-light)"><p style="margin:0 0 6px;color:var(--gold)"><strong>⚠️ O oráculo não conseguiu responder agora</strong></p><p style="margin:0">'+(cobrado?'Seus <strong>30 créditos foram devolvidos</strong>. Nenhuma leitura foi cobrada.':'Nenhum crédito foi descontado.')+'</p><p style="margin:8px 0 0;font-size:13px;color:#aaa">Aguarde alguns instantes e toque em “Perfil Completo (Numerologia Pitagórica)” novamente.</p></div>';
 }
+      function startNumerologiaPremium() {
+var nomeEl=document.getElementById('num-nome');
+var dataEl=document.getElementById('num-data');
+var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
+var raw=dataEl.value||'';
+if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
+if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
+document.getElementById('modal-title').innerText='Confirmação de Créditos';
+document.getElementById('modal-msg').innerHTML='Deseja realizar a consulta <strong>Numerologia Pitagórica</strong> (Perfil Completo) por <strong style="color:var(--gold)">30 créditos</strong>?<br><br>Seu saldo será descontado apenas se você confirmar.';
+var overlay=document.getElementById('modal-overlay');
+overlay.style.display='flex';
+var btn=overlay.querySelector('.modal-content .btn-portal');
+btn.style.display='none';
+var confirmDiv=document.getElementById('confirm-buttons');
+if(!confirmDiv){
+confirmDiv=document.createElement('div');
+confirmDiv.id='confirm-buttons';
+confirmDiv.style.cssText='display:flex;gap:12px;justify-content:center;margin-top:10px';
+overlay.querySelector('.modal-content').appendChild(confirmDiv);
+}
+confirmDiv.innerHTML='<button class="btn-portal" style="background:#2c7a4a;flex:1" onclick="confirmarNumerologia(true)">Sim</button><button class="btn-portal" style="background:#a33;flex:1" onclick="confirmarNumerologia(false)">Não</button>';
+}
 function confirmarNumerologia(ok) {
 var overlay=document.getElementById('modal-overlay');
 var btn=overlay.querySelector('.modal-content .btn-portal');
@@ -3703,21 +3734,6 @@ atualizarBaloes();
   if (el) el.style.opacity = '1';
 }, 100);
 
-    // Função que leva para a página "Indique um Amigo"
-function irParaIndiqueAmigo() {
-  showPage('page-indicacao');
-}
-
-// Controla os dois balões: benefícios (antes do cadastro) e Indique (depois)
-function atualizarBaloes() {
-  var logado = !!(currentUser && currentUser.name);
-  var gratis = document.getElementById('baloon-gratis');
-  var indique = document.getElementById('baloon-indique');
-  if (gratis) gratis.style.display = logado ? 'none' : 'block';
-  if (indique) indique.style.display = logado ? 'block' : 'none';
-}
-atualizarBaloes();
-
 function fecharBalao(ev, el) {
   if (ev) ev.stopPropagation();
   var b = el.closest('.baloon');
@@ -3735,10 +3751,6 @@ if (sessionStorage.getItem('baloes_fechados') === '1') {
     
   </script>
     
-  </script>
-    
-  </script>
-
   <!-- ===== RODAPÉ ===== -->
 <footer class="site-footer">
 <div class="footer-content">
