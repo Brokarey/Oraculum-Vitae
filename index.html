@@ -3805,6 +3805,25 @@ function atualizarBaloes() {
   if (indique) indique.style.display = logado ? 'block' : 'none';
 }
 atualizarBaloes();
+
+function fecharBalao(ev, el) {
+  if (ev) ev.stopPropagation();
+  var b = el.closest('.baloon');
+  if (b) { b.style.display = 'none'; }
+  sessionStorage.setItem('baloes_fechados', '1');
+}
+
+// Se o usuário já fechou os balões nesta visita, não mostra novamente
+if (sessionStorage.getItem('baloes_fechados') === '1') {
+  var b1 = document.getElementById('baloon-beneficios');
+  var b2 = document.getElementById('baloon-indique');
+  if (b1) b1.style.display = 'none';
+  if (b2) b2.style.display = 'none';
+}
+    
+  </script>
+    
+  </script>
     
   </script>
 
