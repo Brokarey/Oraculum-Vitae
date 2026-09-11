@@ -1308,6 +1308,28 @@ body{background:#0d0716}
   z-index: 1000;
   display: none;
 }
+    /* Posicionamento dos balões laterais no computador */
+#baloon-beneficios,
+#baloon-gratis {
+  position: fixed !important;
+  left: calc(50% - 500px) !important;
+  top: calc(50% - 25px) !important;
+  transform: translateY(-50%) !important;
+  width: 300px !important;
+  max-width: 80vw;
+  z-index: 1000;
+}
+
+/* No celular, mantém o balão centralizado */
+@media (max-width: 768px) {
+  #baloon-beneficios,
+  #baloon-gratis {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 88vw !important;
+  }
+}
   </style>
 </head>
 
@@ -3797,13 +3819,23 @@ atualizarBaloes();
 
 <!-- BALÃO 1: Benefícios gratuitos (aparece antes do cadastro) -->
 <div id="baloon-beneficios" class="form-container baloon">
-  <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">✨ Bem-vindo ao Oraculum Vitae</h2>
-  <p style="margin:8px 0;font-size:14px">Descubra seu destino <strong style="color:var(--gold)">GRATUITAMENTE</strong>:</p>
+  <h2 class="pirata" style="color:var(--gold);font-size:17px;margin-bottom:12px">
+    ✨ Bem-vindo ao Oraculum Vitae
+  </h2>
+
+  <p style="margin:8px 0;font-size:14px">
+    Descubra seu destino <strong style="color:var(--gold)">GRATUITAMENTE</strong>:
+  </p>
+
   <ul style="margin:8px 0 4px;padding-left:20px;font-size:14px">
     <li>🔮 <strong>Carta do Dia</strong></li>
     <li>🔢 <strong>Numerologia</strong></li>
     <li>🌟 <strong>Horóscopo</strong></li>
   </ul>
+
+  <p style="margin:12px 0 0;font-size:12px;color:var(--gold);text-align:center">
+    Indique 1 amigo e ganhe 50cr
+  </p>
 </div>
 
 <!-- BALÃO 2:  (aparece após o cadastro, permanente e clicável) -->
@@ -3813,25 +3845,6 @@ atualizarBaloes();
   <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
 </div>
 
-  <!-- Balão de benefícios gratuitos (some após o cadastro) -->
-<div id="baloon-gratis" class="form-container">
-  <h2 class="pirata" style="color:var(--gold);font-size:20px;margin:0 0 12px">🔮 Descubra seu destino de graça</h2>
-  <p style="margin:8px 0;font-size:14px;line-height:1.5">No Oraculum Vitae você começa sem pagar nada:</p>
-  <ul style="margin:8px 0;padding-left:10px;font-size:14px;line-height:1.8">
-    <li>🃏 <strong style="color:var(--gold)">Carta do Dia</strong> — revelação diária</li>
-    <li>🔢 <strong style="color:var(--gold)">Numerologia</strong> — seu número pessoal</li>
-    <li>🌟 <strong style="color:var(--gold)">Horóscopo</strong> — o que os astros reservam</li>
-    <li>🌟 <strong style="color:var(--gold)">Indique 1 amigo e ganhe 50 créditoss</strong>
-  </ul>
-</div>
-
-<!-- BALÃO 2: Indique um Amigo (aparece após o cadastro, permanente e clicável) -->
-<div id="baloon-indique" class="form-container baloon" onclick="irParaIndiqueAmigo()" style="cursor:pointer">
-  <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">🔮 Compartilhe o destino</h2>
-  <p style="margin:8px 0;font-size:14px">Ganhe <strong style="color:var(--gold)">50 créditos</strong> por cada amigo que indicar!</p>
-  <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
-</div>
-  
 </body>
 
 </html>
