@@ -1458,6 +1458,47 @@ body{background:#0d0716}
     }
     .cidade-sugestoes div:last-child { border-bottom: none; }
     .cidade-sugestoes div:hover { background: var(--accent); color: var(--gold-light); }
+
+        /* ===== FORMATAÇÃO E AÇÕES DAS RESPOSTAS ===== */
+    .result-box p { margin-bottom: 16px; line-height: 1.7; }
+    .result-box p:last-of-type { margin-bottom: 0; }
+    .result-box h4 { margin: 22px 0 10px; }
+    .resposta-titulo {
+      font-weight: bold;
+      color: var(--gold);
+      font-size: 15px;
+      letter-spacing: 2px;
+      margin: 0 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(212,168,67,.35);
+    }
+    .carta-negrito { color: var(--gold); font-weight: bold; }
+    .resposta-acoes {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(212,168,67,.3);
+    }
+    .btn-resposta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: transparent;
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: bold;
+      font-family: inherit;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-resposta:hover { background: var(--gold); color: #0d0716; }
   </style>
 </head>
 
@@ -4029,6 +4070,179 @@ if (sessionStorage.getItem('baloes_fechados') === '1') {
 
   preencherEstados();
     
+</script>
+
+  <script>
+  // ===== RESPOSTAS: TÍTULO, CARTAS EM DOURADO E BOTÕES DE COPIAR/BAIXAR =====
+  (function () {
+    var PALAVRAS_CARREGANDO = ['consultando', 'gerando seu perfil', 'carregando previsão'];
+
+    function textoBruto(box) {
+      var t = box.innerText || '';
+      if (!t.trim()) t = box.textContent || '';
+      return t;
+    }
+
+    function aindaCarregando(box) {
+      var t = textoBruto(box).toLowerCase();
+      if (t.trim().length < 30) return true;
+      for (var i = 0; i < PALAVRAS_CARREGANDO.length; i++) {
+        if (t.indexOf(PALAVRAS_CARREGANDO[i]) >= 0) return true;
+      }
+      return false;
+    }
+
+    var NOMES_CARTAS = [];
+    function carregarNomesCartas() {
+      if (typeof DECK_NORMAL === 'undefined' || !DECK_NORMAL.length) return;
+      for (var i = 0; i < DECK_NORMAL.length; i++) {
+        var n = DECK_NORMAL[i].n;
+        if (n && NOMES_CARTAS.indexOf(n) === -1) NOMES_CARTAS.push(n);
+      }
+      NOMES_CARTAS.sort(function (a, b) { return b.length - a.length; });
+    }
+    carregarNomesCartas();
+
+    function escaparHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function destacarCartas(box) {
+      if (!NOMES_CARTAS.length) carregarNomesCartas();
+      if (!NOMES_CARTAS.length) return;
+      var walker = document.createTreeWalker(box, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (no) {
+          var p = no.parentNode;
+          if (!p) return NodeFilter.FILTER_REJECT;
+          var tag = p.nodeName;
+          if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'BUTTON') return NodeFilter.FILTER_REJECT;
+          if (p.classList && (p.classList.contains('carta-negrito') || p.classList.contains('resposta-titulo'))) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      var alvos = [];
+      while (walker.nextNode()) alvos.push(walker.currentNode);
+      for (var i = 0; i < alvos.length; i++) {
+        var no = alvos[i];
+        var original = no.nodeValue || '';
+        if (!original.trim()) continue;
+        var html = escaparHtml(original);
+        var mudou = false;
+        for (var k = 0; k < NOMES_CARTAS.length; k++) {
+          var nome = NOMES_CARTAS[k];
+          if (html.indexOf(nome) === -1) continue;
+          html = html.split(nome).join('<span class="carta-negrito">' + nome + '</span>');
+          mudou = true;
+        }
+        if (!mudou) continue;
+        var span = document.createElement('span');
+        span.innerHTML = html;
+        if (no.parentNode) no.parentNode.replaceChild(span, no);
+      }
+    }
+
+    function prepararResposta(box) {
+      if (!box || aindaCarregando(box)) return;
+      if (!box.querySelector('.resposta-titulo')) {
+        var titulo = document.createElement('p');
+        titulo.className = 'resposta-titulo';
+        titulo.textContent = 'RESPOSTA';
+        box.insertBefore(titulo, box.firstChild);
+      }
+      destacarCartas(box);
+      if (!box.querySelector('.resposta-acoes')) {
+        var barra = document.createElement('div');
+        barra.className = 'resposta-acoes';
+        barra.innerHTML =
+          '<button type="button" class="btn-resposta" onclick="copiarResposta(this)"><i class="fas fa-copy"></i> Copiar</button>' +
+          '<button type="button" class="btn-resposta" onclick="baixarResposta(this)"><i class="fas fa-download"></i> Baixar</button>';
+        box.appendChild(barra);
+      }
+    }
+
+    var temporizador = null;
+    var pendentes = [];
+    function agendar(box) {
+      if (pendentes.indexOf(box) === -1) pendentes.push(box);
+      clearTimeout(temporizador);
+      temporizador = setTimeout(function () {
+        var lista = pendentes.slice();
+        pendentes = [];
+        for (var i = 0; i < lista.length; i++) prepararResposta(lista[i]);
+      }, 500);
+    }
+
+    if (window.MutationObserver && document.body) {
+      new MutationObserver(function (mutacoes) {
+        for (var i = 0; i < mutacoes.length; i++) {
+          var alvo = mutacoes[i].target;
+          var base = alvo.nodeType === 1 ? alvo : alvo.parentNode;
+          var box = base && base.closest ? base.closest('.result-box') : null;
+          if (box) agendar(box);
+        }
+      }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+
+    function textoDaResposta(box) {
+      var clone = box.cloneNode(true);
+      var acoes = clone.querySelector('.resposta-acoes');
+      if (acoes && acoes.parentNode) acoes.parentNode.removeChild(acoes);
+      clone.style.position = 'fixed';
+      clone.style.left = '-99999px';
+      clone.style.top = '0';
+      clone.style.display = 'block';
+      document.body.appendChild(clone);
+      var texto = clone.innerText || clone.textContent || '';
+      document.body.removeChild(clone);
+      return texto.replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+    }
+
+    function copiaAlternativa(texto, aoCopiar) {
+      var area = document.createElement('textarea');
+      area.value = texto;
+      area.style.position = 'fixed';
+      area.style.left = '-99999px';
+      document.body.appendChild(area);
+      area.select();
+      try { document.execCommand('copy'); aoCopiar(); }
+      catch (e) { alert('Não foi possível copiar automaticamente. Selecione o texto com o dedo ou o mouse.'); }
+      document.body.removeChild(area);
+    }
+
+    window.copiarResposta = function (btn) {
+      var box = btn.closest ? btn.closest('.result-box') : null;
+      if (!box) return;
+      var texto = textoDaResposta(box);
+      function confirmar() {
+        btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+        setTimeout(function () { btn.innerHTML = '<i class="fas fa-copy"></i> Copiar'; }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(confirmar).catch(function () { copiaAlternativa(texto, confirmar); });
+      } else {
+        copiaAlternativa(texto, confirmar);
+      }
+    };
+
+    window.baixarResposta = function (btn) {
+      var box = btn.closest ? btn.closest('.result-box') : null;
+      if (!box) return;
+      var agora = new Date();
+      var data = agora.getFullYear() + '-' + ('0' + (agora.getMonth() + 1)).slice(-2) + '-' + ('0' + agora.getDate()).slice(-2);
+      var conteudo = 'ORACULUM VITAE\n\n' + textoDaResposta(box) + '\n\n— Leitura gerada em ' + agora.toLocaleString('pt-BR') + ' —\n';
+      var blob = new Blob([conteudo], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = 'oraculum-vitae-' + data + '.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    };
+  })();
 </script>
 
 </body>
