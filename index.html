@@ -1377,6 +1377,7 @@ body{background:#0d0716}
     text-align: center;
     max-width: 100%;
   }
+}
           /* ===== DESEMPENHO: um fundo por página, com reserva AVIF > WebP > PNG ===== */
     #page-login {
       background-image: url('Graficos/Tela-Inicial.png');
@@ -1430,7 +1431,33 @@ body{background:#0d0716}
       background-image: url('Graficos/Mapa_Cosmos_Absoluto.png');
       background-image: image-set(url('Graficos/Mapa_Cosmos_Absoluto.avif') type('image/avif'), url('Graficos/Mapa_Cosmos_Absoluto.webp') type('image/webp'), url('Graficos/Mapa_Cosmos_Absoluto.png') type('image/png'));
     }
-}
+      /* ===== AUTOCOMPLETE DE CIDADES (IBGE) ===== */
+    .cidade-wrap { position: relative; }
+    select option { background: #1a0a2e; color: #fff; }
+    .cidade-sugestoes {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 220px;
+      overflow-y: auto;
+      margin-top: 2px;
+      background: #1a0a2e;
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      z-index: 5000;
+      box-shadow: 0 8px 24px rgba(0,0,0,.7);
+    }
+    .cidade-sugestoes.ativa { display: block; }
+    .cidade-sugestoes div {
+      padding: 10px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(212,168,67,.15);
+    }
+    .cidade-sugestoes div:last-child { border-bottom: none; }
+    .cidade-sugestoes div:hover { background: var(--accent); color: var(--gold-light); }
   </style>
 </head>
 
@@ -1884,13 +1911,19 @@ body{background:#0d0716}
         Início</button>
       <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral:
         Pórtico Celestial</h2>
-      <div class="auth-form">
+     <div class="auth-form">
         <input type="text" id="mapa-portico-nome" placeholder="Nome Completo">
         <input type="date" id="mapa-portico-data">
         <input type="time" id="mapa-portico-hora">
-        <input type="text" id="mapa-portico-cidade" placeholder="Cidade de Nascimento">
-        <input type="text" id="mapa-portico-estado" placeholder="Estado de Nascimento (UF)">
-        <button class="btn-portal" onclick="generateMapa('Pórtico Celestial','mapa-portico')">Gerar Mapa Astral</button>
+        <select id="mapa-portico-estado" onchange="carregarCidades('mapa-portico')">
+          <option value="">Estado de Nascimento (UF)</option>
+        </select>
+        <div class="cidade-wrap">
+          <input type="text" id="mapa-portico-cidade" placeholder="Cidade de Nascimento" autocomplete="off"
+            oninput="sugerirCidades('mapa-portico')" onblur="fecharSugestoes('mapa-portico')">
+          <div class="cidade-sugestoes" id="mapa-portico-sugestoes"></div>
+        </div>
+        <button class="btn-portal" onclick="generateMapa('Pórtico Celestial','mapa-portico')">Gerar Mapa Astral (50 créditos)</button>
       </div>
       <div id="mapa-portico-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
@@ -1902,15 +1935,20 @@ body{background:#0d0716}
       <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral:
         Órbita Pessoal</h2>
       <div class="auth-form">
+              <div class="auth-form">
         <input type="text" id="mapa-orbita-nome" placeholder="Nome Completo">
         <input type="date" id="mapa-orbita-data">
         <input type="time" id="mapa-orbita-hora">
-        <input type="text" id="mapa-orbita-cidade" placeholder="Cidade de Nascimento">
-        <input type="text" id="mapa-orbita-estado" placeholder="Estado de Nascimento (UF)">
-        <button class="btn-portal" onclick="generateMapa('Órbita Pessoal','mapa-orbita')">Gerar Mapa Astral</button>
+        <select id="mapa-orbita-estado" onchange="carregarCidades('mapa-orbita')">
+          <option value="">Estado de Nascimento (UF)</option>
+        </select>
+        <div class="cidade-wrap">
+          <input type="text" id="mapa-orbita-cidade" placeholder="Cidade de Nascimento" autocomplete="off"
+            oninput="sugerirCidades('mapa-orbita')" onblur="fecharSugestoes('mapa-orbita')">
+          <div class="cidade-sugestoes" id="mapa-orbita-sugestoes"></div>
+        </div>
+        <button class="btn-portal" onclick="generateMapa('Órbita Pessoal','mapa-orbita')">Gerar Mapa Astral (100 créditos)</button>
       </div>
-      <div id="mapa-orbita-result" class="result-box" style="display:none;margin-top:20px"></div>
-    </div>
   </section>
   <section id="page-mapa-cosmos" class="page nivel-cosmos">
     <div class="form-container">
@@ -1918,16 +1956,20 @@ body{background:#0d0716}
         Início</button>
       <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral:
         Cosmos Absoluto</h2>
-      <div class="auth-form">
+            <div class="auth-form">
         <input type="text" id="mapa-cosmos-nome" placeholder="Nome Completo">
         <input type="date" id="mapa-cosmos-data">
         <input type="time" id="mapa-cosmos-hora">
-        <input type="text" id="mapa-cosmos-cidade" placeholder="Cidade de Nascimento">
-        <input type="text" id="mapa-cosmos-estado" placeholder="Estado de Nascimento (UF)">
-        <button class="btn-portal" onclick="generateMapa('Cosmos Absoluto','mapa-cosmos')">Gerar Mapa Astral</button>
+        <select id="mapa-cosmos-estado" onchange="carregarCidades('mapa-cosmos')">
+          <option value="">Estado de Nascimento (UF)</option>
+        </select>
+        <div class="cidade-wrap">
+          <input type="text" id="mapa-cosmos-cidade" placeholder="Cidade de Nascimento" autocomplete="off"
+            oninput="sugerirCidades('mapa-cosmos')" onblur="fecharSugestoes('mapa-cosmos')">
+          <div class="cidade-sugestoes" id="mapa-cosmos-sugestoes"></div>
+        </div>
+        <button class="btn-portal" onclick="generateMapa('Cosmos Absoluto','mapa-cosmos')">Gerar Mapa Astral (200 créditos)</button>
       </div>
-      <div id="mapa-cosmos-result" class="result-box" style="display:none;margin-top:20px"></div>
-    </div>
   </section>
 
   <section id="page-horoscopo" class="page">
@@ -3397,6 +3439,22 @@ body{background:#0d0716}
         return;
       }
 
+            var cidadesUf = CIDADES_CACHE[estado];
+      if (cidadesUf && cidadesUf.length) {
+        var cidadeOk = false;
+        for (var ci = 0; ci < cidadesUf.length; ci++) {
+          if (normalizaTxt(cidadesUf[ci]) === normalizaTxt(cidade)) {
+            cidade = cidadesUf[ci];
+            cidadeOk = true;
+            break;
+          }
+        }
+        if (!cidadeOk) {
+          showModal('Cidade não encontrada', 'Não encontramos "' + cidade + '" no estado ' + estado + '. Comece a digitar e escolha uma cidade da lista que aparece abaixo do campo.');
+          return;
+        }
+      }
+
       var res = document.getElementById(prefixo + '-result');
 
       res.style.display = 'block';
@@ -3864,6 +3922,115 @@ if (sessionStorage.getItem('baloes_fechados') === '1') {
   <p style="margin:8px 0;font-size:14px">Ganhe <strong style="color:var(--gold)">50 créditos</strong> por cada amigo que você indicar!</p>
   <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
 </div>
+
+  <script>
+  // ===== LISTA DE ESTADOS (fixa, nunca muda) =====
+  var UFS = [
+    {s:'AC', n:'Acre'}, {s:'AL', n:'Alagoas'}, {s:'AP', n:'Amapá'}, {s:'AM', n:'Amazonas'},
+    {s:'BA', n:'Bahia'}, {s:'CE', n:'Ceará'}, {s:'DF', n:'Distrito Federal'}, {s:'ES', n:'Espírito Santo'},
+    {s:'GO', n:'Goiás'}, {s:'MA', n:'Maranhão'}, {s:'MT', n:'Mato Grosso'}, {s:'MS', n:'Mato Grosso do Sul'},
+    {s:'MG', n:'Minas Gerais'}, {s:'PA', n:'Pará'}, {s:'PB', n:'Paraíba'}, {s:'PR', n:'Paraná'},
+    {s:'PE', n:'Pernambuco'}, {s:'PI', n:'Piauí'}, {s:'RJ', n:'Rio de Janeiro'}, {s:'RN', n:'Rio Grande do Norte'},
+    {s:'RS', n:'Rio Grande do Sul'}, {s:'RO', n:'Rondônia'}, {s:'RR', n:'Roraima'}, {s:'SC', n:'Santa Catarina'},
+    {s:'SP', n:'São Paulo'}, {s:'SE', n:'Sergipe'}, {s:'TO', n:'Tocantins'}
+  ];
+
+  var CIDADES_CACHE = {};
+  var SUGESTOES_ATUAIS = {};
+  var PREFIXOS_MAPA = ['mapa-portico', 'mapa-orbita', 'mapa-cosmos'];
+
+  function normalizaTxt(s) {
+    return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  }
+
+  function preencherEstados() {
+    for (var i = 0; i < PREFIXOS_MAPA.length; i++) {
+      var sel = document.getElementById(PREFIXOS_MAPA[i] + '-estado');
+      if (!sel) continue;
+      var html = '<option value="">Estado de Nascimento (UF)</option>';
+      for (var j = 0; j < UFS.length; j++) {
+        html += '<option value="' + UFS[j].s + '">' + UFS[j].n + ' (' + UFS[j].s + ')</option>';
+      }
+      sel.innerHTML = html;
+    }
+  }
+
+  function carregarCidades(prefixo) {
+    var sel = document.getElementById(prefixo + '-estado');
+    var campo = document.getElementById(prefixo + '-cidade');
+    if (!sel || !campo) return;
+    var uf = sel.value;
+    campo.value = '';
+    fecharSugestoes(prefixo);
+    if (!uf) {
+      campo.placeholder = 'Escolha o estado primeiro';
+      return;
+    }
+    if (CIDADES_CACHE[uf]) {
+      campo.placeholder = 'Digite a cidade (' + uf + ')';
+      return;
+    }
+    campo.disabled = true;
+    campo.placeholder = 'Carregando cidades...';
+    fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + uf + '/municipios?orderBy=nome')
+      .then(function (r) { return r.json(); })
+      .then(function (lista) {
+        var nomes = [];
+        for (var i = 0; i < lista.length; i++) { nomes.push(lista[i].nome); }
+        CIDADES_CACHE[uf] = nomes;
+        campo.disabled = false;
+        campo.placeholder = 'Digite a cidade (' + uf + ')';
+      })
+      .catch(function () {
+        CIDADES_CACHE[uf] = null;
+        campo.disabled = false;
+        campo.placeholder = 'Digite a cidade (busca automática indisponível)';
+      });
+  }
+
+  function sugerirCidades(prefixo) {
+    var sel = document.getElementById(prefixo + '-estado');
+    var campo = document.getElementById(prefixo + '-cidade');
+    var box = document.getElementById(prefixo + '-sugestoes');
+    if (!sel || !campo || !box) return;
+    var lista = sel.value ? CIDADES_CACHE[sel.value] : null;
+    var termo = normalizaTxt(campo.value);
+    if (!lista || termo.length < 2) { fecharSugestoes(prefixo); return; }
+
+    var achados = [];
+    for (var i = 0; i < lista.length; i++) {
+      if (normalizaTxt(lista[i]).indexOf(termo) === 0) achados.push(lista[i]);
+    }
+    for (var k = 0; k < lista.length && achados.length < 20; k++) {
+      if (normalizaTxt(lista[k]).indexOf(termo) > 0) achados.push(lista[k]);
+    }
+
+    if (!achados.length) { fecharSugestoes(prefixo); return; }
+    SUGESTOES_ATUAIS[prefixo] = achados;
+    var html = '';
+    for (var m = 0; m < achados.length; m++) {
+      html += '<div onmousedown="escolherCidade(event,\'' + prefixo + '\',' + m + ')">' + achados[m] + '</div>';
+    }
+    box.innerHTML = html;
+    box.className = 'cidade-sugestoes ativa';
+  }
+
+  function escolherCidade(ev, prefixo, idx) {
+    if (ev) ev.preventDefault();
+    var lista = SUGESTOES_ATUAIS[prefixo] || [];
+    var campo = document.getElementById(prefixo + '-cidade');
+    if (campo && lista[idx]) campo.value = lista[idx];
+    fecharSugestoes(prefixo);
+  }
+
+  function fecharSugestoes(prefixo) {
+    var box = document.getElementById(prefixo + '-sugestoes');
+    if (box) { box.className = 'cidade-sugestoes'; box.innerHTML = ''; }
+  }
+
+  preencherEstados();
+    
+</script>
 
 </body>
 
