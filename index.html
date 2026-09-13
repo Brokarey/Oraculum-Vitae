@@ -1905,13 +1905,11 @@ body{background:#0d0716}
         Afrodite</button>
     </div>
   </section>
-  <section id="page-mapa-portico" class="page nivel-portico">
+    <section id="page-mapa-portico" class="page nivel-portico">
     <div class="form-container">
-      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao
-        Início</button>
-      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral:
-        Pórtico Celestial</h2>
-     <div class="auth-form">
+      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral: Pórtico Celestial</h2>
+      <div class="auth-form">
         <input type="text" id="mapa-portico-nome" placeholder="Nome Completo">
         <input type="date" id="mapa-portico-data">
         <input type="time" id="mapa-portico-hora">
@@ -1928,14 +1926,12 @@ body{background:#0d0716}
       <div id="mapa-portico-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
   </section>
+
   <section id="page-mapa-orbita" class="page nivel-orbita">
     <div class="form-container">
-      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao
-        Início</button>
-      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral:
-        Órbita Pessoal</h2>
+      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral: Órbita Pessoal</h2>
       <div class="auth-form">
-              <div class="auth-form">
         <input type="text" id="mapa-orbita-nome" placeholder="Nome Completo">
         <input type="date" id="mapa-orbita-data">
         <input type="time" id="mapa-orbita-hora">
@@ -1949,14 +1945,15 @@ body{background:#0d0716}
         </div>
         <button class="btn-portal" onclick="generateMapa('Órbita Pessoal','mapa-orbita')">Gerar Mapa Astral (100 créditos)</button>
       </div>
+      <div id="mapa-orbita-result" class="result-box" style="display:none;margin-top:20px"></div>
+    </div>
   </section>
+
   <section id="page-mapa-cosmos" class="page nivel-cosmos">
     <div class="form-container">
-      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao
-        Início</button>
-      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral:
-        Cosmos Absoluto</h2>
-            <div class="auth-form">
+      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral: Cosmos Absoluto</h2>
+      <div class="auth-form">
         <input type="text" id="mapa-cosmos-nome" placeholder="Nome Completo">
         <input type="date" id="mapa-cosmos-data">
         <input type="time" id="mapa-cosmos-hora">
@@ -1970,6 +1967,8 @@ body{background:#0d0716}
         </div>
         <button class="btn-portal" onclick="generateMapa('Cosmos Absoluto','mapa-cosmos')">Gerar Mapa Astral (200 créditos)</button>
       </div>
+      <div id="mapa-cosmos-result" class="result-box" style="display:none;margin-top:20px"></div>
+    </div>
   </section>
 
   <section id="page-horoscopo" class="page">
