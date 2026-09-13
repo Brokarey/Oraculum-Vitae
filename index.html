@@ -7,6 +7,7 @@
   <title>Oraculum Vitae | Portal Esotérico</title>
   <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preload" as="image" href="Graficos/Tela-Inicial.avif">
   <style>
  @font-face {
   font-family: 'Blackwood Castle Shadow';
@@ -1376,6 +1377,59 @@ body{background:#0d0716}
     text-align: center;
     max-width: 100%;
   }
+          /* ===== DESEMPENHO: um fundo por página, com reserva AVIF > WebP > PNG ===== */
+    #page-login {
+      background-image: url('Graficos/Tela-Inicial.png');
+      background-image: image-set(url('Graficos/Tela-Inicial.avif') type('image/avif'), url('Graficos/Tela-Inicial.webp') type('image/webp'), url('Graficos/Tela-Inicial.png') type('image/png'));
+    }
+    #page-dashboard {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.6), rgba(13, 5, 32, 0.6)), url('Graficos/Tela.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.6), rgba(13, 5, 32, 0.6)), image-set(url('Graficos/Tela.avif') type('image/avif'), url('Graficos/Tela.webp') type('image/webp'), url('Graficos/Tela.png') type('image/png'));
+    }
+    .tarot-bg {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.55), rgba(13, 5, 32, 0.55)), url('Graficos/Fundo_Taro.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.55), rgba(13, 5, 32, 0.55)), image-set(url('Graficos/Fundo_Taro.avif') type('image/avif'), url('Graficos/Fundo_Taro.webp') type('image/webp'), url('Graficos/Fundo_Taro.png') type('image/png'));
+    }
+    #page-tarot-amor {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.55), rgba(13, 5, 32, 0.55)), url('Graficos/Fundo_Afrodite.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.55), rgba(13, 5, 32, 0.55)), image-set(url('Graficos/Fundo_Afrodite.avif') type('image/avif'), url('Graficos/Fundo_Afrodite.webp') type('image/webp'), url('Graficos/Fundo_Afrodite.png') type('image/png'));
+    }
+    #page-sim-nao {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.35), rgba(13, 5, 32, 0.35)), url('Graficos/Fundo_Sim.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.35), rgba(13, 5, 32, 0.35)), image-set(url('Graficos/Fundo_Sim.avif') type('image/avif'), url('Graficos/Fundo_Sim.webp') type('image/webp'), url('Graficos/Fundo_Sim.png') type('image/png'));
+    }
+    #page-horoscopo {
+      background-image: url('Graficos/Tela_Horoscopo.png');
+      background-image: image-set(url('Graficos/Tela_Horoscopo.avif') type('image/avif'), url('Graficos/Tela_Horoscopo.webp') type('image/webp'), url('Graficos/Tela_Horoscopo.png') type('image/png'));
+    }
+    #page-numerologia {
+      background-image: url('Graficos/Tela_Numerologia.png');
+      background-image: image-set(url('Graficos/Tela_Numerologia.avif') type('image/avif'), url('Graficos/Tela_Numerologia.webp') type('image/webp'), url('Graficos/Tela_Numerologia.png') type('image/png'));
+    }
+    #page-planos {
+      background-image: url('Graficos/Tela_Planos.png');
+      background-image: image-set(url('Graficos/Tela_Planos.avif') type('image/avif'), url('Graficos/Tela_Planos.webp') type('image/webp'), url('Graficos/Tela_Planos.png') type('image/png'));
+    }
+    #page-indicacao {
+      background-image: url('Graficos/Tela_Indique.png');
+      background-image: image-set(url('Graficos/Tela_Indique.avif') type('image/avif'), url('Graficos/Tela_Indique.webp') type('image/webp'), url('Graficos/Tela_Indique.png') type('image/png'));
+    }
+    #page-faq {
+      background-image: url('Graficos/Tela_Faq.png');
+      background-image: image-set(url('Graficos/Tela_Faq.avif') type('image/avif'), url('Graficos/Tela_Faq.webp') type('image/webp'), url('Graficos/Tela_Faq.png') type('image/png'));
+    }
+    #page-mapa-portico {
+      background-image: url('Graficos/Mapa_Portico_Celestial.png');
+      background-image: image-set(url('Graficos/Mapa_Portico_Celestial.avif') type('image/avif'), url('Graficos/Mapa_Portico_Celestial.webp') type('image/webp'), url('Graficos/Mapa_Portico_Celestial.png') type('image/png'));
+    }
+    #page-mapa-orbita {
+      background-image: url('Graficos/Mapa_Orbita_Pessoal.png');
+      background-image: image-set(url('Graficos/Mapa_Orbita_Pessoal.avif') type('image/avif'), url('Graficos/Mapa_Orbita_Pessoal.webp') type('image/webp'), url('Graficos/Mapa_Orbita_Pessoal.png') type('image/png'));
+    }
+    #page-mapa-cosmos {
+      background-image: url('Graficos/Mapa_Cosmos_Absoluto.png');
+      background-image: image-set(url('Graficos/Mapa_Cosmos_Absoluto.avif') type('image/avif'), url('Graficos/Mapa_Cosmos_Absoluto.webp') type('image/webp'), url('Graficos/Mapa_Cosmos_Absoluto.png') type('image/png'));
+    }
 }
   </style>
 </head>
