@@ -2856,7 +2856,7 @@ body{background:#0d0716}
         c.appendChild(s);
       }
     }
-    function showPage(id) {
+        function showPage(id) {
       document.querySelectorAll('.page').forEach(function (p) {p.classList.remove('active');});
       document.getElementById(id).classList.add('active');
       window.scrollTo(0, 0);
@@ -2886,7 +2886,7 @@ body{background:#0d0716}
       document.getElementById('modal-overlay').style.display = 'none';
     }
     function normalizeEmail(e) {return (e || '').trim().toLowerCase();}
-         function findUser(email) {
+    function findUser(email) {
       email = normalizeEmail(email);
       if (email === 'g@gmail.com') {return {name: "Gui Admin", email: email, credits: 20000, isMago: false};}
       try {
@@ -2975,15 +2975,11 @@ body{background:#0d0716}
     function updateCreditsDisplay() {
       document.getElementById('display-credits').innerText = currentUser.isMago ? '∞' : currentUser.credits;
     }
-        function updateCreditsDisplay() {
-      document.getElementById('display-credits').innerText = currentUser.isMago ? '∞' : currentUser.credits;
-    }
     function updateGreeting() {
       var el = document.getElementById('user-greeting');
       if (!el) return;
       el.innerText = (currentUser && currentUser.name) ? 'Bem-vindo, ' + currentUser.name : '';
     }
-    function checkBalloon() {
     function checkBalloon() {
       var key = 'balloon_' + currentUser.email;
       var today = new Date().toDateString();
