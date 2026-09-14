@@ -1499,6 +1499,44 @@ body{background:#0d0716}
       transition: var(--transition);
     }
     .btn-resposta:hover { background: var(--gold); color: #0d0716; }
+        /* ===== PÁGINA SOBRE ===== */
+    .sobre-texto p { margin-bottom: 24px; line-height: 1.85; font-size: 15.5px; color: #e8e0f5; }
+    .sobre-texto h3 {
+      color: var(--gold);
+      font-size: 21px;
+      margin: 38px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(212,168,67,.28);
+      letter-spacing: 1px;
+    }
+    .sobre-texto strong { color: var(--gold-light); }
+    .sobre-texto em { color: #d9cdf0; }
+    .sobre-citacao {
+      font-style: italic;
+      text-align: center;
+      color: var(--gold-light);
+      font-size: 17px;
+      line-height: 1.7;
+      border-left: none;
+      padding: 18px 24px;
+      margin: 30px 0 !important;
+      background: rgba(212,168,67,.07);
+      border-radius: 10px;
+    }
+    .sobre-lista { margin: 0 0 24px 22px; padding: 0; }
+    .sobre-lista li { margin-bottom: 14px; line-height: 1.8; font-size: 15.5px; color: #e8e0f5; }
+    .sobre-lista strong { color: var(--gold-light); }
+
+    /* ===== FUNDO DA PÁGINA SOBRE ===== */
+    #page-sobre {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.72), rgba(13, 5, 32, 0.72)), url('Graficos/Tela-Inicial.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.72), rgba(13, 5, 32, 0.72)), image-set(url('Graficos/Tela-Inicial.avif') type('image/avif'), url('Graficos/Tela-Inicial.webp') type('image/webp'), url('Graficos/Tela-Inicial.png') type('image/png'));
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
   </style>
 </head>
 
@@ -3930,7 +3968,84 @@ if (sessionStorage.getItem('baloes_fechados') === '1') {
   if (b1) b1.style.display = 'none';
   if (b2) b2.style.display = 'none';
 }
-    
+
+      <!-- ===== PÁGINA SOBRE O ORACULUM VITAE ===== -->
+  <section id="page-sobre" class="page">
+    <div class="form-container" style="max-width:820px">
+      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:8px;text-align:center">Sobre o Oraculum Vitae</h2>
+      <p style="text-align:center;font-style:italic;color:var(--gold-light);margin:0 0 30px">O destino não se anuncia. Ele se escuta.</p>
+
+      <div class="sobre-texto">
+        <p>Há perguntas que você já fez em voz alta e outras que nunca teve coragem de dizer. Existe um lugar silencioso entre essas duas coisas — entre o que você sente e o que ainda não conseguiu nomear. <strong>O Oraculum Vitae nasce exatamente nesse intervalo.</strong></p>
+
+        <p>Não somos um site de respostas automáticas. Somos um portal onde o acaso não é acaso: cada carta que você retira do baralho embaralhado é uma escolha que a sua própria intuição já havia feito antes de o seu dedo tocar a tela. O que fazemos aqui é dar forma, palavra e direção a esse impulso invisível.</p>
+
+        <p>Este é um espaço de <strong>autoconhecimento</strong> — e autoconhecimento não é ouvir o que se quer ouvir. É olhar com honestidade para o que está diante de você.</p>
+
+        <h3>O que você encontra no portal</h3>
+
+        <p>O Oraculum Vitae reúne, em um só lugar, as grandes tradições de leitura que atravessaram séculos: o <strong>Tarô</strong>, a <strong>Astrologia</strong> e a <strong>Numerologia Pitagórica</strong>. Cada uma delas foi tratada com o respeito que merece — sem atalhos, sem frases prontas, sem promessas fáceis.</p>
+
+        <p><strong>Sim, Não ou Talvez</strong> — uma única carta, uma resposta direta, para o momento em que a dúvida não pode esperar. <em>Por 10 créditos.</em></p>
+
+        <p><strong>Tiragens de Tarô de 2 a 10 cartas</strong> — do <em>Conselho e Advertência</em> à <strong>Cruz Celta</strong> completa, métodos que cruzam passado, presente e futuro para revelar o que estava oculto na sua história. De <em>20 a 100 créditos</em>, conforme a profundidade.</p>
+
+        <p><strong>O Templo de Afrodite</strong> — sete cartas dispostas em colunas gregas, comparando o que você pensa, sente e deseja com o que o outro realmente pensa, sente e deseja. <em>Por 70 créditos.</em></p>
+
+        <p><strong>Tarô de Marselha</strong> — o baralho clássico, na sua forma mais tradicional e antiga, lido dentro da linha do tempo do Passado, Presente e Futuro. <em>Por 30 créditos.</em></p>
+
+        <p><strong>Mapas Astrais em três níveis</strong> — o céu no instante exato do seu nascimento, lido com crescente profundidade: o <strong>Pórtico Celestial</strong> (<em>50 créditos</em>), a <strong>Órbita Pessoal</strong> (<em>100 créditos</em>) e o <strong>Cosmos Absoluto</strong> (<em>200 créditos</em>), a leitura total e integrada do seu universo.</p>
+
+        <h3>O que é gratuito, todos os dias</h3>
+
+        <p>Nem toda sabedoria precisa custar. O portal mantém três portas sempre abertas, sem cobrar um único crédito:</p>
+
+        <p><strong>A Carta do Dia</strong> — uma carta sorteada diariamente, com uma área da sua vida escolhida ao acaso para receber o conselho. Uma consulta a cada 24 horas, renovada à meia-noite.</p>
+
+        <p><strong>O Horóscopo Semanal</strong> — previsões para os doze signos, atualizadas toda semana, disponíveis para leitura imediata.</p>
+
+        <p><strong>A Numerologia Básica</strong> — a vibração do seu nome e da sua data de nascimento, calculada pela tradição pitagórica. A leitura essencial é gratuita; para quem quiser ir mais fundo, o <strong>Perfil Completo</strong> aprofunda os seus números por <em>30 créditos</em>.</p>
+
+        <p>E há mais: <strong>o seu cadastro já começa com 50 créditos de presente</strong>. Além disso, <strong>cada amigo que você trouxer para o portal devolve outros 50 créditos</strong> — porque certas descobertas pedem companhia, e a sabedoria circula melhor quando é compartilhada.</p>
+
+        <h3>Como é a sua experiência aqui</h3>
+
+        <p>Você chega com uma pergunta. Sai com um mapa.</p>
+
+        <p>A primeira escolha é a sua pergunta — feita com clareza, com sinceridade, do jeito que ela nasce dentro de você. Em seguida, embaralhamos as 78 cartas do baralho e colocamos todas elas diante dos seus olhos, viradas para baixo. Você escolhe as que sentir, no tempo que precisar.</p>
+
+        <p>Só então o oráculo responde. E responde <strong>por escrito, de forma dissertativa</strong>, articulando carta por carta dentro do método que você escolheu — nada de uma frase solta e genérica. Ao final, <strong>cada leitura pode ser copiada ou baixada</strong>, para ser relida amanhã, na semana que vem, ou no dia em que o tempo já tiver passado e você quiser entender o que ele dizia.</p>
+
+        <p>O oráculo responde. <strong>A decisão continua sendo sua.</strong></p>
+
+        <h3>A parte estoica</h3>
+
+        <p>O Oraculum Vitae não promete mudar o seu destino. Nenhum oráculo honesto promete isso.</p>
+
+        <p>Ele faz outra coisa, e é isso que o torna diferente: mostra o que está sob o seu controle e o que nunca esteve. Separa o fato da sua imaginação sobre o fato. Devolve ao seu olhar aquilo que a ansiedade costuma esconder — a clareza para agir, a serenidade para aceitar o que não depende de você, e a coragem de distinguir uma coisa da outra.</p>
+
+        <p class="sobre-citacao">"Não busque que as coisas aconteçam como deseja; deseje que aconteçam como acontecem."</p>
+
+        <p>É essa sabedoria antiga que atravessa cada leitura deste portal. Nenhuma carta é sentença. Toda carta é espelho.</p>
+
+        <h3>Como começar</h3>
+
+        <ol class="sobre-lista">
+          <li>Crie a sua conta e receba <strong>50 créditos</strong> de imediato.</li>
+          <li>Comece pelas portas gratuitas: a <strong>Carta do Dia</strong>, o <strong>Horóscopo</strong> e a <strong>Numerologia</strong>.</li>
+          <li>Quando a sua pergunta realmente importar, escolha a tiragem ou o mapa que combine com ela.</li>
+          <li><strong>Copie ou baixe</strong> a leitura e volte a ela sempre que precisar.</li>
+        </ol>
+
+        <p>E se quiser mais créditos sem pagar, indique um amigo: <strong>50 créditos por cada indicação</strong> que se cadastrar pelo seu convite.</p>
+
+        <p style="text-align:center;color:var(--gold);font-weight:bold;margin-top:34px">As cartas já estão embaralhadas. Só falta a sua pergunta.</p>
+
+        <p style="font-size:12px;color:#a89bb8;line-height:1.7;margin-top:26px;text-align:center"><em>Conteúdo para fins de entretenimento e autoconhecimento. Este portal não substitui aconselhamento médico, psicológico, jurídico ou financeiro profissional. Recomendado para maiores de 18 anos.</em></p>
+      </div>
+    </div>
+  </section>
   </script>
     
   <!-- ===== RODAPÉ ===== -->
@@ -3945,7 +4060,7 @@ if (sessionStorage.getItem('baloes_fechados') === '1') {
 <a href="#">Termos de Uso</a>
 <a href="#">Política de Privacidade</a>
 <a href="#">FAQ</a>
-<a href="#">Sobre</a>
+<a href="javascript:void(0)" onclick="showPage('page-sobre')">Sobre o Oraculum Vitae</a>
 </div>
 <div class="footer-col">
 <h4>Contato</h4>
