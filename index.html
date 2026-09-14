@@ -2251,26 +2251,39 @@ body{background:#0d0716}
       return nome;
     }
 
-    function cardImageVariants(card) {
+        function cardImageVariants(card) {
       var base = cardBaseName(card);
-      var noAcc = stripAcc(base);
-      var arr = [];
       var pasta = 'Normal';
       var sufixo = '';
+
+      var ALIAS = {
+        'A Sacerdotisa': 'A Papisa',
+        'O Hierofante': 'O Papa',
+        'Os Enamorados': 'O Enamorado',
+        'O Enforcado': 'O Pendurado',
+        'A Carruagem': 'O Carro'
+      };
+
       if (currentReading && currentReading.type === 'Marselha') {
         pasta = 'Marselha';
-        sufixo = ' Marselha';
-        var alias = {
-          'A Sacerdotisa': 'A Papisa',
-          'O Hierofante': 'O Papa',
-          'Os Enamorados': 'O Enamorado',
-          'O Enforcado': 'O Pendurado',
-          'A Carruagem': 'O Carro'
-        };
-        if (alias[base]) {base = alias[base]; noAcc = stripAcc(base);}
+        sufixo = '_Marselha';
+        if (ALIAS[base]) { base = ALIAS[base]; }
       }
-      function add(s) {var enc = encodeURI(pasta + '/' + s + sufixo + '.png'); if (arr.indexOf(enc) === -1) {arr.push(enc);} var encJ = encodeURI(pasta + '/' + s + sufixo + '.jpg'); if (arr.indexOf(encJ) === -1) {arr.push(encJ);} }
-      add(base); add(noAcc); add(base.replace(/ /g, '_')); add(noAcc.replace(/ /g, '_'));
+
+      var comAcento = base.replace(/ /g, '_');
+      var semAcento = stripAcc(base).replace(/ /g, '_');
+      var nomes = [semAcento];
+      if (comAcento !== semAcento) { nomes.push(comAcento); }
+      if (pasta === 'Marselha' && base === 'Cinco de Paus') { nomes.push('Cindo_de_Paus'); }
+
+      var exts = ['avif', 'webp', 'png'];
+      var arr = [];
+      for (var e = 0; e < exts.length; e++) {
+        for (var n = 0; n < nomes.length; n++) {
+          var enc = encodeURI(pasta + '/' + nomes[n] + sufixo + '.' + exts[e]);
+          if (arr.indexOf(enc) === -1) { arr.push(enc); }
+        }
+      }
       return arr;
     }
     function cardImage(card) {return cardImageVariants(card)[0];}
@@ -2279,9 +2292,9 @@ body{background:#0d0716}
       return String(name).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "_");
     }
 
-    function cardImgHTML(card) {
+        function cardImgHTML(card) {
       var variants = cardImageVariants(card);
-      return '<img src="' + variants[0] + '" alt="' + card.n + '" data-variants=\'' + JSON.stringify(variants) + '\' onerror="imgFallback(this)">';
+      return '<img src="' + variants[0] + '" alt="' + card.n + '" loading="lazy" decoding="async" data-variants=\'' + JSON.stringify(variants) + '\' onerror="imgFallback(this)">';
     }
 
     function imgFallback(el) {
@@ -2992,12 +3005,33 @@ body{background:#0d0716}
         c.appendChild(s);
       }
     }
+        var cartasPreCarregadas = false;
+    function preCarregarCartas() {
+      if (cartasPreCarregadas) return;
+      cartasPreCarregadas = true;
+      var urls = [];
+      for (var i = 0; i < DECK_NORMAL.length; i++) {
+        var v = cardImageVariants(DECK_NORMAL[i]);
+        if (v[0] && urls.indexOf(v[0]) === -1) { urls.push(v[0]); }
+      }
+      var idx = 0;
+      function lote() {
+        var fim = Math.min(idx + 8, urls.length);
+        for (; idx < fim; idx++) {
+          var im = new Image();
+          im.src = urls[idx];
+        }
+        if (idx < urls.length) { setTimeout(lote, 150); }
+      }
+      setTimeout(lote, 500);
+    }
         function showPage(id) {
       document.querySelectorAll('.page').forEach(function (p) {p.classList.remove('active');});
       document.getElementById(id).classList.add('active');
       window.scrollTo(0, 0);
       if (id === 'page-carta-dia') {initCartaDia();}
       if (id === 'page-faq') {initFAQ();}
+      if (id === 'page-sim-nao' || id === 'page-carta-dia' || id.indexOf('page-tarot-') === 0) {preCarregarCartas();}
     }
     function voltarLogin() {
       document.getElementById('main-header').style.display = 'none';
