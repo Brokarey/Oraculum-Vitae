@@ -16,27 +16,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-#baloon-gratis {
-  position: fixed;
-  left: 10vw;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 150px;
-  max-width: 80vw;
-  text-align: center;
-  border: 1px solid var(--gold);
-  box-shadow: 0 0 25px rgba(201,168,106,.4);
-  z-index: 1000;
-  opacity: 0;
-  animation: baloonFadeIn 3s ease forwards;
-}
-
-@keyframes baloonFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
     :root {
       --bg-deep: #0d0520;
       --bg-card: #1a0a2e;
@@ -114,30 +93,6 @@
 
 .page.active {
   display: block
-}
-
-.baloon {
-  position: absolute;
-  left: -340px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 300px;
-  max-width: 80vw;
-  text-align: center;
-  border: 1px solid var(--gold);
-  box-shadow: 0 0 30px rgba(201,168,106,.45);
-  animation: baloonPulse 3s ease-in-out infinite;
-}
-
-@media (max-width: 768px) {
-  .baloon {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 88vw;
-    z-index: 9999;
-  }
 }
 
 @keyframes fadeIn {
@@ -581,9 +536,9 @@
     }
 
     .dash-card.disabled {
-      : 0.6;
-      cursor: not-allowed
-    }
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
     .badge-soon {
       position: absolute;
@@ -720,19 +675,18 @@
     }
 
     #mystic-balloon {
-      display: none !important;
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--accent);
-      padding: 20px;
-      border-radius: 20px 20px 0 20px;
-      border: 1px solid var(--gold);
-      max-width: 250px;
-      display: none;
-      animation: slideUp 0.5s ease;
-      z-index: 900
-    }
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: none;
+  z-index: 900;
+  max-width: 250px;
+  padding: 20px;
+  border: 1px solid var(--gold);
+  border-radius: 20px 20px 0 20px;
+  background: var(--accent);
+  animation: slideUp 0.5s ease;
+}
 
     #choose-balloon {
       position: fixed;
@@ -754,17 +708,16 @@
     }
 
     @keyframes popIn {
-      from {
-        transform: translate(-50%, -50%) scale(0.7);
-        opacity: 0
-        : 0
-      }
+  from {
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
+  }
 
-      to {
-        transform: translate(-50%, -50%) scale(1);
-        : 1
-      }
-    }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
 
     @keyframes slideUp {
       from {
@@ -1244,112 +1197,8 @@ body{background:#0d0716}
   0%, 100% { opacity: .75; }
   50% { opacity: 1; text-shadow: 0 0 22px var(--gold); }
 }
-   
-.baloon {
-  position: absolute;
-  left: 15px;               /* fica ao lado esquerdo da caixa de login */
-  top: 50%;
-  transform: translateY(-50%);
-  width: 200px;
-  max-width: 80vw;
-  text-align: center;
-  border: 1px solid var(--gold);
-  box-shadow: 0 0 30px rgba(201,168,106,.45);
-  animation: baloonPulse 3s ease-in-out infinite;
-}
-@keyframes baloonPulse {
-  0%,100% { box-shadow: 0 0 18px rgba(201,168,106,.35); }
-  50% { box-shadow: 0 0 42px rgba(201,168,106,.7); }
-}
-/* Celular: sobrepõe a caixa de login, some em 3s */
-@media (max-width: 768px) {
-  .baloon {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 88vw;
-    z-index: 9999;
-  }
 }
 
-    /* Balão de benefícios gratuitos */
-#baloon-gratis {
-  position: relative;
-  width: 300px;
-  max-width: 80vw;
-  margin: 20px auto;
-  text-align: center;
-  border: 1px solid var(--gold);
-  box-shadow: 0 0 25px rgba(201,168,106,.4);
-  z-index: 1000;
-  opacity: 0;
-  animation: baloonFadeIn 5s ease forwards;
-}
-@keyframes baloonFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-    @keyframes baloonFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-    /* Balão Indique um Amigo (mesma posição do balão de benefícios) */
-#baloon-indique {
-  position: fixed;
-  left: 5vw;
-  top: 48%;
-  transform: translateY(-50%);
-  width: 300px;
-  max-width: 80vw;
-  text-align: center;
-  border: 1px solid var(--gold);
-  box-shadow: 0 0 25px rgba(201,168,106,.4);
-  z-index: 1000;
-  display: none;
-}
-    /* Posicionamento dos balões laterais no computador */
-#baloon-beneficios,
-#baloon-gratis {
-  position: fixed !important;
-  left: calc(50% - 500px) !important;
-  top: calc(50% - 25px) !important;
-  transform: translateY(-50%) !important;
-  width: 300px !important;
-  max-width: 80vw;
-  z-index: 1000;
-}
-
-/* No celular, mantém o balão centralizado */
-@media (max-width: 768px) {
-  #baloon-beneficios,
-  #baloon-gratis {
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 88vw !important;
-  }
-}
-    /* Botão de fechar (X) dos balões */
-.baloon-close {
-  position: absolute;
-  top: 4px;
-  right: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 1;
-  color: var(--gold);
-  background: none;
-  border: none;
-  padding: 2px 5px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.baloon-close:hover {
-  color: #fff;
-  transform: scale(1.25);
-}
     /* Nome do usuário centralizado no cabeçalho */
 .header-greeting {
   position: absolute;
@@ -1537,6 +1386,587 @@ body{background:#0d0716}
       background-attachment: fixed;
       min-height: 100vh;
     }
+/* =========================================================
+   I CHING — PÁGINA, MOEDAS, HEXAGRAMAS E LEITURA
+   ========================================================= */
+
+/* Fundo da página do I Ching */
+#page-iching {
+  background-image:
+    linear-gradient(rgba(13, 5, 32, 0.58), rgba(13, 5, 32, 0.58)),
+    url('Graficos/Tela_IChing.png');
+
+  background-image:
+    linear-gradient(rgba(13, 5, 32, 0.58), rgba(13, 5, 32, 0.58)),
+    image-set(
+      url('Graficos/Tela_IChing.avif') type('image/avif'),
+      url('Graficos/Tela_IChing.webp') type('image/webp'),
+      url('Graficos/Tela_IChing.png') type('image/png')
+    );
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Quadro principal */
+#page-iching .form-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(13, 5, 32, 0.62);
+  border: 1px solid rgba(212, 168, 67, 0.55);
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  box-shadow:
+    0 0 35px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(212, 168, 67, 0.12);
+}
+
+/* Etapas internas */
+.ic-stage {
+  animation: icFadeIn 0.45s ease;
+}
+
+@keyframes icFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Introdução */
+.ic-intro {
+  max-width: 760px;
+  margin: 0 auto 28px;
+  color: #e8e0f5;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.ic-intro p {
+  margin-bottom: 16px;
+}
+
+.ic-intro strong {
+  color: var(--gold-light);
+}
+
+/* Cartões de escolha do método */
+.ic-levels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.ic-level {
+  position: relative;
+  min-height: 210px;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid rgba(212, 168, 67, 0.45);
+  border-radius: 12px;
+  background: rgba(26, 10, 46, 0.62);
+  transition: transform 0.3s ease, border-color 0.3s ease,
+    box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.ic-level:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  background: rgba(54, 28, 82, 0.78);
+  box-shadow: 0 8px 24px rgba(212, 168, 67, 0.22);
+}
+
+.ic-level i {
+  color: var(--gold);
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.ic-level h3 {
+  color: var(--gold-light);
+  font-size: 19px;
+  margin-bottom: 10px;
+}
+
+.ic-level p {
+  color: #d8cfff;
+  font-size: 13px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.ic-price {
+  display: inline-block;
+  color: var(--gold);
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+/* Cabeçalho das etapas */
+.ic-choice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(212, 168, 67, 0.25);
+}
+
+.ic-back {
+  background: transparent;
+  border: none;
+  color: var(--gold);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+.ic-back:hover {
+  color: var(--gold-light);
+  text-shadow: 0 0 10px rgba(212, 168, 67, 0.6);
+}
+
+.ic-center {
+  text-align: center;
+}
+
+/* Área das moedas */
+.ic-coins {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px 16px;
+  max-width: 620px;
+  margin: 30px auto 0;
+}
+
+.ic-coin-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+
+.ic-coin {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid var(--gold);
+  background:
+    radial-gradient(circle at 35% 30%, #f8dfa0 0%, #d4a843 38%, #80601d 100%);
+  box-shadow:
+    0 0 14px rgba(212, 168, 67, 0.35),
+    inset 0 0 0 4px rgba(255, 240, 180, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ic-coin::before {
+  content: "☯";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4b3210;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.ic-coin:hover:not(.used) {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 26px rgba(212, 168, 67, 0.7),
+    inset 0 0 0 4px rgba(255, 240, 180, 0.35);
+}
+
+.ic-coin.spinning {
+  animation: icCoinSpin 0.9s ease-in-out;
+}
+
+.ic-coin.used {
+  cursor: default;
+  opacity: 0.78;
+  filter: saturate(0.8);
+}
+
+@keyframes icCoinSpin {
+  0% {
+    transform: rotateY(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotateY(720deg) scale(1.12);
+  }
+
+  100% {
+    transform: rotateY(1440deg) scale(1);
+  }
+}
+
+.ic-coin-label {
+  min-height: 38px;
+  color: #d8cfff;
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+/* Área dos hexagramas */
+.ic-hex-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin: 28px auto 8px;
+}
+
+.ic-hex-box {
+  width: min(100%, 330px);
+  padding: 20px 18px;
+  text-align: center;
+  border: 1px solid rgba(212, 168, 67, 0.5);
+  border-radius: 14px;
+  background: rgba(26, 10, 46, 0.7);
+  box-shadow: 0 0 22px rgba(0, 0, 0, 0.28);
+  animation: icHexAppear 0.6s ease;
+}
+
+@keyframes icHexAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.ic-hex-title {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.ic-hex {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 9px;
+  width: 220px;
+  margin: 0 auto 18px;
+}
+
+/* Cada linha do hexagrama */
+.ic-line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 13px;
+  transition: filter 0.3s ease;
+}
+
+.ic-yang {
+  width: 210px;
+  height: 9px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #d4a843, #f0d080, #d4a843);
+  box-shadow: 0 0 8px rgba(212, 168, 67, 0.35);
+}
+
+.ic-yin {
+  display: flex;
+  justify-content: space-between;
+  width: 210px;
+  height: 9px;
+}
+
+.ic-yin span {
+  display: block;
+  width: 96px;
+  height: 9px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #d4a843, #f0d080);
+  box-shadow: 0 0 8px rgba(212, 168, 67, 0.3);
+}
+
+.ic-line.moving {
+  animation: icMovingLine 1.5s ease-in-out infinite;
+}
+
+.ic-line.moving .ic-yang,
+.ic-line.moving .ic-yin span {
+  background: linear-gradient(90deg, #fff2b8, #d4a843, #fff2b8);
+  box-shadow:
+    0 0 8px var(--gold),
+    0 0 20px rgba(240, 208, 128, 0.8);
+}
+
+.ic-mark {
+  position: absolute;
+  right: -24px;
+  color: var(--gold-light);
+  font-size: 18px;
+  line-height: 1;
+  text-shadow: 0 0 10px var(--gold);
+}
+
+@keyframes icMovingLine {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.45);
+  }
+}
+
+.ic-hex-name {
+  color: var(--gold-light);
+  font-family: 'Blackwood Castle Shadow', 'Pirata One', cursive;
+  font-size: 21px;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.ic-hex-num {
+  color: #d8cfff;
+  font-size: 12px;
+}
+
+.ic-arrow {
+  color: var(--gold);
+  font-size: 34px;
+  text-shadow: 0 0 12px rgba(212, 168, 67, 0.65);
+}
+
+/* Botão para revelar a leitura */
+#ic-reading-btn-wrap {
+  animation: icFadeIn 0.5s ease;
+}
+
+/* Área da leitura */
+.ic-result {
+  margin-top: 22px;
+  padding: 24px;
+  border: 1px solid rgba(212, 168, 67, 0.48);
+  border-radius: 14px;
+  background: rgba(26, 10, 46, 0.72);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+.ic-tag {
+  display: inline-block;
+  padding: 5px 11px;
+  margin-bottom: 12px;
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  color: var(--gold-light);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ic-result h3 {
+  color: var(--gold);
+  margin: 16px 0 8px;
+}
+
+.ic-result p {
+  color: #e8e0f5;
+  line-height: 1.85;
+  margin-bottom: 15px;
+}
+
+/* Carregamento da resposta */
+.ic-loading {
+  padding: 35px 15px;
+  color: var(--gold-light);
+  text-align: center;
+  font-style: italic;
+}
+
+.ic-spin {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 18px;
+  border: 3px solid rgba(212, 168, 67, 0.25);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: icSpin 0.9s linear infinite;
+}
+
+@keyframes icSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 760px) {
+  #page-iching .form-container {
+    margin: 0 12px;
+    padding: 22px 16px;
+  }
+
+  .ic-levels {
+    grid-template-columns: 1fr;
+  }
+
+  .ic-level {
+    min-height: auto;
+  }
+
+  .ic-coins {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 12px;
+  }
+
+  .ic-choice-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ic-hex-wrap {
+    flex-direction: column;
+  }
+
+  .ic-arrow {
+    transform: rotate(90deg);
+  }
+
+  .ic-result {
+    padding: 18px 15px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ic-coin {
+    width: 68px;
+    height: 68px;
+  }
+
+  .ic-coin::before {
+    font-size: 25px;
+  }
+
+  .ic-hex {
+    width: 190px;
+  }
+
+  .ic-yang,
+  .ic-yin {
+    width: 180px;
+  }
+
+  .ic-yin span {
+    width: 81px;
+  }
+}
+    .baloon {
+  position: fixed;
+  top: 50%;
+  left: calc(50% - 500px);
+  transform: translateY(-50%);
+  width: 300px;
+  max-width: min(300px, 86vw);
+  padding: 24px 20px;
+  text-align: center;
+  z-index: 1000;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  background: rgba(26, 10, 46, 0.94);
+  box-shadow:
+    0 0 25px rgba(201, 168, 106, 0.4),
+    0 8px 28px rgba(0, 0, 0, 0.45);
+  animation:
+    baloonFadeIn 0.5s ease forwards,
+    baloonPulse 3s ease-in-out infinite;
+}
+
+#baloon-beneficios,
+#baloon-indique {
+  display: none;
+}
+
+.baloon-close {
+  position: absolute;
+  top: 5px;
+  right: 9px;
+  padding: 2px 5px;
+  border: none;
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.baloon-close:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+@keyframes baloonFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes baloonPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 18px rgba(201, 168, 67, 0.35),
+      0 8px 28px rgba(0, 0, 0, 0.45);
+  }
+
+  50% {
+    box-shadow:
+      0 0 38px rgba(201, 168, 67, 0.68),
+      0 8px 28px rgba(0, 0, 0, 0.55);
+  }
+}
+    
+@media (max-width: 768px) {
+  .baloon {
+    top: 50%;
+    left: 50%;
+    width: 88vw;
+    max-width: 88vw;
+    transform: translate(-50%, -50%);
+  }
+}
   </style>
 </head>
 
@@ -1663,12 +2093,11 @@ body{background:#0d0716}
         <h3>Numerologia</h3>
         <p>Vibração do Nome - Opção Gratuita</p>
       </div>
-      <div class="dash-card disabled">
-        <div class="badge-soon">EM BREVE</div><i class="fas fa-yin-yang"></i>
-        <h3>I Ching</h3>
-        <p>Sabedoria Chinesa</p>
-      </div>
-    </div>
+      <div class="dash-card" onclick="initIChing()">
+  <i class="fas fa-yin-yang"></i>
+  <h3>I Ching</h3>
+  <p>Sabedoria Chinesa</p>
+</div>
   </section>
   <section id="page-tarot-2" class="page tarot-bg">
     <div class="form-container">
@@ -2174,6 +2603,86 @@ body{background:#0d0716}
       <div id="faq-container"></div>
     </div>
   </section>
+  <!-- ===== PÁGINA: I CHING ===== -->
+<section id="page-iching" class="page">
+<div class="form-container">
+<button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+<h2 class="pirata" style="font-size:clamp(26px,3.6vw,38px);color:var(--gold);text-align:center;margin-bottom:6px">I Ching</h2>
+<p style="text-align:center;color:var(--gold-light);letter-spacing:3px;font-size:11.5px;margin-bottom:24px">O LIVRO DAS MUTAÇÕES</p>
+
+<!-- ETAPA 1: escolha do método -->
+<div id="ic-stage-choice" class="ic-stage">
+<div class="ic-intro">
+<p>O <strong>I Ching</strong> (易經 — "Livro das Mutações") é um dos textos mais antigos da humanidade, com mais de três mil anos. Diferente do Tarô, ele não fala em símbolos de imagens: fala na <strong>linguagem das forças da natureza</strong>. Cada consulta nasce de <strong>seis lançamentos</strong> que formam um <strong>hexagrama</strong> — seis linhas, cheias (yang) ou partidas (yin).</p>
+<p>Cada linha é revelada pelas moedas. Quando uma linha cai como <strong>linha em movimento</strong>, ela carrega a energia mais intensa da sua pergunta — e transforma o hexagrama em um segundo, chamado <strong>hexagrama mutante</strong>, que mostra para onde a situação caminha.</p>
+<p>Não é adivinhação passiva: é um <strong>espelho</strong>. O I Ching não decide por você — ele devolve a pergunta amadurecida. Formule com sinceridade e escute com atenção.</p>
+</div>
+<div class="ic-levels">
+<div class="ic-level" onclick="icStart('classico')">
+<i class="fas fa-coins"></i>
+<h3>I Ching Clássico</h3>
+<p>As 6 moedas, lançadas uma a uma por você. Revela o hexagrama e as linhas em movimento — a leitura mais profunda.</p>
+<span class="ic-price">50 créditos</span>
+</div>
+<div class="ic-level" onclick="icStart('rapido')">
+<i class="fas fa-bolt"></i>
+<h3>I Ching Rápido</h3>
+<p>Um hexagrama gerado de imediato, sem linhas em movimento. Direto e claro para uma orientação rápida.</p>
+<span class="ic-price">20 créditos</span>
+</div>
+<div class="ic-level" onclick="icStart('dia')">
+<i class="fas fa-sun"></i>
+<h3>I Ching do Dia</h3>
+<p>Gratuito. Um hexagrama para as próximas 24 horas, com um foco sorteado. Uma vez por dia.</p>
+<span class="ic-price">Grátis</span>
+</div>
+</div>
+</div>
+
+<!-- ETAPA 2: pergunta -->
+<div id="ic-stage-question" class="ic-stage" style="display:none">
+<div class="ic-choice-head">
+<button class="ic-back" onclick="icReset()"><i class="fas fa-arrow-left"></i> Escolher outro método</button>
+<span id="ic-method-label" style="font-size:13px;color:var(--gold-light)"></span>
+</div>
+<div class="ic-center">
+<p id="ic-question-hint" style="color:#d8cfff;line-height:1.7;margin-bottom:18px;font-size:14px"></p>
+</div>
+<div class="auth-form">
+<textarea id="ic-question" placeholder="Escreva sua pergunta com sinceridade..." style="min-height:96px;background:rgba(255,255,255,0.07);border:1px solid var(--accent);padding:12px;border-radius:6px;color:white;width:100%;font-size:14px;resize:vertical;font-family:inherit"></textarea>
+<button class="btn-portal" onclick="icConfirmQuestion()">Prosseguir</button>
+</div>
+</div>
+
+<!-- ETAPA 3: moedas -->
+<div id="ic-stage-coins" class="ic-stage" style="display:none">
+<div class="ic-choice-head">
+<button class="ic-back" onclick="icReset()"><i class="fas fa-arrow-left"></i> Reiniciar consulta</button>
+<span id="ic-coins-status" style="font-size:13px;color:var(--gold-light)"></span>
+</div>
+<div class="ic-center">
+<p style="color:#d8cfff;font-size:13.5px;line-height:1.7">Concentre-se na sua pergunta. Toque em cada moeda, <strong>de baixo para cima</strong>, para lançar cada uma das seis linhas.</p>
+</div>
+<div id="ic-coins-area" class="ic-coins"></div>
+</div>
+
+<!-- ETAPA 4: hexagrama -->
+<div id="ic-stage-hex" class="ic-stage" style="display:none">
+<div class="ic-center"><p id="ic-hex-caption" style="color:var(--gold-light);font-size:13.5px;line-height:1.7"></p></div>
+<div id="ic-hex-area" class="ic-hex-wrap"></div>
+<div id="ic-reading-btn-wrap" class="ic-center" style="display:none;margin-top:10px">
+<button class="btn-portal" style="max-width:340px;margin:0 auto" onclick="icGenerateReading()">Revelar a Leitura</button>
+</div>
+</div>
+
+<!-- ETAPA 5: leitura -->
+<div id="ic-stage-reading" class="ic-stage" style="display:none">
+<div id="ic-reading-content"></div>
+<div class="consultar-novamente-wrap" style="display:flex"><button class="btn-consultar-novamente" onclick="icReset()">Nova Consulta</button></div>
+</div>
+
+</div>
+</section>
   <div id="modal-overlay">
     <div class="modal-content">
       <h3 id="modal-title">Aviso</h3>
@@ -2820,6 +3329,7 @@ body{background:#0d0716}
       h += buildTenConclusion(cards, q);
       return h;
     }
+    
     /* ====== INTEGRAÇÃO IA — NARRATIVA ÚNICA (SUBSTITUI AS ANTIGAS) ====== */
     var AREAS_CARTA_DIA = [
       'Família e Dinâmica do Lar',
@@ -3942,18 +4452,6 @@ function irParaIndiqueAmigo() {
       if (document.getElementById('page-horoscopo')) initHoroscopo();
     }
 
-    function atualizarBaloonGratis() {
-  var el = document.getElementById('baloon-gratis');
-  if (!el) return;
-  var logado = !!(currentUser && currentUser.name);
-  el.style.display = logado ? 'none' : 'block';
-}
-atualizarBaloes();
-    setTimeout(function(){
-  var el = document.getElementById('baloon-gratis');
-  if (el) el.style.opacity = '1';
-}, 100);
-
 function fecharBalao(ev, el) {
   if (ev) ev.stopPropagation();
   var b = el.closest('.baloon');
@@ -3967,6 +4465,476 @@ if (sessionStorage.getItem('baloes_fechados') === '1') {
   var b2 = document.getElementById('baloon-indique');
   if (b1) b1.style.display = 'none';
   if (b2) b2.style.display = 'none';
+}
+    /* =========================================================
+   I CHING — BANCO DE DADOS E LÓGICA
+   ========================================================= */
+
+/* --- Os 8 Trigramas (linhas de baixo para cima: 1=yang, 0=yin) --- */
+var TRIGRAMS = {
+"111":{nome:"Qian",pt:"O Céu",simbolo:"☰",elem:"O Criativo"},
+"110":{nome:"Dui",pt:"O Lago",simbolo:"☱",elem:"O Alegre"},
+"101":{nome:"Li",pt:"O Fogo",simbolo:"☲",elem:"O Aderente"},
+"100":{nome:"Zhen",pt:"O Trovão",simbolo:"☳",elem:"O Despertar"},
+"011":{nome:"Xun",pt:"O Vento",simbolo:"☴",elem:"O Suave"},
+"010":{nome:"Kan",pt:"A Água",simbolo:"☵",elem:"O Abismal"},
+"001":{nome:"Gen",pt:"A Montanha",simbolo:"☶",elem:"A Quietude"},
+"000":{nome:"Kun",pt:"A Terra",simbolo:"☷",elem:"O Receptivo"}
+};
+function trigramInfo(bin){return TRIGRAMS[bin]||{nome:bin,pt:bin,simbolo:"?",elem:""};}
+
+/* --- Os 64 Hexagramas (King Wen). upper/lower = binário do trigrama --- */
+var HEXAGRAMS = [
+{num:1,nome:"Qian",pt:"O Criativo",cn:"乾",upper:"111",lower:"111",kw:"Céu sobre Céu — poder criativo, força e iniciativa"},
+{num:2,nome:"Kun",pt:"O Receptivo",cn:"坤",upper:"000",lower:"000",kw:"Terra sobre Terra — receptividade, devoção e apoio"},
+{num:3,nome:"Zhun",pt:"Dificuldade Inicial",cn:"屯",upper:"010",lower:"100",kw:"Água sobre Trovão — o começo difícil, germinar com paciência"},
+{num:4,nome:"Meng",pt:"Insensatez Juvenil",cn:"蒙",upper:"001",lower:"010",kw:"Montanha sobre Água — a busca por orientação e aprendizado"},
+{num:5,nome:"Xu",pt:"A Espera",cn:"需",upper:"010",lower:"111",kw:"Água sobre Céu — esperar o momento certo, nutrição"},
+{num:6,nome:"Song",pt:"O Conflito",cn:"讼",upper:"111",lower:"010",kw:"Céu sobre Água — conflito, cautela nas disputas"},
+{num:7,nome:"Shi",pt:"O Exército",cn:"师",upper:"000",lower:"010",kw:"Terra sobre Água — disciplina, liderança e organização"},
+{num:8,nome:"Bi",pt:"A Solidariedade",cn:"比",upper:"010",lower:"000",kw:"Água sobre Terra — união, lealdade e apoio mútuo"},
+{num:9,nome:"Xiao Chu",pt:"O Poder Domador do Pequeno",cn:"小畜",upper:"011",lower:"111",kw:"Vento sobre Céu — força sutil, refinamento gradual"},
+{num:10,nome:"Lu",pt:"A Conduta",cn:"履",upper:"111",lower:"110",kw:"Céu sobre Lago — caminhar com consciência e respeito"},
+{num:11,nome:"Tai",pt:"A Paz",cn:"泰",upper:"000",lower:"111",kw:"Terra sobre Céu — prosperidade, harmonia e fluidez"},
+{num:12,nome:"Pi",pt:"A Estagnação",cn:"否",upper:"111",lower:"000",kw:"Céu sobre Terra — bloqueio, retraimento estratégico"},
+{num:13,nome:"Tong Ren",pt:"A Comunhão",cn:"同人",upper:"111",lower:"101",kw:"Céu sobre Fogo — união, cooperação e propósito comum"},
+{num:14,nome:"Da You",pt:"A Posse do Grande",cn:"大有",upper:"101",lower:"111",kw:"Fogo sobre Céu — abundância, prosperidade e generosidade"},
+{num:15,nome:"Qian",pt:"A Modéstia",cn:"谦",upper:"000",lower:"001",kw:"Terra sobre Montanha — humildade, equilíbrio e serenidade"},
+{num:16,nome:"Yu",pt:"O Entusiasmo",cn:"豫",upper:"100",lower:"000",kw:"Trovão sobre Terra — energia, movimento e inspiração coletiva"},
+{num:17,nome:"Sui",pt:"O Seguimento",cn:"随",upper:"110",lower:"100",kw:"Lago sobre Trovão — adaptação, seguir o fluxo natural"},
+{num:18,nome:"Gu",pt:"O Trabalho sobre o Corrompido",cn:"蛊",upper:"001",lower:"011",kw:"Montanha sobre Vento — reparar o que foi herdado"},
+{num:19,nome:"Lin",pt:"A Aproximação",cn:"临",upper:"000",lower:"110",kw:"Terra sobre Lago — crescimento, aproximação e influência"},
+{num:20,nome:"Guan",pt:"A Contemplação",cn:"观",upper:"011",lower:"000",kw:"Vento sobre Terra — observação, reflexão e visão ampla"},
+{num:21,nome:"Shi Ke",pt:"A Mordida Atravessando",cn:"噬嗑",upper:"101",lower:"100",kw:"Fogo sobre Trovão — justiça, superar obstáculos com clareza"},
+{num:22,nome:"Bi",pt:"A Graça",cn:"贲",upper:"001",lower:"101",kw:"Montanha sobre Fogo — beleza, elegância e refinamento"},
+{num:23,nome:"Bo",pt:"O Esfacelamento",cn:"剥",upper:"001",lower:"000",kw:"Montanha sobre Terra — desgaste, deixar ir o que não serve"},
+{num:24,nome:"Fu",pt:"O Retorno",cn:"复",upper:"000",lower:"100",kw:"Terra sobre Trovão — retorno, renovação e recomeço"},
+{num:25,nome:"Wu Wang",pt:"A Inocência",cn:"无妄",upper:"111",lower:"100",kw:"Céu sobre Trovão — pureza, agir sem segundas intenções"},
+{num:26,nome:"Da Chu",pt:"O Poder Domador do Grande",cn:"大畜",upper:"001",lower:"111",kw:"Montanha sobre Céu — grande reserva, força contida"},
+{num:27,nome:"Yi",pt:"O Sustento",cn:"颐",upper:"001",lower:"100",kw:"Montanha sobre Trovão — nutrir, cuidar e alimentar"},
+{num:28,nome:"Da Guo",pt:"A Preponderância do Grande",cn:"大过",upper:"110",lower:"011",kw:"Lago sobre Vento — excesso, pressão e superação"},
+{num:29,nome:"Kan",pt:"O Abismal",cn:"坎",upper:"010",lower:"010",kw:"Água sobre Água — risco, profundidade e perseverança"},
+{num:30,nome:"Li",pt:"O Aderente",cn:"离",upper:"101",lower:"101",kw:"Fogo sobre Fogo — clareza, luz e dependência mútua"},
+{num:31,nome:"Xian",pt:"A Influência",cn:"咸",upper:"110",lower:"001",kw:"Lago sobre Montanha — atração, influência e reciprocidade"},
+{num:32,nome:"Heng",pt:"A Duração",cn:"恒",upper:"100",lower:"011",kw:"Trovão sobre Vento — constância, persistência e estabilidade"},
+{num:33,nome:"Dun",pt:"A Retirada",cn:"遁",upper:"111",lower:"001",kw:"Céu sobre Montanha — recuo estratégico, preservar a força"},
+{num:34,nome:"Da Zhuang",pt:"O Poder do Grande",cn:"大壮",upper:"100",lower:"111",kw:"Trovão sobre Céu — força, vigor e assertividade"},
+{num:35,nome:"Jin",pt:"O Progresso",cn:"晋",upper:"101",lower:"000",kw:"Fogo sobre Terra — ascensão, brilho e reconhecimento"},
+{num:36,nome:"Ming Yi",pt:"O Ferimento da Luz",cn:"明夷",upper:"000",lower:"101",kw:"Terra sobre Fogo — luz oculta, resiliência silenciosa"},
+{num:37,nome:"Jia Ren",pt:"A Família",cn:"家人",upper:"011",lower:"101",kw:"Vento sobre Fogo — lar, laços e responsabilidade"},
+{num:38,nome:"Kui",pt:"A Oposição",cn:"睽",upper:"101",lower:"110",kw:"Fogo sobre Lago — divergência, diferenças e complemento"},
+{num:39,nome:"Jian",pt:"O Impedimento",cn:"蹇",upper:"010",lower:"001",kw:"Água sobre Montanha — obstáculo, desvio e prudência"},
+{num:40,nome:"Jie",pt:"A Libertação",cn:"解",upper:"100",lower:"010",kw:"Trovão sobre Água — alívio, resolução e libertação"},
+{num:41,nome:"Sun",pt:"A Diminuição",cn:"损",upper:"001",lower:"110",kw:"Montanha sobre Lago — reduzir, simplificar e desapegar"},
+{num:42,nome:"Yi",pt:"O Aumento",cn:"益",upper:"011",lower:"100",kw:"Vento sobre Trovão — crescimento, benefício e expansão"},
+{num:43,nome:"Guai",pt:"A Ruptura",cn:"夬",upper:"110",lower:"111",kw:"Lago sobre Céu — decisão firme, romper com clareza"},
+{num:44,nome:"Gou",pt:"O Encontro",cn:"姤",upper:"111",lower:"011",kw:"Céu sobre Vento — encontro inesperado, influência súbita"},
+{num:45,nome:"Cui",pt:"A Reunião",cn:"萃",upper:"110",lower:"000",kw:"Lago sobre Terra — convergência, união e comunidade"},
+{num:46,nome:"Sheng",pt:"O Ascender",cn:"升",upper:"000",lower:"011",kw:"Terra sobre Vento — elevação, crescimento constante"},
+{num:47,nome:"Kun",pt:"A Opressão",cn:"困",upper:"110",lower:"010",kw:"Lago sobre Água — exaustão, provação e resistência"},
+{num:48,nome:"Jing",pt:"O Poço",cn:"井",upper:"010",lower:"011",kw:"Água sobre Vento — fonte interior, nutrir a comunidade"},
+{num:49,nome:"Ge",pt:"A Revolução",cn:"革",upper:"110",lower:"101",kw:"Lago sobre Fogo — transformação, mudança e renovação"},
+{num:50,nome:"Ding",pt:"O Caldeirão",cn:"鼎",upper:"101",lower:"011",kw:"Fogo sobre Vento — refinamento, nutrição e nova ordem"},
+{num:51,nome:"Zhen",pt:"O Despertar",cn:"震",upper:"100",lower:"100",kw:"Trovão sobre Trovão — choque, movimento e despertar"},
+{num:52,nome:"Gen",pt:"A Quietude",cn:"艮",upper:"001",lower:"001",kw:"Montanha sobre Montanha — parar, meditar e estabilizar"},
+{num:53,nome:"Jian",pt:"O Desenvolvimento Gradual",cn:"渐",upper:"011",lower:"001",kw:"Vento sobre Montanha — progresso lento e constante"},
+{num:54,nome:"Gui Mei",pt:"A Donzela que se Casa",cn:"归妹",upper:"100",lower:"110",kw:"Trovão sobre Lago — posição secundária, cuidado com pressa"},
+{num:55,nome:"Feng",pt:"A Abundância",cn:"丰",upper:"100",lower:"101",kw:"Trovão sobre Fogo — plenitude, prosperidade e grandeza"},
+{num:56,nome:"Lu",pt:"O Viajante",cn:"旅",upper:"101",lower:"001",kw:"Fogo sobre Montanha — transitoriedade, adaptação e leveza"},
+{num:57,nome:"Xun",pt:"O Suave",cn:"巽",upper:"011",lower:"011",kw:"Vento sobre Vento — gentileza, penetração e constância"},
+{num:58,nome:"Dui",pt:"O Alegre",cn:"兑",upper:"110",lower:"110",kw:"Lago sobre Lago — alegria, comunicação e troca"},
+{num:59,nome:"Huan",pt:"A Dispersão",cn:"涣",upper:"011",lower:"010",kw:"Vento sobre Água — dissolver, dispersar e renovar"},
+{num:60,nome:"Jie",pt:"A Limitação",cn:"节",upper:"010",lower:"110",kw:"Água sobre Lago — limites, moderação e disciplina"},
+{num:61,nome:"Zhong Fu",pt:"A Verdade Interior",cn:"中孚",upper:"011",lower:"110",kw:"Vento sobre Lago — sinceridade, confiança e integridade"},
+{num:62,nome:"Xiao Guo",pt:"A Preponderância do Pequeno",cn:"小过",upper:"100",lower:"001",kw:"Trovão sobre Montanha — atenção aos detalhes, modéstia"},
+{num:63,nome:"Ji Ji",pt:"Após a Conclusão",cn:"既济",upper:"010",lower:"101",kw:"Água sobre Fogo — ordem, conclusão e vigilância"},
+{num:64,nome:"Wei Ji",pt:"Antes da Conclusão",cn:"未济",upper:"101",lower:"010",kw:"Fogo sobre Água — transição, cautela e novo começo"}
+];
+function findHexagram(upper, lower){
+for(var i=0;i<HEXAGRAMS.length;i++){
+if(HEXAGRAMS[i].upper===upper && HEXAGRAMS[i].lower===lower){return HEXAGRAMS[i];}
+}
+return null;
+}
+
+/* --- Estado da consulta I Ching --- */
+var icState = {
+method:'', cost:0, question:'', lines:[], // 6 valores (6,7,8,9)
+hex:null, movingHex:null, movingLines:[], active:false
+};
+var IC_METHODS = {
+classico:{label:'I Ching Clássico',cost:50,hint:'Formule sua pergunta com sinceridade. Você lançará as 6 moedas, uma a uma, para revelar o hexagrama e as linhas em movimento.'},
+rapido:{label:'I Ching Rápido',cost:20,hint:'Formule sua pergunta. O hexagrama será gerado de imediato, sem linhas em movimento, para uma orientação direta.'},
+dia:{label:'I Ching do Dia',cost:0,hint:'Uma orientação gratuita para as próximas 24 horas. Formule sua intenção e receba o hexagrama do dia.'}
+};
+
+/* --- Iniciar: escolha do método --- */
+function initIChing(){
+document.getElementById('ic-stage-choice').style.display='block';
+document.getElementById('ic-stage-question').style.display='none';
+document.getElementById('ic-stage-coins').style.display='none';
+document.getElementById('ic-stage-hex').style.display='none';
+document.getElementById('ic-stage-reading').style.display='none';
+showPage('page-iching');
+}
+function icStart(method){
+if(!currentUser){showModal('Erro','Faça login para consultar o I Ching.');return;}
+var m = IC_METHODS[method];
+if(!m){return;}
+if(!currentUser.isMago && currentUser.credits < m.cost){showModal('Créditos Insuficientes','Esta consulta requer '+m.cost+' créditos. Adquira mais créditos para continuar.');return;}
+icState.method = method;
+icState.cost = m.cost;
+icState.question = '';
+icState.lines = [];
+icState.hex = null; icState.movingHex = null; icState.movingLines = [];
+document.getElementById('ic-method-label').innerText = m.label + (m.cost>0 ? ' — '+m.cost+' créditos' : ' — Grátis');
+document.getElementById('ic-question-hint').innerText = m.hint;
+document.getElementById('ic-question').value = '';
+document.getElementById('ic-stage-choice').style.display='none';
+document.getElementById('ic-stage-question').style.display='block';
+window.scrollTo(0,0);
+}
+function icConfirmQuestion(){
+var q = document.getElementById('ic-question').value.trim();
+if(q.length < 8){showModal('Pergunta Inválida','Escreva sua pergunta de forma clara e objetiva, com pelo menos 8 caracteres.');return;}
+icState.question = q;
+if(icState.method==='classico'){
+icRenderCoins();
+}else{
+icGenerateAuto();
+}
+}
+function icReset(){
+icState.lines=[]; icState.hex=null; icState.movingHex=null; icState.movingLines=[]; icState.active=false;
+initIChing();
+}
+
+/* --- Lógica das moedas (método clássico) --- */
+function icRenderCoins(){
+document.getElementById('ic-stage-question').style.display='none';
+document.getElementById('ic-stage-coins').style.display='block';
+document.getElementById('ic-stage-hex').style.display='none';
+document.getElementById('ic-stage-reading').style.display='none';
+var area = document.getElementById('ic-coins-area');
+area.innerHTML='';
+icState.lines=[];
+icState.active=true;
+for(var i=0;i<6;i++){
+(function(idx){
+var wrap=document.createElement('div');
+wrap.className='ic-coin-wrap';
+wrap.id='ic-coin-'+idx;
+wrap.innerHTML='<div class="ic-coin" onclick="icThrowCoin('+idx+')"></div><div class="ic-coin-label">Linha '+(idx+1)+'</div>';
+area.appendChild(wrap);
+})(i);
+}
+document.getElementById('ic-coins-status').innerText='Lançadas: 0 / 6';
+window.scrollTo(0,0);
+}
+function icThrowCoin(idx){
+if(!icState.active){return;}
+var wrap=document.getElementById('ic-coin-'+idx);
+var coin=wrap.querySelector('.ic-coin');
+if(coin.classList.contains('used')){return;}
+coin.classList.add('spinning');
+coin.classList.add('used');
+setTimeout(function(){
+/* 3 moedas: cara=3, coroa=2. Soma 6,7,8,9 */
+var v=0;
+for(var c=0;c<3;c++){v += (Math.random()<0.5)?3:2;}
+icState.lines[idx]=v;
+var tipo = v===6?'yin móvel':(v===7?'yang fixo':(v===8?'yin fixo':'yang móvel'));
+var simbolo = (v===6||v===8)?'— —':'———';
+wrap.querySelector('.ic-coin-label').innerHTML='Linha '+(idx+1)+'<br><span style="color:var(--gold)">'+simbolo+' · '+tipo+'</span>';
+var feitas=0;
+for(var i=0;i<6;i++){if(icState.lines[i]){feitas++;}}
+document.getElementById('ic-coins-status').innerText='Lançadas: '+feitas+' / 6';
+if(feitas===6){
+icState.active=false;
+setTimeout(icBuildHexagram,600);
+}
+},900);
+}
+/* --- Geração automática (Rápido / do Dia): sem linhas móveis --- */
+function icGenerateAuto(){
+icState.lines=[];
+for(var i=0;i<6;i++){
+icState.lines[i] = (Math.random()<0.5)?7:8; // apenas yang/yin fixos
+}
+icBuildHexagram();
+}
+
+/* --- Montagem do hexagrama + mutação --- */
+function icBuildHexagram(){
+var lines = icState.lines; // índice 0 = linha 1 (base)
+var lowerBin='', upperBin='';
+for(var i=0;i<3;i++){ lowerBin += lines[i]===7||lines[i]===9 ? '1' : '0'; }
+for(var i=3;i<6;i++){ upperBin += lines[i]===7||lines[i]===9 ? '1' : '0'; }
+icState.hex = findHexagram(upperBin, lowerBin);
+/* Linhas móveis: 6 (yin velho) e 9 (yang velho) */
+icState.movingLines=[];
+var movingUpper='', movingLower='';
+for(var i=0;i<3;i++){
+if(lines[i]===6){movingLower+='1';icState.movingLines.push(i+1);}
+else if(lines[i]===9){movingLower+='0';icState.movingLines.push(i+1);}
+else{movingLower += lines[i]===7?'1':'0';}
+}
+for(var i=3;i<6;i++){
+if(lines[i]===6){movingUpper+='1';icState.movingLines.push(i+1);}
+else if(lines[i]===9){movingUpper+='0';icState.movingLines.push(i+1);}
+else{movingUpper += lines[i]===7?'1':'0';}
+}
+icState.movingHex = (icState.movingLines.length>0) ? findHexagram(movingUpper,movingLower) : null;
+icRenderHexagram();
+}
+/* --- Renderização visual do hexagrama --- */
+function icLineHTML(value, moving){
+var inner = (value===7||value===9)
+? '<div class="ic-yang"></div>'
+: '<div class="ic-yin"><span></span><span></span></div>';
+var mark = moving ? '<span class="ic-mark">•</span>' : '';
+return '<div class="ic-line'+(moving?' moving':'')+'">'+inner+mark+'</div>';
+}
+function icHexagramBox(hex, title, movingLines) {
+  if (!hex) return '';
+
+  movingLines = movingLines || [];
+
+  var bin = hex.lower + hex.upper;
+  var html = '<div class="ic-hex-box">';
+  html += '<div class="ic-hex-title">' + title + '</div>';
+  html += '<div class="ic-hex">';
+
+  for (var i = 0; i < 6; i++) {
+    var val = bin.charAt(i) === '1' ? 7 : 8;
+    var moving = movingLines.indexOf(i + 1) !== -1;
+    html += icLineHTML(val, moving);
+  }
+
+  html += '</div>';
+  html += '<div class="ic-hex-name">' + hex.pt + '</div>';
+  html += '<div class="ic-hex-num">Hexagrama ' +
+    hex.num + ' · ' + hex.nome + ' (' + hex.cn + ')</div>';
+  html += '<div style="font-size:11px;color:#b9aede;margin-top:4px">' +
+    hex.kw + '</div>';
+  html += '</div>';
+
+  return html;
+}
+function icRenderHexagram(){
+document.getElementById('ic-stage-coins').style.display='none';
+document.getElementById('ic-stage-question').style.display='none';
+document.getElementById('ic-stage-hex').style.display='block';
+document.getElementById('ic-stage-reading').style.display='none';
+var area = document.getElementById('ic-hex-area');
+var caption = document.getElementById('ic-hex-caption');
+var btnWrap = document.getElementById('ic-reading-btn-wrap');
+var html='';
+if(icState.movingHex){
+html += icHexagramBox(
+  icState.hex,
+  'Hexagrama Principal',
+  icState.movingLines
+);
+html += '<div class="ic-arrow">→</div>';
+html += icHexagramBox(icState.movingHex,'Hexagrama Mutante');
+caption.innerHTML = 'Seu hexagrama é o <strong>'+icState.hex.pt+'</strong> (nº '+icState.hex.num+'). As linhas em movimento ('+icState.movingLines.join(', ')+') transformam-no no <strong>'+icState.movingHex.pt+'</strong> (nº '+icState.movingHex.num+').';
+}else{
+html += icHexagramBox(icState.hex,'Seu Hexagrama');
+caption.innerHTML = 'Seu hexagrama é o <strong>'+icState.hex.pt+'</strong> (nº '+icState.hex.num+'). Não há linhas em movimento — a situação está estável.';
+}
+area.innerHTML = html;
+btnWrap.style.display='block';
+window.scrollTo(0,0);
+}
+    /* =========================================================
+   I CHING — GEMINI API + LEITURA + CRÉDITOS + INICIALIZAÇÃO
+   ========================================================= */
+
+/* --- Configuração da API Gemini --- */
+var GEMINI_MODEL = 'gemini-2.0-flash';
+var GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/'+GEMINI_MODEL+':generateContent?key='+GEMINI_API_KEY;
+
+/* --- Focos para o I Ching do Dia --- */
+var IC_DAY_FOCUS = ['Trabalho','Amor','Dinheiro','Família','Saúde','Espiritualidade','Estudos','Decisões'];
+
+/* --- Gerar a leitura (chamada ao Gemini) --- */
+function icGenerateReading() {
+  var btnWrap = document.getElementById('ic-reading-btn-wrap');
+  btnWrap.style.display = 'none';
+
+  var content = document.getElementById('ic-reading-content');
+  content.innerHTML =
+    '<div class="ic-loading"><div class="ic-spin"></div>' +
+    '<p>O oráculo está consultando os astros e tecendo a sua resposta...</p></div>';
+
+  document.getElementById('ic-stage-reading').style.display = 'block';
+  window.scrollTo(0, 0);
+
+  var prompt = icBuildPrompt();
+
+  fetch('/api/iching', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      prompt: prompt,
+      metodo: icState.method,
+      foco: icDayFocusText()
+    })
+  })
+  .then(function (r) {
+    if (!r.ok) throw new Error('api');
+    return r.json();
+  })
+  .then(function (data) {
+    if (!data || !data.resposta) throw new Error('vazio');
+
+    if (icState.method === 'dia') {
+      icDaySave();
+    }
+
+    icRenderReading(data.resposta);
+  })
+  .catch(function () {
+    icRenderReading(icFallbackReading());
+  });
+}
+
+/* --- Montar o prompt para o Gemini --- */
+function icBuildPrompt(){
+var h = icState.hex;
+var mh = icState.movingHex;
+var q = icState.question;
+var method = IC_METHODS[icState.method].label;
+var p = 'Você é um oráculo do I Ching, o Livro das Mutações, com profundo conhecimento dos 64 hexagramas. '
++ 'Escreva uma leitura ÚNICA, longa, detalhada e dissertativa (entre 350 e 500 palavras), em português do Brasil, '
++ 'em tom acolhedor, imersivo e reflexivo. NUNCA use respostas prontas ou genéricas: cada leitura deve ser '
++ 'profundamente conectada à pergunta do usuário. Não use listas de tópicos; escreva em parágrafos fluidos.\n\n'
++ 'MÉTODO: '+method+'\n'
++ 'PERGUNTA DO CONSULENTE: "'+q+'"\n\n'
++ 'HEXAGRAMA PRINCIPAL: '+h.pt+' (Hexagrama '+h.num+', "'+h.nome+'", '+h.cn+'). '
++ 'Trigramas: inferior '+trigramInfo(h.lower).pt+' ('+trigramInfo(h.lower).simbolo+'), superior '+trigramInfo(h.upper).pt+' ('+trigramInfo(h.upper).simbolo+'). '
++ 'Síntese: '+h.kw+'.\n';
+if(mh){
+p += 'LINHAS EM MOVIMENTO: linhas '+icState.movingLines.join(', ')+'. '
++ 'HEXAGRAMA MUTANTE: '+mh.pt+' (Hexagrama '+mh.num+', "'+mh.nome+'", '+mh.cn+'). Síntese: '+mh.kw+'.\n';
+}else{
+p += 'Não há linhas em movimento: a situação está estável e o conselho se aplica diretamente ao momento presente.\n';
+}
+p += '\nESTRUTURA DA RESPOSTA (em parágrafos, sem títulos numerados):\n'
++ '1) Abra reconhecendo a pergunta do consulente e o momento que ele vive.\n'
++ '2) Explique o significado profundo do hexagrama principal em relação à pergunta.\n'
++ '3) Se houver linhas em movimento, interprete cada uma e o que ela revela sobre a situação.\n'
++ '4) Explique o hexagrama mutante como a tendência/transformação futura.\n'
++ '5) Encerre com um conselho prático, acolhedor e aplicável, reforçando o autoconhecimento.\n'
++ 'Lembre: é para entretenimento e reflexão, não substitui aconselhamento profissional.';
+var focoDia = icDayFocusText();
+if(focoDia){ p += 'FOCO DO DIA: '+focoDia+'.\\n'; }
+return p;
+}
+
+/* --- Renderizar a leitura --- */
+function icRenderReading(text){
+var content = document.getElementById('ic-reading-content');
+var html = '<div class="ic-result">';
+html += '<span class="ic-tag">'+IC_METHODS[icState.method].label+'</span>';
+html += '<h3>'+icState.hex.pt+' · Hexagrama '+icState.hex.num+'</h3>';
+html += '<p style="font-size:12.5px;color:#b9aede">'+icState.hex.nome+' ('+icState.hex.cn+') — '+icState.hex.kw+'</p>';
+if(icState.movingHex){
+html += '<h3>Transformação → '+icState.movingHex.pt+' · Hexagrama '+icState.movingHex.num+'</h3>';
+html += '<p style="font-size:12.5px;color:#b9aede">Linhas em movimento: '+icState.movingLines.join(', ')+'</p>';
+}
+html += '<div style="margin-top:14px;white-space:pre-wrap;line-height:1.9">'+text+'</div>';
+html += '<p style="font-size:11px;color:#8a7fb0;margin-top:20px;border-top:1px solid rgba(212,168,67,.2);padding-top:12px">Conteúdo para fins de entretenimento e autoconhecimento. Esta leitura não substitui aconselhamento médico, psicológico, jurídico ou financeiro profissional.</p>';
+html += '</div>';
+content.innerHTML = html;
+window.scrollTo(0,0);
+}
+
+/* --- Resposta de fallback (caso a API falhe) --- */
+function icFallbackReading(){
+var h = icState.hex;
+var mh = icState.movingHex;
+var txt = 'O oráculo respondeu com o hexagrama '+h.pt+' (nº '+h.num+', "'+h.nome+'"). '
++ 'Sua síntese é: '+h.kw+'. ';
+if(mh){
+txt += 'As linhas em movimento ('+icState.movingLines.join(', ')+') transformam a situação no hexagrama '+mh.pt+' (nº '+mh.num+'), indicando para onde a energia caminha. ';
+}else{
+txt += 'Não há linhas em movimento, o que indica estabilidade no momento presente. ';
+}
+txt += 'Reflita sobre como essa energia se conecta à sua pergunta, confie na sua intuição e observe os sinais ao seu redor. '
++ 'Se a conexão com o cosmos falhou agora, tente novamente em instantes para uma leitura ainda mais detalhada.';
+return txt;
+}
+
+/* --- Desconto de créditos (chamado ao confirmar a consulta) --- */
+function icDeductCredits(){
+if(icState.method==='dia'){ return; } // grátis
+if(currentUser.isMago){ return; } // ilimitado
+currentUser.credits -= icState.cost;
+saveUser(currentUser);
+updateCreditsDisplay();
+}
+
+/* --- I Ching do Dia: limite diário + foco sorteado --- */
+function icDayCheck(){
+var key = 'iching_dia_'+currentUser.email;
+var today = new Date().toDateString();
+var stored = localStorage.getItem(key);
+if(stored){
+var data = JSON.parse(stored);
+if(data.date===today){
+showModal('I Ching do Dia','Você já consultou o I Ching do Dia hoje. Volte amanhã para uma nova orientação gratuita.');
+return false;
+}
+}
+return true;
+}
+function icDaySave(){
+var key = 'iching_dia_'+currentUser.email;
+var today = new Date().toDateString();
+var foco = IC_DAY_FOCUS[Math.floor(Math.random()*IC_DAY_FOCUS.length)];
+localStorage.setItem(key, JSON.stringify({date:today, foco:foco}));
+return foco;
+}
+
+/* --- Ajuste no fluxo: cobrar créditos e tratar o I Ching do Dia --- */
+/* (Substitua a função icConfirmQuestion do Bloco 2 por esta versão) */
+function icConfirmQuestion(){
+var q = document.getElementById('ic-question').value.trim();
+if(q.length < 8){showModal('Pergunta Inválida','Escreva sua pergunta de forma clara e objetiva, com pelo menos 8 caracteres.');return;}
+icState.question = q;
+if(icState.method==='dia'){
+if(!icDayCheck()){ icReset(); return; }
+}
+icDeductCredits();
+if(icState.method==='classico'){
+icRenderCoins();
+}else{
+icGenerateAuto();
+}
+}
+
+/* --- Capturar o foco do dia para o prompt (opcional) --- */
+function icDayFocusText(){
+if(icState.method!=='dia'){ return ''; }
+var stored = localStorage.getItem('iching_dia_'+currentUser.email);
+try{ var d = JSON.parse(stored); return d.foco||''; }catch(e){ return ''; }
+}
+
+/* --- Registrar o I Ching do Dia ao gerar a leitura --- */
+/* (chame icDaySave() dentro de icGenerateReading quando method==='dia') */
+
+/* --- Inicialização: garantir que o I Ching responda ao dashboard --- */
+/* (Se a função initIChing já existir no Bloco 2, mantenha-a. Esta é a versão final.) */
+function initIChing(){
+if(!currentUser){ showModal('Acesso','Faça login para consultar o I Ching.'); return; }
+document.getElementById('ic-stage-choice').style.display='block';
+document.getElementById('ic-stage-question').style.display='none';
+document.getElementById('ic-stage-coins').style.display='none';
+document.getElementById('ic-stage-hex').style.display='none';
+document.getElementById('ic-stage-reading').style.display='none';
+showPage('page-iching');
 }
 </script>
       <!-- ===== PÁGINA SOBRE O ORACULUM VITAE ===== -->
@@ -4217,6 +5185,12 @@ if (sessionStorage.getItem('baloes_fechados') === '1') {
   }
 
   preencherEstados();
+
+    atualizarBaloes();
+    setTimeout(function(){
+  var el = document.getElementById('baloon-gratis');
+  if (el) el.style.opacity = '1';
+}, 100);
     
 </script>
 
