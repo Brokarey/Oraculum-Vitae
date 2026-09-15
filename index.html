@@ -3096,7 +3096,6 @@ body{background:#0d0716}
     function normalizeEmail(e) {return (e || '').trim().toLowerCase();}
     function findUser(email) {
       email = normalizeEmail(email);
-      if (email === 'g@gmail.com') {return {name: "Gui Admin", email: email, credits: 20000, isMago: false};}
       try {
         var stored = localStorage.getItem('user_' + email);
         if (stored) {return JSON.parse(stored);}
@@ -3134,15 +3133,28 @@ body{background:#0d0716}
       mostrarBalaoCentralizado();
     }
     function handleLogin() {
-      var email = normalizeEmail(document.getElementById('login-email').value);
-      var pass = document.getElementById('login-pass').value;
-      if (!email || !pass) {showModal("Erro", "Preencha e-mail e senha para entrar."); return;}
-      if (email === 'g@gmail.com' && pass === 'gggggg') {
-        currentUser = {name: "Gui Admin", email: email, credits: 20000, isMago: false};
-        saveUser(currentUser);
-        enterPortal();
-        return;
-      }
+    var ambienteLocal =
+  location.hostname === 'localhost' ||
+  location.hostname === '127.0.0.1' ||
+  location.protocol === 'file:';
+
+if (
+  ambienteLocal &&
+  email === 'g@gmail.com' &&
+  pass === 'gggggg'
+) {
+  currentUser = {
+    name: 'Gui Admin',
+    email: email,
+    credits: 20000,
+    isMago: false,
+    contaTeste: true
+  };
+
+  saveUser(currentUser);
+  enterPortal();
+  return;
+}
       var user = findUser(email);
       if (user) {
         if (user.isMago || user.pass === pass) {
