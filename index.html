@@ -3132,38 +3132,75 @@ body{background:#0d0716}
       checkBalloon();
       mostrarBalaoCentralizado();
     }
-    function handleLogin() {
-    var ambienteLocal =
-  location.hostname === 'localhost' ||
-  location.hostname === '127.0.0.1' ||
-  location.protocol === 'file:';
+   function handleLogin(event) {
+  if (event) {
+    event.preventDefault();
+  }
 
-if (
-  ambienteLocal &&
-  email === 'g@gmail.com' &&
-  pass === 'gggggg'
-) {
-  currentUser = {
-    name: 'Gui Admin',
-    email: email,
-    credits: 20000,
-    isMago: false,
-    contaTeste: true
-  };
+  var campoEmail = document.querySelector('input[type="email"]');
+  var campoSenha = document.querySelector('input[type="password"]');
 
-  saveUser(currentUser);
-  enterPortal();
-  return;
+  var email = campoEmail
+    ? campoEmail.value.trim().toLowerCase()
+    : '';
+
+  var pass = campoSenha
+    ? campoSenha.value
+    : '';
+
+  if (!email || !pass) {
+    showModal('Erro', 'Digite seu e-mail e sua senha.');
+    return;
+  }
+
+  var ambienteLocal =
+    location.hostname === 'localhost' ||
+    location.hostname === '127.0.0.1' ||
+    location.protocol === 'file:';
+
+  /*
+   * Conta de teste: funciona somente no computador local.
+   * Remova este bloco antes de publicar o site.
+   */
+  if (
+    ambienteLocal &&
+    email === 'g@gmail.com' &&
+    pass === 'gggggg'
+  ) {
+    currentUser = {
+      name: 'Gui Admin',
+      email: email,
+      credits: 20000,
+      isMago: false,
+      contaTeste: true
+    };
+
+    saveUser(currentUser);
+    enterPortal();
+    return;
+  }
+
+  var user = findUser(email);
+
+  if (!user) {
+    showModal(
+      'Usuário não encontrado',
+      'Não encontramos uma conta com esse e-mail. Cadastre-se para criar uma conta.'
+    );
+    return;
+  }
+
+  if (user.isMago || user.pass === pass) {
+    currentUser = user;
+    saveUser(currentUser);
+    enterPortal();
+  } else {
+    showModal(
+      'Erro',
+      'Senha incorreta. Verifique sua senha e tente novamente.'
+    );
+  }
 }
-      var user = findUser(email);
-      if (user) {
-        if (user.isMago || user.pass === pass) {
-          currentUser = user;
-          saveUser(currentUser);
-          enterPortal();
-        } else {showModal("Erro", "Senha incorreta. Verifique e tente novamente.");}
-      } else {showModal("Usuário não encontrado", "Não encontramos uma conta com esse e-mail. Cadastre-se para ganhar 50 créditos, ou use a conta demo: g@gmail.com / gggggg.");}
-    }
     function handleRegister() {
       var name = document.getElementById('reg-name').value;
       var email = normalizeEmail(document.getElementById('reg-email').value);
