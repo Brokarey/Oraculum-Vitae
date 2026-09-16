@@ -1538,6 +1538,18 @@ body{background:#0d0716}
       min-height: 100vh;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+  const SUPABASE_URL = 'https://xeoenemopaonmiltmuzt.supabase.co';
+
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhlb2VuZW1vcGFvbm1pbHRudXp0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTUwNDMzOCwiZXhwIjoyMTA1MDgwMzM4fQ.KQn726UYonQcvzPRpbgOx_Pmu9imuagg_u97bcyaPxk';
+
+  window.supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+</script>
 </head>
 
 <body>
