@@ -175,21 +175,39 @@ var prompt = 'Você é um tarólogo mestre com décadas de experiência, conheci
       return res.status(502).json({ error: 'Resposta da IA em formato inesperado: ' + raw });
     }
     if (parsed.status === 'reformular') {
-  // A pergunta não foi compreendida → devolve o crédito ao usuário
-  const reembolso = await processarReembolso(parsed, (req.body.usuarioId || null), (req.body.custo || 0));
+  // 1️⃣ Envia a requisição ao endpoint interno de reembolso
+  const reembolsoResp = await fetch(`${process.env.BASE_URL}/api/reembolso`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      // o objeto `parsed` já contém o ID da consulta (consultaId ou similar)
+      consultaId: parsed.consultaId || parsed.id || null,
+      usuarioId: req.body.usuarioId,          // vem do corpo da requisição original
+      custo: req.body.custo,                  // quantidade de créditos a devolver
+      motivo: 'Pergunta não compreendida',    // mensagem opcional para auditoria
+    }),
+  });
+
+  // 2️⃣ Interpreta a resposta do serviço de reembolso
+  const reembolso = await reembolsoResp.json();
+
+  // 3️⃣ Responde ao cliente da mesma forma que antes
   return res.status(200).json({
     status: 'reformular',
     mensagem: reembolso.mensagem,
-    reembolsoEfetuado: reembolso.reembolsou
+    reembolsoEfetuado: reembolso.reembolsado, // true ou false
   });
 }
 
-    if (!parsed.resposta) {
-      return res.status(502).json({ error: 'A IA não gerou a leitura.' });
-    }
-
-    res.status(200).json({ status: 'leitura', resposta: parsed.resposta, area: area || null });
-  } catch (err) {
-    res.status(500).json({ error: 'Erro ao chamar a IA: ' + err.message });
-  }
+// -------------------------------------------------
+// O restante do fluxo permanece inalterado
+// -------------------------------------------------
+if (!parsed.resposta) {
+  return res.status(502).json({ error: 'A IA não gerou a leitura.' });
 }
+
+res.status(200).json({
+  status: 'leitura',
+  resposta: parsed.resposta,
+  area: area || null,
+});
