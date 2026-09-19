@@ -1579,24 +1579,43 @@ body{background:#0d0716}
 
     /* ----------  ESTILO PADRÃO DO GOOGLE  ---------- */
 .btn-google {
+  background: #fff;               /* fundo branco */
+  color: #1f1f1f;                 /* texto escuro */
+  border: 1px solid #dadce0;      /* borda cinza clara */
+  border-radius: 4px;
+  padding: 11px 14px;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 280px;
-  margin: 0.4rem auto;
-  padding: 0.5rem 0;
-  font-size: 0.85rem;               /* fonte menor que o padrão */
-  background: #fff;                 /* fundo branco */
-  color: #3c4043;                   /* texto quase preto */
-  border: 1px solid #dadce0;        /* borda cinza clara */
-  border-radius: 4px;
+  gap: 8px;
   cursor: pointer;
   transition: background 0.2s, box-shadow 0.2s;
 }
 .btn-google:hover {
   background: #f8f9fa;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* ---- Botão Facebook (visual oficial) ---- */
+.btn-facebook {
+  background: #1877F2;   /* azul oficial do Facebook */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 11px 14px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-facebook:hover {
+  background: #166fe5;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
 }
 .btn-google svg { margin-right: 8px; }
 
@@ -1670,23 +1689,30 @@ body{background:#0d0716}
         <div id="tab-register" class="tab" onclick="toggleAuth('register')">Cadastrar</div>
       </div>
       <div id="form-login" class="auth-form">
+  <!-- E‑mail -->
   <input type="email" id="login-email" placeholder="Seu e‑mail" autocomplete="email"
          onkeydown="if(event.key==='Enter')handleLogin()">
+
+  <!-- Senha -->
   <input type="password" id="login-pass" placeholder="Sua senha" autocomplete="current-password"
          onkeydown="if(event.key==='Enter')handleLogin()">
 
-  <!-- link “Recuperar senha” -->
-  <a href="recuperar-senha.html" class="recover-link">Recuperar senha</a>
+  <!-- Link “Recuperar senha” -->
+  <a href="javascript:void(0)" class="recover-link" onclick="showModal('Recuperar senha','Insira seu e‑mail para receber o link de redefinição.')">
+    Recuperar senha
+  </a>
 
+  <!-- Botão principal -->
   <button class="btn-portal" onclick="handleLogin()">Entrar no Portal</button>
 
+  <!-- Divisor -->
   <div class="divider">ou</div>
 
   <!-- Botão Google -->
   <button class="btn-google"
           onclick="showModal('Google Login','Em breve você poderá entrar com sua conta Google.')">
     <svg width="20" height="20" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-      <!-- (código SVG do Google – pode manter o que já estava aqui) -->
+      <!-- (código SVG do Google – já estava no seu arquivo) -->
     </svg>
     Entrar com o Google
   </button>
@@ -1695,7 +1721,7 @@ body{background:#0d0716}
   <button class="btn-facebook"
           onclick="showModal('Facebook Login','Em breve você poderá entrar com sua conta Facebook.')">
     <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <!-- (código SVG do Facebook – pode manter o que já estava aqui) -->
+      <!-- SVG simples do “f” do Facebook (pode usar o ícone Font‑Awesome: <i class="fab fa-facebook-f"></i>) -->
     </svg>
     Entrar com o Facebook
   </button>
