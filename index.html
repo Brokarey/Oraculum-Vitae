@@ -1538,6 +1538,18 @@ body{background:#0d0716}
       min-height: 100vh;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+  const SUPABASE_URL = 'https://xeoenemopaonmiltnuzt.supabase.co';
+
+  const SUPABASE_ANON_KEY = 'sb_publishable__zTD9v1E574zUwemhgx7Bw_GvOzgBMI';
+
+  window.supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+</script>
 </head>
 
 <body>
@@ -2120,7 +2132,7 @@ body{background:#0d0716}
             <td>MAGO</td>
             <td>R$ 59,90 / mês<br><span style="font-size:11px;color:#aaa">(Plano anual: de <s>R$ 1.437,60</s> por R$
                 718,80)</span></td>
-            <td>créditos ilimitados</td>
+            <td>2.500 créditos</td>
             <td><button class="btn-portal" style="padding:5px;background:var(--gold);color:black"
                 onclick="showModal('Aviso','Em breve.')">Assinar</button></td>
           </tr>
@@ -2140,13 +2152,13 @@ body{background:#0d0716}
             onclick="showModal('Aviso','Em breve.')">Comprar</button>
         </div>
         <div class="dash-card">
-          <h3>250 Créditos</h3>
+          <h3>300 Créditos</h3>
           <p>R$ 29,90</p><button class="btn-portal" style="margin-top:10px"
             onclick="showModal('Aviso','Em breve.')">Comprar</button>
         </div>
         <div class="dash-card">
           <h3>500 Créditos</h3>
-          <p>R$ 49,90</p><button class="btn-portal" style="margin-top:10px"
+          <p>R$ 39,90</p><button class="btn-portal" style="margin-top:10px"
             onclick="showModal('Aviso','Em breve.')">Comprar</button>
         </div>
       </div>
@@ -3201,23 +3213,95 @@ body{background:#0d0716}
     );
   }
 }
-    function handleRegister() {
-      var name = document.getElementById('reg-name').value;
-      var email = normalizeEmail(document.getElementById('reg-email').value);
-      var pass = document.getElementById('reg-pass').value;
-      var confirm = document.getElementById('reg-pass-confirm').value;
-      var terms = document.getElementById('reg-terms').checked;
-      if (name.length < 3) {return showModal("Erro", "Nome muito curto.");}
-      if (email.indexOf('@') < 0) {return showModal("Erro", "E-mail inválido.");}
-      if (pass.length < 4) {return showModal("Erro", "A senha deve ter pelo menos 4 caracteres.");}
-      if (pass !== confirm) {return showModal("Erro", "As senhas não coincidem.");}
-      if (!terms) {return showModal("Erro", "Aceite os termos.");}
-      if (findUser(email)) {return showModal("Erro", "Já existe uma conta com esse e-mail. Faça login.");}
-      var userData = {name: name, email: email, pass: pass, credits: 50, isMago: false};
-      saveUser(userData);
-      currentUser = userData;
-      enterPortal();
+    async function handleRegister() {
+  var name = document.getElementById('reg-name').value.trim();
+  var email = normalizeEmail(
+    document.getElementById('reg-email').value
+  );
+  var pass = document.getElementById('reg-pass').value;
+  var confirm = document.getElementById('reg-pass-confirm').value;
+  var terms = document.getElementById('reg-terms').checked;
+
+  if (name.length < 3) {
+    return showModal("Erro", "Nome muito curto.");
+  }
+
+  if (email.indexOf('@') < 0) {
+    return showModal("Erro", "E-mail inválido.");
+  }
+
+  if (pass.length < 6) {
+    return showModal(
+      "Erro",
+      "A senha deve ter pelo menos 6 caracteres."
+    );
+  }
+
+  if (pass !== confirm) {
+    return showModal("Erro", "As senhas não coincidem.");
+  }
+
+  if (!terms) {
+    return showModal("Erro", "Aceite os termos.");
+  }
+
+  try {
+    var resultado = await window.supabaseClient.auth.signUp({
+      email: email,
+      password: pass,
+      options: {
+        data: {
+          name: name
+        }
+      }
+    });
+
+    if (resultado.error) {
+      if (
+        resultado.error.message.toLowerCase().includes('already registered')
+      ) {
+        return showModal(
+          "Erro",
+          "Já existe uma conta com esse e-mail. Faça login."
+        );
+      }
+
+      return showModal("Erro", resultado.error.message);
     }
+
+    if (!resultado.data.user) {
+      return showModal(
+        "Erro",
+        "Não foi possível criar a conta."
+      );
+    }
+
+    if (!resultado.data.session) {
+      return showModal(
+        "Cadastro realizado",
+        "Sua conta foi criada. Verifique seu e-mail para confirmar o cadastro."
+      );
+    }
+
+    currentUser = {
+      id: resultado.data.user.id,
+      name: name,
+      email: email,
+      credits: 5000,
+      isMago: false
+    };
+
+    enterPortal();
+
+  } catch (erro) {
+    console.error("Erro no cadastro:", erro);
+
+    showModal(
+      "Erro",
+      "Não foi possível realizar o cadastro. Tente novamente."
+    );
+  }
+}
     function logout() {
       localStorage.removeItem('orculum_user');
       currentUser = null;
