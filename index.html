@@ -7,21 +7,22 @@
   <title>Oraculum Vitae | Portal Esotérico</title>
   <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preload" as="image" href="Graficos/Tela-Inicial.avif">
   <style>
-    @font-face {
-      font-family: 'Blackwood Castle Shadow';
-      src: url('BlackwoodCastleShadow.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
+ @font-face {
+  font-family: 'Blackwood Castle Shadow';
+  src: url('BlackwoodCastleShadow.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-   #baloon-gratis {
+#baloon-gratis {
   position: fixed;
-  left: 45vw;              ← mais para a direita, perto do login
+  left: 10vw;
   top: 50%;
   transform: translateY(-50%);
-  width: 300px;
+  width: 150px;
   max-width: 80vw;
   text-align: center;
   border: 1px solid var(--gold);
@@ -31,15 +32,10 @@
   animation: baloonFadeIn 3s ease forwards;
 }
 
-    @keyframes baloonFadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
+@keyframes baloonFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
     :root {
       --bg-deep: #0d0520;
@@ -98,66 +94,62 @@
     }
 
     @keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1)
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2)
+  }
+}
 
-      0%,
-      100% {
-        opacity: 0.3;
-        transform: scale(1)
-      }
+.page {
+  display: none;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 100px;
+  animation: fadeIn 0.5s ease
+}
 
-      50% {
-        opacity: 1;
-        transform: scale(1.2)
-      }
-    }
+.page.active {
+  display: block
+}
 
-    .page {
-      display: none;
-      min-height: 100vh;
-      width: 100%;
-      padding-top: 100px;
-      animation: fadeIn 0.5s ease
-    }
+.baloon {
+  position: absolute;
+  left: -340px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  max-width: 80vw;
+  text-align: center;
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 30px rgba(201,168,106,.45);
+  animation: baloonPulse 3s ease-in-out infinite;
+}
 
-    .page.active {
-      display: block
-    }
+@media (max-width: 768px) {
+  .baloon {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 88vw;
+    z-index: 9999;
+  }
+}
 
-    .baloon {
-      position: absolute;
-      left: -340px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 300px;
-      max-width: 80vw;
-      text-align: center;
-      border: 1px solid var(--gold);
-      box-shadow: 0 0 30px rgba(201, 168, 106, .45);
-      animation: baloonPulse 3s ease-in-out infinite;
-    }
-
-    @media (max-width: 768px) {
-      .baloon {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 88vw;
-        z-index: 9999;
-      }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px)
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0)
+  }
+}
 
     #page-login {
       display: none;
@@ -184,7 +176,7 @@
       width: 100%;
       max-width: 360px;
       box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
-      transform: translateY(-20px)
+      transform:translateY(-20px)
     }
 
     .auth-tabs {
@@ -764,7 +756,8 @@
     @keyframes popIn {
       from {
         transform: translate(-50%, -50%) scale(0.7);
-        opacity: 0: 0
+        opacity: 0
+        : 0
       }
 
       to {
@@ -1187,262 +1180,362 @@
     }
 
     /* ===== CONSERTO: permitir rolagem até o fim ===== */
-    .page {
-      overflow-y: auto !important
-    }
+.page{overflow-y:auto!important}
+body{background:#0d0716}
 
-    body {
-      background: #0d0716
-    }
-
-    /* ===== RODAPÉ ===== */
-    .site-footer {
-      width: 100%;
-      margin-top: 0;
-      background: rgba(13, 5, 32, 0.97);
-      border-top: 1px solid var(--gold);
-      color: var(--gold-light);
-      padding: 35px 20px 15px;
-      text-align: center
-    }
-
-    .footer-content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      max-width: 1100px;
-      margin: 0 auto 25px
-    }
-
-    .footer-col {
-      flex: 1 1 180px;
-      max-width: 260px
-    }
-
-    .footer-col h4 {
-      color: var(--gold);
-      font-family: 'Blackwood Castle Shadow', serif;
-      font-size: 18px;
-      margin-bottom: 12px;
-      letter-spacing: 1px
-    }
-
-    .footer-col a {
-      display: block;
-      color: var(--gold-light);
-      text-decoration: none;
-      font-size: 14px;
-      margin-bottom: 8px;
-      transition: color .2s
-    }
-
-    .footer-col a:hover {
-      color: var(--gold)
-    }
-
-    .footer-brand p {
-      font-size: 13px;
-      line-height: 1.6;
-      margin: 0
-    }
-
-    .footer-social {
-      display: flex;
-      justify-content: center;
-      gap: 14px
-    }
-
-    .footer-social a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px;
-      height: 38px;
-      border: 1px solid var(--gold);
-      border-radius: 50%;
-      font-size: 16px;
-      color: var(--gold);
-      transition: all .2s
-    }
-
-    .footer-social a:hover {
-      background: var(--gold);
-      color: #0d0716
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(212, 168, 67, 0.25);
-      padding-top: 15px
-    }
-
-    .footer-bottom p {
-      margin: 5px 0;
-      font-size: 12px;
-      line-height: 1.5
-    }
-
-    .footer-legal {
-      color: #a89bb8
-    }
-
-    .footer-18 {
-      color: var(--gold);
-      font-weight: bold;
-      letter-spacing: 1px
-    }
+/* ===== RODAPÉ ===== */
+.site-footer{width:100%;margin-top:0;background:rgba(13,5,32,0.97);border-top:1px solid var(--gold);color:var(--gold-light);padding:35px 20px 15px;text-align:center}
+.footer-content{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;max-width:1100px;margin:0 auto 25px}
+.footer-col{flex:1 1 180px;max-width:260px}
+.footer-col h4{color:var(--gold);font-family:'Blackwood Castle Shadow',serif;font-size:18px;margin-bottom:12px;letter-spacing:1px}
+.footer-col a{display:block;color:var(--gold-light);text-decoration:none;font-size:14px;margin-bottom:8px;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-brand p{font-size:13px;line-height:1.6;margin:0}
+.footer-social{display:flex;justify-content:center;gap:14px}
+.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--gold);border-radius:50%;font-size:16px;color:var(--gold);transition:all .2s}
+.footer-social a:hover{background:var(--gold);color:#0d0716}
+.footer-bottom{border-top:1px solid rgba(212,168,67,0.25);padding-top:15px}
+.footer-bottom p{margin:5px 0;font-size:12px;line-height:1.5}
+.footer-legal{color:#a89bb8}
+.footer-18{color:var(--gold);font-weight:bold;letter-spacing:1px}
 
     #balao-centralizado {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 99999;
-      display: none;
-      max-width: 520px;
-      width: 90%;
-      background: linear-gradient(135deg, rgba(201, 168, 106, .22), rgba(0, 0, 0, .92));
-      border: 1px solid var(--gold);
-      border-radius: 18px;
-      padding: 32px 28px;
-      text-align: center;
-      color: var(--gold-light);
-      box-shadow: 0 0 60px rgba(201, 168, 106, .55), 0 8px 32px rgba(0, 0, 0, .8);
-      animation: balaoFadeIn .4s ease-out;
-    }
-
-    #balao-centralizado .balao-icone {
-      font-size: 34px;
-      margin-bottom: 10px;
-      animation: balaoPulse 2.5s ease-in-out infinite;
-    }
-
-    #balao-centralizado .balao-frase {
-      font-size: 17px;
-      line-height: 1.55;
-      font-style: italic;
-      color: #f0e2c0;
-      text-shadow: 0 0 14px rgba(201, 168, 106, .5);
-      margin: 0 0 6px;
-    }
-
-    #balao-centralizado .balao-rodape {
-      font-size: 12px;
-      color: #999;
-      margin-top: 14px;
-      letter-spacing: 1px;
-    }
-
-    @keyframes balaoFadeIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -46%) scale(.96);
-      }
-
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
-
-    @keyframes balaoPulse {
-
-      0%,
-      100% {
-        opacity: .75;
-      }
-
-      50% {
-        opacity: 1;
-        text-shadow: 0 0 22px var(--gold);
-      }
-    }
-
-    .baloon {
-      position: absolute;
-      left: 5px;
-      /* fica ao lado esquerdo da caixa de login */
-      top: 48%;
-      transform: translateY(-50%);
-      width: 200px;
-      max-width: 80vw;
-      text-align: center;
-      border: 1px solid var(--gold);
-      box-shadow: 0 0 30px rgba(201, 168, 106, .45);
-      animation: baloonPulse 3s ease-in-out infinite;
-    }
-
-    @keyframes baloonPulse {
-
-      0%,
-      100% {
-        box-shadow: 0 0 18px rgba(201, 168, 106, .35);
-      }
-
-      50% {
-        box-shadow: 0 0 42px rgba(201, 168, 106, .7);
-      }
-    }
-
-    /* Celular: sobrepõe a caixa de login, some em 3s */
-    @media (max-width: 768px) {
-      .baloon {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 88vw;
-        z-index: 9999;
-      }
-    }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  display: none;
+  max-width: 520px;
+  width: 90%;
+  background: linear-gradient(135deg, rgba(201,168,106,.22), rgba(0,0,0,.92));
+  border: 1px solid var(--gold);
+  border-radius: 18px;
+  padding: 32px 28px;
+  text-align: center;
+  color: var(--gold-light);
+  box-shadow: 0 0 60px rgba(201,168,106,.55), 0 8px 32px rgba(0,0,0,.8);
+  animation: balaoFadeIn .5s ease-out;
+}
+#balao-centralizado .balao-icone {
+  font-size: 34px;
+  margin-bottom: 10px;
+  animation: balaoPulse 2.5s ease-in-out infinite;
+}
+#balao-centralizado .balao-frase {
+  font-size: 17px;
+  line-height: 1.55;
+  font-style: italic;
+  color: #f0e2c0;
+  text-shadow: 0 0 14px rgba(201,168,106,.5);
+  margin: 0 0 6px;
+}
+#balao-centralizado .balao-rodape {
+  font-size: 12px;
+  color: #999;
+  margin-top: 14px;
+  letter-spacing: 1px;
+}
+@keyframes balaoFadeIn {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(.96); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes balaoPulse {
+  0%, 100% { opacity: .75; }
+  50% { opacity: 1; text-shadow: 0 0 22px var(--gold); }
+}
+   
+.baloon {
+  position: absolute;
+  left: 15px;               /* fica ao lado esquerdo da caixa de login */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+  max-width: 80vw;
+  text-align: center;
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 30px rgba(201,168,106,.45);
+  animation: baloonPulse 3s ease-in-out infinite;
+}
+@keyframes baloonPulse {
+  0%,100% { box-shadow: 0 0 18px rgba(201,168,106,.35); }
+  50% { box-shadow: 0 0 42px rgba(201,168,106,.7); }
+}
+/* Celular: sobrepõe a caixa de login, some em 3s */
+@media (max-width: 768px) {
+  .baloon {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 88vw;
+    z-index: 9999;
+  }
+}
 
     /* Balão de benefícios gratuitos */
-    #baloon-gratis {
-      position: relative;
-      width: 300px;
-      max-width: 80vw;
-      margin: 20px auto;
-      text-align: center;
-      border: 1px solid var(--gold);
-      box-shadow: 0 0 25px rgba(201, 168, 106, .4);
-      z-index: 1000;
-      opacity: 0;
-      animation: baloonFadeIn 3s ease forwards;
-    }
+#baloon-gratis {
+  position: relative;
+  width: 300px;
+  max-width: 80vw;
+  margin: 20px auto;
+  text-align: center;
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 25px rgba(201,168,106,.4);
+  z-index: 1000;
+  opacity: 0;
+  animation: baloonFadeIn 5s ease forwards;
+}
+@keyframes baloonFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
     @keyframes baloonFadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes baloonFadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
     /* Balão Indique um Amigo (mesma posição do balão de benefícios) */
-    #baloon-indique {
-      position: fixed;
-      left: 10vw;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 300px;
-      max-width: 80vw;
-      text-align: center;
-      border: 1px solid var(--gold);
-      box-shadow: 0 0 25px rgba(201, 168, 106, .4);
-      z-index: 1000;
+#baloon-indique {
+  position: fixed;
+  left: 5vw;
+  top: 48%;
+  transform: translateY(-50%);
+  width: 300px;
+  max-width: 80vw;
+  text-align: center;
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 25px rgba(201,168,106,.4);
+  z-index: 1000;
+  display: none;
+}
+    /* Posicionamento dos balões laterais no computador */
+#baloon-beneficios,
+#baloon-gratis {
+  position: fixed !important;
+  left: calc(50% - 500px) !important;
+  top: calc(50% - 25px) !important;
+  transform: translateY(-50%) !important;
+  width: 300px !important;
+  max-width: 80vw;
+  z-index: 1000;
+}
+
+/* No celular, mantém o balão centralizado */
+@media (max-width: 768px) {
+  #baloon-beneficios,
+  #baloon-gratis {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 88vw !important;
+  }
+}
+    /* Botão de fechar (X) dos balões */
+.baloon-close {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  color: var(--gold);
+  background: none;
+  border: none;
+  padding: 2px 5px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.baloon-close:hover {
+  color: #fff;
+  transform: scale(1.25);
+}
+    /* Nome do usuário centralizado no cabeçalho */
+.header-greeting {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--gold);
+  font-family: 'Blackwood Castle Shadow', 'Pirata One', cursive;
+  font-size: clamp(14px, 1.8vw, 20px);
+  letter-spacing: 1px;
+  text-shadow: 0 0 12px rgba(212, 168, 67, 0.55);
+  white-space: nowrap;
+  max-width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+/* No celular, o nome vai para uma linha própria, também centralizado */
+@media (max-width: 768px) {
+  .header-greeting {
+    position: static;
+    transform: none;
+    flex-basis: 100%;
+    text-align: center;
+    max-width: 100%;
+  }
+}
+          /* ===== DESEMPENHO: um fundo por página, com reserva AVIF > WebP > PNG ===== */
+    #page-login {
+      background-image: url('Graficos/Tela-Inicial.png');
+      background-image: image-set(url('Graficos/Tela-Inicial.avif') type('image/avif'), url('Graficos/Tela-Inicial.webp') type('image/webp'), url('Graficos/Tela-Inicial.png') type('image/png'));
+    }
+    #page-dashboard {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.6), rgba(13, 5, 32, 0.6)), url('Graficos/Tela.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.6), rgba(13, 5, 32, 0.6)), image-set(url('Graficos/Tela.avif') type('image/avif'), url('Graficos/Tela.webp') type('image/webp'), url('Graficos/Tela.png') type('image/png'));
+    }
+    .tarot-bg {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.55), rgba(13, 5, 32, 0.55)), url('Graficos/Fundo_Taro.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.55), rgba(13, 5, 32, 0.55)), image-set(url('Graficos/Fundo_Taro.avif') type('image/avif'), url('Graficos/Fundo_Taro.webp') type('image/webp'), url('Graficos/Fundo_Taro.png') type('image/png'));
+    }
+    #page-tarot-amor {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.55), rgba(13, 5, 32, 0.55)), url('Graficos/Fundo_Afrodite.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.55), rgba(13, 5, 32, 0.55)), image-set(url('Graficos/Fundo_Afrodite.avif') type('image/avif'), url('Graficos/Fundo_Afrodite.webp') type('image/webp'), url('Graficos/Fundo_Afrodite.png') type('image/png'));
+    }
+    #page-sim-nao {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.35), rgba(13, 5, 32, 0.35)), url('Graficos/Fundo_Sim.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.35), rgba(13, 5, 32, 0.35)), image-set(url('Graficos/Fundo_Sim.avif') type('image/avif'), url('Graficos/Fundo_Sim.webp') type('image/webp'), url('Graficos/Fundo_Sim.png') type('image/png'));
+    }
+    #page-horoscopo {
+      background-image: url('Graficos/Tela_Horoscopo.png');
+      background-image: image-set(url('Graficos/Tela_Horoscopo.avif') type('image/avif'), url('Graficos/Tela_Horoscopo.webp') type('image/webp'), url('Graficos/Tela_Horoscopo.png') type('image/png'));
+    }
+    #page-numerologia {
+      background-image: url('Graficos/Tela_Numerologia.png');
+      background-image: image-set(url('Graficos/Tela_Numerologia.avif') type('image/avif'), url('Graficos/Tela_Numerologia.webp') type('image/webp'), url('Graficos/Tela_Numerologia.png') type('image/png'));
+    }
+    #page-planos {
+      background-image: url('Graficos/Tela_Planos.png');
+      background-image: image-set(url('Graficos/Tela_Planos.avif') type('image/avif'), url('Graficos/Tela_Planos.webp') type('image/webp'), url('Graficos/Tela_Planos.png') type('image/png'));
+    }
+    #page-indicacao {
+      background-image: url('Graficos/Tela_Indique.png');
+      background-image: image-set(url('Graficos/Tela_Indique.avif') type('image/avif'), url('Graficos/Tela_Indique.webp') type('image/webp'), url('Graficos/Tela_Indique.png') type('image/png'));
+    }
+    #page-faq {
+      background-image: url('Graficos/Tela_Faq.png');
+      background-image: image-set(url('Graficos/Tela_Faq.avif') type('image/avif'), url('Graficos/Tela_Faq.webp') type('image/webp'), url('Graficos/Tela_Faq.png') type('image/png'));
+    }
+    #page-mapa-portico {
+      background-image: url('Graficos/Mapa_Portico_Celestial.png');
+      background-image: image-set(url('Graficos/Mapa_Portico_Celestial.avif') type('image/avif'), url('Graficos/Mapa_Portico_Celestial.webp') type('image/webp'), url('Graficos/Mapa_Portico_Celestial.png') type('image/png'));
+    }
+    #page-mapa-orbita {
+      background-image: url('Graficos/Mapa_Orbita_Pessoal.png');
+      background-image: image-set(url('Graficos/Mapa_Orbita_Pessoal.avif') type('image/avif'), url('Graficos/Mapa_Orbita_Pessoal.webp') type('image/webp'), url('Graficos/Mapa_Orbita_Pessoal.png') type('image/png'));
+    }
+    #page-mapa-cosmos {
+      background-image: url('Graficos/Mapa_Cosmos_Absoluto.png');
+      background-image: image-set(url('Graficos/Mapa_Cosmos_Absoluto.avif') type('image/avif'), url('Graficos/Mapa_Cosmos_Absoluto.webp') type('image/webp'), url('Graficos/Mapa_Cosmos_Absoluto.png') type('image/png'));
+    }
+      /* ===== AUTOCOMPLETE DE CIDADES (IBGE) ===== */
+    .cidade-wrap { position: relative; }
+    select option { background: #1a0a2e; color: #fff; }
+    .cidade-sugestoes {
       display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 220px;
+      overflow-y: auto;
+      margin-top: 2px;
+      background: #1a0a2e;
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      z-index: 5000;
+      box-shadow: 0 8px 24px rgba(0,0,0,.7);
+    }
+    .cidade-sugestoes.ativa { display: block; }
+    .cidade-sugestoes div {
+      padding: 10px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(212,168,67,.15);
+    }
+    .cidade-sugestoes div:last-child { border-bottom: none; }
+    .cidade-sugestoes div:hover { background: var(--accent); color: var(--gold-light); }
+
+        /* ===== FORMATAÇÃO E AÇÕES DAS RESPOSTAS ===== */
+    .result-box p { margin-bottom: 16px; line-height: 1.7; }
+    .result-box p:last-of-type { margin-bottom: 0; }
+    .result-box h4 { margin: 22px 0 10px; }
+    .resposta-titulo {
+      font-weight: bold;
+      color: var(--gold);
+      font-size: 15px;
+      letter-spacing: 2px;
+      margin: 0 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(212,168,67,.35);
+    }
+    .carta-negrito { color: var(--gold); font-weight: bold; }
+    .resposta-acoes {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(212,168,67,.3);
+    }
+    .btn-resposta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: transparent;
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: bold;
+      font-family: inherit;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-resposta:hover { background: var(--gold); color: #0d0716; }
+        /* ===== PÁGINA SOBRE ===== */
+    .sobre-texto p { margin-bottom: 24px; line-height: 1.85; font-size: 15.5px; color: #e8e0f5; }
+    .sobre-texto h3 {
+      color: var(--gold);
+      font-size: 21px;
+      margin: 38px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(212,168,67,.28);
+      letter-spacing: 1px;
+    }
+    .sobre-texto strong { color: var(--gold-light); }
+    .sobre-texto em { color: #d9cdf0; }
+    .sobre-citacao {
+      font-style: italic;
+      text-align: center;
+      color: var(--gold-light);
+      font-size: 17px;
+      line-height: 1.7;
+      border-left: none;
+      padding: 18px 24px;
+      margin: 30px 0 !important;
+      background: rgba(212,168,67,.07);
+      border-radius: 10px;
+    }
+    .sobre-lista { margin: 0 0 24px 22px; padding: 0; }
+    .sobre-lista li { margin-bottom: 14px; line-height: 1.8; font-size: 15.5px; color: #e8e0f5; }
+    .sobre-lista strong { color: var(--gold-light); }
+
+    /* ===== FUNDO DA PÁGINA SOBRE ===== */
+    #page-sobre {
+      background-image: linear-gradient(rgba(13, 5, 32, 0.72), rgba(13, 5, 32, 0.72)), url('Graficos/Tela-Inicial.png');
+      background-image: linear-gradient(rgba(13, 5, 32, 0.72), rgba(13, 5, 32, 0.72)), image-set(url('Graficos/Tela-Inicial.avif') type('image/avif'), url('Graficos/Tela-Inicial.webp') type('image/webp'), url('Graficos/Tela-Inicial.png') type('image/png'));
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
     }
   </style>
 </head>
@@ -1474,11 +1567,8 @@
             <path fill="#1976D2"
               d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
           </svg>
-          Entrar com o Google
+          Entrar com o Google 
         </button>
-        <p style="margin:14px 0 0;font-size:13px;text-align:center;color:var(--gold-light)">🎁 Indique um Amigo e ganhe:
-          <strong style="color:var(--gold)">50 créditos</strong> por indicação!
-        </p>
       </div>
       <div id="form-register" class="auth-form" style="display:none">
         <input type="text" id="reg-name" placeholder="Nome Completo"
@@ -1492,8 +1582,9 @@
       </div>
     </div>
   </section>
-  <header id="main-header">
+    <header id="main-header">
     <div class="logo pirata" onclick="showPage('page-dashboard')">ORACULUM VITAE</div>
+    <div id="user-greeting" class="header-greeting"></div>
     <div class="user-info">
       <button class="header-btn gold" onclick="showPage('page-planos')"><i class="fas fa-crown"></i> Planos</button>
       <button class="header-btn green" onclick="showPage('page-indicacao')"><i class="fas fa-user-plus"></i> Indicar
@@ -1893,53 +1984,67 @@
         Afrodite</button>
     </div>
   </section>
-  <section id="page-mapa-portico" class="page nivel-portico">
+    <section id="page-mapa-portico" class="page nivel-portico">
     <div class="form-container">
-      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao
-        Início</button>
-      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral:
-        Pórtico Celestial</h2>
+      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral: Pórtico Celestial</h2>
       <div class="auth-form">
         <input type="text" id="mapa-portico-nome" placeholder="Nome Completo">
         <input type="date" id="mapa-portico-data">
         <input type="time" id="mapa-portico-hora">
-        <input type="text" id="mapa-portico-cidade" placeholder="Cidade de Nascimento">
-        <input type="text" id="mapa-portico-estado" placeholder="Estado de Nascimento (UF)">
-        <button class="btn-portal" onclick="generateMapa('Pórtico Celestial','mapa-portico')">Gerar Mapa Astral</button>
+        <select id="mapa-portico-estado" onchange="carregarCidades('mapa-portico')">
+          <option value="">Estado de Nascimento (UF)</option>
+        </select>
+        <div class="cidade-wrap">
+          <input type="text" id="mapa-portico-cidade" placeholder="Cidade de Nascimento" autocomplete="off"
+            oninput="sugerirCidades('mapa-portico')" onblur="fecharSugestoes('mapa-portico')">
+          <div class="cidade-sugestoes" id="mapa-portico-sugestoes"></div>
+        </div>
+        <button class="btn-portal" onclick="generateMapa('Pórtico Celestial','mapa-portico')">Gerar Mapa Astral (50 créditos)</button>
       </div>
       <div id="mapa-portico-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
   </section>
+
   <section id="page-mapa-orbita" class="page nivel-orbita">
     <div class="form-container">
-      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao
-        Início</button>
-      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral:
-        Órbita Pessoal</h2>
+      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral: Órbita Pessoal</h2>
       <div class="auth-form">
         <input type="text" id="mapa-orbita-nome" placeholder="Nome Completo">
         <input type="date" id="mapa-orbita-data">
         <input type="time" id="mapa-orbita-hora">
-        <input type="text" id="mapa-orbita-cidade" placeholder="Cidade de Nascimento">
-        <input type="text" id="mapa-orbita-estado" placeholder="Estado de Nascimento (UF)">
-        <button class="btn-portal" onclick="generateMapa('Órbita Pessoal','mapa-orbita')">Gerar Mapa Astral</button>
+        <select id="mapa-orbita-estado" onchange="carregarCidades('mapa-orbita')">
+          <option value="">Estado de Nascimento (UF)</option>
+        </select>
+        <div class="cidade-wrap">
+          <input type="text" id="mapa-orbita-cidade" placeholder="Cidade de Nascimento" autocomplete="off"
+            oninput="sugerirCidades('mapa-orbita')" onblur="fecharSugestoes('mapa-orbita')">
+          <div class="cidade-sugestoes" id="mapa-orbita-sugestoes"></div>
+        </div>
+        <button class="btn-portal" onclick="generateMapa('Órbita Pessoal','mapa-orbita')">Gerar Mapa Astral (100 créditos)</button>
       </div>
       <div id="mapa-orbita-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
   </section>
+
   <section id="page-mapa-cosmos" class="page nivel-cosmos">
     <div class="form-container">
-      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao
-        Início</button>
-      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral:
-        Cosmos Absoluto</h2>
+      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:12px">Mapa Astral: Cosmos Absoluto</h2>
       <div class="auth-form">
         <input type="text" id="mapa-cosmos-nome" placeholder="Nome Completo">
         <input type="date" id="mapa-cosmos-data">
         <input type="time" id="mapa-cosmos-hora">
-        <input type="text" id="mapa-cosmos-cidade" placeholder="Cidade de Nascimento">
-        <input type="text" id="mapa-cosmos-estado" placeholder="Estado de Nascimento (UF)">
-        <button class="btn-portal" onclick="generateMapa('Cosmos Absoluto','mapa-cosmos')">Gerar Mapa Astral</button>
+        <select id="mapa-cosmos-estado" onchange="carregarCidades('mapa-cosmos')">
+          <option value="">Estado de Nascimento (UF)</option>
+        </select>
+        <div class="cidade-wrap">
+          <input type="text" id="mapa-cosmos-cidade" placeholder="Cidade de Nascimento" autocomplete="off"
+            oninput="sugerirCidades('mapa-cosmos')" onblur="fecharSugestoes('mapa-cosmos')">
+          <div class="cidade-sugestoes" id="mapa-cosmos-sugestoes"></div>
+        </div>
+        <button class="btn-portal" onclick="generateMapa('Cosmos Absoluto','mapa-cosmos')">Gerar Mapa Astral (200 créditos)</button>
       </div>
       <div id="mapa-cosmos-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
@@ -1966,8 +2071,7 @@
         <input type="text" id="num-nome" placeholder="Nome Completo (sem acentos)">
         <input type="date" id="num-data">
         <button class="btn-portal" onclick="numerologiaGratis()">Calcular Minha Vibração</button>
-        <button class="btn-portal" style="margin-top:10px" onclick="startNumerologiaPremium()" )">Perfil Completo
-          (Numerologia Pitagórica) — 30 créditos</button>
+        <button class="btn-portal" style="margin-top:10px" onclick="startNumerologiaPremium()">Perfil Completo (Numerologia Pitagórica) — 30 créditos</button>
       </div>
       <div id="num-result" class="result-box" style="display:none;margin-top:20px"></div>
     </div>
@@ -2185,26 +2289,39 @@
       return nome;
     }
 
-    function cardImageVariants(card) {
+        function cardImageVariants(card) {
       var base = cardBaseName(card);
-      var noAcc = stripAcc(base);
-      var arr = [];
       var pasta = 'Normal';
       var sufixo = '';
+
+      var ALIAS = {
+        'A Sacerdotisa': 'A Papisa',
+        'O Hierofante': 'O Papa',
+        'Os Enamorados': 'O Enamorado',
+        'O Enforcado': 'O Pendurado',
+        'A Carruagem': 'O Carro'
+      };
+
       if (currentReading && currentReading.type === 'Marselha') {
         pasta = 'Marselha';
-        sufixo = ' Marselha';
-        var alias = {
-          'A Sacerdotisa': 'A Papisa',
-          'O Hierofante': 'O Papa',
-          'Os Enamorados': 'O Enamorado',
-          'O Enforcado': 'O Pendurado',
-          'A Carruagem': 'O Carro'
-        };
-        if (alias[base]) {base = alias[base]; noAcc = stripAcc(base);}
+        sufixo = '_Marselha';
+        if (ALIAS[base]) { base = ALIAS[base]; }
       }
-      function add(s) {var enc = encodeURI(pasta + '/' + s + sufixo + '.png'); if (arr.indexOf(enc) === -1) {arr.push(enc);} var encJ = encodeURI(pasta + '/' + s + sufixo + '.jpg'); if (arr.indexOf(encJ) === -1) {arr.push(encJ);} }
-      add(base); add(noAcc); add(base.replace(/ /g, '_')); add(noAcc.replace(/ /g, '_'));
+
+      var comAcento = base.replace(/ /g, '_');
+      var semAcento = stripAcc(base).replace(/ /g, '_');
+      var nomes = [semAcento];
+      if (comAcento !== semAcento) { nomes.push(comAcento); }
+      if (pasta === 'Marselha' && base === 'Cinco de Paus') { nomes.push('Cindo_de_Paus'); }
+
+      var exts = ['avif', 'webp', 'png'];
+      var arr = [];
+      for (var e = 0; e < exts.length; e++) {
+        for (var n = 0; n < nomes.length; n++) {
+          var enc = encodeURI(pasta + '/' + nomes[n] + sufixo + '.' + exts[e]);
+          if (arr.indexOf(enc) === -1) { arr.push(enc); }
+        }
+      }
       return arr;
     }
     function cardImage(card) {return cardImageVariants(card)[0];}
@@ -2213,9 +2330,9 @@
       return String(name).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "_");
     }
 
-    function cardImgHTML(card) {
+        function cardImgHTML(card) {
       var variants = cardImageVariants(card);
-      return '<img src="' + variants[0] + '" alt="' + card.n + '" data-variants=\'' + JSON.stringify(variants) + '\' onerror="imgFallback(this)">';
+      return '<img src="' + variants[0] + '" alt="' + card.n + '" loading="lazy" decoding="async" data-variants=\'' + JSON.stringify(variants) + '\' onerror="imgFallback(this)">';
     }
 
     function imgFallback(el) {
@@ -2333,7 +2450,7 @@
     var pendingType = null;
     var pendingCount = 0;
 
-    function askConfirmQuestion(q, type, count) {
+     function askConfirmQuestion(q, type, count) {
       pendingQuestion = q;
       pendingType = type;
       pendingCount = count;
@@ -2926,12 +3043,33 @@
         c.appendChild(s);
       }
     }
-    function showPage(id) {
+        var cartasPreCarregadas = false;
+    function preCarregarCartas() {
+      if (cartasPreCarregadas) return;
+      cartasPreCarregadas = true;
+      var urls = [];
+      for (var i = 0; i < DECK_NORMAL.length; i++) {
+        var v = cardImageVariants(DECK_NORMAL[i]);
+        if (v[0] && urls.indexOf(v[0]) === -1) { urls.push(v[0]); }
+      }
+      var idx = 0;
+      function lote() {
+        var fim = Math.min(idx + 8, urls.length);
+        for (; idx < fim; idx++) {
+          var im = new Image();
+          im.src = urls[idx];
+        }
+        if (idx < urls.length) { setTimeout(lote, 150); }
+      }
+      setTimeout(lote, 500);
+    }
+        function showPage(id) {
       document.querySelectorAll('.page').forEach(function (p) {p.classList.remove('active');});
       document.getElementById(id).classList.add('active');
       window.scrollTo(0, 0);
       if (id === 'page-carta-dia') {initCartaDia();}
       if (id === 'page-faq') {initFAQ();}
+      if (id === 'page-sim-nao' || id === 'page-carta-dia' || id.indexOf('page-tarot-') === 0) {preCarregarCartas();}
     }
     function voltarLogin() {
       document.getElementById('main-header').style.display = 'none';
@@ -2958,7 +3096,6 @@
     function normalizeEmail(e) {return (e || '').trim().toLowerCase();}
     function findUser(email) {
       email = normalizeEmail(email);
-      if (email === 'g@gmail.com') {return {name: "Gui Admin", email: email, credits: 999999, isMago: true};}
       try {
         var stored = localStorage.getItem('user_' + email);
         if (stored) {return JSON.parse(stored);}
@@ -2991,28 +3128,79 @@
       document.getElementById('main-header').style.display = 'flex';
       showPage('page-dashboard');
       updateCreditsDisplay();
+      updateGreeting();
       checkBalloon();
       mostrarBalaoCentralizado();
     }
-    function handleLogin() {
-      var email = normalizeEmail(document.getElementById('login-email').value);
-      var pass = document.getElementById('login-pass').value;
-      if (!email || !pass) {showModal("Erro", "Preencha e-mail e senha para entrar."); return;}
-      if (email === 'g@gmail.com' && pass === 'gggggg') {
-        currentUser = {name: "Gui Admin", email: email, credits: 999999, isMago: true};
-        saveUser(currentUser);
-        enterPortal();
-        return;
-      }
-      var user = findUser(email);
-      if (user) {
-        if (user.isMago || user.pass === pass) {
-          currentUser = user;
-          saveUser(currentUser);
-          enterPortal();
-        } else {showModal("Erro", "Senha incorreta. Verifique e tente novamente.");}
-      } else {showModal("Usuário não encontrado", "Não encontramos uma conta com esse e-mail. Cadastre-se para ganhar 50 créditos, ou use a conta demo: g@gmail.com / gggggg.");}
-    }
+   function handleLogin(event) {
+  if (event) {
+    event.preventDefault();
+  }
+
+  var campoEmail = document.querySelector('input[type="email"]');
+  var campoSenha = document.querySelector('input[type="password"]');
+
+  var email = campoEmail
+    ? campoEmail.value.trim().toLowerCase()
+    : '';
+
+  var pass = campoSenha
+    ? campoSenha.value
+    : '';
+
+  if (!email || !pass) {
+    showModal('Erro', 'Digite seu e-mail e sua senha.');
+    return;
+  }
+
+  var ambienteLocal =
+    location.hostname === 'localhost' ||
+    location.hostname === '127.0.0.1' ||
+    location.protocol === 'file:';
+
+  /*
+   * Conta de teste: funciona somente no computador local.
+   * Remova este bloco antes de publicar o site.
+   */
+  if (
+    ambienteLocal &&
+    email === 'g@gmail.com' &&
+    pass === 'gggggg'
+  ) {
+    currentUser = {
+      name: 'Gui Admin',
+      email: email,
+      credits: 20000,
+      isMago: false,
+      contaTeste: true
+    };
+
+    saveUser(currentUser);
+    enterPortal();
+    return;
+  }
+
+  var user = findUser(email);
+
+  if (!user) {
+    showModal(
+      'Usuário não encontrado',
+      'Não encontramos uma conta com esse e-mail. Cadastre-se para criar uma conta.'
+    );
+    return;
+  }
+
+  if (user.isMago || user.pass === pass) {
+    currentUser = user;
+    saveUser(currentUser);
+    enterPortal();
+  } else {
+    showModal(
+      'Erro',
+      'Senha incorreta. Verifique sua senha e tente novamente.'
+    );
+  }
+}
     function handleRegister() {
       var name = document.getElementById('reg-name').value;
       var email = normalizeEmail(document.getElementById('reg-email').value);
@@ -3033,6 +3221,7 @@
     function logout() {
       localStorage.removeItem('orculum_user');
       currentUser = null;
+      updateGreeting();
       document.getElementById('main-header').style.display = 'none';
       document.getElementById('page-login').classList.add('active');
       document.querySelectorAll('.page').forEach(function (p) {
@@ -3042,6 +3231,11 @@
     }
     function updateCreditsDisplay() {
       document.getElementById('display-credits').innerText = currentUser.isMago ? '∞' : currentUser.credits;
+    }
+    function updateGreeting() {
+      var el = document.getElementById('user-greeting');
+      if (!el) return;
+      el.innerText = (currentUser && currentUser.name) ? 'Bem-vindo, ' + currentUser.name : '';
     }
     function checkBalloon() {
       var key = 'balloon_' + currentUser.email;
@@ -3140,7 +3334,7 @@
           + '<p>O Tarô de Marselha é o baralho de tarô mais famoso e tradicional do mundo, servindo de base para quase todas as leituras modernas. Revela uma linha do tempo clara: o Passado (a raiz do problema), o Presente (o momento atual) e o Futuro (o caminho provável). <strong>Por 30 créditos.</strong></p>'
           + '<p><strong>O Jogo de 3 Cartas</strong></p>'
           + '<ul>'
-          + '<li><strong>O Passado (A Raiz):</strong> Olhamos para trás não para reviver as dores, mas para compreender as origens. As cartas revelam os padrões, as memórias e as escolhas que trouxeram você até o momento atual. É o momento de acolher a sua história e extrair dela o aprendizado necessário.</li>'
+                    + '<li><strong>O Passado (A Raiz):</strong> Olhamos para trás não para reviver as dores, mas para compreender as origens. As cartas revelam os padrões, as memórias e as escolhas que trouxeram você até o momento atual. É o momento de acolher a sua história e extrair dela o aprendizado necessário.</li>'
           + '<li><strong>O Presente (A Semente):</strong> O único momento onde você tem o poder de agir. Aqui, o Tarô funciona como um diagnóstico claro e sem julgamentos da sua realidade atual. Mostramos as energias que cercam você hoje, as influências invisíveis e os recursos internos que você já possui para enfrentar os seus desafios.</li>'
           + '<li><strong>O Futuro (As Folhas):</strong> O futuro não é um destino fixo e imutável gravado na pedra, mas sim um mapa de tendências. Revelamos os caminhos mais prováveis caso você continue na rota atual e as oportunidades que estão prestes a florescer, devolvendo a você o poder do livre-arbítrio para moldar o seu amanhã.</li>'
           + '</ul>'
@@ -3406,6 +3600,22 @@
         return;
       }
 
+            var cidadesUf = CIDADES_CACHE[estado];
+      if (cidadesUf && cidadesUf.length) {
+        var cidadeOk = false;
+        for (var ci = 0; ci < cidadesUf.length; ci++) {
+          if (normalizaTxt(cidadesUf[ci]) === normalizaTxt(cidade)) {
+            cidade = cidadesUf[ci];
+            cidadeOk = true;
+            break;
+          }
+        }
+        if (!cidadeOk) {
+          showModal('Cidade não encontrada', 'Não encontramos "' + cidade + '" no estado ' + estado + '. Comece a digitar e escolha uma cidade da lista que aparece abaixo do campo.');
+          return;
+        }
+      }
+
       var res = document.getElementById(prefixo + '-result');
 
       res.style.display = 'block';
@@ -3528,254 +3738,163 @@
           caixa.innerHTML = '<p style="color:#e88">Não foi possível carregar o horóscopo. Verifique se o arquivo <strong>Horoscopo.txt</strong> está na mesma pasta do index.html.</p>';
         });
     }
-    function calculateNumerology() {
-      var nome = document.getElementById('num-nome').value.toUpperCase().replace(/[^A-Z]/g, '');
-      var data = document.getElementById('num-data').value.replace(/-/g, '');
-      if (!nome || !data) {return showModal("Erro", "Preencha nome e data.");}
-      var map = {A: 1, J: 1, S: 1, B: 2, K: 2, T: 2, C: 3, L: 3, U: 3, D: 4, M: 4, V: 4, E: 5, N: 5, W: 5, F: 6, O: 6, X: 6, G: 7, P: 7, Y: 7, H: 8, Q: 8, Z: 8, I: 9, R: 9};
-      var vogais = "AEIOU";
-      function reduce(n) {while (n > 9 && n !== 11 && n !== 22) {n = n.toString().split('').reduce(function (a, b) {return parseInt(a) + parseInt(b);}, 0);} return n;}
-      var explicacao = {
-        1: "Liderança e independência: o início, a coragem e a força de vontade para abrir caminhos.",
-        2: "Cooperação e sensibilidade: diplomacia, parcerias e busca pelo equilíbrio nas relações.",
-        3: "Criatividade e expressão: comunicação, otimismo e expansão social.",
-        4: "Estabilidade e trabalho: organização, disciplina e construção de bases sólidas.",
-        5: "Liberdade e mudança: versatilidade, aventura e quebra de rotinas.",
-        6: "Harmonia e responsabilidade: família, amor, serviço e cuidado com o próximo.",
-        7: "Espiritualidade e análise: conhecimento profundo, introspecção e sabedoria interior.",
-        8: "Poder e prosperidade: autoridade, sucesso material e justiça.",
-        9: "Humanitarismo e conclusão: compaixão, desapego e encerramento de ciclos.",
-        11: "Intuição elevada e inspiração: número mestre com percepção espiritual aguçada e idealismo.",
-        22: "Mestre construtor: capacidade de transformar grandes sonhos em realidade tangível."
-      };
-      var mot = 0, imp = 0, exp = 0;
-      for (var ci = 0; ci < nome.length; ci++) {
-        var val = map[nome[ci]] || 0;
-        exp += val;
-        if (vogais.indexOf(nome[ci]) >= 0) {mot += val;} else {imp += val;}
-      }
-      var dest = data.split('').reduce(function (a, b) {return parseInt(a) + parseInt(b);}, 0);
-      var rMot = reduce(mot), rImp = reduce(imp), rExp = reduce(exp), rDest = reduce(dest);
-      var res = document.getElementById('num-result');
-      res.style.display = 'block';
-      res.innerHTML = '<h3>Seu Perfil Numerológico</h3>'
-        + '<p><strong>Motivação (Alma): ' + rMot + '</strong><br>' + explicacao[rMot] + '</p>'
-        + '<p><strong>Impressão (Ego): ' + rImp + '</strong><br>' + explicacao[rImp] + '</p>'
-        + '<p><strong>Expressão (Personalidade): ' + rExp + '</strong><br>' + explicacao[rExp] + '</p>'
-        + '<p><strong>Destino (Caminho): ' + rDest + '</strong><br>' + explicacao[rDest] + '</p>';
-      setTimeout(function () {res.scrollIntoView({behavior: 'smooth', block: 'start'});}, 150);
-    }
-    function toggleDet(id) {var el = document.getElementById('det-' + id); if (el) {el.style.display = (el.style.display === 'none') ? 'block' : 'none';} }
-    function calculateNumerologyPremium() {
-      var nomeEl = document.getElementById('num-nome');
-      var dataEl = document.getElementById('num-data');
-      var nome = nomeEl.value.toUpperCase().replace(/[^A-Z]/g, '');
-      var raw = dataEl.value;
-      if (!nome || !raw) {return showModal("Erro", "Preencha nome e data.");}
-      if (!currentUser.isMago && currentUser.credits < 30) {return showModal("Créditos Insuficientes", "Adquira mais créditos para esta consulta.");}
-      if (!currentUser.isMago) {currentUser.credits -= 30; saveUser(currentUser); updateCreditsDisplay();}
-      var map = {A: 1, J: 1, S: 1, B: 2, K: 2, T: 2, C: 3, L: 3, U: 3, D: 4, M: 4, V: 4, E: 5, N: 5, W: 5, F: 6, O: 6, X: 6, G: 7, P: 7, Y: 7, H: 8, Q: 8, Z: 8, I: 9, R: 9};
-      var vogais = "AEIOU";
-      function reducePre(n) {while (n > 9 && n !== 11 && n !== 22 && n !== 33) {n = n.toString().split('').reduce(function (a, b) {return parseInt(a) + parseInt(b);}, 0);} return n;}
-      var LEITURA = {1: "Liderança e independência: o início, a coragem e a força de vontade para abrir caminhos.", 2: "Cooperação e sensibilidade: diplomacia, parcerias e busca pelo equilíbrio nas relações.", 3: "Criatividade e expressão: comunicação, otimismo e expansão social.", 4: "Estabilidade e trabalho: organização, disciplina e construção de bases sólidas.", 5: "Liberdade e mudança: versatilidade, aventura e quebra de rotinas.", 6: "Harmonia e responsabilidade: família, amor, serviço e cuidado com o próximo.", 7: "Espiritualidade e análise: conhecimento profundo, introspecção e sabedoria interior.", 8: "Poder e prosperidade: autoridade, sucesso material e justiça.", 9: "Humanitarismo e conclusão: compaixão, desapego e encerramento de ciclos.", 11: "Intuição elevada e inspiração: número mestre com percepção espiritual aguçada e idealismo.", 22: "Mestre construtor: capacidade de transformar grandes sonhos em realidade tangível.", 33: "Mestre do amor universal: dedicação ao próximo com sabedoria e compaixão."};
-      var DET = {1: "Você nasceu para liderar. A energia do 1 pede iniciativa, autonomia e coragem para seguir seus próprios caminhos. Cuidado apenas para não se fechar em demasia: aprender a pedir ajuda e ouvir o outro faz parte do seu amadurecimento.", 2: "Sua força está nas relações e na diplomacia. Você percebe os dois lados de cada situação e sabe acalmar ambientes. Evite depender demais da aprovação alheia: sua sensibilidade é um dom, mas precisa de limites.", 3: "A alegria e a comunicação são seus dons. Você inspira as pessoas com palavras, arte e otimismo. Para brilhar de verdade, foque em terminar o que começa — a dispersão é sua maior armadilha.", 4: "Você constrói tudo com bases sólidas. Disciplina, organização e lealdade são seu superpoder. O risco é se acomodar na rotina: permita-se pequenas mudanças para não travar o seu crescimento.", 5: "Você é a própria energia do movimento. Aventura, liberdade e versatilidade guiam seus passos. Sua lição é equilibrar a sede de novidades com compromissos que valham a pena.", 6: "O amor e o cuidado são sua missão. Família e harmonia pedem sua presença, e você se doa naturalmente. Cuidado para não se esquecer de si mesmo enquanto cuida de todos.", 7: "Sua mente busca o que está além da superfície. Estudo, espiritualidade e análise são seus refúgios. O desafio é não se isolar: compartilhar o que descobre multiplica sua sabedoria.", 8: "Você tem energia para conquistar o mundo material. Poder, prosperidade e justiça fazem parte do seu destino. Use sua autoridade com ética — o verdadeiro sucesso respeita os outros.", 9: "Você veio para concluir ciclos e servir ao próximo. Compaixão, desapego e visão ampla são seus dons. Liberte-se do passado para que o novo sempre encontre espaço.", 11: "Você é um canal de inspiração. Sua intuição percebe além das aparências e toca as pessoas profundamente. O dom pede serenidade: aprenda a se proteger das energias ao redor.", 22: "Você tem o poder de transformar sonhos em realidade. Visão grandiosa e capacidade de execução raramente andam juntas — e você tem as duas. Construa algo que sirva a muitos.", 33: "Raro e poderoso: o amor em sua forma mais pura. Você cura, ensina e inspira quem está ao seu redor. Guarde energia para si também, para sustentar a chama que carrega."};
-      var COR = {1: {c: "Vermelho / Laranja", d: "Domingo", s: [1, 10, 19, 28]}, 2: {c: "Branco / Prata", d: "Segunda-feira", s: [2, 11, 20, 29]}, 3: {c: "Amarelo / Dourado", d: "Quinta-feira", s: [3, 12, 21, 30]}, 4: {c: "Verde / Azul", d: "Sábado", s: [4, 13, 22, 31]}, 5: {c: "Verde-claro / Turquesa", d: "Quarta-feira", s: [5, 14, 23]}, 6: {c: "Rosa / Azul-claro", d: "Sexta-feira", s: [6, 15, 24]}, 7: {c: "Violeta / Índigo", d: "Segunda-feira", s: [7, 16, 25]}, 8: {c: "Preto / Azul-escuro", d: "Sábado", s: [8, 17, 26]}, 9: {c: "Vermelho / Carmesim", d: "Terça-feira", s: [9, 18, 27]}, 11: {c: "Prata / Branco-perolado", d: "Segunda-feira", s: [11, 22]}, 22: {c: "Dourado / Marrom", d: "Domingo", s: [22, 44]}, 33: {c: "Rosa / Dourado", d: "Quinta-feira", s: [33, 66]}};
-      function bloco(t, n) {var le = LEITURA[n] || LEITURA[1]; var de = DET[n] || DET[1]; var co = COR[n] || COR[n % 9 || 9]; return '<div style="background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;text-align:left"><div style="font-weight:bold;color:var(--gold);font-size:15px">' + t + ' <span style="color:var(--gold-light)">· ' + n + '</span></div><p style="margin:8px 0 0;line-height:1.6">' + le + '</p><button onclick="toggleDet(' + n + ')" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;margin-top:6px;padding:0">Ver mais</button><div id="det-' + n + '" style="display:none;margin-top:6px;line-height:1.6;color:#cbb8e0;font-size:13px">' + de + '</div></div>';}
-      var p = raw.split('-');
-      var anoN = parseInt(p[0], 10), mesN = parseInt(p[1], 10), diaN = parseInt(p[2], 10);
-      var agora = new Date();
-      var anoAtual = agora.getFullYear(), mesAtual = agora.getMonth() + 1;
-      var mot = 0, imp = 0, exp = 0;
-      for (var ci = 0; ci < nome.length; ci++) {var val = map[nome[ci]] || 0; exp += val; if (vogais.indexOf(nome[ci]) >= 0) {mot += val;} else {imp += val;} }
-      var rMot = reducePre(mot), rImp = reducePre(imp), rExp = reducePre(exp);
-      var rDest = reducePre(raw.replace(/-/g, '').split('').reduce(function (a, b) {return parseInt(a) + parseInt(b);}, 0));
-      var rAtitude = reducePre(diaN + mesN);
-      var rAniver = reducePre(diaN);
-      var ano2 = anoN % 100;
-      var d1 = Math.abs(diaN - mesN), d2 = Math.abs(diaN - ano2), d3 = Math.abs(d1 - d2), d4 = Math.abs(mesN - ano2);
-      var rD1 = reducePre(d1), rD2 = reducePre(d2), rD3 = reducePre(d3), rD4 = reducePre(d4);
-      var rAnoP = reducePre(diaN + mesN + anoAtual);
-      var rMesP = reducePre(rAnoP + mesAtual);
-      var c1 = reducePre(mesN), c2 = reducePre(diaN), c3 = reducePre(anoN);
-      var fim1 = 36 - rDest, fim2 = fim1 + 27;
-      var corD = COR[rDest] || COR[rDest % 9 || 9];
-      var masters = [rMot, rImp, rExp, rDest].filter(function (v) {return v === 11 || v === 22 || v === 33;});
-      var h = '<h3 style="color:var(--gold)">Numerologia Pitagórica — Perfil Completo</h3><p style="font-size:13px;color:var(--gold-light);margin-bottom:10px">Nome: ' + nome + ' · Data: ' + diaN + '/' + mesN + '/' + anoN + '</p>';
-      h += '<div style="background:rgba(212,168,67,.12);border:1px solid var(--gold);border-radius:8px;padding:12px;margin:10px 0;text-align:left"><strong style="color:var(--gold)">🧭 Ano Pessoal de ' + anoAtual + ': ' + rAnoP + '</strong><br><span style="color:var(--gold-light);font-size:13px;line-height:1.6">' + LEITURA[rAnoP] + '</span></div>';
-      h += '<div style="background:rgba(212,168,67,.12);border:1px solid var(--gold);border-radius:8px;padding:12px;margin:10px 0;text-align:left"><strong style="color:var(--gold)">📅 Mês Pessoal de agora: ' + rMesP + '</strong><br><span style="color:var(--gold-light);font-size:13px;line-height:1.6">' + LEITURA[rMesP] + '</span></div>';
-      h += bloco('❤️ Motivação (Alma)', rMot);
-      h += bloco('👤 Impressão (Ego)', rImp);
-      h += bloco('✍️ Expressão (Personalidade)', rExp);
-      h += bloco('🎯 Destino (Caminho de Vida)', rDest);
-      h += bloco('🌅 Atitude (Como os outros te veem)', rAtitude);
-      h += bloco('🎁 Aniversário (Seu presente de nascimento)', rAniver);
-      h += '<h4 style="color:var(--gold);margin:20px 0 4px">🧩 Ciclos de Vida</h4>';
-      h += bloco('1º Ciclo — Formação (0 a ' + fim1 + ' anos)', c1);
-      h += bloco('2º Ciclo — Produtividade (' + (fim1 + 1) + ' a ' + fim2 + ' anos)', c2);
-      h += bloco('3º Ciclo — Colheita (a partir de ' + (fim2 + 1) + ' anos)', c3);
-      h += '<h4 style="color:var(--gold);margin:20px 0 4px">⚖️ Desafios (Lições de Vida)</h4>';
-      h += bloco('1º Desafio (infância)', rD1);
-      h += bloco('2º Desafio (juventude)', rD2);
-      h += bloco('3º Desafio (maturidade)', rD3);
-      h += bloco('4º Desafio (fase madura)', rD4);
-      h += '<h4 style="color:var(--gold);margin:20px 0 4px">✨ Seu Talismã Numerológico</h4>';
-      h += '<div style="background:rgba(255,255,255,.05);border:1px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;text-align:left"><div style="font-weight:bold;color:var(--gold);font-size:15px">Destino ' + rDest + '</div><p style="margin:8px 0 0;line-height:1.6">Cor: <strong>' + corD.c + '</strong><br>Dia da semana: <strong>' + corD.d + '</strong><br>Números de sorte: <strong>' + corD.s.join(', ') + '</strong></p></div>';
-      if (masters.length > 0) {h += '<div style="background:rgba(212,168,67,.15);border:1px solid var(--gold);border-radius:8px;padding:12px;margin:10px 0;text-align:left"><strong style="color:var(--gold)">🔮 Número(s) Mestre(s) detectado(s): ' + masters.join(' e ') + '</strong><br><span style="color:var(--gold-light);font-size:13px;line-height:1.6">' + masters.map(function (m) {return LEITURA[m];}).join(' ') + '</span></div>';}
-      var res = document.getElementById('num-result');
-      res.style.display = 'block';
-      res.innerHTML = h;
-      setTimeout(function () {res.scrollIntoView({behavior: 'smooth', block: 'start'});}, 150);
-    }
     function numerologiaGratis() {
-      var nomeEl = document.getElementById('num-nome');
-      var dataEl = document.getElementById('num-data');
-      var nome = (nomeEl.value || '').toUpperCase().replace(/[^A-Z]/g, '');
-      var raw = dataEl.value || '';
-      if (!nome || !raw) {return showModal("Erro", "Preencha nome e data.");}
-      var res = document.getElementById('num-result');
-      res.style.display = 'block';
-      res.innerHTML = '<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">✨ Consultando os números da sua vibração...</div>';
-      fetch('/api/numerologia', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({nome: nome, data: raw, tipo: 'gratis'})})
-        .then(function (r) {return r.json();})
-        .then(function (d) {if (d && d.resposta) {res.innerHTML = '<h3>Seu Perfil Numerológico</h3>' + formatarRespostaIA(d.resposta, null);} else {mostrarNumerologiaLocal(false);} })
-        .catch(function () {mostrarNumerologiaLocal(false);});
-    }
-    function startNumerologiaPremium() {
-      var nomeEl = document.getElementById('num-nome');
-      var dataEl = document.getElementById('num-data');
-      var nome = (nomeEl.value || '').toUpperCase().replace(/[^A-Z]/g, '');
-      var raw = dataEl.value || '';
-      if (!nome || !raw) {return showModal("Erro", "Preencha nome e data.");}
-      if (!currentUser.isMago && currentUser.credits < 30) {return showModal("Créditos Insuficientes", "Adquira mais créditos para esta consulta.");}
-      document.getElementById('modal-title').innerText = 'Confirmação de Créditos';
-      document.getElementById('modal-msg').innerHTML = 'Deseja realizar a consulta <strong>Numerologia Pitagórica</strong> (Perfil Completo) por <strong style="color:var(--gold)">30 créditos</strong>?<br><br>Seu saldo será descontado apenas se você confirmar.';
-      var overlay = document.getElementById('modal-overlay');
-      overlay.style.display = 'flex';
-      var btn = overlay.querySelector('.modal-content .btn-portal');
-      btn.style.display = 'none';
-      var confirmDiv = document.getElementById('confirm-buttons');
-      if (!confirmDiv) {
-        confirmDiv = document.createElement('div');
-        confirmDiv.id = 'confirm-buttons';
-        confirmDiv.style.cssText = 'display:flex;gap:12px;justify-content:center;margin-top:10px';
-        overlay.querySelector('.modal-content').appendChild(confirmDiv);
-      }
-      confirmDiv.innerHTML = '<button class="btn-portal" style="background:#2c7a4a;flex:1" onclick="confirmarNumerologia(true)">Sim</button><button class="btn-portal" style="background:#a33;flex:1" onclick="confirmarNumerologia(false)">Não</button>';
-    }
-    function confirmarNumerologia(ok) {
-      var overlay = document.getElementById('modal-overlay');
-      var btn = overlay.querySelector('.modal-content .btn-portal');
-      btn.style.display = 'block';
-      var confirmDiv = document.getElementById('confirm-buttons');
-      if (confirmDiv) {confirmDiv.innerHTML = '';}
-      overlay.style.display = 'none';
-      if (!ok) {showModal("Consulta cancelada", "Nenhum crédito foi descontado."); return;}
-      numerologiaPremium();
-    }
-    var FRASES_ESTOICAS = [
-      "A felicidade da sua vida depende da qualidade dos seus pensamentos.",
-      "O que não é bom para a colmeia, não pode ser bom para a abelha.",
-      "Não é o que acontece com você, mas como você reage ao que acontece.",
-      "O homem não é perturbado pelas coisas, mas pela visão que tem delas.",
-      "Aceite as coisas às quais o destino o vincula.",
-      "A liberdade é o único objetivo que vale a pena.",
-      "O tempo é o nosso recurso mais escasso e valioso.",
-      "Viva como se fosse morrer amanhã. Aprenda como se fosse viver para sempre.",
-      "A raiva é um ácido que faz mais mal ao recipiente do que a qualquer coisa em que seja derramado.",
-      "Dificuldades fortalecem a mente, assim como o trabalho fortalece o corpo.",
-      "Onde há vida, há esperança.",
-      "O autoconhecimento é o início de toda sabedoria.",
-      "Não busque que as coisas aconteçam como deseja; deseje que aconteçam como acontecem.",
-      "A maior vitória é a vitória sobre si mesmo.",
-      "O segredo da felicidade não é fazer o que se gosta, mas gostar do que se faz.",
-      "A riqueza consiste muito mais em desfrutar do que em possuir.",
-      "Ninguém pode tirar de você o seu poder de escolha.",
-      "O que é necessário é fácil; o que é difícil não é necessário.",
-      "Não reclame do frio se você não se preparou para o inverno.",
-      "A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original.",
-      "Cuide do presente, e o futuro cuidará de si mesmo.",
-      "O caráter é o destino.",
-      "A calma é uma força silenciosa.",
-      "Quem tem um porquê enfrenta quase qualquer como.",
-      "Aprenda a ser indiferente ao que não está sob seu controle.",
-      "A vida é curta, mas o tempo é suficiente para quem sabe viver.",
-      "A dor é inevitável, o sofrimento é opcional.",
-      "Seja o mestre de si mesmo e escravo de ninguém.",
-      "A virtude é a única coisa que não pode ser roubada.",
-      "A natureza não faz nada em vão.",
-      "Não tenha medo das mudanças; elas são o caminho para o novo.",
-      "O silêncio é a linguagem dos sábios.",
-      "A moderação é a chave para todas as virtudes.",
-      "Honre seus ancestrais vivendo uma vida de valor.",
-      "Se você é capaz de olhar para dentro, é capaz de transformar o fora.",
-      "O medo é apenas uma sombra projetada por uma mente insegura.",
-      "A gratidão transforma o que temos em suficiente.",
-      "Não se compare com os outros; compare-se com quem você foi ontem.",
-      "O foco é a ferramenta que dá forma ao seu destino.",
-      "A disciplina é o caminho para a liberdade.",
-      "Não carregue o peso do passado, nem a ansiedade do futuro.",
-      "A verdade é a base de toda grandeza.",
-      "A simplicidade é o último grau de sofisticação.",
-      "O melhor momento para plantar uma árvore foi há 20 anos. O segundo melhor é agora.",
-      "O que os outros pensam de você não é da sua conta.",
-      "A humildade precede a honra.",
-      "Aprenda a encontrar o equilíbrio no caos.",
-      "Cada manhã é uma nova vida para o homem sábio.",
-      "Sua percepção é sua realidade.",
-      "O conhecimento é poder apenas se for aplicado."
-    ];
-    function mostrarBalaoCentralizado() {
-      var b = document.getElementById('balao-centralizado');
-      if (!b) {
-        b = document.createElement('div');
-        b.id = 'balao-centralizado';
-        document.body.appendChild(b);
-      }
-      b.innerHTML = '<div class="balao-icone">✨</div>'
-        + '<p class="balao-frase">"' + FRASES_ESTOICAS[Math.floor(Math.random() * FRASES_ESTOICAS.length)] + '"</p>'
-        + '<div class="balao-rodape">— Oraculum Vitae · Sabedoria do Dia —</div>';
-      b.style.display = 'block';
-      clearTimeout(b._t);
-      b._t = setTimeout(function () {b.style.display = 'none';}, 5000);
-    }
-    function atualizarBaloes() {
-      var logado = !!(currentUser && currentUser.name);
-      var b1 = document.getElementById('baloon-beneficios');
-      var b2 = document.getElementById('baloon-indique');
-      if (b1) b1.style.display = logado ? 'none' : 'block';
-      if (b2) b2.style.display = logado ? 'block' : 'none';
-      var tempo = window.innerWidth <= 768 ? 3000 : 5000; // 3s celular, 5s desktop
-      var visivel = logado ? b2 : b1;
-      if (visivel) {
-        visivel.style.display = 'block';
-        clearTimeout(visivel._timer);
-        visivel._timer = setTimeout(function () {visivel.style.display = 'none';}, tempo);
-      }
-    }
+var nomeEl=document.getElementById('num-nome');
+var dataEl=document.getElementById('num-data');
+var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
+var raw=dataEl.value||'';
+if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
+var res=document.getElementById('num-result');
+res.style.display='block';
+res.innerHTML='<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">✨ Consultando os números da sua vibração...</div>';
+fetch('/api/numerologia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,data:raw,tipo:'gratis'})})
+.then(function(r){return r.json();})
+.then(function(d){if(d&&d.resposta){res.innerHTML='<h3>Seu Perfil Numerológico</h3>'+formatarRespostaIA(d.resposta,null);}else{erroNumerologiaGratis();}})
+.catch(function(){erroNumerologiaGratis();});
 }
-    function irParaIndiqueAmigo() {
-      showPage('page-indicacao');
-    }
+function erroNumerologiaGratis(){
+var res=document.getElementById('num-result');
+res.style.display='block';
+res.innerHTML='<div style="margin-top:10px;padding:14px;border:1px solid #c9a86a55;border-radius:8px;background:#c9a86a11;text-align:center;color:var(--gold-light)"><p style="margin:0 0 6px;color:var(--gold)"><strong>⚠️ O oráculo não conseguiu responder agora</strong></p><p style="margin:0">Esta consulta é gratuita e nada foi descontado. Aguarde alguns instantes e toque em “Calcular Minha Vibração” novamente.</p></div>';
+}
     function numerologiaPremium() {
-      var nomeEl = document.getElementById('num-nome');
-      var dataEl = document.getElementById('num-data');
-      var nome = (nomeEl.value || '').toUpperCase().replace(/[^A-Z]/g, '');
-      var raw = dataEl.value || '';
-      if (!nome || !raw) {return showModal("Erro", "Preencha nome e data.");}
-      if (!currentUser.isMago && currentUser.credits < 30) {return showModal("Créditos Insuficientes", "Adquira mais créditos para esta consulta.");}
-      if (!currentUser.isMago) {currentUser.credits -= 30; saveUser(currentUser); updateCreditsDisplay();}
-      var res = document.getElementById('num-result');
-      res.style.display = 'block';
-      res.innerHTML = '<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">✨ Gerando seu perfil completo com a IA... isso pode levar alguns segundos.</div>';
-      fetch('/api/numerologia', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({nome: nome, data: raw, tipo: 'premium'})})
-        .then(function (r) {return r.json();})
-        .then(function (d) {if (d && d.resposta) {res.innerHTML = '<h3>Numerologia Pitagórica — Perfil Completo</h3>' + formatarRespostaIA(d.resposta, null);} else {mostrarNumerologiaLocal(true);} })
-        .catch(function () {mostrarNumerologiaLocal(true);});
-    }
-    function mostrarNumerologiaLocal(premium) {
-      if (premium) {var r = document.getElementById('num-result'); r.innerHTML = '<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">A IA está instável no momento. Exibindo o perfil resumido, sem custo adicional.</div>';}
-      calculateNumerology();
-    }
+var nomeEl=document.getElementById('num-nome');
+var dataEl=document.getElementById('num-data');
+var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
+var raw=dataEl.value||'';
+if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
+if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
+var cobrado=false;
+if(!currentUser.isMago){currentUser.credits-=30;saveUser(currentUser);updateCreditsDisplay();cobrado=true;}
+var res=document.getElementById('num-result');
+res.style.display='block';
+res.innerHTML='<div style="text-align:center;padding:14px;color:#c9a86a;font-style:italic">✨ Gerando seu perfil completo com a IA... isso pode levar alguns segundos.</div>';
+fetch('/api/numerologia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,data:raw,tipo:'premium'})})
+.then(function(r){return r.json();})
+.then(function(d){if(d&&d.resposta){res.innerHTML='<h3>Numerologia Pitagórica — Perfil Completo</h3>'+formatarRespostaIA(d.resposta,null);}else{devolverCreditosNumerologia(cobrado);}})
+.catch(function(){devolverCreditosNumerologia(cobrado);});
+}
+function devolverCreditosNumerologia(cobrado) {
+if(cobrado){currentUser.credits+=30;saveUser(currentUser);updateCreditsDisplay();}
+var res=document.getElementById('num-result');
+res.style.display='block';
+res.innerHTML='<div style="margin-top:10px;padding:14px;border:1px solid #c9a86a55;border-radius:8px;background:#c9a86a11;text-align:center;color:var(--gold-light)"><p style="margin:0 0 6px;color:var(--gold)"><strong>⚠️ O oráculo não conseguiu responder agora</strong></p><p style="margin:0">'+(cobrado?'Seus <strong>30 créditos foram devolvidos</strong>. Nenhuma leitura foi cobrada.':'Nenhum crédito foi descontado.')+'</p><p style="margin:8px 0 0;font-size:13px;color:#aaa">Aguarde alguns instantes e toque em “Perfil Completo (Numerologia Pitagórica)” novamente.</p></div>';
+}
+      function startNumerologiaPremium() {
+var nomeEl=document.getElementById('num-nome');
+var dataEl=document.getElementById('num-data');
+var nome=(nomeEl.value||'').toUpperCase().replace(/[^A-Z]/g,'');
+var raw=dataEl.value||'';
+if(!nome||!raw){return showModal("Erro","Preencha nome e data.");}
+if(!currentUser.isMago&&currentUser.credits<30){return showModal("Créditos Insuficientes","Adquira mais créditos para esta consulta.");}
+document.getElementById('modal-title').innerText='Confirmação de Créditos';
+document.getElementById('modal-msg').innerHTML='Deseja realizar a consulta <strong>Numerologia Pitagórica</strong> (Perfil Completo) por <strong style="color:var(--gold)">30 créditos</strong>?<br><br>Seu saldo será descontado apenas se você confirmar.';
+var overlay=document.getElementById('modal-overlay');
+overlay.style.display='flex';
+var btn=overlay.querySelector('.modal-content .btn-portal');
+btn.style.display='none';
+var confirmDiv=document.getElementById('confirm-buttons');
+if(!confirmDiv){
+confirmDiv=document.createElement('div');
+confirmDiv.id='confirm-buttons';
+confirmDiv.style.cssText='display:flex;gap:12px;justify-content:center;margin-top:10px';
+overlay.querySelector('.modal-content').appendChild(confirmDiv);
+}
+confirmDiv.innerHTML='<button class="btn-portal" style="background:#2c7a4a;flex:1" onclick="confirmarNumerologia(true)">Sim</button><button class="btn-portal" style="background:#a33;flex:1" onclick="confirmarNumerologia(false)">Não</button>';
+}
+function confirmarNumerologia(ok) {
+var overlay=document.getElementById('modal-overlay');
+var btn=overlay.querySelector('.modal-content .btn-portal');
+btn.style.display='block';
+var confirmDiv=document.getElementById('confirm-buttons');
+if(confirmDiv){confirmDiv.innerHTML='';}
+overlay.style.display='none';
+if(!ok){showModal("Consulta cancelada","Nenhum crédito foi descontado.");return;}
+numerologiaPremium();
+}
+  var FRASES_ESTOICAS = [
+  "A felicidade da sua vida depende da qualidade dos seus pensamentos.",
+  "O que não é bom para a colmeia, não pode ser bom para a abelha.",
+  "Não é o que acontece com você, mas como você reage ao que acontece.",
+  "O homem não é perturbado pelas coisas, mas pela visão que tem delas.",
+  "Aceite as coisas às quais o destino o vincula.",
+  "A liberdade é o único objetivo que vale a pena.",
+  "O tempo é o nosso recurso mais escasso e valioso.",
+  "Viva como se fosse morrer amanhã. Aprenda como se fosse viver para sempre.",
+  "A raiva é um ácido que faz mais mal ao recipiente do que a qualquer coisa em que seja derramado.",
+  "Dificuldades fortalecem a mente, assim como o trabalho fortalece o corpo.",
+  "Onde há vida, há esperança.",
+  "O autoconhecimento é o início de toda sabedoria.",
+  "Não busque que as coisas aconteçam como deseja; deseje que aconteçam como acontecem.",
+  "A maior vitória é a vitória sobre si mesmo.",
+  "O segredo da felicidade não é fazer o que se gosta, mas gostar do que se faz.",
+  "A riqueza consiste muito mais em desfrutar do que em possuir.",
+  "Ninguém pode tirar de você o seu poder de escolha.",
+  "O que é necessário é fácil; o que é difícil não é necessário.",
+  "Não reclame do frio se você não se preparou para o inverno.",
+  "A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original.",
+  "Cuide do presente, e o futuro cuidará de si mesmo.",
+  "O caráter é o destino.",
+  "A calma é uma força silenciosa.",
+  "Quem tem um porquê enfrenta quase qualquer como.",
+  "Aprenda a ser indiferente ao que não está sob seu controle.",
+  "A vida é curta, mas o tempo é suficiente para quem sabe viver.",
+  "A dor é inevitável, o sofrimento é opcional.",
+  "Seja o mestre de si mesmo e escravo de ninguém.",
+  "A virtude é a única coisa que não pode ser roubada.",
+  "A natureza não faz nada em vão.",
+  "Não tenha medo das mudanças; elas são o caminho para o novo.",
+  "O silêncio é a linguagem dos sábios.",
+  "A moderação é a chave para todas as virtudes.",
+  "Honre seus ancestrais vivendo uma vida de valor.",
+  "Se você é capaz de olhar para dentro, é capaz de transformar o fora.",
+  "O medo é apenas uma sombra projetada por uma mente insegura.",
+  "A gratidão transforma o que temos em suficiente.",
+  "Não se compare com os outros; compare-se com quem você foi ontem.",
+  "O foco é a ferramenta que dá forma ao seu destino.",
+  "A disciplina é o caminho para a liberdade.",
+  "Não carregue o peso do passado, nem a ansiedade do futuro.",
+  "A verdade é a base de toda grandeza.",
+  "A simplicidade é o último grau de sofisticação.",
+  "O melhor momento para plantar uma árvore foi há 20 anos. O segundo melhor é agora.",
+  "O que os outros pensam de você não é da sua conta.",
+  "A humildade precede a honra.",
+  "Aprenda a encontrar o equilíbrio no caos.",
+  "Cada manhã é uma nova vida para o homem sábio.",
+  "Sua percepção é sua realidade.",
+  "O conhecimento é poder apenas se for aplicado."
+];
+function mostrarBalaoCentralizado() {
+  var b = document.getElementById('balao-centralizado');
+  if (!b) {
+    b = document.createElement('div');
+    b.id = 'balao-centralizado';
+    document.body.appendChild(b);
+  }
+  b.innerHTML = '<div class="balao-icone">✨</div>'
+    + '<p class="balao-frase">"' + FRASES_ESTOICAS[Math.floor(Math.random() * FRASES_ESTOICAS.length)] + '"</p>'
+    + '<div class="balao-rodape">— Oraculum Vitae · Sabedoria do Dia —</div>';
+  b.style.display = 'block';
+  clearTimeout(b._t);
+  b._t = setTimeout(function(){ b.style.display = 'none'; }, 5000);
+}
+function atualizarBaloes() {
+  var logado = !!(currentUser && currentUser.name);
+  var b1 = document.getElementById('baloon-beneficios');
+  var b2 = document.getElementById('baloon-indique');
+  if (b1) b1.style.display = logado ? 'none' : 'block';
+  if (b2) b2.style.display = logado ? 'block' : 'none';
+  var tempo = window.innerWidth <= 768 ? 3000 : 5000; // 3s celular, 5s desktop
+  var visivel = logado ? b2 : b1;
+  if (visivel) {
+    visivel.style.display = 'block';
+    clearTimeout(visivel._timer);
+    visivel._timer = setTimeout(function(){ visivel.style.display = 'none'; }, tempo);
+  }
+}
+function irParaIndiqueAmigo() {
+  showPage('page-indicacao');
+}
     function handleIndication() {
       var email = document.getElementById('indica-email').value;
       if (email.indexOf('@') < 0) {return showModal("Erro", "E-mail inválido.");}
@@ -3873,107 +3992,455 @@
     }
 
     function atualizarBaloonGratis() {
-      var el = document.getElementById('baloon-gratis');
-      if (!el) return;
-      var logado = !!(currentUser && currentUser.name);
-      el.style.display = logado ? 'none' : 'block';
-    }
-    atualizarBaloes();
-    setTimeout(function () {
-      var el = document.getElementById('baloon-gratis');
-      if (el) el.style.opacity = '1';
-    }, 100);
+  var el = document.getElementById('baloon-gratis');
+  if (!el) return;
+  var logado = !!(currentUser && currentUser.name);
+  el.style.display = logado ? 'none' : 'block';
+}
+atualizarBaloes();
+    setTimeout(function(){
+  var el = document.getElementById('baloon-gratis');
+  if (el) el.style.opacity = '1';
+}, 100);
 
-    // Função que leva para a página "Indique um Amigo"
-    function irParaIndiqueAmigo() {
-      showPage('page-indicacao');
-    }
+function fecharBalao(ev, el) {
+  if (ev) ev.stopPropagation();
+  var b = el.closest('.baloon');
+  if (b) { b.style.display = 'none'; }
+  sessionStorage.setItem('baloes_fechados', '1');
+}
 
-    // Controla os dois balões: benefícios (antes do cadastro) e Indique (depois)
-    function atualizarBaloes() {
-      var logado = !!(currentUser && currentUser.name);
-      var gratis = document.getElementById('baloon-gratis');
-      var indique = document.getElementById('baloon-indique');
-      if (gratis) gratis.style.display = logado ? 'none' : 'block';
-      if (indique) indique.style.display = logado ? 'block' : 'none';
-    }
-    atualizarBaloes();
+// Se o usuário já fechou os balões nesta visita, não mostra novamente
+if (sessionStorage.getItem('baloes_fechados') === '1') {
+  var b1 = document.getElementById('baloon-beneficios');
+  var b2 = document.getElementById('baloon-indique');
+  if (b1) b1.style.display = 'none';
+  if (b2) b2.style.display = 'none';
+}
+</script>
+      <!-- ===== PÁGINA SOBRE O ORACULUM VITAE ===== -->
+  <section id="page-sobre" class="page">
+    <div class="form-container" style="max-width:820px">
+      <button class="voltar-link" onclick="showPage('page-dashboard')"><i class="fas fa-arrow-left"></i> Voltar ao Início</button>
+      <h2 class="pirata" style="font-size:clamp(24px,3.5vw,34px);color:var(--gold);margin-bottom:8px;text-align:center">Sobre o Oraculum Vitae</h2>
+      <p style="text-align:center;font-style:italic;color:var(--gold-light);margin:0 0 30px">O destino não se anuncia. Ele se escuta.</p>
 
-  </script>
+      <div class="sobre-texto">
+        <p>Há perguntas que você já fez em voz alta e outras que nunca teve coragem de dizer. Existe um lugar silencioso entre essas duas coisas — entre o que você sente e o que ainda não conseguiu nomear. <strong>O Oraculum Vitae nasce exatamente nesse intervalo.</strong></p>
 
+        <p>Não somos um site de respostas automáticas. Somos um portal onde o acaso não é acaso: cada carta que você retira do baralho embaralhado é uma escolha que a sua própria intuição já havia feito antes de o seu dedo tocar a tela. O que fazemos aqui é dar forma, palavra e direção a esse impulso invisível.</p>
+
+        <p>Este é um espaço de <strong>autoconhecimento</strong> — e autoconhecimento não é ouvir o que se quer ouvir. É olhar com honestidade para o que está diante de você.</p>
+
+        <h3>O que você encontra no portal</h3>
+
+        <p>O Oraculum Vitae reúne, em um só lugar, as grandes tradições de leitura que atravessaram séculos: o <strong>Tarô</strong>, a <strong>Astrologia</strong> e a <strong>Numerologia Pitagórica</strong>. Cada uma delas foi tratada com o respeito que merece — sem atalhos, sem frases prontas, sem promessas fáceis.</p>
+
+        <p><strong>Sim, Não ou Talvez</strong> — uma única carta, uma resposta direta, para o momento em que a dúvida não pode esperar. <em>Por 10 créditos.</em></p>
+
+        <p><strong>Tiragens de Tarô de 2 a 10 cartas</strong> — do <em>Conselho e Advertência</em> à <strong>Cruz Celta</strong> completa, métodos que cruzam passado, presente e futuro para revelar o que estava oculto na sua história. De <em>20 a 100 créditos</em>, conforme a profundidade.</p>
+
+        <p><strong>O Templo de Afrodite</strong> — sete cartas dispostas em colunas gregas, comparando o que você pensa, sente e deseja com o que o outro realmente pensa, sente e deseja. <em>Por 70 créditos.</em></p>
+
+        <p><strong>Tarô de Marselha</strong> — o baralho clássico, na sua forma mais tradicional e antiga, lido dentro da linha do tempo do Passado, Presente e Futuro. <em>Por 30 créditos.</em></p>
+
+        <p><strong>Mapas Astrais em três níveis</strong> — o céu no instante exato do seu nascimento, lido com crescente profundidade: o <strong>Pórtico Celestial</strong> (<em>50 créditos</em>), a <strong>Órbita Pessoal</strong> (<em>100 créditos</em>) e o <strong>Cosmos Absoluto</strong> (<em>200 créditos</em>), a leitura total e integrada do seu universo.</p>
+
+        <h3>O que é gratuito, todos os dias</h3>
+
+        <p>Nem toda sabedoria precisa custar. O portal mantém três portas sempre abertas, sem cobrar um único crédito:</p>
+
+        <p><strong>A Carta do Dia</strong> — uma carta sorteada diariamente, com uma área da sua vida escolhida ao acaso para receber o conselho. Uma consulta a cada 24 horas, renovada à meia-noite.</p>
+
+        <p><strong>O Horóscopo Semanal</strong> — previsões para os doze signos, atualizadas toda semana, disponíveis para leitura imediata.</p>
+
+        <p><strong>A Numerologia Básica</strong> — a vibração do seu nome e da sua data de nascimento, calculada pela tradição pitagórica. A leitura essencial é gratuita; para quem quiser ir mais fundo, o <strong>Perfil Completo</strong> aprofunda os seus números por <em>30 créditos</em>.</p>
+
+        <p>E há mais: <strong>o seu cadastro já começa com 50 créditos de presente</strong>. Além disso, <strong>cada amigo que você trouxer para o portal devolve outros 50 créditos</strong> — porque certas descobertas pedem companhia, e a sabedoria circula melhor quando é compartilhada.</p>
+
+        <h3>Como é a sua experiência aqui</h3>
+
+        <p>Você chega com uma pergunta. Sai com um mapa.</p>
+
+        <p>A primeira escolha é a sua pergunta — feita com clareza, com sinceridade, do jeito que ela nasce dentro de você. Em seguida, embaralhamos as 78 cartas do baralho e colocamos todas elas diante dos seus olhos, viradas para baixo. Você escolhe as que sentir, no tempo que precisar.</p>
+
+        <p>Só então o oráculo responde. E responde <strong>por escrito, de forma dissertativa</strong>, articulando carta por carta dentro do método que você escolheu — nada de uma frase solta e genérica. Ao final, <strong>cada leitura pode ser copiada ou baixada</strong>, para ser relida amanhã, na semana que vem, ou no dia em que o tempo já tiver passado e você quiser entender o que ele dizia.</p>
+
+        <p>O oráculo responde. <strong>A decisão continua sendo sua.</strong></p>
+
+        <h3>A parte estoica</h3>
+
+        <p>O Oraculum Vitae não promete mudar o seu destino. Nenhum oráculo honesto promete isso.</p>
+
+        <p>Ele faz outra coisa, e é isso que o torna diferente: mostra o que está sob o seu controle e o que nunca esteve. Separa o fato da sua imaginação sobre o fato. Devolve ao seu olhar aquilo que a ansiedade costuma esconder — a clareza para agir, a serenidade para aceitar o que não depende de você, e a coragem de distinguir uma coisa da outra.</p>
+
+        <p class="sobre-citacao">"Não busque que as coisas aconteçam como deseja; deseje que aconteçam como acontecem."</p>
+
+        <p>É essa sabedoria antiga que atravessa cada leitura deste portal. Nenhuma carta é sentença. Toda carta é espelho.</p>
+
+        <h3>Como começar</h3>
+
+        <ol class="sobre-lista">
+          <li>Crie a sua conta e receba <strong>50 créditos</strong> de imediato.</li>
+          <li>Comece pelas portas gratuitas: a <strong>Carta do Dia</strong>, o <strong>Horóscopo</strong> e a <strong>Numerologia</strong>.</li>
+          <li>Quando a sua pergunta realmente importar, escolha a tiragem ou o mapa que combine com ela.</li>
+          <li><strong>Copie ou baixe</strong> a leitura e volte a ela sempre que precisar.</li>
+        </ol>
+
+        <p>E se quiser mais créditos sem pagar, indique um amigo: <strong>50 créditos por cada indicação</strong> que se cadastrar pelo seu convite.</p>
+
+        <p style="text-align:center;color:var(--gold);font-weight:bold;margin-top:34px">As cartas já estão embaralhadas. Só falta a sua pergunta.</p>
+
+        <p style="font-size:12px;color:#a89bb8;line-height:1.7;margin-top:26px;text-align:center"><em>Conteúdo para fins de entretenimento e autoconhecimento. Este portal não substitui aconselhamento médico, psicológico, jurídico ou financeiro profissional. Recomendado para maiores de 18 anos.</em></p>
+      </div>
+    </div>
+  </section>
+    
   <!-- ===== RODAPÉ ===== -->
-  <footer class="site-footer">
-    <div class="footer-content">
-      <div class="footer-col footer-brand">
-        <h4>🔮 Oraculum Vitae</h4>
-        <p>Oráculos, tarô e autoconhecimento. A sabedoria ancestral guiando sua jornada.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Navegação</h4>
-        <a href="#">Termos de Uso</a>
-        <a href="#">Política de Privacidade</a>
-        <a href="#">FAQ</a>
-        <a href="#">Sobre</a>
-      </div>
-      <div class="footer-col">
-        <h4>Contato</h4>
-        <a href="mailto:contato@oraculumvitae.com">contato@oraculumvitae.com</a>
-      </div>
-      <div class="footer-col">
-        <h4>Redes Sociais</h4>
-        <div class="footer-social">
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Oraculum Vitae. Todos os direitos reservados.</p>
-      <p class="footer-legal">Conteúdo para fins de entretenimento e autoconhecimento. Este site não substitui
-        aconselhamento médico, psicológico, jurídico ou financeiro profissional.</p>
-      <p class="footer-18">🔞 Conteúdo recomendado para maiores de 18 anos.</p>
-    </div>
-  </footer>
+<footer class="site-footer">
+<div class="footer-content">
+<div class="footer-col footer-brand">
+<h4>🔮 Oraculum Vitae</h4>
+<p>Oráculos, tarô e autoconhecimento. A sabedoria ancestral guiando sua jornada.</p>
+</div>
+<div class="footer-col">
+<h4>Navegação</h4>
+<a href="#">Termos de Uso</a>
+<a href="#">Política de Privacidade</a>
+<a href="#">FAQ</a>
+<a href="javascript:void(0)" onclick="showPage('page-sobre')">Sobre o Oraculum Vitae</a>
+</div>
+<div class="footer-col">
+<h4>Contato</h4>
+<a href="mailto:contato@oraculumvitae.com">contato@oraculumvitae.com</a>
+</div>
+<div class="footer-col">
+<h4>Redes Sociais</h4>
+<div class="footer-social">
+<a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+<a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2026 Oraculum Vitae. Todos os direitos reservados.</p>
+<p class="footer-legal">Conteúdo para fins de entretenimento e autoconhecimento. Este site não substitui aconselhamento médico, psicológico, jurídico ou financeiro profissional.</p>
+<p class="footer-18">🔞 Conteúdo recomendado para maiores de 18 anos.</p>
+</div>
+</footer>
 
-  <!-- BALÃO 1: Benefícios gratuitos (aparece antes do cadastro) -->
-  <div id="baloon-beneficios" class="form-container baloon">
-    <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">✨ Bem-vindo ao Oraculum Vitae</h2>
-    <p style="margin:8px 0;font-size:14px">Descubra seu destino <strong
-        style="color:var(--gold)">GRATUITAMENTE</strong>:</p>
-    <ul style="margin:8px 0 4px;padding-left:20px;font-size:14px">
-      <li>🔮 <strong>Carta do Dia</strong></li>
-      <li>🔢 <strong>Numerologia</strong></li>
-      <li>🌟 <strong>Horóscopo</strong></li>
-    </ul>
-  </div>
+<!-- BALÃO 1: Benefícios gratuitos (aparece antes do cadastro) -->
+<div id="baloon-beneficios" class="form-container baloon">
+  <span class="baloon-close" onclick="fecharBalao(event, this)" aria-label="Fechar">&times;</span>
+  <h2 class="pirata" style="color:var(--gold);font-size:17px;margin-bottom:12px">
+    ✨ Bem-vindo ao Oraculum Vitae
+  </h2>
 
-  <!-- BALÃO 2:  (aparece após o cadastro, permanente e clicável) -->
-  <div id="baloon-indique" class="form-container baloon" onclick="irParaIndiqueAmigo()" style="cursor:pointer">
-    <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">🎁 </h2>
-    <p style="margin:8px 0;font-size:14px">Ganhe <strong style="color:var(--gold)">50 créditos</strong> por cada amigo
-      que você indicar!</p>
-    <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
-  </div>
+  <p style="margin:8px 0;font-size:14px">
+    Descubra seu destino <strong style="color:var(--gold)">GRATUITAMENTE</strong>:
+  </p>
 
-  <!-- Balão de benefícios gratuitos (some após o cadastro) -->
-  <div id="baloon-gratis" class="form-container">
-    <h2 class="pirata" style="color:var(--gold);font-size:20px;margin:0 0 12px">🔮 Descubra seu destino de graça</h2>
-    <p style="margin:8px 0;font-size:14px;line-height:1.5">No Oraculum Vitae você começa sem pagar nada:</p>
-    <ul style="margin:8px 0;padding-left:20px;font-size:14px;line-height:1.8">
-      <li>🃏 <strong style="color:var(--gold)">Carta do Dia</strong> — revelação diária</li>
-      <li>🔢 <strong style="color:var(--gold)">Numerologia</strong> — seu número pessoal</li>
-      <li>🌟 <strong style="color:var(--gold)">Horóscopo</strong> — o que os astros reservam</li>
-    </ul>
-  </div>
+  <ul style="margin:8px 0 4px;padding-left:20px;font-size:14px">
+    <li>🔮 <strong>Carta do Dia</strong></li>
+    <li>🔢 <strong>Numerologia</strong></li>
+    <li>🌟 <strong>Horóscopo</strong></li>
+  </ul>
 
-  <!-- BALÃO 2: Indique um Amigo (aparece após o cadastro, permanente e clicável) -->
-  <div id="baloon-indique" class="form-container baloon" onclick="irParaIndiqueAmigo()" style="cursor:pointer">
-    <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">🔮 Compartilhe o destino</h2>
-    <p style="margin:8px 0;font-size:14px">Ganhe <strong style="color:var(--gold)">50 créditos</strong> por cada amigo
-      que indicar!</p>
-    <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
-  </div>
+  <p style="margin:12px 0 0;font-size:14px;color:var(--gold);text-align:center">
+    Indique 1 amigo e ganhe 50 créditos
+  </p>
+</div>
+
+<!-- BALÃO 2: (aparece após o cadastro, permanente e clicável) -->
+<div id="baloon-indique" class="form-container baloon" onclick="irParaIndiqueAmigo()" style="cursor:pointer">
+  <span class="baloon-close" onclick="fecharBalao(event, this)" aria-label="Fechar">&times;</span>
+  <h2 class="pirata" style="color:var(--gold);font-size:20px;margin-bottom:12px">🎁 </h2>
+  <p style="margin:8px 0;font-size:14px">Ganhe <strong style="color:var(--gold)">50 créditos</strong> por cada amigo que você indicar!</p>
+  <p style="margin:10px 0 0;font-size:13px;color:var(--gold-light)">👉 Clique aqui para indicar</p>
+</div>
+
+  <script>
+  // ===== LISTA DE ESTADOS (fixa, nunca muda) =====
+  var UFS = [
+    {s:'AC', n:'Acre'}, {s:'AL', n:'Alagoas'}, {s:'AP', n:'Amapá'}, {s:'AM', n:'Amazonas'},
+    {s:'BA', n:'Bahia'}, {s:'CE', n:'Ceará'}, {s:'DF', n:'Distrito Federal'}, {s:'ES', n:'Espírito Santo'},
+    {s:'GO', n:'Goiás'}, {s:'MA', n:'Maranhão'}, {s:'MT', n:'Mato Grosso'}, {s:'MS', n:'Mato Grosso do Sul'},
+    {s:'MG', n:'Minas Gerais'}, {s:'PA', n:'Pará'}, {s:'PB', n:'Paraíba'}, {s:'PR', n:'Paraná'},
+    {s:'PE', n:'Pernambuco'}, {s:'PI', n:'Piauí'}, {s:'RJ', n:'Rio de Janeiro'}, {s:'RN', n:'Rio Grande do Norte'},
+    {s:'RS', n:'Rio Grande do Sul'}, {s:'RO', n:'Rondônia'}, {s:'RR', n:'Roraima'}, {s:'SC', n:'Santa Catarina'},
+    {s:'SP', n:'São Paulo'}, {s:'SE', n:'Sergipe'}, {s:'TO', n:'Tocantins'}
+  ];
+
+  var CIDADES_CACHE = {};
+  var SUGESTOES_ATUAIS = {};
+  var PREFIXOS_MAPA = ['mapa-portico', 'mapa-orbita', 'mapa-cosmos'];
+
+  function normalizaTxt(s) {
+    return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  }
+
+  function preencherEstados() {
+    for (var i = 0; i < PREFIXOS_MAPA.length; i++) {
+      var sel = document.getElementById(PREFIXOS_MAPA[i] + '-estado');
+      if (!sel) continue;
+      var html = '<option value="">Estado de Nascimento (UF)</option>';
+      for (var j = 0; j < UFS.length; j++) {
+        html += '<option value="' + UFS[j].s + '">' + UFS[j].n + ' (' + UFS[j].s + ')</option>';
+      }
+      sel.innerHTML = html;
+    }
+  }
+
+  function carregarCidades(prefixo) {
+    var sel = document.getElementById(prefixo + '-estado');
+    var campo = document.getElementById(prefixo + '-cidade');
+    if (!sel || !campo) return;
+    var uf = sel.value;
+    campo.value = '';
+    fecharSugestoes(prefixo);
+    if (!uf) {
+      campo.placeholder = 'Escolha o estado primeiro';
+      return;
+    }
+    if (CIDADES_CACHE[uf]) {
+      campo.placeholder = 'Digite a cidade (' + uf + ')';
+      return;
+    }
+    campo.disabled = true;
+    campo.placeholder = 'Carregando cidades...';
+    fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + uf + '/municipios?orderBy=nome')
+      .then(function (r) { return r.json(); })
+      .then(function (lista) {
+        var nomes = [];
+        for (var i = 0; i < lista.length; i++) { nomes.push(lista[i].nome); }
+        CIDADES_CACHE[uf] = nomes;
+        campo.disabled = false;
+        campo.placeholder = 'Digite a cidade (' + uf + ')';
+      })
+      .catch(function () {
+        CIDADES_CACHE[uf] = null;
+        campo.disabled = false;
+        campo.placeholder = 'Digite a cidade (busca automática indisponível)';
+      });
+  }
+
+  function sugerirCidades(prefixo) {
+    var sel = document.getElementById(prefixo + '-estado');
+    var campo = document.getElementById(prefixo + '-cidade');
+    var box = document.getElementById(prefixo + '-sugestoes');
+    if (!sel || !campo || !box) return;
+    var lista = sel.value ? CIDADES_CACHE[sel.value] : null;
+    var termo = normalizaTxt(campo.value);
+    if (!lista || termo.length < 2) { fecharSugestoes(prefixo); return; }
+
+    var achados = [];
+    for (var i = 0; i < lista.length; i++) {
+      if (normalizaTxt(lista[i]).indexOf(termo) === 0) achados.push(lista[i]);
+    }
+    for (var k = 0; k < lista.length && achados.length < 20; k++) {
+      if (normalizaTxt(lista[k]).indexOf(termo) > 0) achados.push(lista[k]);
+    }
+
+    if (!achados.length) { fecharSugestoes(prefixo); return; }
+    SUGESTOES_ATUAIS[prefixo] = achados;
+    var html = '';
+    for (var m = 0; m < achados.length; m++) {
+      html += '<div onmousedown="escolherCidade(event,\'' + prefixo + '\',' + m + ')">' + achados[m] + '</div>';
+    }
+    box.innerHTML = html;
+    box.className = 'cidade-sugestoes ativa';
+  }
+
+  function escolherCidade(ev, prefixo, idx) {
+    if (ev) ev.preventDefault();
+    var lista = SUGESTOES_ATUAIS[prefixo] || [];
+    var campo = document.getElementById(prefixo + '-cidade');
+    if (campo && lista[idx]) campo.value = lista[idx];
+    fecharSugestoes(prefixo);
+  }
+
+  function fecharSugestoes(prefixo) {
+    var box = document.getElementById(prefixo + '-sugestoes');
+    if (box) { box.className = 'cidade-sugestoes'; box.innerHTML = ''; }
+  }
+
+  preencherEstados();
+    
+</script>
+
+  <script>
+  // ===== RESPOSTAS: TÍTULO, CARTAS EM DOURADO E BOTÕES DE COPIAR/BAIXAR =====
+  (function () {
+    var PALAVRAS_CARREGANDO = ['consultando', 'gerando seu perfil', 'carregando previsão'];
+
+    function textoBruto(box) {
+      var t = box.innerText || '';
+      if (!t.trim()) t = box.textContent || '';
+      return t;
+    }
+
+    function aindaCarregando(box) {
+      var t = textoBruto(box).toLowerCase();
+      if (t.trim().length < 30) return true;
+      for (var i = 0; i < PALAVRAS_CARREGANDO.length; i++) {
+        if (t.indexOf(PALAVRAS_CARREGANDO[i]) >= 0) return true;
+      }
+      return false;
+    }
+
+    var NOMES_CARTAS = [];
+    function carregarNomesCartas() {
+      if (typeof DECK_NORMAL === 'undefined' || !DECK_NORMAL.length) return;
+      for (var i = 0; i < DECK_NORMAL.length; i++) {
+        var n = DECK_NORMAL[i].n;
+        if (n && NOMES_CARTAS.indexOf(n) === -1) NOMES_CARTAS.push(n);
+      }
+      NOMES_CARTAS.sort(function (a, b) { return b.length - a.length; });
+    }
+    carregarNomesCartas();
+
+    function escaparHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function destacarCartas(box) {
+      if (!NOMES_CARTAS.length) carregarNomesCartas();
+      if (!NOMES_CARTAS.length) return;
+      var walker = document.createTreeWalker(box, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (no) {
+          var p = no.parentNode;
+          if (!p) return NodeFilter.FILTER_REJECT;
+          var tag = p.nodeName;
+          if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'BUTTON') return NodeFilter.FILTER_REJECT;
+          if (p.classList && (p.classList.contains('carta-negrito') || p.classList.contains('resposta-titulo'))) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      var alvos = [];
+      while (walker.nextNode()) alvos.push(walker.currentNode);
+      for (var i = 0; i < alvos.length; i++) {
+        var no = alvos[i];
+        var original = no.nodeValue || '';
+        if (!original.trim()) continue;
+        var html = escaparHtml(original);
+        var mudou = false;
+        for (var k = 0; k < NOMES_CARTAS.length; k++) {
+          var nome = NOMES_CARTAS[k];
+          if (html.indexOf(nome) === -1) continue;
+          html = html.split(nome).join('<span class="carta-negrito">' + nome + '</span>');
+          mudou = true;
+        }
+        if (!mudou) continue;
+        var span = document.createElement('span');
+        span.innerHTML = html;
+        if (no.parentNode) no.parentNode.replaceChild(span, no);
+      }
+    }
+
+    function prepararResposta(box) {
+      if (!box || aindaCarregando(box)) return;
+      if (!box.querySelector('.resposta-titulo')) {
+        var titulo = document.createElement('p');
+        titulo.className = 'resposta-titulo';
+        titulo.textContent = 'RESPOSTA';
+        box.insertBefore(titulo, box.firstChild);
+      }
+      destacarCartas(box);
+      if (!box.querySelector('.resposta-acoes')) {
+        var barra = document.createElement('div');
+        barra.className = 'resposta-acoes';
+        barra.innerHTML =
+          '<button type="button" class="btn-resposta" onclick="copiarResposta(this)"><i class="fas fa-copy"></i> Copiar</button>' +
+          '<button type="button" class="btn-resposta" onclick="baixarResposta(this)"><i class="fas fa-download"></i> Baixar</button>';
+        box.appendChild(barra);
+      }
+    }
+
+    var temporizador = null;
+    var pendentes = [];
+    function agendar(box) {
+      if (pendentes.indexOf(box) === -1) pendentes.push(box);
+      clearTimeout(temporizador);
+      temporizador = setTimeout(function () {
+        var lista = pendentes.slice();
+        pendentes = [];
+        for (var i = 0; i < lista.length; i++) prepararResposta(lista[i]);
+      }, 500);
+    }
+
+    if (window.MutationObserver && document.body) {
+      new MutationObserver(function (mutacoes) {
+        for (var i = 0; i < mutacoes.length; i++) {
+          var alvo = mutacoes[i].target;
+          var base = alvo.nodeType === 1 ? alvo : alvo.parentNode;
+          var box = base && base.closest ? base.closest('.result-box') : null;
+          if (box) agendar(box);
+        }
+      }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+
+    function textoDaResposta(box) {
+      var clone = box.cloneNode(true);
+      var acoes = clone.querySelector('.resposta-acoes');
+      if (acoes && acoes.parentNode) acoes.parentNode.removeChild(acoes);
+      clone.style.position = 'fixed';
+      clone.style.left = '-99999px';
+      clone.style.top = '0';
+      clone.style.display = 'block';
+      document.body.appendChild(clone);
+      var texto = clone.innerText || clone.textContent || '';
+      document.body.removeChild(clone);
+      return texto.replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+    }
+
+    function copiaAlternativa(texto, aoCopiar) {
+      var area = document.createElement('textarea');
+      area.value = texto;
+      area.style.position = 'fixed';
+      area.style.left = '-99999px';
+      document.body.appendChild(area);
+      area.select();
+      try { document.execCommand('copy'); aoCopiar(); }
+      catch (e) { alert('Não foi possível copiar automaticamente. Selecione o texto com o dedo ou o mouse.'); }
+      document.body.removeChild(area);
+    }
+
+    window.copiarResposta = function (btn) {
+      var box = btn.closest ? btn.closest('.result-box') : null;
+      if (!box) return;
+      var texto = textoDaResposta(box);
+      function confirmar() {
+        btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+        setTimeout(function () { btn.innerHTML = '<i class="fas fa-copy"></i> Copiar'; }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(confirmar).catch(function () { copiaAlternativa(texto, confirmar); });
+      } else {
+        copiaAlternativa(texto, confirmar);
+      }
+    };
+
+    window.baixarResposta = function (btn) {
+      var box = btn.closest ? btn.closest('.result-box') : null;
+      if (!box) return;
+      var agora = new Date();
+      var data = agora.getFullYear() + '-' + ('0' + (agora.getMonth() + 1)).slice(-2) + '-' + ('0' + agora.getDate()).slice(-2);
+      var conteudo = 'ORACULUM VITAE\n\n' + textoDaResposta(box) + '\n\n— Leitura gerada em ' + agora.toLocaleString('pt-BR') + ' —\n';
+      var blob = new Blob([conteudo], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = 'oraculum-vitae-' + data + '.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    };
+  })();
+</script>
 
 </body>
 
