@@ -1576,6 +1576,76 @@ body{background:#0d0716}
       background-attachment: fixed;
       min-height: 100vh;
     }
+
+    /* ----------  ESTILO PADRÃO DO GOOGLE  ---------- */
+.btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 280px;
+  margin: 0.4rem auto;
+  padding: 0.5rem 0;
+  font-size: 0.85rem;               /* fonte menor que o padrão */
+  background: #fff;                 /* fundo branco */
+  color: #3c4043;                   /* texto quase preto */
+  border: 1px solid #dadce0;        /* borda cinza clara */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-google:hover {
+  background: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.btn-google svg { margin-right: 8px; }
+
+/* ----------  ESTILO PADRÃO DO FACEBOOK  ---------- */
+.btn-facebook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 280px;
+  margin: 0.4rem auto;
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+  background: #1877F2;              /* azul oficial do FB */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-facebook:hover {
+  background: #166fe5;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.btn-facebook svg { margin-right: 8px; }
+
+/* ----------  LINK “Recuperar senha”  ---------- */
+.recover-link {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+/* ----------  CONTÊINER DE LOGIN (mantém tamanho)  ---------- */
+#page-login .auth-container {
+  width: 360px;          /* largura fixa – mesma do design original */
+  max-width: 100%;
+  font-size: 0.85rem;    /* fonte geral reduzida */
+  padding: 26px;
+  box-sizing: border-box;
+}
+
+/* ----------  GARANTE QUE NENHUMA REGRA ANTERIOR SOBREPOR  ---------- */
+#page-login .auth-container,
+#page-login .auth-container * { 
+  font-size: inherit !important; 
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1600,21 +1670,14 @@ body{background:#0d0716}
         <div id="tab-register" class="tab" onclick="toggleAuth('register')">Cadastrar</div>
       </div>
       <div id="form-login" class="auth-form">
-  <!-- Campo e‑mail -->
   <input type="email" id="login-email" placeholder="Seu e‑mail" autocomplete="email"
          onkeydown="if(event.key==='Enter')handleLogin()">
-
-  <!-- Campo senha -->
   <input type="password" id="login-pass" placeholder="Sua senha" autocomplete="current-password"
          onkeydown="if(event.key==='Enter')handleLogin()">
 
-  <!-- Link “Recuperar senha” -->
-  <a href="javascript:void(0)" class="recover-link"
-     onclick="showModal('Recuperar senha','Em breve você poderá redefinir sua senha via e‑mail.')">
-    Recuperar senha
-  </a>
+  <!-- link “Recuperar senha” -->
+  <a href="recuperar-senha.html" class="recover-link">Recuperar senha</a>
 
-  <!-- Botão “Entrar no Portal” (login tradicional) -->
   <button class="btn-portal" onclick="handleLogin()">Entrar no Portal</button>
 
   <div class="divider">ou</div>
